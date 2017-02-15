@@ -1,2 +1,2 @@
 # Garibaldi
-An archive for works of art.
+An archive for artworks.
