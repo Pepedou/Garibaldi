@@ -39,9 +39,11 @@ export default class Mosaic extends Component {
 
   render() {
     return (
-      <div className="col-xs-12">
-        <SearchBox/>
-        <ArtCardGrid cards={this.state.cards} cardsPerRow={4}/>
+      <div className="container">
+        <div className="col-xs-12">
+          <SearchBox/>
+          <ArtCardGrid cards={this.state.cards} cardsPerRow={4}/>
+        </div>
       </div>
     );
   }
