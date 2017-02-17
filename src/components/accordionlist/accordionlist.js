@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AccordionList extends Component{
+export default class AccordionList extends Component{
   
   buildAccordionList(){
     return this.props.accordions.map((accordion) => {
@@ -17,9 +17,3 @@ class AccordionList extends Component{
     </div>
   }
 }
-
-// static propTypes = {
-//     accordions: React.PropTypes.array.isRequired
-//   };
-
-export default AccordionList;

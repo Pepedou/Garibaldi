@@ -2,24 +2,13 @@ import React, { Component } from 'react';
 import Mosaic from './components/mosaic/mosaic';
 import './App.css';
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <div className="App">
-//         <h2>Welcome to React</h2>
-//       </div>
-//     );
-//   }
-// }
-
-class App extends Component {
+export default class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       isPanelActive: false
     };
   }
-  
 
   render(){
     return (
@@ -45,5 +34,3 @@ class App extends Component {
     );
   }
 }
-
-export default App;

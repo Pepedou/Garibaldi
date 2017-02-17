@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ArtCardGrid from '../artcardgrid/artcardgrid';
-//import 'bootstrap/dist/css/bootstrap.css';
+import SearchBox from '../searchbox/searchbox';
 
-class Mosaic extends Component{
+export default class Mosaic extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -19,20 +19,9 @@ class Mosaic extends Component{
   render(){
     return (
       <div className="col-xs-12">
-        <div className="row">
-          <div className="col-lg-6">
-            <div className="input-group">
-              <input type="text" className="form-control" placeholder="Search for..." />
-              <span className="input-group-btn">
-                <button className="btn btn-default" type="button">Go!</button>
-              </span>
-            </div>
-          </div>
-        </div>
+        <SearchBox />
         <ArtCardGrid cards={this.state.cards} cardsPerRow={4}/>
       </div>
     );
   }
 }
-
-export default Mosaic;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './artcard.css';
 
-class ArtCard extends Component {
+export default class ArtCard extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -18,10 +18,3 @@ class ArtCard extends Component {
     );
   }
 }
-
-//  static propTypes = {
-//     imageUrl: React.PropTypes.string.isRequired,
-//     detail: React.PropTypes.object.isRequired
-//   };
-
-export default ArtCard;

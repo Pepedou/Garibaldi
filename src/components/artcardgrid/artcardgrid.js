@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ArtCard from '../artcard/artcard';
 
-class ArtCardGrid extends Component {
+export default class ArtCardGrid extends Component {
 
   constructor(props) {
       super(props);
@@ -25,10 +25,3 @@ class ArtCardGrid extends Component {
     );
   }
 }
-
-// static propTypes = {
-//     cards: React.PropTypes.array.isRequired,
-//     cardsPerRow: React.PropTypes.number.isRequired
-//   };
-
-export default ArtCardGrid;

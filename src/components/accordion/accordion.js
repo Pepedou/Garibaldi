@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Accordion extends React {
+export default class Accordion extends React {
   constructor(props){
     super(props);
     this.state = {
@@ -25,11 +25,3 @@ class Accordion extends React {
     );
   }
 }
-
-// static propTypes = {
-//     title: React.PropTypes.string.isRequired,
-//     content: React.PropTypes.object.isRequired,
-//     type: React.PropTypes.number.isRequired
-//   };
-
-export default Accordion;

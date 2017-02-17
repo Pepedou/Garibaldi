@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class ExtendedCard extends React {
+export default class ExtendedCard extends React {
   
   render(){
     <div className="row">
@@ -11,9 +11,3 @@ class ExtendedCard extends React {
     </div>
   }
 }
-
-// static propTypes = {
-//     image: React.PropTypes.string.isRequired,
-//     detail: React.PropTypes.object.isRequired
-//   };
-export default Mosaic;
