@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './artcard.css';
 
 export default class ArtCard extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-        active: false
+      active: false
     };
   }
 
-  render(){
+  render() {
     return (
       <div className="col-xs-12 col-sm-3 artCard">
         <img src={this.props.imageUrl} alt="" className="artCardImage"/>
