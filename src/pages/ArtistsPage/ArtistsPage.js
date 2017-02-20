@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
+import SqueezeBox from '../../components/Squeezebox/SqueezeBox';
 
 export default class GalleryPage extends Component {
     render() {
         return (
             <div className="main-area">
-                <h1>This is the artists page</h1>
+                <SqueezeBox></SqueezeBox>
             </div>
         );
     }
