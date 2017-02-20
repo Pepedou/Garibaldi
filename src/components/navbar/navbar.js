@@ -1,19 +1,20 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router';
 
 export default class Navbar extends Component {
     render() {
         return (
             <div className="navbar navbar-default navbar-static-top">
                 <div className="container">
-                    <a href="/" className="navbar-brand">
+                    <Link className="navbar-brand" to="/">
                         Artwork Archive
-                    </a>
+                    </Link>
                     <ul className="nav navbar-nav navbar-right">
                         <li>
-                            <a href="#">Gallery</a>
+                            <Link to="/">Gallery</Link>
                         </li>
                         <li>
-                            <a href="#">Artists</a>
+                            <Link to="/artists">Artists</Link>
                         </li>
                     </ul>
                 </div>
