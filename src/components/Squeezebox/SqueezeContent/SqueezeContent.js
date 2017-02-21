@@ -29,7 +29,7 @@ export default class SqueezeContent extends Component {
                         tenetur ipsam modi repudiandae magnam enim, quibusdam sit.
                     </p>
                 </div>
-                <a href="#0" class="close cd-img-replace">Close</a>
+                <a href="#0" className="close cd-img-replace">Close</a>
             </div>
         );
     }
