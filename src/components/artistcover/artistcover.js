@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import ProfilePic from '../profilepic/profilepic';
+import Profile from '../profile/profile';
 
-export default class ArtistCover extends React {
+export default class ArtistCover extends Component {
   render() {
     return (
       <div className="col-xs-12 col-sm-12">
