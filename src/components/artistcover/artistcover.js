@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ProfilePic from '../profilepic/profilepic';
 import Profile from '../profile/profile';
+import './artistcover.css';
 
 export default class ArtistCover extends Component {
   render() {
