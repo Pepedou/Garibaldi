@@ -1,15 +1,20 @@
-import React, {Component} from 'react';
-import ProfilePic from '../profilepic/profilepic';
-import Profile from '../profile/profile';
-import './artistcover.css';
+import React, {PropTypes} from 'react';
+import ArtistProfilePic from '../ArtistProfilePic/ArtistProfilePic';
+import ArtistProfileInfo from '../ArtistProfileInfo/ArtistProfileInfo';
+import './ArtistCover.css';
 
-export default class ArtistCover extends Component {
-  render() {
-    return (
-      <div className="col-xs-12 col-sm-12">
-        <ProfilePic image={this.props.artist.image} name={this.props.artist.name}/>
-        <Profile description={this.props.artist.description}/>
-      </div>
-    );
-  }
+let ArtistCover = (props) => {
+  let {artist, showCover} = props;
+  return (
+    showCover ? <div className="col-xs-12 col-sm-12">
+      <ArtistProfilePic image={artist.image} name={artist.name}/>
+      <ArtistProfileInfo description={artist.description}/>
+    </div> : ''
+  );
 }
+
+ArtistCover.propTypes = {
+  artist: PropTypes.object.isRequired,
+};
+
+export default ArtistCover;
