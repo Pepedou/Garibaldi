@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class Accordion extends React {
+export default class Accordion extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,11 +16,11 @@ export default class Accordion extends React {
             <a
               data-toggle="collapse"
               data-parent="#accordion"
-              href={`#collapse${this.prop.type}`}>
+              href={`#collapse${this.props.type}`}>
               {this.props.title}</a>
           </h4>
         </div>
-        <div id={`collapse${this.prop.type}`} className="panel-collapse collapse in">
+        <div id={`collapse${this.props.type}`} className="panel-collapse collapse in">
           <div className="panel-body">{this.props.content.description}</div>
         </div>
       </div>
