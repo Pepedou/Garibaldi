@@ -42,9 +42,9 @@ $(document).ready(function(){
 	projectsContainer.on('click', '.cd-slider a', function(event) {
 		var mq = checkMQ();
 		event.preventDefault();
-		if( $(this).parent('li').next('li').is('.current') && (mq == 'desktop') ) {
+		if( $(this).parent('li').next('li').is('.current') && (mq === 'desktop') ) {
 			prevSides(projectsSlider);
-		} else if ( $(this).parent('li').prev('li').prev('li').prev('li').is('.current')  && (mq == 'desktop') ) {
+		} else if ( $(this).parent('li').prev('li').prev('li').prev('li').is('.current')  && (mq === 'desktop') ) {
 			nextSides(projectsSlider);
 		} else {
 			singleProjectContent.addClass('is-visible');
@@ -68,23 +68,23 @@ $(document).ready(function(){
 	//go to next/pre slide - keyboard navigation
 	$(document).keyup(function(event){
 		var mq = checkMQ();
-		if(event.which=='37' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.prev').hasClass('inactive')) && (mq == 'desktop') ) {
+		if(event.which ==='37' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.prev').hasClass('inactive')) && (mq === 'desktop') ) {
 			prevSides(projectsSlider);
-		} else if( event.which=='39' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.next').hasClass('inactive')) && (mq == 'desktop') ) {
+		} else if( event.which ==='39' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.next').hasClass('inactive')) && (mq === 'desktop') ) {
 			nextSides(projectsSlider);
-		} else if(event.which=='27' && singleProjectContent.hasClass('is-visible')) {
+		} else if(event.which ==='27' && singleProjectContent.hasClass('is-visible')) {
 			singleProjectContent.removeClass('is-visible');
 		}
 	});
 
 	projectsSlider.on('swipeleft', function(){
 		var mq = checkMQ();
-		if( !(sliderNav.find('.next').hasClass('inactive')) && (mq == 'desktop') ) nextSides(projectsSlider);
+		if( !(sliderNav.find('.next').hasClass('inactive')) && (mq === 'desktop') ) nextSides(projectsSlider);
 	});
 
 	projectsSlider.on('swiperight', function(){
 		var mq = checkMQ();
-		if ( !(sliderNav.find('.prev').hasClass('inactive')) && (mq == 'desktop') ) prevSides(projectsSlider);
+		if ( !(sliderNav.find('.prev').hasClass('inactive')) && (mq === 'desktop') ) prevSides(projectsSlider);
 	});
 
 	function showProjectPreview(project) {
@@ -97,23 +97,23 @@ $(document).ready(function(){
 	}
 
 	function checkMQ() {
-		//check if mobile or desktop device
-		// return window.getComputedStyle(document.querySelector('.cd-projects-wrapper'), '::before').getPropertyValue('content').replace(/'/g, "").replace(/"/g, "");
-		return "desktop";
+		// check if mobile or desktop device
+		return window.getComputedStyle(document.querySelector('.cd-projects-wrapper'), '::before').getPropertyValue('content').replace(/'/g, "").replace(/"/g, "");
+		// return "desktop";
 	}
 
 	function setSliderContainer() {
 		
 		try {
 			var mq = checkMQ();
-			if(mq == 'desktop') {
+			if(mq === 'desktop') {
 				var	slides = projectsSlider.children('li'),
 					slideWidth = slides.eq(0).width(),
 					marginLeft = Number(projectsSlider.children('li').eq(1).css('margin-left').replace('px', '')),
 					sliderWidth = ( slideWidth + marginLeft )*( slides.length + 1 ) + 'px',
 					slideCurrentIndex = projectsSlider.children('li.current').index();
 				projectsSlider.css('width', sliderWidth);
-				( slideCurrentIndex != 0 ) && setTranslateValue(projectsSlider, (  slideCurrentIndex * (slideWidth + marginLeft) + 'px'));
+				( slideCurrentIndex !== 0 ) && setTranslateValue(projectsSlider, (  slideCurrentIndex * (slideWidth + marginLeft) + 'px'));
 			} else {
 				projectsSlider.css('width', '');
 				setTranslateValue(projectsSlider, 0);
@@ -163,13 +163,13 @@ $(document).ready(function(){
 	}
 
 	function updateSlider(direction, actual, slider, numerFollowing) {
-		if( direction == 'next' ) {
+		if( direction === 'next' ) {
 			
 			slider.removeClass('next').find('.previous').removeClass('previous');
 			actual.removeClass('current');
 			if( numerFollowing > 4 ) {
 				actual.addClass('previous').next('li').next('li').next('li').addClass('current');
-			} else if ( numerFollowing == 4 ) {
+			} else if ( numerFollowing === 4 ) {
 				actual.next('li').next('li').addClass('current').prev('li').prev('li').addClass('previous');
 			} else {
 				actual.next('li').addClass('current').end().addClass('previous');
