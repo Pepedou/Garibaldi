@@ -7,8 +7,10 @@ let ArtistCover = (props) => {
   let {artist, showCover} = props;
   return (
     showCover ? <div className="col-xs-12 col-sm-12">
-      <ArtistProfilePic image={artist.image} name={artist.name}/>
-      <ArtistProfileInfo description={artist.description}/>
+      <div className="row">
+        <ArtistProfilePic image={artist.image} name={artist.name}/>
+        <ArtistProfileInfo description={artist.description}/>
+      </div>
     </div> : ''
   );
 }

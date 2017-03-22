@@ -2,18 +2,18 @@
     background-size: contain;
     background-position:center top;
     background-repeat: no-repeat;
-    height: 100vh;
 }
 
 .artistName {
-    position: relative;
     color: white;
     width: 100%;
-    text-align: center;
+    text-align: left;
+    padding: 2%;
+    font-size: 1.5em;
 }
 
-#profileImage img{
+#profileImage img {
     vertical-align: top;
-    width: 100%; 
-    opacity: 0; 
+    width: 100%;
+    opacity: 0;
 }
