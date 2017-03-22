@@ -1,16 +1,15 @@
 var $ = require('jquery');
 
-$(document).ready(function(){
-	var intro = $('.cd-intro-block'),
-		projectsContainer = $('.cd-projects-wrapper'),
+$(document).ready(function() {
+	var projectsContainer = $('.cd-projects-wrapper'),
 		projectsSlider = projectsContainer.children('.cd-slider'),
 		singleProjectContent = $('.cd-project-content'),
 		sliderNav = $('.cd-slider-navigation');
 
 	var resizing = false;
-	
+
 	//if on desktop - set a width for the projectsSlider element
-	setSliderContainer();
+	
 	$(window).on('resize', function(){
 		//on resize - update projectsSlider width and translate value
 		if( !resizing ) {
@@ -19,32 +18,13 @@ $(document).ready(function(){
 		}
 	});
 
-	//show the projects slider if user clicks the show-projects button
-	intro.on('click', 'a[data-action="show-projects"]', function(event) {
-		event.preventDefault();
-		intro.addClass('projects-visible');
-		projectsContainer.addClass('projects-visible');
-		//animate single project - entrance animation
-		setTimeout(function(){
-			showProjectPreview(projectsSlider.children('li').eq(0));
-		}, 200);
-	});
-
-	intro.on('click', function(event) {
-		//projects slider is visible - hide slider and show the intro panel
-		if( intro.hasClass('projects-visible') && !$(event.target).is('a[data-action="show-projects"]') ) {
-			intro.removeClass('projects-visible');
-			projectsContainer.removeClass('projects-visible');
-		}
-	});
-
 	//select a single project - open project-content panel
 	projectsContainer.on('click', '.cd-slider a', function(event) {
 		var mq = checkMQ();
 		event.preventDefault();
-		if( $(this).parent('li').next('li').is('.current') && (mq === 'desktop') ) {
+		if( $(this).parent('li').next('li').is('.current') && (mq === 'desktop')) {
 			prevSides(projectsSlider);
-		} else if ( $(this).parent('li').prev('li').prev('li').prev('li').is('.current')  && (mq === 'desktop') ) {
+		} else if ( $(this).parent('li').prev('li').prev('li').prev('li').is('.current')  && (mq === 'desktop')) {
 			nextSides(projectsSlider);
 		} else {
 			singleProjectContent.addClass('is-visible');
@@ -61,6 +41,7 @@ $(document).ready(function(){
 	sliderNav.on('click', '.next', function(){
 		nextSides(projectsSlider);
 	});
+
 	sliderNav.on('click', '.prev', function(){
 		prevSides(projectsSlider);
 	});
@@ -68,9 +49,9 @@ $(document).ready(function(){
 	//go to next/pre slide - keyboard navigation
 	$(document).keyup(function(event){
 		var mq = checkMQ();
-		if(event.which ==='37' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.prev').hasClass('inactive')) && (mq === 'desktop') ) {
+		if(event.which ==='37' && !(sliderNav.find('.prev').hasClass('inactive')) && (mq === 'desktop') ) {
 			prevSides(projectsSlider);
-		} else if( event.which ==='39' &&  intro.hasClass('projects-visible') && !(sliderNav.find('.next').hasClass('inactive')) && (mq === 'desktop') ) {
+		} else if( event.which ==='39' && !(sliderNav.find('.next').hasClass('inactive')) && (mq === 'desktop') ) {
 			nextSides(projectsSlider);
 		} else if(event.which ==='27' && singleProjectContent.hasClass('is-visible')) {
 			singleProjectContent.removeClass('is-visible');
@@ -88,6 +69,8 @@ $(document).ready(function(){
 	});
 
 	function showProjectPreview(project) {
+		console.log('Function showProjectPreview was called with...');
+		console.log(project);
 		if(project.length > 0 ) {
 			setTimeout(function(){
 				project.addClass('slides-in');
@@ -99,11 +82,9 @@ $(document).ready(function(){
 	function checkMQ() {
 		// check if mobile or desktop device
 		return window.getComputedStyle(document.querySelector('.cd-projects-wrapper'), '::before').getPropertyValue('content').replace(/'/g, "").replace(/"/g, "");
-		// return "desktop";
 	}
 
 	function setSliderContainer() {
-		
 		try {
 			var mq = checkMQ();
 			if(mq === 'desktop') {
@@ -122,7 +103,6 @@ $(document).ready(function(){
 		} catch (error) {
 			throw error;
 		}
-		
 	}
 
 	function nextSides(slider) {
@@ -204,4 +184,7 @@ $(document).ready(function(){
 			'transform': 'translateX(-' + translate + ')',
 		});
 	}
+	
+	setSliderContainer();
+	showProjectPreview(projectsSlider.children('li').eq(0));
 });

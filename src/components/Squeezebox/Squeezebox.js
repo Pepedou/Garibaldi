@@ -44,8 +44,7 @@ export default class SqueezeBox extends Component {
     }
 
     getDetailCard(){
-        // const {selectedArtist} = this.state;
-        const selectedArtist = this.state.artists[0];
+        const selectedArtist = this.state.artists[0]; // TODO: Change to const {selectedArtist} = this.state;
         const detailCardCss = this.state.detailCardVisible ? 'cd-project-content is-visible' : 'cd-project-content';
         
         return (
@@ -80,13 +79,7 @@ export default class SqueezeBox extends Component {
 
         return (
             <div className="squeezeBox">
-                <div className="cd-intro-block">
-                    <div className="content-wrapper">
-                        <h1>Squeezebox Portfolio Template</h1>
-                        <a href="#0" className='cd-btn' data-action="show-projects">Show projects</a>
-                    </div>
-	            </div>
-	            <div className="cd-projects-wrapper">
+                <div className="cd-projects-wrapper">
                     {slider}
                     {navigationControls}
 	            </div>
