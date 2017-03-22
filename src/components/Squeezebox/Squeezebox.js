@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Sliderbox from './Sliderbox';
+import SqueezeSlider from './SqueezeSlider';
 import SqueezeNavControls from './SqueezeNavControls';
 import SqueezeFrontCard from './SqueezeFrontCard';
 import './css/reset.css';
@@ -25,17 +25,6 @@ export default class SqueezeBox extends Component {
         this.handleDetailCardClose = this.handleDetailCardClose.bind(this);
     }
 
-    getSlider() {
-        return (
-                <ul className="cd-slider">
-                    {this.state.artists.map((p, index) => {
-                        var firstClassName = index === 0 ? 'current' : '';
-                        return <Sliderbox key={index} initialClass={firstClassName} artist={p} />;
-                    })}
-                </ul>
-        );
-    }
-
     handleDetailCardClose(e) {
         e.preventDefault();
         // singleProjectContent.removeClass('is-visible');
@@ -45,14 +34,14 @@ export default class SqueezeBox extends Component {
     }
     
     render() {
-        const slider = this.getSlider();
+        
         const selectedArtist = this.state.artists[0]; // TODO: Change to const {selectedArtist} = this.state;
         const detailCardCss = this.state.detailCardVisible ? 'cd-project-content is-visible' : 'cd-project-content';
         
         return (
             <div className="squeezeBox">
                 <div className="cd-projects-wrapper">
-                    {slider}
+                    <SqueezeSlider elements={this.state.artists} />
                     <SqueezeNavControls />
 	            </div>
                 <SqueezeFrontCard styles={detailCardCss} title={selectedArtist.name} onClickHandler={this.handleDetailCardClose} />

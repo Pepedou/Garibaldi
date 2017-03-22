@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class Sliderbox extends Component {
+export default class SqueezeSliderBox extends Component {
     render() {
         return (
             <li className={this.props.initialClass}>
