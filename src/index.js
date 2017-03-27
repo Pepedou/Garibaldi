@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import App from './App';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import ArtistsPage from './pages/ArtistsPage/ArtistsPage';
+import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage';
 
 const router = (
     <Router history={browserHistory}>
@@ -14,6 +15,7 @@ const router = (
             <IndexRoute component={GalleryPage} />
             <Route path="/artists" component={ArtistsPage} />
         </Route>
+        <Route path="/play" component={PlaygroundPage} />
     </Router>
 );
 
