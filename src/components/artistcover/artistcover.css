@@ -18,6 +18,10 @@
     opacity: 0;
 }
 
+.cd-project-content div.row{
+    max-width: none;
+}
+
 @media (min-width: 992px) and (orientation:portrait) {
     .col-md-6 {
         width: 100%;

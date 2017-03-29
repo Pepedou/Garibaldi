@@ -16,31 +16,31 @@ export default class SqueezeBox extends Component {
                 {
                     name: 'Artist 1',
                     subtitle: 'Visual Design',
-                    profileImage: 'img/img.png'
+                    profileImage: 'http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg'
                 }, {
                     name: 'Artist 2',
                     subtitle: 'Sculptor',
-                    profileImage: 'img/img.png'
+                    profileImage: 'http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg'
                 }, {
                     name: 'Artist 3',
                     subtitle: 'Renovator',
-                    profileImage: 'img/img.png'
+                    profileImage: 'http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg'
                 }, {
                     name: 'Artist 4',
                     subtitle: 'Museum Master',
-                    profileImage: 'img/img.png'
+                    profileImage: 'http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg'
                 }, {
                     name: 'Artist 5',
                     subtitle: 'Gallery Gunman',
-                    profileImage: 'img/img.png'
+                    profileImage: 'http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg'
                 }, {
                     name: 'Artist 6',
                     subtitle: 'Designer',
-                    profileImage: 'img/img.png'
+                    profileImage: 'http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg'
                 }, {
                     name: 'Artist 7',
                     subtitle: 'Artic Artist',
-                    profileImage: 'img/img.png'
+                    profileImage: 'http://www.american.edu/uploads/profiles/large/chris_palmer_profile_11.jpg'
                 }
             ],
             selectedArtist: null,

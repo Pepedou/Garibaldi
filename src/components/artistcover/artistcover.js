@@ -4,14 +4,14 @@ import ArtistProfileInfo from '../ArtistProfileInfo/ArtistProfileInfo';
 import './ArtistCover.css';
 
 let ArtistCover = (props) => {
-  let {artist, showCover} = props;
+  let {artist} = props;
   return (
-    showCover ? <div className="col-xs-12 col-sm-12">
+    <div className="col-xs-12 col-md-12">
       <div className="row">
-        <ArtistProfilePic image={artist.image} name={artist.name}/>
-        <ArtistProfileInfo description={artist.description}/>
+        <ArtistProfilePic image={artist.profileImage} name={artist.name}/>
+        <ArtistProfileInfo description={artist.subtitle}/>
       </div>
-    </div> : ''
+    </div>
   );
 }
 
