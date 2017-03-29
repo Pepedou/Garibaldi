@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-export default class ExtendedCard extends React {
+export default class ExtendedCard extends Component {
   render() {
     return (
       <div className="row">
