@@ -17,8 +17,12 @@ export default class SqueezeNavControls extends Component {
     render() {
         return (
             <ul className="cd-slider-navigation cd-img-replace">
-                <li><a href="#0" className="prev inactive" onClick={this.props.handlePreviousClick}>Prev</a></li>
-                <li><a href="#0" className="next" onClick={this.props.handleNextClick}>Next</a></li>
+                <li>
+                    <a href="#0" className="prev inactive" onClick={this.props.handlePreviousClick}>Prev</a>
+                </li>
+                <li>
+                    <a href="#0" className="next" onClick={this.props.handleNextClick}>Next</a>
+                </li>
             </ul>
         );
     }

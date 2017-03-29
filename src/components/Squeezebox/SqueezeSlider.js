@@ -24,7 +24,7 @@ export default class SqueezeSlider extends Component {
                             artist={p}
                             onPrevSidesClicked={this.props.onPrevSidesClicked}
                             onNextSidesClicked={this.props.onNextSidesClicked}
-                            onBoxClick={this.props.onBoxClick} />;
+                            onBoxClick={this.props.onBoxClick}/>;
                     })}
             </ul>
         );
