@@ -17,3 +17,9 @@
     width: 100%;
     opacity: 0;
 }
+
+@media (min-width: 992px) and (orientation:portrait) {
+    .col-md-6 {
+        width: 100%;
+    }
+}

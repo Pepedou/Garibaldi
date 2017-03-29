@@ -4,7 +4,7 @@ let ArtistProfileInfo = (props) => {
   let {description} = props;
 
   return (
-    <div className="col-xs-12 col-sm-6">
+    <div className="col-xs-12 col-md-6">
       <div className="artistDescription">{description}</div>
     </div>
   );
