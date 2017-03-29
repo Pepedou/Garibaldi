@@ -1,0 +1,33 @@
+.imtesting {
+    width: '2867.14px';
+    margin-top: 150px;
+}
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in;
+}
+
+.example-enter {
+  opacity: 1;
+}
+
+.example-enter.example-enter-active {
+  opacity: 0;
+  transition: opacity 500ms ease-in;
+  /*transition: opacity 0s 0.5s;*/
+}
+
+.example-leave {
+  opacity: 0;
+}
+
+.example-leave.example-leave-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+  /*transition: opacity 0s 0.5s;*/
+}
