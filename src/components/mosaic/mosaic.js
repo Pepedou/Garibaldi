@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import ArtCardGrid from '../artcardgrid/artcardgrid';
-import SearchBox from '../searchbox/searchbox';
+import ArtCardGrid from '../ArtCardGrid/ArtCardGrid';
 
 export default class Mosaic extends Component {
   constructor(props) {
@@ -39,11 +38,8 @@ export default class Mosaic extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="col-xs-12">
-          <SearchBox/>
-          <ArtCardGrid cards={this.state.cards} cardsPerRow={4}/>
-        </div>
+      <div className="col-xs-12 Mosaic">
+        <ArtCardGrid cards={this.state.cards} cardsPerRow={4}/>
       </div>
     );
   }
