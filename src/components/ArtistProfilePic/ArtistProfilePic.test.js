@@ -1,4 +1,4 @@
-import ArtistProfilePic from './../../../src/components/ArtistProfilePic/ArtistProfilePic';
+import ArtistProfilePic from './ArtistProfilePic';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

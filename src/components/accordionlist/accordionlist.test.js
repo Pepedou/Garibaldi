@@ -1,4 +1,4 @@
-import AccordionList from './../../../src/components/accordionlist/accordionlist';
+import AccordionList from './accordionlist';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

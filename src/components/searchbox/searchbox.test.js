@@ -1,4 +1,4 @@
-import SearchBox from './../../../src/components/searchbox/searchbox';
+import SearchBox from './searchbox';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

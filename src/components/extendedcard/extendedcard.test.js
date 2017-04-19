@@ -1,4 +1,4 @@
-import ExtendedCard from './../../../src/components/extendedcard/extendedcard';
+import ExtendedCard from './extendedcard';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
