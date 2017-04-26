@@ -5,7 +5,8 @@ export default class ArtPanel extends Component {
   constructor(props) {
         super(props);
         this.state = {
-            art: props.art
+            artImage: props.art.artImage,
+            categories: props.art.categories
         };
     }
 
@@ -17,10 +18,11 @@ export default class ArtPanel extends Component {
             categoryName: "Nombre...",
             categoryValue: "Valor..."
         }
-    let categories = this.state.art.categories
-    categories.push(emptyCategory)
+    let currentCategoriesState = [...this.state.categories]
+    console.log(currentCategoriesState);
+    currentCategoriesState.push(emptyCategory)
     this.setState({
-        art: categories
+        categories: currentCategoriesState
     });
   }
 
@@ -29,11 +31,11 @@ export default class ArtPanel extends Component {
       <div className="col-xs-12 ArtPanel">
           <div className="row">
             <div className="col-xs-12">
-              <img src={this.state.art.artImage} alt=""/>
+              <img src={this.state.artImage} alt=""/>
             </div>
             <div className="col-xs-12" id="categoryList">
               {
-                this.state.art.categories.map((item, key) => <Category category={item} key={key}/>)
+                this.state.categories.map((item, key) => <Category category={item} key={key}/>)
               }
               <button type="button" onClick={this.addCategory.bind(this)} className="addCategoryButton">Agregar categoria</button>
             </div>
