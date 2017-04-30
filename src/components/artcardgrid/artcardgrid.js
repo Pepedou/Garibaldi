@@ -11,11 +11,8 @@ export default class ArtCardGrid extends Component {
   }
 
   buildArtCards() {
-    return this
-      .props
-      .cards
-      .map((card, index) => {
-        return <ArtCard key={index} imageUrl={card.imageUrl} detail={card.detail}/>
+    return this.props.cards.map((card, index) => {
+        return <ArtCard key={index} card={card} handleClickArtCardGrid={this.props.handleClickArtCardGrid}/>
       });
   };
 
