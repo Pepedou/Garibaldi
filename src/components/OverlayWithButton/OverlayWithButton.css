@@ -1,9 +1,0 @@
-div.overlay {
-    position: absolute;
-    width: 100vw;
-    z-index: 14;
-    top: 0px;
-    height: 100vh;
-    padding: 5%;
-    background: url('../../content/images/background-black.png');
-}

@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import Mosaic from '../../components/Mosaic/Mosaic';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import ArtPanel from '../../components/ArtPanel/ArtPanel.js';
-import OverlayWithButton from '../../components/OverlayWithButton/OverlayWithButton.js';
+import {Overlay, toggleVisibility} from '../../components/Overlay/Overlay.js';
+import Modal from '../../components/Modal/Modal.js';
+import './GalleryPage.css';
+
 
 const cardsDummy = [
     {
@@ -99,7 +102,7 @@ export default class GalleryPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isPanelActive: false,
+            isOverlayActive: false,
             artPanelContent: cardsDummy[0],
             cards: cardsDummy
         };
@@ -109,19 +112,40 @@ export default class GalleryPage extends Component {
         this.setState({
             artPanelContent: content
         });
-        this.forceUpdate()
-    }
 
-    showOverlay() {
-
+        if(screen.width < 1024){
+            this.setState({
+                isOverlayActive: true
+            });
+        } else {
+            this.setState({
+                isOverlayActive: false
+            });
+        }
     }
 
     render() {
+        let modalHeader = <div>Agregar obra</div>;
+
+        let artPanelOverlay = this.state.isOverlayActive ? 
+        <Overlay showButton={false}>
+            <ArtPanel art={this.state.artPanelContent}/>
+        </Overlay> : null;
+
+        let newArtOverlayWithButton = <div className="NewArtOverlayWithButton">
+            <button type="button" onClick={toggleVisibility} className="addArtButton">Agregar obra</button>
+            <Overlay showButton={true}>
+                <Modal header={modalHeader}>
+                    formulario de nueva obra           
+                </Modal>
+            </Overlay>
+        </div>
+
         return (
             <div className="main-area container-fluid GalleryPage">
                 <div className="row">
                     <SearchBox/>
-                    <OverlayWithButton>Hola como estas</OverlayWithButton>
+                    {newArtOverlayWithButton}
                 </div>
                 <div className="row">
                     <div className="col-xs-12 col-md-8">
@@ -129,11 +153,12 @@ export default class GalleryPage extends Component {
                             <Mosaic cards={this.state.cards} handleClickArtCardGrid={this.handleClickArtCardGrid.bind(this)}/>
                         </div>
                     </div>
-                    <div className="col-xs-0 col-md-4">
+                    <div className="col-md-4 ArtPanelColumn">
                         <div className="row">
                             <ArtPanel art={this.state.artPanelContent}/>
                         </div>
                     </div>
+                    {artPanelOverlay}
                 </div>
             </div>
         );
