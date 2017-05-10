@@ -9,16 +9,12 @@ export default class Overlay extends Component {
         };
     }
 
-  toggleVisibility() {
-    this.setState({
-        isVisible: !this.state.isVisible
-    });
-  }
+
 
   render() {
-    return (this.state.isVisible ?
+    return (this.props.isVisible ?
     <div className="Overlay">
-        <a className="Closebtn" onClick={this.toggleVisibility.bind(this)}>&times;</a>
+        <a className="Closebtn" onClick={this.props.onClose}>&times;</a>
         <div className="Overlay-content">
             {this.props.children}
         </div>

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Mosaic from '../../components/Mosaic/Mosaic';
 import SearchBox from '../../components/SearchBox/SearchBox';
 import ArtPanel from '../../components/ArtPanel/ArtPanel.js';
-import {Overlay, toggleVisibility} from '../../components/Overlay/Overlay.js';
+import Overlay from '../../components/Overlay/Overlay.js';
 import Modal from '../../components/Modal/Modal.js';
 import './GalleryPage.css';
 
@@ -102,7 +102,8 @@ export default class GalleryPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOverlayActive: false,
+            isArtPanelOverlatVisible: false,
+            isNewArtOverlayVisible: false,
             artPanelContent: cardsDummy[0],
             cards: cardsDummy
         };
@@ -115,27 +116,33 @@ export default class GalleryPage extends Component {
 
         if(screen.width < 1024){
             this.setState({
-                isOverlayActive: true
+                isArtPanelOverlatVisible: true
             });
         } else {
             this.setState({
-                isOverlayActive: false
+                isArtPanelOverlatVisible: false
             });
         }
     }
 
+    toggleNewArtOverlayVisibility() {
+        this.setState({
+            isNewArtOverlayVisible: !this.state.isVisible
+        });
+    }
+
     render() {
-        let modalHeader = <div>Agregar obra</div>;
+        let modalHeader = 'Agregar obra';
 
         let artPanelOverlay = this.state.isOverlayActive ? 
-        <Overlay showButton={false}>
+        <Overlay isVisible={this.state.isArtPanelOverlatVisible}>
             <ArtPanel art={this.state.artPanelContent}/>
         </Overlay> : null;
 
         let newArtOverlayWithButton = <div className="NewArtOverlayWithButton">
-            <button type="button" onClick={toggleVisibility} className="addArtButton">Agregar obra</button>
-            <Overlay showButton={true}>
-                <Modal header={modalHeader}>
+            <button type="button" onClick={this.toggleNewArtOverlayVisibility.bind(this)} className="addArtButton">Agregar obra</button>
+            <Overlay isVisible={this.state.isNewArtOverlayVisible} onClose={this.toggleNewArtOverlayVisibility.bind(this)}>
+                <Modal header={'Agregar obra'}>
                     formulario de nueva obra           
                 </Modal>
             </Overlay>
