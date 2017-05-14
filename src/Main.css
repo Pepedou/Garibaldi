@@ -1,9 +1,10 @@
-.degraded-container{
+body {
     background: white; /* For browsers that do not support gradients */
     background: -webkit-linear-gradient(white, white, white, #C4C4C4); /* For Safari 5.1 to 6.0 */
     background: -o-linear-gradient(white, white, white, #C4C4C4); /* For Opera 11.1 to 12.0 */
     background: -moz-linear-gradient(white, white, white, #C4C4C4); /* For Firefox 3.6 to 15 */
     background: linear-gradient(white, white, white, #C4C4C4); /* Standard syntax */
+    height: 100vh;
 }
 
 div.container-fluid{
@@ -13,4 +14,11 @@ div.container-fluid{
 .divider {
     background-color: #828282;
     height: 1px;
+}
+
+select {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #555;
+    padding: 5px;
 }

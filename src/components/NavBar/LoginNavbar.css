@@ -5,12 +5,19 @@
     font-size: 0.9em;
 }
 
-.loginOption {
+a.loginOption {
     float: right;
     margin-left: 20px;
     cursor: pointer;
+    color: #F2F2F2;
 }
 
-.loginOption:hover{
+a.loginOption:hover{
     font-weight: bold;
+    border: none !important;
 }
+
+a:link  
+{  
+ text-decoration:none;  
+} 

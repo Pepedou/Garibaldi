@@ -1,17 +1,24 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
+import {Link} from 'react-router';
 import './LoginNavbar.css';
 
 export default class LoginNavbar extends Component {
+    componentDidMount(){
+        if(this.props.selectedOption){
+            document.getElementById(this.props.selectedOption).style.fontWeight = "bold";
+        }
+    }
+
     render() {
         return (
             <div className="LoginNavbar">
                 <div className="row">
                     <div className="col-xs-12 col-md-4">
-                        <div className="loginOption">Regístrate</div>
-                        <div className="loginOption">Iniciar sesión</div>
+                        <Link to="/" className="loginOption" id="loginOption">Iniciar sesión</Link>
+                        <Link to="/register" className="loginOption" id="registerOption">Regístrate</Link>
                     </div>
                     <div className="col-xs-12 col-md-4">
-                        Aqui va el logo
+                        <center>Aqui va el logo</center>
                     </div>
                     <div className="col-xs-12 col-md-4"></div>
                 </div>
@@ -19,3 +26,7 @@ export default class LoginNavbar extends Component {
         );
     }
 }
+
+LoginNavbar.propTypes = {
+    selectedOption: PropTypes.string
+};

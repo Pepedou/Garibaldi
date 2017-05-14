@@ -1,6 +1,7 @@
 .LoginForm {
     color: #828282;
     padding: 0px 20px 0px 20px;
+    height: 100vh;
 }
 
 .marginTop{
@@ -10,4 +11,8 @@
 #forgotPasswordBtn{
     color: #828282;
     cursor: pointer;
+}
+
+#forgotPasswordBtn:hover{
+    font-weight: bold;
 }

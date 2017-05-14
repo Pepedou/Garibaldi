@@ -8,11 +8,15 @@ import App from './App';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import ArtistsPage from './pages/ArtistsPage/ArtistsPage';
 import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import Login from './Login';
+import Register from './pages/Register/Register';
 
 const router = (
     <Router history={browserHistory}>
         <Route path="/" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/forgotPassword" component={ForgotPassword} />
         <Route path="/home" component={App}>
             <IndexRoute component={GalleryPage} />
             <Route path="/artists" component={ArtistsPage} />
