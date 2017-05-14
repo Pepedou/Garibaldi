@@ -1,4 +1,4 @@
-import Accordion from './../../../src/components/accordion/accordion';
+import Accordion from './accordion';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

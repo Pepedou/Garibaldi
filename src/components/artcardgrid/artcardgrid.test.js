@@ -1,4 +1,4 @@
-import ArtCardGrid from './../../../src/components/artcardgrid/artcardgrid';
+import ArtCardGrid from './artcardgrid';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

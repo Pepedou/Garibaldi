@@ -1,4 +1,4 @@
-import ArtPanel from './../../../src/components/artpanel/artpanel';
+import ArtPanel from './artpanel';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
