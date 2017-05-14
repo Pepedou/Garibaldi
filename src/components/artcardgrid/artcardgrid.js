@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ArtCard from '../artcard/artcard';
+import ArtCard from '../ArtCard/artcard';
 
 export default class ArtCardGrid extends Component {
 

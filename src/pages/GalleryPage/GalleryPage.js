@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Mosaic from '../../components/mosaic/mosaic';
+import Mosaic from '../../components/Mosaic/mosaic';
 
 export default class GalleryPage extends Component {
     constructor(props) {

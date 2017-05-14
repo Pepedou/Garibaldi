@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Navbar from './components/navbar/navbar';
+import Navbar from './components/NavBar/navbar';
 import './App.css';
 
 export default class App extends Component {

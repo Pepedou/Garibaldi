@@ -8,10 +8,12 @@ import App from './App';
 import GalleryPage from './pages/GalleryPage/GalleryPage';
 import ArtistsPage from './pages/ArtistsPage/ArtistsPage';
 import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage';
+import Login from './Login';
 
 const router = (
     <Router history={browserHistory}>
-        <Route path="/" component={App}>
+        <Route path="/" component={Login} />
+        <Route path="/home" component={App}>
             <IndexRoute component={GalleryPage} />
             <Route path="/artists" component={ArtistsPage} />
         </Route>

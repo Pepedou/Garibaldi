@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import ArtCardGrid from '../artcardgrid/artcardgrid';
-import SearchBox from '../searchbox/searchbox';
+import ArtCardGrid from '../ArtCardGrid/artcardgrid';
+import SearchBox from '../SearchBox/searchbox';
 
 export default class Mosaic extends Component {
   constructor(props) {

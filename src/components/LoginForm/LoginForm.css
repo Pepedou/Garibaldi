@@ -1,0 +1,13 @@
+.LoginForm {
+    color: #828282;
+    padding: 0px 20px 0px 20px;
+}
+
+.marginTop{
+    margin-top: 20px;
+}
+
+#forgotPasswordBtn{
+    color: #828282;
+    cursor: pointer;
+}
