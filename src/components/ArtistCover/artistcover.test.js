@@ -1,4 +1,4 @@
-import ArtistCover from './../../../src/components/artistcover/artistcover';
+import ArtistCover from './artistcover';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

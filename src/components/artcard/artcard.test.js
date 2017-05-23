@@ -1,4 +1,4 @@
-import ArtCard from './../../../src/components/artcard/artcard';
+import ArtCard from './artcard';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

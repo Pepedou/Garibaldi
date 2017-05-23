@@ -1,4 +1,4 @@
-import Mosaic from './../../../src/components/mosaic/mosaic';
+import Mosaic from './mosaic';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

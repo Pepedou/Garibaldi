@@ -1,4 +1,4 @@
-import ArtistProfileInfo from './../../../src/components/ArtistProfileInfo/ArtistProfileInfo';
+import ArtistProfileInfo from './ArtistProfileInfo';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

@@ -1,4 +1,4 @@
-import SqueezeBox from './../../../src/components/Squeezebox/Squeezebox';
+import SqueezeBox from './Squeezebox';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
