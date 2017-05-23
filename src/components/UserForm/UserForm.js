@@ -60,7 +60,7 @@ export default class UserForm extends Component {
         </div>
         <div className="row subtitle">Tipo de usuario</div>
         <div className="row">
-            <select id="userType" className="userField obligatoryField">
+            <select id="                      npm install material-ui --save" className="userField obligatoryField">
                 <option value="1">Gestor Cultural</option>
                 <option value="2">Artista</option>
             </select>

@@ -1,18 +1,57 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
 import {validateObligatoryFields} from '../../utils/fieldValidations'
+import TextField from 'material-ui/TextField';
 import '../../Main.css';
 import './LoginForm.css';
+import {grey500, grey300} from 'material-ui/styles/colors';
+
+const styles = {
+  underlineStyle: {
+    borderColor: grey300,
+  },
+  underlineFocusStyle:{
+    borderColor: grey500,
+  },
+  floatingLabelStyle: {
+    color: grey300,
+  },
+  floatingLabelFocusStyle: {
+    color: grey500,
+  },
+};
 
 export default class LoginForm extends Component {
-    handleOnClick(){
-        let username = document.getElementById("username");
-        let password = document.getElementById("password");
+    constructor(props)
+    {
+        super(props)
+        this.state = {
+            fieldErrorMessage: ""
+        }
+        this.handleOnClick = this.handleOnClick.bind(this);
+        this.handleOnChange = this.handleOnChange.bind(this);
+    }
+
+    handleOnClick(event){
+        event.preventDefault()
+        let username = document.getElementsByName("username");
+        let password = document.getElementsByName("password");
 
         let valid = validateObligatoryFields();
-
         if(valid){
+            this.setState = ({fieldErrorMessage: ""}, this.forceUpdate)
             //TODO: [BE] Validar el inicio de sesión
+        } else {
+            this.setState = ({fieldErrorMessage: "Campo obligatorio"}, this.render)
+        }
+    }
+
+    handleOnChange(event){
+        event.preventDefault()
+        if(event.target.value === ""){
+            this.setState = {fieldErrorMessage: "Campo obligatorio"}
+        }else {
+            this.setState = {fieldErrorMessage: ""}
         }
     }
 
@@ -30,15 +69,34 @@ export default class LoginForm extends Component {
                     </div>
                     <div className="row marginTop">
                         <div className="form-group">
-                            <input type="text" placeholder="Nombre de usuario" className="form-control obligatoryField" id="username"/>
-                            <input type="password" placeholder="Contraseña" className="form-control obligatoryField" id="password"/>
+                            <TextField
+                                hintText="Ingresa el nombre de usuario"
+                                errorText={this.state.fieldErrorMessage}
+                                floatingLabelText="Nombre de usuario"
+                                fullWidth={true}
+                                name="username"
+                                className="obligatoryField"
+                                onChange={this.handleOnChange}
+                                underlineStyle={styles.underlineStyle}
+                                floatingLabelStyle={styles.floatingLabelStyle}
+                                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                                underlineFocusStyle={styles.underlineFocusStyle}
+                                />
+                            <TextField
+                                hintText="Ingresa la contraseña"
+                                errorText={this.state.fieldErrorMessage}
+                                floatingLabelText="Contraseña"
+                                fullWidth={true}
+                                name="password"
+                                className="obligatoryField"
+                                onChange={this.handleOnChange}
+                                underlineStyle={styles.underlineStyle}
+                                floatingLabelStyle={styles.floatingLabelStyle}
+                                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+                                underlineFocusStyle={styles.underlineFocusStyle}
+                                />
                             <center>
-                                <div className="checkbox">
-                                    <label><input type="checkbox" value=""/>Recuérdame</label>
-                                </div>
-                            </center>
-                            <center>
-                                <button type="button" className="btn btn-default" onClick={this.handleOnClick} id="loginBtn">Iniciar Sesión</button>
+                                <button type="button" className="btn btn-default marginTop" onClick={this.handleOnClick} id="loginBtn">Iniciar Sesión</button>
                             </center>
                         </div>
                     </div>

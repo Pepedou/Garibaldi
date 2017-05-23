@@ -1,18 +1,18 @@
 export let validateObligatoryFields = () => {
-    let obligatoryFields = document.getElementsByClassName("obligatoryField");
+    let obligatoryFields = document.querySelectorAll(".obligatoryField input");
     let valid = true;
 
     for(let i = 0; i < obligatoryFields.length; i++)
     {
-        obligatoryFields[i].style.border = "1px solid #ccc";
         if(obligatoryFields[i].value === ""){
-            obligatoryFields[i].style.border = "1px solid red";
             valid = false;
         }
     }
 
     return valid;
 }
+
+export let areFieldsEqual = (field1, field2) => field1.value === field2.value
 
 export let isEmailFormatValid = (emailField) => {
     emailField.style.border = "1px solid #ccc";
@@ -24,14 +24,3 @@ export let isEmailFormatValid = (emailField) => {
     return valid;
 }
 
-export let areFieldsEqual = (field1, field2) => {
-    field1.style.border = "1px solid #ccc";
-    field2.style.border = "1px solid #ccc";
-
-    if(field1.value !== field2.value){
-        field1.style.border = "1px solid red";
-        field2.style.border = "1px solid red";
-    }
-
-    return field1.value === field2.value
-}
