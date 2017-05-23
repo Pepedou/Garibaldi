@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ArtCard from '../ArtCard/artcard';
+import ArtCard from '../ArtCard/ArtCard';
 
 export default class ArtCardGrid extends Component {
 
@@ -11,11 +11,8 @@ export default class ArtCardGrid extends Component {
   }
 
   buildArtCards() {
-    return this
-      .props
-      .cards
-      .map((card, index) => {
-        return <ArtCard key={index} imageUrl={card.imageUrl} detail={card.detail}/>
+    return this.props.cards.map((card, index) => {
+        return <ArtCard key={index} card={card} handleClickArtCardGrid={this.props.handleClickArtCardGrid}/>
       });
   };
 

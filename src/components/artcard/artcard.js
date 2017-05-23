@@ -11,9 +11,9 @@ export default class ArtCard extends Component {
 
   render() {
     return (
-      <div className="col-xs-12 col-sm-3 artCard">
-        <img src={this.props.imageUrl} alt="" className="artCardImage"/>
-        <p>{this.props.detail.name}</p>
+      <div className="col-xs-12 col-sm-3 artCard" onClick={() => this.props.handleClickArtCardGrid(this.props.card)}>
+        <img src={this.props.card.artImage} alt="" className="artCardImage"/>
+        <p>{this.props.card.detail.artName}</p>
       </div>
     );
   }

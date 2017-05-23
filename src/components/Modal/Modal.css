@@ -1,0 +1,14 @@
+.Modal {
+    background-color: white;
+    width: 100%;
+}
+
+.Modal-header {
+    padding: 1%;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.Modal-content {
+    padding: 1%;
+}
