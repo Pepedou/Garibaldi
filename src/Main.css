@@ -11,11 +11,6 @@ div.container-fluid{
     padding: 0px;
 }
 
-.divider {
-    background-color: #828282;
-    height: 1px;
-}
-
 select {
     border: 1px solid #ccc;
     border-radius: 3px;

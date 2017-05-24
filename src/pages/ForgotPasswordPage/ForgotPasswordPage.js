@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import LoginNavbar from '../../components/NavBar/LoginNavbar';
+import LoginNavbar from '../../components/partials/nav-bars/login-nav-bar/LoginNavbar';
 import '../../Main.css';
 
 export default class ForgotPassword extends Component {

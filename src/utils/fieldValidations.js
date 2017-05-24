@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape*/
 export let validateObligatoryFields = () => {
     let obligatoryFields = document.querySelectorAll(".obligatoryField input");
     let valid = true;
