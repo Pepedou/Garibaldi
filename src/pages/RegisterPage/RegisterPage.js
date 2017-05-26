@@ -12,8 +12,8 @@ export default class Register extends Component {
         <LoginNavbar selectedOption="registerOption"/>
          <div className="RegisterForm">
           <div className="row">
-              <div className="col-xs-0 col-md-4"></div>
-              <div className="col-xs-12 col-md-4">
+              <div className="col-xs-0 col-md-3"></div>
+              <div className="col-xs-12 col-md-6">
                   <div className="row marginTop">
                       <center>Aqui va el logo</center>
                   </div>
@@ -27,7 +27,7 @@ export default class Register extends Component {
                     <UserForm/>
                   </div>
               </div>
-              <div className="col-xs-0 col-md-4"></div>
+              <div className="col-xs-0 col-md-3"></div>
           </div>
       </div>
     </div>

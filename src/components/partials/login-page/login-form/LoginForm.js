@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import {validateObligatoryFields} from '../../../../utils/fieldValidations'
 import TextFieldComponent from '../../../ui/text-field/TextFieldComponent'
 import DividerComponent from '../../../ui/divider/DividerComponent'
+import DefaultButton from '../../../ui/buttons/DefaultButton'
 import '../../../../Main.css'
 import './LoginForm.css'
 
@@ -14,7 +15,6 @@ export default class LoginForm extends Component {
     }
 
     handleOnClick(event){
-        event.preventDefault()
         let username = document.getElementsByName("username");
         let password = document.getElementsByName("password");
 
@@ -56,7 +56,13 @@ export default class LoginForm extends Component {
                                 className="obligatoryField"
                                 />
                             <center>
-                                <button type="button" className="btn btn-default marginTop" onClick={this.handleOnClick} id="loginBtn">Iniciar Sesión</button>
+                                <DefaultButton
+                                    label="Iniciar Sesión"
+                                    labelPosition="after"
+                                    floatStyle="center"
+                                    onTouchTap={this.handleOnClick}
+                                    className="marginTop"
+                                    />
                             </center>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ body {
     background: -moz-linear-gradient(white, white, white, #C4C4C4); /* For Firefox 3.6 to 15 */
     background: linear-gradient(white, white, white, #C4C4C4); /* Standard syntax */
     height: 100vh;
+    color: #828282;
 }
 
 div.container-fluid{

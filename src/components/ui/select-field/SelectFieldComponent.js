@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import {grey500, grey400} from 'material-ui/styles/colors';
+import {grey600, grey500, grey400, lightBlue400} from 'material-ui/styles/colors';
 import injectTapEventPlugin from "react-tap-event-plugin";
 injectTapEventPlugin();
 
@@ -18,6 +18,15 @@ const styles = {
   floatingLabelFocusStyle: {
     color: grey500,
   },
+  selectedMenuItemStyle: {
+    color: lightBlue400
+  },
+  labelStyle: {
+    color: grey600
+  },
+  listStyle:{
+    color: grey600 
+  }
 };
 
 export default class SelectFieldComponent extends Component {
@@ -42,6 +51,9 @@ export default class SelectFieldComponent extends Component {
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 underlineFocusStyle={styles.underlineFocusStyle}
+                selectedMenuItemStyle={styles.selectedMenuItemStyle}
+                labelStyle={styles.labelStyle}
+                listStyle={styles.listStyle}
                 >
                 {
                     this.props.options.map(item => <MenuItem value={item.value} primaryText={item.text} />)

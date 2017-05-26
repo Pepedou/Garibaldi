@@ -1,20 +1,23 @@
 import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
-import {grey500, grey400} from 'material-ui/styles/colors';
+import {grey600, grey500, grey400} from 'material-ui/styles/colors';
 
 const styles = {
   underlineStyle: {
-    borderColor: grey400,
-  },
-  underlineFocusStyle:{
     borderColor: grey500,
   },
-  floatingLabelStyle: {
-    color: grey400,
+  underlineFocusStyle:{
+    borderColor: grey600,
   },
-  floatingLabelFocusStyle: {
+  floatingLabelStyle: {
     color: grey500,
   },
+  floatingLabelFocusStyle: {
+    color: grey600,
+  },
+  inputStyle:{
+    color: grey600
+  }
 };
 
 export default class TextFieldComponent extends Component {
@@ -44,11 +47,13 @@ export default class TextFieldComponent extends Component {
                 fullWidth={true}
                 name={this.props.name}
                 className={this.props.className}
+                type={this.props.type}
                 onChange={e => this.handleOnChange(e)}
                 underlineStyle={styles.underlineStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 underlineFocusStyle={styles.underlineFocusStyle}
+                inputStyle={styles.inputStyle}
                 />
         )
     }
@@ -58,5 +63,6 @@ TextField.propTypes = {
   hintText: PropTypes.string,
   floatingLabelText: PropTypes.string,
   name: PropTypes.string,
-  className: PropTypes.string
+  className: PropTypes.string,
+  type: PropTypes.string
 };

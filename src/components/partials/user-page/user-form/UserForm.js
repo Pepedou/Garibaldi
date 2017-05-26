@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {validateObligatoryFields, isEmailFormatValid, areFieldsEqual} from '../../../../utils/fieldValidations'
 import TextFieldComponent from '../../../ui/text-field/TextFieldComponent'
 import SelectFieldComponent from '../../../ui/select-field/SelectFieldComponent'
+import DefaultButton from '../../../ui/buttons/DefaultButton'
 import '../../../../Main.css';
 import './UserForm.css';
 
@@ -39,34 +40,48 @@ export default class UserForm extends Component {
                 className="userField obligatoryField"
                 type="text"
                 />
-            <TextFieldComponent
-                hintText="Ingrese la contraseña"
-                floatingLabelText="Contraseña"
-                name="password"
-                className="userField obligatoryField"
-                type="password"
-                />
-            <TextFieldComponent
-                hintText="Ingrese la contraseña nuevamente"
-                floatingLabelText="Confirmación de contraseña"
-                name="confirmPassword"
-                className="userField obligatoryField"
-                type="password"
-                />
-            <TextFieldComponent
-                hintText="Ingrese el correo eletrónico"
-                floatingLabelText="Correo electrónico"
-                name="email"
-                className="userField obligatoryField"
-                type="email"
-                />
-            <TextFieldComponent
-                hintText="Ingrese el correo eletrónico nuevamente"
-                floatingLabelText="Confirmación de correo electrónico"
-                name="confirmEmail"
-                className="userField obligatoryField"
-                type="email"
-                />
+        </div>
+        <div className="row">
+            <div className="col-xs-12 col-md-6">
+                <TextFieldComponent
+                    hintText="Ingresa la contraseña"
+                    floatingLabelText="Contraseña"
+                    name="password"
+                    className="userField obligatoryField"
+                    type="password"
+                    />
+            </div>
+            <div className="col-xs-12 col-md-6">
+                <TextFieldComponent
+                    hintText="Ingresa la contraseña nuevamente"
+                    floatingLabelText="Confirmación de contraseña"
+                    name="confirmPassword"
+                    className="userField obligatoryField"
+                    type="password"
+                    />
+            </div>
+        </div>
+        <div className="row">
+            <div className="col-xs-12 col-md-6">
+                <TextFieldComponent
+                    hintText="Ingresa el correo eletrónico"
+                    floatingLabelText="Correo electrónico"
+                    name="email"
+                    className="userField obligatoryField"
+                    type="email"
+                    />
+            </div>
+            <div className="col-xs-12 col-md-6">
+                <TextFieldComponent
+                    hintText="Ingresa el correo eletrónico nuevamente"
+                    floatingLabelText="Confirmación de correo electrónico"
+                    name="confirmEmail"
+                    className="userField obligatoryField"
+                    type="email"
+                    />
+            </div>
+        </div>
+        <div className="row">
             <SelectFieldComponent 
                 floatingLabelText="Tipo de usuario"
                 options={[{value: 1, text: "Gestor Cultural"}, {value: 2, text: "Artista"}]}
@@ -178,7 +193,12 @@ export default class UserForm extends Component {
             </div>
         </div>
         <div className="row">
-            <button type="button" className="btn btn-default" onClick={this.handleOnClick} id="saveUserBtn">Guardar Usuario</button>
+            <DefaultButton
+                label="Guardar Usuario"
+                labelPosition="after"
+                floatStyle="right"
+                onTouchTap={this.handleOnClick}
+                />
         </div>
     </div>
     );
