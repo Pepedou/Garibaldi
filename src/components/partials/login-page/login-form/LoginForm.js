@@ -21,6 +21,7 @@ export default class LoginForm extends Component {
         if(valid){
             //TODO: [BE] Validar el inicio de sesión
         } else {
+
         }
     }
 
@@ -78,3 +79,12 @@ export default class LoginForm extends Component {
         );
   }
 }
+
+LoginForm.displayName = 'LoginForm'
+
+export const mapDispatchToProps = dispatch => ({
+  addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+})
+
+export default connect(mapDispatchToProps)(LoginForm)
