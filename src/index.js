@@ -16,15 +16,18 @@ import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import reducers from './reducers'
 
+
 let store = createStore(reducers)
 
+//TODO: Poner Login como index route y usar login layout - Usar basic layout en vez de HomePage
 const router = (
     <Provider store={store}>
         <MuiThemeProvider>
             <Router history={browserHistory}>
-                <Route path="/" component={Login} />
-                <Route path="/register" component={RegisterPage} />
-                <Route path="/forgotPassword" component={ForgotPasswordPage} />
+                <Route path="/" component={Login} >
+                    <Route path="/register" component={RegisterPage} />
+                    <Route path="/forgotPassword" component={ForgotPasswordPage} />
+                </Route>
                 <Route path="/home" component={HomePage}>
                     <IndexRoute component={GalleryPage} />
                     <Route path="/artists" component={ArtistsPage} />
