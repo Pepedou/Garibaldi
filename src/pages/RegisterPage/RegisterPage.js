@@ -15,7 +15,9 @@ export default class Register extends Component {
               <div className="col-xs-0 col-md-3"></div>
               <div className="col-xs-12 col-md-6">
                   <div className="row marginTop">
-                      <center>Aqui va el logo</center>
+                      <center>
+                        <img src="" id="registerLogo" />
+                      </center>
                   </div>
                   <div className="row marginTop">
                       <center>Ingresa tus datos para empezar a usar Artchive</center>

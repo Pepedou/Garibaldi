@@ -3,6 +3,7 @@ import LoginNavbar from '../../components/partials/nav-bars/login-nav-bar/LoginN
 import TextFieldComponent from '../../components/ui/text-field/TextFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import '../../Main.css';
+import './ForgotPasswordPage.css';
 
 export default class ForgotPassword extends Component {
   constructor(props)
@@ -23,7 +24,9 @@ export default class ForgotPassword extends Component {
                 <div className="col-xs-0 col-md-4"></div>
                 <div className="col-xs-12 col-md-4">
                     <div className="row marginTop">
-                        <center>Aqui va el logo</center>
+                        <center>
+                            <img src="" id="passwordLogo" />
+                        </center>
                     </div>
                     <div className="row marginTop">
                         <center>Recupera tu contraseña. Ingresa el correo electrónico con el que hayas registrado tu cuenta</center>

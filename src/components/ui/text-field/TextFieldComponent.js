@@ -27,15 +27,15 @@ export default class TextFieldComponent extends Component {
         this.state = {
             fieldErrorMessage: ""
         }
-        this.handleOnChange = this.handleOnChange.bind(this);
     }
 
     handleOnChange(event){
         if(event.target.value === ""){
-            this.setState = {fieldErrorMessage: "Campo obligatorio"}
+            this.setState({fieldErrorMessage: "Campo obligatorio"})
         } else {
-            this.setState = {fieldErrorMessage: ""}
+            this.setState({fieldErrorMessage: ""})
         }
+        console.log(this.state)
     }
 
     render() {
@@ -48,7 +48,7 @@ export default class TextFieldComponent extends Component {
                 name={this.props.name}
                 className={this.props.className}
                 type={this.props.type}
-                onChange={e => this.handleOnChange(e)}
+                onChange={this.handleOnChange.bind(this)}
                 underlineStyle={styles.underlineStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}

@@ -18,7 +18,9 @@ export default class LoginNavbar extends Component {
                         <Link to="/register" className="loginOption" id="registerOption">Regístrate</Link>
                     </div>
                     <div className="col-xs-12 col-md-4">
-                        <center>Aqui va el logo</center>
+                        <center>
+                            <img src="" alt="" id="whiteNavLogo"/>
+                        </center>
                     </div>
                     <div className="col-xs-12 col-md-4"></div>
                 </div>

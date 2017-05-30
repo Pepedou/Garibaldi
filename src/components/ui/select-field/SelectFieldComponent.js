@@ -56,7 +56,7 @@ export default class SelectFieldComponent extends Component {
                 listStyle={styles.listStyle}
                 >
                 {
-                    this.props.options.map(item => <MenuItem value={item.value} primaryText={item.text} />)
+                    this.props.options.map((item, key) => <MenuItem value={item.value} primaryText={item.text} key={key}/>)
                 }
             </SelectField>
         )

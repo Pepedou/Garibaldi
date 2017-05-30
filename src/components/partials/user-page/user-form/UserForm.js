@@ -8,7 +8,6 @@ import './UserForm.css';
 
 export default class UserForm extends Component {
     handleOnClick() {
-        
         let userFields = document.getElementsByClassName("userField");
         let user = {};
         let valid = validateObligatoryFields();
@@ -24,7 +23,6 @@ export default class UserForm extends Component {
                 }
             }
         }
-
         //TODO: [BE] Guardar user, user trae toda la información del usuario, el nombre de la propiedad (Columna) es el id del input.
     }
 

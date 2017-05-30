@@ -11,7 +11,6 @@ export default class LoginForm extends Component {
     constructor(props)
     {
         super(props)
-        this.handleOnClick = this.handleOnClick.bind(this);
     }
 
     handleOnClick(event){
@@ -20,10 +19,8 @@ export default class LoginForm extends Component {
 
         let valid = validateObligatoryFields();
         if(valid){
-            this.setState = ({fieldErrorMessage: ""}, this.forceUpdate)
             //TODO: [BE] Validar el inicio de sesión
         } else {
-            this.setState = ({fieldErrorMessage: "Campo obligatorio"}, this.render)
         }
     }
 
@@ -34,7 +31,9 @@ export default class LoginForm extends Component {
                 <div className="col-xs-0 col-md-4"></div>
                 <div className="col-xs-12 col-md-4">
                     <div className="row marginTop">
-                        <center>Aqui va el logo</center>
+                        <center>
+                            <img src="" id="mainLogo" />
+                        </center>
                     </div>
                     <div className="row marginTop">
                         <center>Entra ya y empieza a descubrir arte, artistas y galerías.</center>

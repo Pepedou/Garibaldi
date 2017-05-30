@@ -1,7 +1,6 @@
 .LoginForm {
     color: #828282;
     padding: 0px 20px 0px 20px;
-    height: 100vh;
 }
 
 .marginTop{
@@ -15,4 +14,10 @@
 
 #forgotPasswordBtn:hover{
     font-weight: bold;
+}
+
+#mainLogo{
+    content: url("../../../../content/images/gray_logo.png");
+    width: 300px;
+    margin: 25px 0px;
 }
