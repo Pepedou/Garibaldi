@@ -21,11 +21,11 @@ export default class GridListComponent extends Component {
                 >
                 {this.props.cardList.map((card) => (
                     <GridTile
-                        key={card.img}
+                        key={card}
                         title={"Aqui va el titulo"}
                         subtitle={"Aqui va el autor"}
                         >
-                            <img src={card.img} />
+                            <img src={card} />
                     </GridTile>
                 ))}
             </GridList>

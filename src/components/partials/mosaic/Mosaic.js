@@ -2,13 +2,18 @@ import React, {Component, PropTypes} from 'react';
 import GridListComponent from '../../ui/grid-list/GridListComponent';
 import * as constants from '../../../redux/constants'
 import {connect} from 'react-redux'
+import axios from 'axios'
 
 class Mosaic extends Component {
   componentWillMount() {
-    this.props.receiveArtGallery([
-      {img: "http://geekchick.mx/wp-content/uploads/2016/05/arte.jpg"},
-      {img: "http://www.potencialenaccion.com/wp-content/uploads/2016/10/La-importancia-de-las-clases-de-arte-en-los-ninos-1-1.jpg"}
-    ])
+    let receiveArtGallery = this.props.receiveArtGallery;
+    axios.get('api/mosaic')
+    .then(function (response) {
+      receiveArtGallery(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
