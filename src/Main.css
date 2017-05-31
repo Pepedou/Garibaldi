@@ -22,3 +22,7 @@ select {
 div.row{
     margin:0px;
 }
+
+.LoginLayout{
+    height: 100vh;
+}

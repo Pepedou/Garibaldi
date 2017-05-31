@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router';
+import {connect} from 'react-redux'
 import {validateObligatoryFields} from '../../../../utils/fieldValidations'
 import TextFieldComponent from '../../../ui/text-field/TextFieldComponent'
 import DividerComponent from '../../../ui/divider/DividerComponent'
@@ -7,13 +8,13 @@ import DefaultButton from '../../../ui/buttons/DefaultButton'
 import '../../../../Main.css'
 import './LoginForm.css'
 
-export default class LoginForm extends Component {
+class LoginForm extends Component {
     constructor(props)
     {
         super(props)
     }
 
-    handleOnClick(event){
+    handleOnClick(event, addNotification){
         let username = document.getElementsByName("username");
         let password = document.getElementsByName("password");
 
@@ -21,7 +22,7 @@ export default class LoginForm extends Component {
         if(valid){
             //TODO: [BE] Validar el inicio de sesión
         } else {
-
+            addNotification("Ingrese la información de los campos marcados en rojo")
         }
     }
 
@@ -60,7 +61,7 @@ export default class LoginForm extends Component {
                                     label="Iniciar Sesión"
                                     labelPosition="after"
                                     floatStyle="center"
-                                    onTouchTap={this.handleOnClick}
+                                    onTouchTap={event => this.handleOnClick(event, this.props.addNotification)}
                                     className="marginTop"
                                     />
                             </center>
@@ -83,8 +84,7 @@ export default class LoginForm extends Component {
 LoginForm.displayName = 'LoginForm'
 
 export const mapDispatchToProps = dispatch => ({
-  addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
-  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+  addNotification: notification => dispatch({type: "ADD_NOTIFICATION", notification})
 })
 
-export default connect(mapDispatchToProps)(LoginForm)
+export default connect(null, mapDispatchToProps)(LoginForm)

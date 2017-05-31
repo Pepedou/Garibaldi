@@ -1,4 +1,4 @@
-import * as constants from "./constants"
+import * as constants from "../constants"
 
 export let notificationsReducer = (state = [], action) => {
   let {type, notification} = action

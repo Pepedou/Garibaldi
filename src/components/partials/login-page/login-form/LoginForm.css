@@ -3,13 +3,14 @@
     padding: 0px 20px 0px 20px;
 }
 
-.marginTop{
+div.marginTop{
     margin-top: 20px;
 }
 
 #forgotPasswordBtn{
     color: #828282;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 #forgotPasswordBtn:hover{
