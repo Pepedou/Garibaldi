@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
 import {validateObligatoryFields} from '../../../../utils/fieldValidations'
-import TextFieldComponent from '../../../ui/text-field/TextFieldComponent'
 import DividerComponent from '../../../ui/divider/DividerComponent'
 import DefaultButton from '../../../ui/buttons/DefaultButton'
+import InputFieldComponent from '../../../input-field/InputFieldComponent'
 import '../../../../Main.css'
 import './LoginForm.css'
 
@@ -12,6 +12,27 @@ class LoginForm extends Component {
     constructor(props)
     {
         super(props)
+
+        this.state = {
+            inputFields: [
+                {
+                    inputType: "textField",
+                    floatingLabelText: "Nombre de usuario",
+                    hintText: "Ingresa el nombre de usuario",
+                    name: "username",
+                    type: "text",
+                    className: "obligatoryField"
+                },
+                {
+                    inputType: "textField",
+                    floatingLabelText: "Ingresa la contraseña",
+                    hintText: "Contraseña",
+                    name: "password",
+                    type: "password",
+                    className: "obligatoryField"
+                }
+            ]
+        }
     }
 
     handleOnClick(event, addNotification){
@@ -42,20 +63,16 @@ class LoginForm extends Component {
                     </div>
                     <div className="row marginTop">
                         <div className="form-group">
-                            <TextFieldComponent
-                                hintText="Ingresa el nombre de usuario"
-                                floatingLabelText="Nombre de usuario"
-                                name="username"
-                                type="text"
-                                className="obligatoryField"
-                                />
-                            <TextFieldComponent
-                                hintText="Ingresa la contraseña"
-                                floatingLabelText="Contraseña"
-                                name="password"
-                                type="password"
-                                className="obligatoryField"
-                                />
+                            {
+                                 this.props.options.map((item, key) => <InputFieldComponent key={key}
+                                                                         inputType={item.inputType} 
+                                                                         hintText={item.hintText}
+                                                                         floatingLabelText={item.floatingLabelText}
+                                                                         name={item.name}
+                                                                         className={item.className}
+                                                                         type={item.type}
+                                                                         fieldErrorMessage={item.fieldErrorMessage}/>)
+                            }
                             <center>
                                 <DefaultButton
                                     label="Iniciar Sesión"

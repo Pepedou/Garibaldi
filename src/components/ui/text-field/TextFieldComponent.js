@@ -41,13 +41,13 @@ export default class TextFieldComponent extends Component {
     render() {
         return(
             <TextField
-                hintText={this.props.hintText}
-                errorText={this.state.fieldErrorMessage}
                 floatingLabelText={this.props.floatingLabelText}
-                fullWidth={true}
+                hintText={this.props.hintText}
                 name={this.props.name}
                 className={this.props.className}
                 type={this.props.type}
+                errorText={this.state.fieldErrorMessage}
+                fullWidth={true}
                 onChange={this.handleOnChange.bind(this)}
                 underlineStyle={styles.underlineStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}

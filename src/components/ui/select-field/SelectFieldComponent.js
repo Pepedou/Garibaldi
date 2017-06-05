@@ -65,5 +65,5 @@ export default class SelectFieldComponent extends Component {
 
 SelectFieldComponent.propTypes = {
   floatingLabelText: PropTypes.string,
-  option: PropTypes.array
+  options: PropTypes.array
 };
