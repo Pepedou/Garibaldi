@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
 import {validateObligatoryFields} from '../../../../utils/fieldValidations'
 import DividerComponent from '../../../ui/divider/DividerComponent'
 import DefaultButton from '../../../ui/buttons/DefaultButton'
-import InputFieldComponent from '../../../input-field/InputFieldComponent'
+import InputFieldComponent from '../../../ui/input-field/InputFieldComponent'
+import * as constants from '../../../../redux/constants'
 import '../../../../Main.css'
 import './LoginForm.css'
+import axios from 'axios'
 
 class LoginForm extends Component {
     constructor(props)
@@ -21,7 +23,8 @@ class LoginForm extends Component {
                     hintText: "Ingresa el nombre de usuario",
                     name: "username",
                     type: "text",
-                    className: "obligatoryField"
+                    className: "obligatoryField",
+                    value: ""
                 },
                 {
                     inputType: "textField",
@@ -29,20 +32,26 @@ class LoginForm extends Component {
                     hintText: "Contraseña",
                     name: "password",
                     type: "password",
-                    className: "obligatoryField"
+                    className: "obligatoryField",
+                    value: ""
                 }
             ]
         }
     }
 
-    handleOnClick(event, addNotification){
-        let username = document.getElementsByName("username");
-        let password = document.getElementsByName("password");
-
-        let valid = validateObligatoryFields();
-        if(valid){
-            //TODO: [BE] Validar el inicio de sesión
+    handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser}){
+        clearAllNotifications();
+        let result = validateObligatoryFields(this.state.inputFields);
+        if(result.valid){
+            axios.get('api/mosaic')
+            .then(function (response) {
+                receiveCurrentUser(response.data)
+            })
+            .catch(function (error) {
+                addNotification(error);
+            });
         } else {
+            this.setState({inputFields: result.fieldList})
             addNotification("Ingrese la información de los campos marcados en rojo")
         }
     }
@@ -64,7 +73,7 @@ class LoginForm extends Component {
                     <div className="row marginTop">
                         <div className="form-group">
                             {
-                                 this.props.options.map((item, key) => <InputFieldComponent key={key}
+                                 this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
                                                                          inputType={item.inputType} 
                                                                          hintText={item.hintText}
                                                                          floatingLabelText={item.floatingLabelText}
@@ -78,7 +87,7 @@ class LoginForm extends Component {
                                     label="Iniciar Sesión"
                                     labelPosition="after"
                                     floatStyle="center"
-                                    onTouchTap={event => this.handleOnClick(event, this.props.addNotification)}
+                                    onTouchTap={event => this.handleOnClick(event, this.props)}
                                     className="marginTop"
                                     />
                             </center>
@@ -100,8 +109,16 @@ class LoginForm extends Component {
 
 LoginForm.displayName = 'LoginForm'
 
+LoginForm.propTypes = {
+  addNotification: PropTypes.func,
+  clearAllNotifications: PropTypes.func,
+  receiveCurrentUser: PropTypes.func
+};
+
 export const mapDispatchToProps = dispatch => ({
-  addNotification: notification => dispatch({type: "ADD_NOTIFICATION", notification})
+  addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user})
 })
 
 export default connect(null, mapDispatchToProps)(LoginForm)

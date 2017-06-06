@@ -44,6 +44,7 @@ export default class SelectFieldComponent extends Component {
         return(
             <SelectField
                 floatingLabelText={this.props.floatingLabelText}
+                errorText={this.props.fieldErrorMessage}
                 value={this.state.value}
                 onChange={this.handleChange}
                 autoWidth={true}
@@ -65,5 +66,6 @@ export default class SelectFieldComponent extends Component {
 
 SelectFieldComponent.propTypes = {
   floatingLabelText: PropTypes.string,
-  options: PropTypes.array
+  options: PropTypes.array,
+  fieldErrorMessage: PropTypes.string
 };

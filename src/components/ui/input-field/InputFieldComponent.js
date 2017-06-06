@@ -12,7 +12,7 @@ export default class InputFieldComponent extends Component {
                 name={this.props.name}
                 className={this.props.className}
                 type={this.props.type}
-                errorText={this.props.fieldErrorMessage}
+                fieldErrorMessage={this.props.fieldErrorMessage}
                 />
             : <SelectFieldComponent
                 floatingLabelText={this.props.floatingLabelText}
@@ -21,8 +21,8 @@ export default class InputFieldComponent extends Component {
     }
 }
 
-TextField.propTypes = {
-  inputType: PropTypes.string.required,
+InputFieldComponent.propTypes = {
+  inputType: PropTypes.string,
   hintText: PropTypes.string,
   floatingLabelText: PropTypes.string,
   name: PropTypes.string,

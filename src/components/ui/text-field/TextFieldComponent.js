@@ -21,23 +21,6 @@ const styles = {
 };
 
 export default class TextFieldComponent extends Component {
-    constructor(props)
-    {
-        super(props)
-        this.state = {
-            fieldErrorMessage: ""
-        }
-    }
-
-    handleOnChange(event){
-        if(event.target.value === ""){
-            this.setState({fieldErrorMessage: "Campo obligatorio"})
-        } else {
-            this.setState({fieldErrorMessage: ""})
-        }
-        console.log(this.state)
-    }
-
     render() {
         return(
             <TextField
@@ -46,9 +29,8 @@ export default class TextFieldComponent extends Component {
                 name={this.props.name}
                 className={this.props.className}
                 type={this.props.type}
-                errorText={this.state.fieldErrorMessage}
+                errorText={this.props.fieldErrorMessage}
                 fullWidth={true}
-                onChange={this.handleOnChange.bind(this)}
                 underlineStyle={styles.underlineStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
@@ -64,5 +46,6 @@ TextField.propTypes = {
   floatingLabelText: PropTypes.string,
   name: PropTypes.string,
   className: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
+  fieldErrorMessage: PropTypes.string
 };
