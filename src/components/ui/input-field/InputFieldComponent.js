@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import TextFieldComponent from '../text-field/TextFieldComponent'
 import SelectFieldComponent from '../select-field/SelectFieldComponent'
+import DatePickerComponent from '../date-picker/DatePickerComponent'
 
 export default class InputFieldComponent extends Component {
     render() {
@@ -14,9 +15,12 @@ export default class InputFieldComponent extends Component {
                 type={this.props.type}
                 fieldErrorMessage={this.props.fieldErrorMessage}
                 />
-            : <SelectFieldComponent
+            : this.props.inputType === "selectField" 
+            ? <SelectFieldComponent
                 floatingLabelText={this.props.floatingLabelText}
                 options={this.props.options} />
+            : <DatePickerComponent 
+                hintText={this.props.hintText}/>
         )
     }
 }

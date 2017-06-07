@@ -8,8 +8,8 @@ export default class Login extends Component {
   render() {
     return (
       <div className="Login container-fluid degraded-container">
-        <NotificationComponent />
         <LoginNavbar selectedOption="loginOption"/>
+        <NotificationComponent/>
         <LoginForm/>
       </div>
     );

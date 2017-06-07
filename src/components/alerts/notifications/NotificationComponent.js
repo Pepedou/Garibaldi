@@ -3,15 +3,20 @@ import {connect} from 'react-redux'
 
 class NotificationComponent extends Component {
     render() {
-        let classNames = `alert ${this.props.notifications.type} ${this.props.notifications.isDismissable ? 'alert-dismissable': ''}`
-        let closeButton = this.props.notifications.isDismissable ? <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> : null
         return (
-            <div className={classNames}>
-                {closeButton}
-                {
-                    this.props.notifications.messages.map((message, key) => <div>{message}</div>)
-                }
-            </div> 
+            this.props.notifications.length > 0
+            ? <div className='Notifications'>
+                { this.props.notifications.map(({type, contentType, messages, message}, index) =>
+                    <div className={`alert alert-${type}`}>
+                        {contentType === 'list'
+                        ? <div className="NotificationMessages">
+                            {messages.map((text, key) => <div className="NotificationMessage" key={key}>{text}</div>)}
+                          </div>
+                        : message}
+                    </div>
+                )}
+                </div>
+            : null
         );
     }
 }

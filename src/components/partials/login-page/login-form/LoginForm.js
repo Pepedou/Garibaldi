@@ -9,6 +9,8 @@ import * as constants from '../../../../redux/constants'
 import '../../../../Main.css'
 import './LoginForm.css'
 import axios from 'axios'
+import {getForm, FormType} from '../../../../utils/forms/formUtils'
+import {NotificationTypes} from '../../../alerts/notifications/NotificationTypes'
 
 class LoginForm extends Component {
     constructor(props)
@@ -16,26 +18,7 @@ class LoginForm extends Component {
         super(props)
 
         this.state = {
-            inputFields: [
-                {
-                    inputType: "textField",
-                    floatingLabelText: "Nombre de usuario",
-                    hintText: "Ingresa el nombre de usuario",
-                    name: "username",
-                    type: "text",
-                    className: "obligatoryField",
-                    value: ""
-                },
-                {
-                    inputType: "textField",
-                    floatingLabelText: "Ingresa la contraseña",
-                    hintText: "Contraseña",
-                    name: "password",
-                    type: "password",
-                    className: "obligatoryField",
-                    value: ""
-                }
-            ]
+            inputFields: getForm(FormType.LOGIN)
         }
     }
 
@@ -43,16 +26,17 @@ class LoginForm extends Component {
         clearAllNotifications();
         let result = validateObligatoryFields(this.state.inputFields);
         if(result.valid){
-            axios.get('api/mosaic')
+            //TODO: Agregar parámetros
+            axios.get('/users/login')
             .then(function (response) {
                 receiveCurrentUser(response.data)
             })
             .catch(function (error) {
-                addNotification(error);
+                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error, isDismissable: true});
             });
         } else {
             this.setState({inputFields: result.fieldList})
-            addNotification("Ingrese la información de los campos marcados en rojo")
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo", isDismissable: true})
         }
     }
 
