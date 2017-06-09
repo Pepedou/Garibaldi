@@ -6,8 +6,8 @@ class NotificationComponent extends Component {
         return (
             this.props.notifications.length > 0
             ? <div className='Notifications'>
-                { this.props.notifications.map(({type, contentType, messages, message}, index) =>
-                    <div className={`alert alert-${type}`}>
+                { this.props.notifications.map(({type, contentType, messages, message}, key) =>
+                    <div className={`alert alert-${type}`} key={key}>
                         {contentType === 'list'
                         ? <div className="NotificationMessages">
                             {messages.map((text, key) => <div className="NotificationMessage" key={key}>{text}</div>)}

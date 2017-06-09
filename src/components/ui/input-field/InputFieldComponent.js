@@ -8,19 +8,26 @@ export default class InputFieldComponent extends Component {
         return(
             this.props.inputType === "textField"
             ? <TextFieldComponent
-                floatingLabelText={this.props.floatingLabelText}
                 hintText={this.props.hintText}
+                floatingLabelText={this.props.floatingLabelText}
                 name={this.props.name}
+                id={this.props.id}
                 className={this.props.className}
                 type={this.props.type}
-                fieldErrorMessage={this.props.fieldErrorMessage}
+                errorText={this.props.errorText}
+                value={this.props.value}
+                onChange={this.props.onChange}
                 />
-            : this.props.inputType === "selectField" 
-            ? <SelectFieldComponent
+            : <SelectFieldComponent
+                hintText={this.props.hintText}
                 floatingLabelText={this.props.floatingLabelText}
-                options={this.props.options} />
-            : <DatePickerComponent 
-                hintText={this.props.hintText}/>
+                id={this.props.id}
+                className={this.props.className}
+                errorText={this.props.errorText}
+                options={this.props.options}
+                value={this.props.value}
+                onChange={this.props.onChange}
+                 />
         )
     }
 }
@@ -31,7 +38,10 @@ InputFieldComponent.propTypes = {
   floatingLabelText: PropTypes.string,
   name: PropTypes.string,
   className: PropTypes.string,
+  id: PropTypes.string,
   type: PropTypes.string,
-  fieldErrorMessage: PropTypes.string,
-  options: PropTypes.array
+  errorText: PropTypes.string,
+  options: PropTypes.array,
+  value: PropTypes.string,
+  onChange: PropTypes.func
 };

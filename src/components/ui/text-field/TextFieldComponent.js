@@ -24,12 +24,15 @@ export default class TextFieldComponent extends Component {
     render() {
         return(
             <TextField
-                floatingLabelText={this.props.floatingLabelText}
                 hintText={this.props.hintText}
+                floatingLabelText={this.props.floatingLabelText}
                 name={this.props.name}
+                id={this.props.id}
                 className={this.props.className}
                 type={this.props.type}
-                errorText={this.props.fieldErrorMessage}
+                errorText={this.props.errorText}
+                onChange={this.props.onChange}
+                value={this.props.value}
                 fullWidth={true}
                 underlineStyle={styles.underlineStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}
@@ -45,7 +48,10 @@ TextField.propTypes = {
   hintText: PropTypes.string,
   floatingLabelText: PropTypes.string,
   name: PropTypes.string,
+  id: PropTypes.string,
   className: PropTypes.string,
   type: PropTypes.string,
-  fieldErrorMessage: PropTypes.string
+  errorText: PropTypes.string,
+  onChange: PropTypes.func,
+  value: PropTypes.string,
 };

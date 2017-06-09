@@ -30,23 +30,16 @@ const styles = {
 };
 
 export default class SelectFieldComponent extends Component {
-    constructor(props)
-    {
-        super(props)
-        this.state = {
-            value: 1
-        }
-    }
-
-    handleChange = (event, index, value) => this.setState({value});
-
     render() {
         return(
             <SelectField
+                hintText={this.props.hintText}
                 floatingLabelText={this.props.floatingLabelText}
-                errorText={this.props.fieldErrorMessage}
-                value={this.state.value}
-                onChange={this.handleChange}
+                id={this.props.id}
+                className={this.props.className}
+                errorText={this.props.errorText}
+                onChange={this.props.onChange}
+                value={this.props.value}
                 autoWidth={true}
                 underlineStyle={styles.underlineStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}
@@ -67,5 +60,7 @@ export default class SelectFieldComponent extends Component {
 SelectFieldComponent.propTypes = {
   floatingLabelText: PropTypes.string,
   options: PropTypes.array,
-  fieldErrorMessage: PropTypes.string
+  fieldErrorMessage: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func
 };

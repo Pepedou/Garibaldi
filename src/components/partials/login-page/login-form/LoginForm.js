@@ -32,11 +32,11 @@ class LoginForm extends Component {
                 receiveCurrentUser(response.data)
             })
             .catch(function (error) {
-                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error, isDismissable: true});
+                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
             });
         } else {
             this.setState({inputFields: result.fieldList})
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo", isDismissable: true})
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
         }
     }
 
@@ -58,14 +58,17 @@ class LoginForm extends Component {
                         <div className="form-group">
                             {
                                  this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
-                                                                         inputType={item.inputType} 
-                                                                         hintText={item.hintText}
-                                                                         floatingLabelText={item.floatingLabelText}
-                                                                         name={item.name}
-                                                                         className={item.className}
-                                                                         type={item.type}
-                                                                         fieldErrorMessage={item.fieldErrorMessage}/>)
-                            }
+                                                                            inputType={item.inputType} 
+                                                                            hintText={item.hintText}
+                                                                            floatingLabelText={item.floatingLabelText}
+                                                                            name={item.name}
+                                                                            className={item.className}
+                                                                            id={item.id}
+                                                                            type={item.type}
+                                                                            errorText={item.errorText}
+                                                                            options={item.options}
+                                                                            value={item.value}/>)
+                                    }
                             <center>
                                 <DefaultButton
                                     label="Iniciar Sesión"

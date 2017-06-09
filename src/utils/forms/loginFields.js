@@ -5,8 +5,9 @@ export let loginFields = [
         hintText: "Ingresa el nombre de usuario",
         name: "username",
         type: "text",
+        id: "username",
         className: "obligatoryField",
-        value: ""
+        errorText: ""
     },
     {
         inputType: "textField",
@@ -14,7 +15,8 @@ export let loginFields = [
         hintText: "Contraseña",
         name: "password",
         type: "password",
+        id: "password",
         className: "obligatoryField",
-        value: ""
+        errorText: ""
     }
 ]

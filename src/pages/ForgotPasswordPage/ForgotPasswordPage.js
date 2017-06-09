@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import LoginNavbar from '../../components/partials/nav-bars/login-nav-bar/LoginNavbar';
 import TextFieldComponent from '../../components/ui/text-field/TextFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
+import NotificationComponent from '../../components/alerts/notifications/NotificationComponent'
 import '../../Main.css';
 import './ForgotPasswordPage.css';
 
@@ -19,6 +20,7 @@ export default class ForgotPassword extends Component {
     return (
       <div className="ForgotPassword container-fluid degraded-container">
         <LoginNavbar/>
+        <NotificationComponent/>
         <div className="">
             <div className="Row">
                 <div className="col-xs-0 col-md-4"></div>

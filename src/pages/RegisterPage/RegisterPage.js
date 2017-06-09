@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import LoginNavbar from '../../components/partials/nav-bars/login-nav-bar/LoginNavbar'
 import UserForm from '../../components/partials/user-page/user-form/UserForm'
 import DividerComponent from '../../components/ui/divider/DividerComponent'
+import NotificationComponent from '../../components/alerts/notifications/NotificationComponent'
 import '../../Main.css'
 import './RegisterPage.css'
 
@@ -10,6 +11,7 @@ export default class Register extends Component {
     return (
       <div className="Register container-fluid degraded-container">
         <LoginNavbar selectedOption="registerOption"/>
+        <NotificationComponent/>
          <div className="RegisterForm">
           <div className="row">
               <div className="col-xs-0 col-md-3"></div>
