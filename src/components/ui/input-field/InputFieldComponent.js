@@ -15,7 +15,7 @@ export default class InputFieldComponent extends Component {
                 className={this.props.className}
                 type={this.props.type}
                 errorText={this.props.errorText}
-                value={this.props.value}
+                defaultValue={this.props.defaultValue}
                 onChange={this.props.onChange}
                 />
             : <SelectFieldComponent
@@ -25,7 +25,7 @@ export default class InputFieldComponent extends Component {
                 className={this.props.className}
                 errorText={this.props.errorText}
                 options={this.props.options}
-                value={this.props.value}
+                defaultValue={this.props.defaultValue}
                 onChange={this.props.onChange}
                  />
         )
@@ -42,6 +42,6 @@ InputFieldComponent.propTypes = {
   type: PropTypes.string,
   errorText: PropTypes.string,
   options: PropTypes.array,
-  value: PropTypes.string,
+  defaultValue: PropTypes.string,
   onChange: PropTypes.func
 };

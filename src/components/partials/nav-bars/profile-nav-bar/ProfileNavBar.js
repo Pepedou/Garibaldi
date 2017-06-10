@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
+import {connect} from 'react-redux'
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import Avatar from 'material-ui/Avatar';
 import IconMenu from 'material-ui/IconMenu';
@@ -8,7 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import './ProfileNavBar.css';
 
-export default class ProfileNavBar extends Component {
+class ProfileNavBar extends Component {
     render() {
         return (
             <Toolbar>
@@ -37,3 +38,15 @@ export default class ProfileNavBar extends Component {
         );
     }
 }
+
+ProfileNavBar.displayName = 'ProfileNavBar'
+
+ProfileNavBar.propTypes = {
+  user: PropTypes.object
+};
+
+export const mapStateToProps = ({user}) => ({
+  user
+})
+
+export default connect(mapStateToProps, null)(ProfileNavBar)

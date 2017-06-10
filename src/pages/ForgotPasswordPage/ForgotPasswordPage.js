@@ -1,19 +1,45 @@
 import React, {Component} from 'react';
 import LoginNavbar from '../../components/partials/nav-bars/login-nav-bar/LoginNavbar';
-import TextFieldComponent from '../../components/ui/text-field/TextFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
+import {getForm, FormType} from '../../utils/forms/formUtils'
 import NotificationComponent from '../../components/alerts/notifications/NotificationComponent'
+import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
+import {validateObligatoryFields, getFieldIndex, getFieldValue} from '../../utils/fieldValidations'
+import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
+import {connect} from 'react-redux'
+import * as constants from '../../redux/constants'
 import '../../Main.css';
 import './ForgotPasswordPage.css';
 
-export default class ForgotPassword extends Component {
+class ForgotPassword extends Component {
   constructor(props)
   {
       super(props)
-      this.handleOnClick = this.handleOnClick.bind(this);
+      this.state = {
+        inputFields: getForm(FormType.NEW_PASSWORD)
+      }
   }
 
-  handleOnClick(event){ 
+  handleOnChange(event, index, value){
+    let inputFieldsCopy = [...this.state.inputFields]
+    let currentFieldIndex = getFieldIndex(inputFieldsCopy, event.target.id)
+    inputFieldsCopy[currentFieldIndex].defaultValue = event.target.value;
+
+    this.setState({inputFields: inputFieldsCopy})
+}
+
+  handleOnClick(event, {addNotification, clearAllNotifications}){ 
+    clearAllNotifications();
+    let inputFieldsCopy = [...this.state.inputFields]
+    let result = validateObligatoryFields(this.state.inputFields);
+
+    if(result.valid){
+        let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
+        //TODO: Llamada al servicio
+    } else {
+        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
+    }
+    this.setState({inputFields: result.fieldList})
   }
     
   render() {
@@ -27,7 +53,7 @@ export default class ForgotPassword extends Component {
                 <div className="col-xs-12 col-md-4">
                     <div className="row marginTop">
                         <center>
-                            <img src="" id="passwordLogo" />
+                            <img src="" id="passwordLogo" alt=""/>
                         </center>
                     </div>
                     <div className="row marginTop">
@@ -35,19 +61,25 @@ export default class ForgotPassword extends Component {
                     </div>
                     <div className="row marginTop">
                         <div className="form-group">
-                            <TextFieldComponent
-                                hintText="Ingresa tu correo electrónico"
-                                floatingLabelText="Correo electrónico"
-                                name="email"
-                                type="text"
-                                className="obligatoryField"
-                                />
+                            {
+                                this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
+                                                                            inputType={item.inputType} 
+                                                                            hintText={item.hintText}
+                                                                            floatingLabelText={item.floatingLabelText}
+                                                                            className={item.className}
+                                                                            id={item.id}
+                                                                            type={item.type}
+                                                                            errorText={item.errorText}
+                                                                            options={item.options}
+                                                                            defaultValue={item.defaultValue}
+                                                                            onChange={event => this.handleOnChange(event)}/>)
+                            }
                             <center>
                                 <DefaultButton
                                     label="Recuperar Contraseña"
                                     labelPosition="after"
                                     floatStyle="center"
-                                    onTouchTap={this.handleOnClick}
+                                    onTouchTap={event => this.handleOnClick(event, this.props)}
                                     className="marginTop"
                                     />
                             </center>
@@ -61,3 +93,12 @@ export default class ForgotPassword extends Component {
     );
   }
 }
+
+ForgotPassword.displayName = 'ForgotPassword'
+
+export const mapDispatchToProps = dispatch => ({
+  addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+})
+
+export default connect(null, mapDispatchToProps)(ForgotPassword)

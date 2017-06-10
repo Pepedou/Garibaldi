@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
-import {validateObligatoryFields} from '../../../../utils/fieldValidations'
+import {validateObligatoryFields, getFieldValue, getFieldIndex} from '../../../../utils/fieldValidations'
 import DividerComponent from '../../../ui/divider/DividerComponent'
 import DefaultButton from '../../../ui/buttons/DefaultButton'
 import InputFieldComponent from '../../../ui/input-field/InputFieldComponent'
@@ -22,22 +22,27 @@ class LoginForm extends Component {
         }
     }
 
+    handleOnChange(event, index, value){
+        let inputFieldsCopy = [...this.state.inputFields]
+        let currentFieldIndex = getFieldIndex(inputFieldsCopy, event.target.id)
+        inputFieldsCopy[currentFieldIndex].defaultValue = event.target.value;
+
+        this.setState({inputFields: inputFieldsCopy})
+    }
+
     handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser}){
         clearAllNotifications();
+        let inputFieldsCopy = [...this.state.inputFields]
         let result = validateObligatoryFields(this.state.inputFields);
+
         if(result.valid){
-            //TODO: Agregar parámetros
-            axios.get('/users/login')
-            .then(function (response) {
-                receiveCurrentUser(response.data)
-            })
-            .catch(function (error) {
-                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
-            });
+            let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue;
+            let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue;
+            //TODO: Llamada al servicio
         } else {
-            this.setState({inputFields: result.fieldList})
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
         }
+        this.setState({inputFields: result.fieldList})
     }
 
     render() {
@@ -61,13 +66,13 @@ class LoginForm extends Component {
                                                                             inputType={item.inputType} 
                                                                             hintText={item.hintText}
                                                                             floatingLabelText={item.floatingLabelText}
-                                                                            name={item.name}
                                                                             className={item.className}
                                                                             id={item.id}
                                                                             type={item.type}
                                                                             errorText={item.errorText}
                                                                             options={item.options}
-                                                                            value={item.value}/>)
+                                                                            defaultValue={item.defaultValue}
+                                                                            onChange={event => this.handleOnChange(event)}/>)
                                     }
                             <center>
                                 <DefaultButton
@@ -83,7 +88,7 @@ class LoginForm extends Component {
                     <div className="row marginTop">
                         <DividerComponent />
                     </div>
-                    <div className="row marginTop">
+                    <div className="row marginTop marginBottom">
                         <center><Link to="/forgotPassword" id="forgotPasswordBtn">¿Olvidaste tu nombre de usuario o contraseña?</Link></center>
                     </div>
                 </div>

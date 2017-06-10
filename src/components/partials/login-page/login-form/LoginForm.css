@@ -7,6 +7,10 @@ div.marginTop{
     margin-top: 20px;
 }
 
+div.marginBottom{
+    margin-bottom: 20px;
+}
+
 #forgotPasswordBtn{
     color: #828282;
     cursor: pointer;

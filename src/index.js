@@ -17,7 +17,8 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 import reducers from './redux/reducers'
-
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 let store = createStore(
  reducers,

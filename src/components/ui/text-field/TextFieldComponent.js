@@ -32,7 +32,7 @@ export default class TextFieldComponent extends Component {
                 type={this.props.type}
                 errorText={this.props.errorText}
                 onChange={this.props.onChange}
-                value={this.props.value}
+                defaultValue={this.props.defaultValue}
                 fullWidth={true}
                 underlineStyle={styles.underlineStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}
@@ -53,5 +53,5 @@ TextField.propTypes = {
   type: PropTypes.string,
   errorText: PropTypes.string,
   onChange: PropTypes.func,
-  value: PropTypes.string,
+  defaultValue: PropTypes.string,
 };
