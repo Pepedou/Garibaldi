@@ -1,40 +1,46 @@
 import React, {Component, PropTypes} from 'react';
-import {Link} from 'react-router';
-import {connect} from 'react-redux'
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
-import Avatar from 'material-ui/Avatar';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import '../../../../Main.css';
 import './ProfileNavBar.css';
+import {white} from 'material-ui/styles/colors';
 
-class ProfileNavBar extends Component {
+let styles = {
+    iconStyle: {
+        color: white
+    }
+}
+
+export default class ProfileNavBar extends Component {
+    handleOnItemTouchTap(event, child) {
+        console.log("event", event);
+        console.log("child", child.props.primaryText);
+    }
+
     render() {
         return (
-            <Toolbar>
-                <ToolbarGroup firstChild={true}>
+            <div className="ProfileNavBar row">
+                <div className="col-xs-8 col-md-6">
                     <IconMenu
                         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                         targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                        animated={true}
+                        onItemTouchTap={this.handleOnItemTouchTap}
+                        iconStyle={styles.iconStyle}
+                        className={"UserIconMenu"}
                         >
-                        <MenuItem primaryText="Refresh" />
-                        <MenuItem primaryText="Send feedback" />
-                        <MenuItem primaryText="Settings" />
-                        <MenuItem primaryText="Help" />
-                        <MenuItem primaryText="Sign out" />
+                        <MenuItem primaryText="Mi perfil" />
+                        <MenuItem primaryText="Cerrar sesión" />
                     </IconMenu>
-                    <Avatar
-                        src="../../../../content/images/user.png"
-                        size={30}
-                        />
-                    <div>Aqui va el nombre del usuario</div>
-                </ToolbarGroup>
-                <ToolbarGroup lastChild={true}>
-                    Aqui va el logo
-                </ToolbarGroup>
-            </Toolbar>
+                    <div className="userFullName">{`${this.props.user.name} ${this.props.user.lastName}`}</div>
+                </div>
+                <div className="col-xs-4 col-md-6">
+                    <img src="" alt="" className="whiteNavLogo"/>
+                </div>
+            </div>
         );
     }
 }
@@ -44,9 +50,3 @@ ProfileNavBar.displayName = 'ProfileNavBar'
 ProfileNavBar.propTypes = {
   user: PropTypes.object
 };
-
-export const mapStateToProps = ({user}) => ({
-  user
-})
-
-export default connect(mapStateToProps, null)(ProfileNavBar)

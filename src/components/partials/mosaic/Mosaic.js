@@ -3,17 +3,19 @@ import GridListComponent from '../../ui/grid-list/GridListComponent';
 import * as constants from '../../../redux/constants'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import galleryMock from '../../../mocks/galleryMock'
+import './Mosaic.css';
 
 class Mosaic extends Component {
   componentWillMount() {
-    let receiveArtGallery = this.props.receiveArtGallery;
-    axios.get('api/mosaic')
-    .then(function (response) {
-      receiveArtGallery(response.data)
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+    // let receiveArtGallery = this.props.receiveArtGallery;
+    // axios.get('api/mosaic')
+    // .then(function (response) {
+    //   receiveArtGallery(response.data)
+    // })
+    // .catch(function (error) {
+    //   console.log(error);
+    // });
   }
 
   render() {
@@ -33,7 +35,7 @@ Mosaic.propTypes = {
 };
 
 export const mapStateToProps = ({artGallery}) => ({
-  artGallery
+  artGallery: galleryMock
 })
 
 export const mapDispatchToProps = dispatch => ({

@@ -1,5 +1,10 @@
 .LoginForm {
     color: #828282;
+    background: white; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(white, white, white, #C4C4C4); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(white, white, white, #C4C4C4); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(white, white, white, #C4C4C4); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(white, white, white, #C4C4C4); /* Standard syntax */
     padding: 0px 20px 0px 20px;
 }
 
