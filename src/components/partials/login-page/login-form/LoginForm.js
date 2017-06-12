@@ -47,53 +47,51 @@ class LoginForm extends Component {
 
     render() {
         return (
-        <div className="LoginForm">
-            <div className="Row">
-                <div className="col-xs-0 col-md-4"></div>
-                <div className="col-xs-12 col-md-4">
-                    <div className="row marginTop">
+        <div className="LoginForm row">
+            <div className="col-xs-0 col-md-4"></div>
+            <div className="col-xs-12 col-md-4">
+                <div className="row marginTop">
+                    <center>
+                        <img src="" id="mainLogo" alt=""/>
+                    </center>
+                </div>
+                <div className="row marginTop">
+                    <center>Entra ya y empieza a descubrir arte, artistas y galerías.</center>
+                </div>
+                <div className="row marginTop">
+                    <div className="form-group">
+                        {
+                                this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
+                                                                        inputType={item.inputType} 
+                                                                        hintText={item.hintText}
+                                                                        floatingLabelText={item.floatingLabelText}
+                                                                        className={item.className}
+                                                                        id={item.id}
+                                                                        type={item.type}
+                                                                        errorText={item.errorText}
+                                                                        options={item.options}
+                                                                        defaultValue={item.defaultValue}
+                                                                        onChange={event => this.handleOnChange(event)}/>)
+                                }
                         <center>
-                            <img src="" id="mainLogo" />
+                            <DefaultButton
+                                label="Iniciar Sesión"
+                                labelPosition="after"
+                                floatStyle="center"
+                                onTouchTap={event => this.handleOnClick(event, this.props)}
+                                className="marginTop"
+                                />
                         </center>
                     </div>
-                    <div className="row marginTop">
-                        <center>Entra ya y empieza a descubrir arte, artistas y galerías.</center>
-                    </div>
-                    <div className="row marginTop">
-                        <div className="form-group">
-                            {
-                                 this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
-                                                                            inputType={item.inputType} 
-                                                                            hintText={item.hintText}
-                                                                            floatingLabelText={item.floatingLabelText}
-                                                                            className={item.className}
-                                                                            id={item.id}
-                                                                            type={item.type}
-                                                                            errorText={item.errorText}
-                                                                            options={item.options}
-                                                                            defaultValue={item.defaultValue}
-                                                                            onChange={event => this.handleOnChange(event)}/>)
-                                    }
-                            <center>
-                                <DefaultButton
-                                    label="Iniciar Sesión"
-                                    labelPosition="after"
-                                    floatStyle="center"
-                                    onTouchTap={event => this.handleOnClick(event, this.props)}
-                                    className="marginTop"
-                                    />
-                            </center>
-                        </div>
-                    </div>
-                    <div className="row marginTop">
-                        <DividerComponent />
-                    </div>
-                    <div className="row marginTop marginBottom">
-                        <center><Link to="/forgotPassword" id="forgotPasswordBtn">¿Olvidaste tu nombre de usuario o contraseña?</Link></center>
-                    </div>
                 </div>
-                <div className="col-xs-0 col-md-4"></div>
+                <div className="row marginTop">
+                    <DividerComponent />
+                </div>
+                <div className="row marginTop marginBottom">
+                    <center><Link to="/forgotPassword" id="forgotPasswordBtn">¿Olvidaste tu nombre de usuario o contraseña?</Link></center>
+                </div>
             </div>
+            <div className="col-xs-0 col-md-4"></div>
         </div>
         );
   }

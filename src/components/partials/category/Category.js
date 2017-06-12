@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import InlineEdit from 'react-edit-inline';
+require('./Category.css')
 
 export default class Category extends Component {
   customValidateText(text) {
@@ -40,8 +41,14 @@ export default class Category extends Component {
 
     return (
       <div className="row Category">
-          {categoryNameComponent}: {categoryValueComponent}
+          {categoryNameComponent}: {categoryValueComponent} 
       </div>
     );
   }
 }
+
+Category.displayName = 'Category'
+
+Category.propTypes = {
+  category: PropTypes.object
+};

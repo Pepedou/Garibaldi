@@ -9,16 +9,16 @@ import './RegisterPage.css'
 export default class Register extends Component {
   render() {
     return (
-      <div className="Register container-fluid degraded-container">
-        <LoginNavbar selectedOption="registerOption"/>
-        <NotificationComponent/>
-         <div className="RegisterForm">
-          <div className="row">
+      <div className="Register row">
+        <div className="col-xs-12 col-md-12">
+          <LoginNavbar selectedOption="registerOption"/>
+          <div className="row"><NotificationComponent/></div>
+          <div className="RegisterForm row">
               <div className="col-xs-0 col-md-3"></div>
               <div className="col-xs-12 col-md-6">
                   <div className="row marginTop">
                       <center>
-                        <img src="" id="registerLogo" />
+                        <img src="" id="registerLogo" alt=""/>
                       </center>
                   </div>
                   <div className="row marginTop">
@@ -27,9 +27,7 @@ export default class Register extends Component {
                   <div className="row marginTop">
                     <DividerComponent />
                   </div>
-                  <div className="row">
-                    <UserForm/>
-                  </div>
+                  <UserForm/>
               </div>
               <div className="col-xs-0 col-md-3"></div>
           </div>

@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import LoginNavbar from '../../partials/nav-bars/login-nav-bar/LoginNavbar';
 require('../../../Main.css');
 
 export default class LoginLayout extends Component {

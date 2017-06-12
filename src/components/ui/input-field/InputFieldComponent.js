@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import TextFieldComponent from '../text-field/TextFieldComponent'
 import SelectFieldComponent from '../select-field/SelectFieldComponent'
-import DatePickerComponent from '../date-picker/DatePickerComponent'
 
 export default class InputFieldComponent extends Component {
     render() {

@@ -1,10 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Checkbox from 'material-ui/Checkbox';
-import {white} from 'material-ui/styles/colors';
 
 const styles = {
   gridList: {
@@ -35,7 +31,7 @@ export default class GridListComponent extends Component {
                         key={key}
                         title={card.title}
                         subtitle={card.artist}
-                        onTouchTap ={(event) => this.handleOnTouchTap(event, card)}
+                        onTouchTap={(event) => this.handleOnTouchTap(event, card)}
                         actionIcon={<Checkbox
                                         label=""
                                         labelStyle={styles.labelStyle}
@@ -43,7 +39,7 @@ export default class GridListComponent extends Component {
                                         onCheck={(event) => this.handleOnCheck(event, card)}
                                         />}
                         >
-                            <img src={card.source} />
+                            <img src={card.source} alt=""/>
                     </GridTile>
                 ))}
             </GridList>

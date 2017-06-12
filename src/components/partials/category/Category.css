@@ -1,0 +1,26 @@
+div.Category{
+    padding-bottom: 5px;
+}
+
+.CategoryName {
+    float: left;
+    font-weight: bold;
+}
+
+.EditingCategory{
+    border: 0px;
+    border-bottom: 1px solid rgb(158, 158, 158);
+}
+
+.EditingCategory:focus{
+    outline: none;
+}
+
+.CategoryInformation {
+    float: left;
+    width: 87%;
+}
+
+.CategoryActions {
+    float: right;
+}

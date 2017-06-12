@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import TextField from 'material-ui/TextField';
-import {grey600, grey500, grey400} from 'material-ui/styles/colors';
+import {grey600, grey500} from 'material-ui/styles/colors';
 
 const styles = {
   underlineStyle: {

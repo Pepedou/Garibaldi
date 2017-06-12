@@ -22,3 +22,7 @@
 #saveUserBtn{
     float: right;
 }
+
+.userColumn {
+    padding: 0px 10px;
+}

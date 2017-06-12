@@ -44,50 +44,48 @@ class ForgotPassword extends Component {
     
   render() {
     return (
-      <div className="ForgotPassword container-fluid degraded-container">
+      <div className="ForgotPassword row">
         <LoginNavbar/>
-        <NotificationComponent/>
-        <div className="">
-            <div className="Row">
-                <div className="col-xs-0 col-md-4"></div>
-                <div className="col-xs-12 col-md-4">
-                    <div className="row marginTop">
+        <div className="row"><NotificationComponent/></div>
+        <div className="row">
+            <div className="col-xs-0 col-md-4"></div>
+            <div className="col-xs-12 col-md-4">
+                <div className="row marginTop">
+                    <center>
+                        <img src="" id="passwordLogo" alt=""/>
+                    </center>
+                </div>
+                <div className="row marginTop">
+                    <center>Recupera tu contraseña. Ingresa el correo electrónico con el que hayas registrado tu cuenta</center>
+                </div>
+                <div className="row marginTop">
+                    <div className="form-group">
+                        {
+                            this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
+                                                                        inputType={item.inputType} 
+                                                                        hintText={item.hintText}
+                                                                        floatingLabelText={item.floatingLabelText}
+                                                                        className={item.className}
+                                                                        id={item.id}
+                                                                        type={item.type}
+                                                                        errorText={item.errorText}
+                                                                        options={item.options}
+                                                                        defaultValue={item.defaultValue}
+                                                                        onChange={event => this.handleOnChange(event)}/>)
+                        }
                         <center>
-                            <img src="" id="passwordLogo" alt=""/>
+                            <DefaultButton
+                                label="Recuperar Contraseña"
+                                labelPosition="after"
+                                floatStyle="center"
+                                onTouchTap={event => this.handleOnClick(event, this.props)}
+                                className="marginTop"
+                                />
                         </center>
                     </div>
-                    <div className="row marginTop">
-                        <center>Recupera tu contraseña. Ingresa el correo electrónico con el que hayas registrado tu cuenta</center>
-                    </div>
-                    <div className="row marginTop">
-                        <div className="form-group">
-                            {
-                                this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
-                                                                            inputType={item.inputType} 
-                                                                            hintText={item.hintText}
-                                                                            floatingLabelText={item.floatingLabelText}
-                                                                            className={item.className}
-                                                                            id={item.id}
-                                                                            type={item.type}
-                                                                            errorText={item.errorText}
-                                                                            options={item.options}
-                                                                            defaultValue={item.defaultValue}
-                                                                            onChange={event => this.handleOnChange(event)}/>)
-                            }
-                            <center>
-                                <DefaultButton
-                                    label="Recuperar Contraseña"
-                                    labelPosition="after"
-                                    floatStyle="center"
-                                    onTouchTap={event => this.handleOnClick(event, this.props)}
-                                    className="marginTop"
-                                    />
-                            </center>
-                        </div>
-                    </div>
                 </div>
-                <div className="col-xs-0 col-md-4"></div>
             </div>
+            <div className="col-xs-0 col-md-4"></div>
         </div>
       </div>
     );
