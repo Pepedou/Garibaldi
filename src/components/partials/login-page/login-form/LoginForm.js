@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component, PropTypes} from 'react'
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
 import {validateObligatoryFields, getFieldValue, getFieldIndex} from '../../../../utils/fieldValidations'
@@ -25,7 +25,7 @@ class LoginForm extends Component {
     handleOnChange(event, index, value){
         let inputFieldsCopy = [...this.state.inputFields]
         let currentFieldIndex = getFieldIndex(inputFieldsCopy, event.target.id)
-        inputFieldsCopy[currentFieldIndex].defaultValue = event.target.value;
+        inputFieldsCopy[currentFieldIndex].defaultValue = event.target.value
 
         this.setState({inputFields: inputFieldsCopy})
     }
@@ -33,11 +33,11 @@ class LoginForm extends Component {
     handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser}){
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
-        let result = validateObligatoryFields(this.state.inputFields);
+        let result = validateObligatoryFields(this.state.inputFields)
 
         if(result.valid){
-            let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue;
-            let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue;
+            let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue
+            let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue
             //TODO: Llamada al servicio
         } else {
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
@@ -103,7 +103,7 @@ LoginForm.propTypes = {
   addNotification: PropTypes.func,
   clearAllNotifications: PropTypes.func,
   receiveCurrentUser: PropTypes.func
-};
+}
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),

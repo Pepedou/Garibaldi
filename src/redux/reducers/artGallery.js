@@ -11,3 +11,12 @@ export let artGalleryReducer = (state = [], action) => {
     return state
   }
 }
+
+export const updatingArtGalleryReducer = (state = false, {type, updatingArtGallery}) => {
+  switch (type) {
+  case UPDATING_ART_GALLERY:
+    return updatingArtGallery
+  default:
+    return state
+  }
+}

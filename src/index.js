@@ -28,17 +28,24 @@ let store = createStore(
    window.devToolsExtension ? window.devToolsExtension() : f => f
  ))
 
-//TODO: Poner Login como index route y usar login layout - Usar basic layout en vez de HomePage
+ export let clearNotifications = (store) => {
+  store.dispatch({type: CLEAR_ALL_NOTIFICATIONS})
+}
+
+ export let everyPageNavigation = store => {
+    clearNotifications(store)
+ }
+
 const router = (
     <Provider store={store}>
         <MuiThemeProvider>
             <Router history={browserHistory}>
-                <Route path="/" component={LoginLayout} >
+                <Route path="/" component={LoginLayout} onChange={everyPageNavigation()}>
                     <IndexRoute component={Login} />
                     <Route path="/register" component={RegisterPage} />
                     <Route path="/forgotPassword" component={ForgotPasswordPage} />
                 </Route>
-                <Route path="/home" component={BaseLayout}>
+                <Route path="/home" component={BaseLayout} onChange={everyPageNavigation()}>
                     <IndexRoute component={GalleryPage} />
                     <Route path="/artists" component={ArtistsPage} />
                 </Route>

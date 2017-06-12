@@ -1,12 +1,11 @@
-import React, {Component, PropTypes} from 'react';
-import CardComponent from '../../ui/card/CardComponent.js';
-import artMock from '../../../mocks/artCardMock';
+import React, {Component, PropTypes} from 'react'
+import CardComponent from '../../ui/card/CardComponent.js'
 import {connect} from 'react-redux'
-import CardDescription from './CardDescription';
-import CardActions from './CardActions';
+import CardDescription from './CardDescription'
+import CardActions from './CardActions'
 require('./ArtCard.css')
 
-class ArtCard extends Component {
+export default class ArtCard extends Component {
     constructor(props)
     {
         super(props)
@@ -27,7 +26,7 @@ class ArtCard extends Component {
         artCardInformationCopy.categories.push(emptyCategory);
         this.setState({
             artCardInformation: artCardInformationCopy
-        });
+        })
     }
 
     render() {
@@ -45,7 +44,7 @@ class ArtCard extends Component {
                 cardActions={<CardActions artCardInformation={this.state.artCardInformation}/>}
                 />
             </div>
-        );
+        )
   }
 }
 
@@ -53,10 +52,4 @@ ArtCard.displayName = 'ArtCard'
 
 ArtCard.propTypes = {
   currentArt: PropTypes.object
-};
-
-export const mapStateToProps = ({currentArt}) => ({
-  currentArt: artMock
-})
-
-export default connect(mapStateToProps, null)(ArtCard)
+}
