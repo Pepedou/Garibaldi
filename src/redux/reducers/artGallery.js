@@ -14,7 +14,7 @@ export let artGalleryReducer = (state = [], action) => {
 
 export const updatingArtGalleryReducer = (state = false, {type, updatingArtGallery}) => {
   switch (type) {
-  case UPDATING_ART_GALLERY:
+  case constants.UPDATING_ART_GALLERY:
     return updatingArtGallery
   default:
     return state

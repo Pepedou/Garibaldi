@@ -1,16 +1,26 @@
 import React, {Component, PropTypes} from 'react'
-import GridListComponent from '../../ui/grid-list/GridListComponent'
-import * as constants from '../../../redux/constants'
+import GridListComponent from '../../../ui/grid-list/GridListComponent'
+import * as constants from '../../../../redux/constants'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import galleryMock from '../../../mocks/galleryMock'
 import './Mosaic.css'
 
 class Mosaic extends Component {
+  handleOnTouchTap(event, card) {
+      this.props.receiveCurrentArt(card)
+  }
+
+  handleOnCheck(event, card) {
+      console.log(card)
+  }
+    
   render() {
     return (
       <div className="col-xs-12 Mosaic">
-        <GridListComponent cardList={this.props.artGallery}/>
+        <GridListComponent 
+            cardList={this.props.artGallery}
+            onTouchTap={this.handleOnTouchTap.bind(this)}
+            onCheck={this.handleOnCheck.bind(this)}/>
       </div>
     )
   }

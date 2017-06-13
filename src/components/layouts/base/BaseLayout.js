@@ -3,6 +3,7 @@ import ProfileNavBar from '../../partials/nav-bars/profile-nav-bar/ProfileNavBar
 import userGCMock from '../../../mocks/userGCMock';
 import {connect} from 'react-redux'
 import MainNavBar from '../../partials/nav-bars/main-nav-bar/MainNavBar'
+import NotificationComponent from '../..//alerts/notifications/NotificationComponent'
 require('../../../Main.css');
 
 class BaseLayout extends Component {
@@ -11,6 +12,7 @@ class BaseLayout extends Component {
       <div className="BaseLaProfileNavBaryout container-fluid degraded-container">
         <ProfileNavBar user={this.props.user}/>
         <MainNavBar user={this.props.user}/>
+        <div className="row"><NotificationComponent/></div>
 	      <div className="row">{this.props.children}</div>
       </div>
     );

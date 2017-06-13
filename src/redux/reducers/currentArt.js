@@ -14,7 +14,7 @@ export let currentArtReducer = (state = {}, action) => {
 
 export const updatingCurrentArtReducer = (state = false, {type, updatingCurrentArt}) => {
   switch (type) {
-  case UPDATING_CURRENT_ART:
+  case constants.UPDATING_CURRENT_ART:
     return updatingCurrentArt
   default:
     return state

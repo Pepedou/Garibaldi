@@ -1,20 +1,11 @@
 import React, {Component, PropTypes} from 'react'
-import CardComponent from '../../ui/card/CardComponent.js'
+import CardComponent from '../../../ui/card/CardComponent.js'
 import {connect} from 'react-redux'
 import CardDescription from './CardDescription'
 import CardActions from './CardActions'
 require('./ArtCard.css')
 
 export default class ArtCard extends Component {
-    constructor(props)
-    {
-        super(props)
-
-        this.state = {
-            artCardInformation: props.currentArt
-        }
-    }
-
     handleAddCategory(artCardInformationCopy) {
         let emptyCategory = {
             required: false,
@@ -24,24 +15,22 @@ export default class ArtCard extends Component {
             categoryValue: "Valor de la categoría..."
         }
         artCardInformationCopy.categories.push(emptyCategory);
-        this.setState({
-            artCardInformation: artCardInformationCopy
-        })
+        //TODO: Poner el dispatch para actualizar detalle
     }
 
     render() {
         return (
             <div className="ArtCard">
                 <CardComponent 
-                headerTitle={this.state.artCardInformation.title}
-                headerSubtitle={this.state.artCardInformation.year}
-                overlayTitle={this.state.artCardInformation.title}
-                overlaySubtitle={this.state.artCardInformation.year}
-                cardImage={this.state.artCardInformation.source}
-                cardTitle={this.state.artCardInformation.artist}
-                cardSubtitle={this.state.artCardInformation.description}
-                cardDescription={<CardDescription artCardInformation={this.state.artCardInformation} onTouchTap={this.handleAddCategory.bind(this)}/>}
-                cardActions={<CardActions artCardInformation={this.state.artCardInformation}/>}
+                headerTitle={this.props.currentArt.title}
+                headerSubtitle={this.props.currentArt.year}
+                overlayTitle={this.props.currentArt.title}
+                overlaySubtitle={this.props.currentArt.year}
+                cardImage={this.props.currentArt.source}
+                cardTitle={this.props.currentArt.artist}
+                cardSubtitle={this.props.currentArt.description}
+                cardDescription={<CardDescription artCardInformation={this.props.currentArt} onTouchTap={this.handleAddCategory.bind(this)}/>}
+                cardActions={<CardActions artCardInformation={this.props.currentArt}/>}
                 />
             </div>
         )

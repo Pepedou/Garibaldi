@@ -11,13 +11,7 @@ const styles = {
 };
 
 export default class GridListComponent extends Component {
-    handleOnTouchTap(event, card) {
-        console.log(card)
-    }
-
-    handleOnCheck(event, card) {
-        console.log(card)
-    }
+    
 
     render() {
         return(
@@ -31,12 +25,12 @@ export default class GridListComponent extends Component {
                         key={key}
                         title={card.title}
                         subtitle={card.artist}
-                        onTouchTap={(event) => this.handleOnTouchTap(event, card)}
+                        onTouchTap={(event) => this.props.onTouchTap(event, card)}
                         actionIcon={<Checkbox
                                         label=""
                                         labelStyle={styles.labelStyle}
                                         iconStyle={styles.iconStyle}
-                                        onCheck={(event) => this.handleOnCheck(event, card)}
+                                        onCheck={(event) => this.props.onCheck(event, card)}
                                         />}
                         >
                             <img src={card.source} alt=""/>
@@ -48,5 +42,7 @@ export default class GridListComponent extends Component {
 }
 
 GridListComponent.propTypes = {
-  cardList: PropTypes.array
+  cardList: PropTypes.array,
+  onTouchTap: PropTypes.func,
+  onCheck: PropTypes.func
 };

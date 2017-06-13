@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import DefaultButton from '../../ui/buttons/DefaultButton'
+import DefaultButton from '../../../ui/buttons/DefaultButton'
 
 export default class CardActions extends Component {
     render() {

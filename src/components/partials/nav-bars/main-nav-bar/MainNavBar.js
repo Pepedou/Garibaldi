@@ -10,7 +10,7 @@ export default class MainNavBar extends Component {
             <div className="MainNavBar navbar navbar-default navbar-static-top">
                 <div className="container">
                     <div className="row">
-                        <div className="col-xs-12 col-md-4">
+                        <div className="col-xs-12 col-md-12">
                              <ul className="nav navbar-nav navbar-left">
                                 <li>
                                     <Link to="/home">Archivo</Link>
@@ -22,10 +22,6 @@ export default class MainNavBar extends Component {
                                         : <Link to="/artistProfile">Perfil de artista</Link>
                                     }
                                 </li>
-                            </ul>
-                        </div>
-                        <div className="col-xs-12 col-md-8">
-                             <ul className="nav navbar-nav navbar-right">
                                 <li>
                                     <SearchBar />
                                 </li>

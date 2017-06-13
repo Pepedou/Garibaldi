@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import Category from '../category/Category.js';
+import Category from '../../../ui/category/Category.js';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {grey600} from 'material-ui/styles/colors';

@@ -17,6 +17,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk';
 import reducers from './redux/reducers'
+import * as constants from "./redux/constants"
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
@@ -29,11 +30,11 @@ let store = createStore(
  ))
 
  export let clearNotifications = (store) => {
-  store.dispatch({type: CLEAR_ALL_NOTIFICATIONS})
+  store.dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
 }
 
  export let everyPageNavigation = store => {
-    clearNotifications(store)
+    // clearNotifications(store)
  }
 
 const router = (

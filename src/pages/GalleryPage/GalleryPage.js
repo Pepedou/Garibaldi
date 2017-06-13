@@ -1,9 +1,19 @@
-import React, {Component} from 'react'
-import Mosaic from '../../components/partials/mosaic/Mosaic'
-import ArtCard from '../../components/partials/art-card/ArtCard'
+import React, {Component, PropTypes} from 'react'
+import * as constants from '../../redux/constants'
+import {connect} from 'react-redux'
+import Mosaic from '../../components/partials/gallery-page/mosaic/Mosaic'
+import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
+import galleryMock from '../../mocks/galleryMock'
 import './GalleryPage.css'
 
 class GalleryPage extends Component {
+    constructor(props)
+    {
+        super(props)
+
+        props.receiveArtGallery(galleryMock);
+        props.receiveCurrentArt(galleryMock[0]);
+    }
     componentWillMount() {
         this.props.clearAllNotifications()
 
@@ -18,25 +28,25 @@ class GalleryPage extends Component {
         // })
         // .catch(function (error) {
         //   this.props.addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
-        // });
-        
-        this.props.receiveArtGallery(galleryMock)
-        this.props.receiveCurrentArt(galleryMock[0])
+        // })
     }
 
     render() {
+        let artCard = this.props.artGallery.length > 0 ? <ArtCard currentArt={this.props.currentArt}/> : null
         return (
             <div className="col-xs-12 col-md-12 GalleryPage">
                 <div className="row">
                     <div className="col-xs-12 col-md-8">
                         <div className="row">
-                            <Mosaic artGallery={artGallery}/>
+                            <Mosaic artGallery={this.props.artGallery}/>
                         </div>
                     </div>
                     <div className="ArtPanelColumn col-xs-12 col-md-4">
                         <div className="row">
                             <div className="col-xs-12 col-md-12">
-                                <ArtCard currentArt={currentArt}/>
+                                {
+                                    artCard
+                                }
                             </div>
                         </div>
                     </div>
