@@ -68,7 +68,7 @@ class UserForm extends Component {
                     let user = {...userInformation, ...personalInformation};
                     
                     clearAllNotifications()
-                    axios.post('users/create', {user})
+                    axios.post('https://lagunilla.herokuapp.com/api/users/', {user})
                     .then(function (response) {
                         window.location = './'
                     })

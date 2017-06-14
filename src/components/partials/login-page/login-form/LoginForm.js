@@ -40,7 +40,7 @@ class LoginForm extends Component {
             let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue
             
             clearAllNotifications()
-            axios.get(`https://lagunilla.herokuapp.com/login?email=${usernameValue}&password=${passwordValue}`)
+            axios.get(`https://lagunilla.herokuapp.com/api/login?email=${usernameValue}&password=${passwordValue}`)
             .then(function (response) {
                 sessionStorage.setItem('currentUser', response.data);
                 receiveCurrentUser(response.data)

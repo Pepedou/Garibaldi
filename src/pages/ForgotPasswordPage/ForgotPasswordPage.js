@@ -37,7 +37,7 @@ class ForgotPassword extends Component {
     if(result.valid){
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
         clearAllNotifications()
-        axios.post(`/users/requestResetPassword?email=${emailValue}`)
+        axios.post(`https://lagunilla.herokuapp.com/api/resetPassword?email=${emailValue}`)
         .then(function (response) {
             window.location = './'
         })
