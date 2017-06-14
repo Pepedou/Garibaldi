@@ -8,6 +8,7 @@ import {NotificationTypes} from '../../../alerts/notifications/NotificationTypes
 import * as constants from '../../../../redux/constants'
 import '../../../../Main.css';
 import './UserForm.css';
+import axios from 'axios'
 
 class UserForm extends Component {
     constructor(props)
@@ -65,7 +66,15 @@ class UserForm extends Component {
                     let userInformation = getUserFields(this.state.inputFields.userInformation);
                     let personalInformation = getUserFields(this.state.inputFields.personalInformation);
                     let user = {...userInformation, ...personalInformation};
-                    //TODO: Llamada al servicio
+                    
+                    clearAllNotifications()
+                    axios.post('users/create', {user})
+                    .then(function (response) {
+                        window.location = './'
+                    })
+                    .catch(function (error) {
+                        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+                    })
                 } else {
                     inputFieldsCopy.userInformation = updateField(inputFieldsCopy.userInformation, "email", "errorText", "El email no es igual a su confirmación");
                     inputFieldsCopy.userInformation = updateField(inputFieldsCopy.userInformation, "password", "errorText", "La contraseña no es igual a su confirmación");

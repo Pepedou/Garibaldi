@@ -2,37 +2,31 @@ import React, {Component, PropTypes} from 'react'
 import * as constants from '../../redux/constants'
 import {connect} from 'react-redux'
 import Mosaic from '../../components/partials/gallery-page/mosaic/Mosaic'
-import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
-import galleryMock from '../../mocks/galleryMock'
+// import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
+import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
+import axios from 'axios'
 import './GalleryPage.css'
 
 class GalleryPage extends Component {
-    constructor(props)
-    {
-        super(props)
-
-        props.receiveArtGallery(galleryMock);
-        props.receiveCurrentArt(galleryMock[0]);
-    }
     componentWillMount() {
-        this.props.clearAllNotifications()
-
-        // axios.get('api/mosaic')
-        // .then(function (response) {
-        //   if(response.data.length > 0) {
-        //     this.props.receiveArtGallery(response.data);
-        //     this.props.receiveCurrentArt(response.data[0]);
-        //   } else {
-        //     this.props.addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
-        //   }
-        // })
-        // .catch(function (error) {
-        //   this.props.addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
-        // })
+        let {clearAllNotifications, receiveArtGallery, receiveCurrentArt, addNotification, user} = this.props
+        clearAllNotifications()
+        axios.get(`api/mosaic?email=${user.email}`)
+        .then(function (response) {
+          if(response.data.length > 0) {
+            receiveArtGallery(response.data);
+            receiveCurrentArt(response.data[0]);
+          } else {
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
+          }
+        })
+        .catch(function (error) {
+          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+        })
     }
 
     render() {
-        let artCard = this.props.artGallery.length > 0 ? <ArtCard currentArt={this.props.currentArt}/> : null
+        // let artCard = this.props.artGallery.length > 0 ? <ArtCard currentArt={this.props.currentArt}/> : null
         return (
             <div className="col-xs-12 col-md-12 GalleryPage">
                 <div className="row">
@@ -44,9 +38,9 @@ class GalleryPage extends Component {
                     <div className="ArtPanelColumn col-xs-12 col-md-4">
                         <div className="row">
                             <div className="col-xs-12 col-md-12">
-                                {
+                                {/*{
                                     artCard
-                                }
+                                }*/}
                             </div>
                         </div>
                     </div>
@@ -67,8 +61,8 @@ GalleryPage.propTypes = {
   clearAllNotifications: PropTypes.func
 }
 
-export const mapStateToProps = ({artGallery, currentArt}) => ({
-  artGallery, currentArt
+export const mapStateToProps = ({artGallery, currentArt, user}) => ({
+  artGallery, currentArt, user
 })
 
 export const mapDispatchToProps = dispatch => ({

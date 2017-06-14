@@ -39,17 +39,17 @@ class LoginForm extends Component {
             let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue
             let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue
             
-            // this.props.clearAllNotifications()
-            // axios.get('api/mosaic')
-            // .then(function (response) {
-            //     sessionStorage.setItem('currentUser', response.data);
-            // })
-            // .catch(function (error) {
-            //     this.props.addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
-            // })
-            sessionStorage.setItem('currentUser', "test");
-            receiveCurrentUser({test: "test"})
-            window.location = './home'
+            this.props.clearAllNotifications()
+            axios.get(`https://lagunilla.herokuapp.com/login?email=${usernameValue}&password=${passwordValue}`)
+            .then(function (response) {
+                sessionStorage.setItem('currentUser', response.data);
+                receiveCurrentUser(response.data)
+                window.location = './home'
+            })
+            .catch(function (error) {
+                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+            })
+
         } else {
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
         }
@@ -99,7 +99,7 @@ class LoginForm extends Component {
                     <DividerComponent />
                 </div>
                 <div className="row marginTop marginBottom">
-                    <center><Link to="/forgotPassword" id="forgotPasswordBtn">¿Olvidaste tu nombre de usuario o contraseña?</Link></center>
+                    <center><Link to="/forgotPassword" id="forgotPasswordBtn">¿Olvidaste tu contraseña?</Link></center>
                 </div>
             </div>
             <div className="col-xs-0 col-md-4"></div>

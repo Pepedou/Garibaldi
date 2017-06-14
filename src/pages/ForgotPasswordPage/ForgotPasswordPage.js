@@ -8,6 +8,7 @@ import {validateObligatoryFields, getFieldIndex, getFieldValue} from '../../util
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import {connect} from 'react-redux'
 import * as constants from '../../redux/constants'
+import axios from 'axios'
 import '../../Main.css';
 import './ForgotPasswordPage.css';
 
@@ -35,14 +36,14 @@ class ForgotPassword extends Component {
 
     if(result.valid){
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
-        // this.props.clearAllNotifications()
-        // axios.get('api/mosaic')
-        // .then(function (response) {
-        //     GO TO LOGIN
-        // })
-        // .catch(function (error) {
-        //     this.props.addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
-        // })
+        this.props.clearAllNotifications()
+        axios.post(`/users/requestResetPassword?email=${emailValue}`)
+        .then(function (response) {
+            window.location = './'
+        })
+        .catch(function (error) {
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+        })
     } else {
         addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
     }

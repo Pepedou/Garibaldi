@@ -2,7 +2,6 @@ import React, {Component, PropTypes} from 'react'
 import GridListComponent from '../../../ui/grid-list/GridListComponent'
 import * as constants from '../../../../redux/constants'
 import {connect} from 'react-redux'
-import axios from 'axios'
 import './Mosaic.css'
 
 class Mosaic extends Component {

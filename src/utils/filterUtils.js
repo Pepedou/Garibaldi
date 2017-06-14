@@ -1,16 +1,6 @@
 import {UserTypes} from '../utils/constants/UserTypes'
 import {PageTypes} from '../utils/constants/PageTypes'
 
-export let getFilterOptions = (user, page) => {
-  if(page === PageTypes.ART_GALLERY) {
-    return getArtGalleryFilterOptions(user)
-  } else if(page === PageTypes.ARTISTS){
-    return getArtistsFilterOptions(user)
-  } else {
-    return []
-  }
-}
-
 let getArtGalleryFilterOptions = user => {
     let defaultOptions = [
       {value:"1", text: "Nombre de la pieza"},
@@ -22,6 +12,16 @@ let getArtGalleryFilterOptions = user => {
     }
 
     return defaultOptions
+}
+
+export let getFilterOptions = (user, page) => {
+  if(page === PageTypes.ART_GALLERY) {
+    return getArtGalleryFilterOptions(user)
+  } else if(page === PageTypes.ARTISTS){
+    return getArtistsFilterOptions(user)
+  } else {
+    return []
+  }
 }
 
 let getArtistsFilterOptions= user => []
