@@ -36,7 +36,7 @@ class ForgotPassword extends Component {
 
     if(result.valid){
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
-        this.props.clearAllNotifications()
+        clearAllNotifications()
         axios.post(`/users/requestResetPassword?email=${emailValue}`)
         .then(function (response) {
             window.location = './'
