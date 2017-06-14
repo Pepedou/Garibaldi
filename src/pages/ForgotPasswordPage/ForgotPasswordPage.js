@@ -35,7 +35,14 @@ class ForgotPassword extends Component {
 
     if(result.valid){
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
-        //TODO: Llamada al servicio
+        // this.props.clearAllNotifications()
+        // axios.get('api/mosaic')
+        // .then(function (response) {
+        //     GO TO LOGIN
+        // })
+        // .catch(function (error) {
+        //     this.props.addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+        // })
     } else {
         addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
     }

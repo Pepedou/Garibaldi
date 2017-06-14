@@ -29,12 +29,18 @@ let store = createStore(
    window.devToolsExtension ? window.devToolsExtension() : f => f
  ))
 
- export let clearNotifications = (store) => {
+export let clearNotifications = (store) => {
   store.dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
 }
 
- export let everyPageNavigation = store => {
+export let receiveCurrentUser = (store, currentUser) => {
+  store.dispatch({type: constants.CURRENT_USER_RECIEVED, user: currentUser})
+}
+
+export let everyPageNavigation = store => {
     clearNotifications(store)
+    let currentUser = sessionStorage.getItem('currentUser') || {}
+    receiveCurrentUser(store, currentUser)
  }
 
 let requireAuth = (nextState, replace) =>

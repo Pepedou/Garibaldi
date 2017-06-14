@@ -38,8 +38,18 @@ class LoginForm extends Component {
         if(result.valid){
             let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue
             let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue
-            //TODO: Llamada al servicio
-            sessionStorage.setItem('currentUser', 'usuario');
+            
+            // this.props.clearAllNotifications()
+            // axios.get('api/mosaic')
+            // .then(function (response) {
+            //     sessionStorage.setItem('currentUser', response.data);
+            // })
+            // .catch(function (error) {
+            //     this.props.addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+            // })
+            sessionStorage.setItem('currentUser', "test");
+            receiveCurrentUser({test: "test"})
+            window.location = './home'
         } else {
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
         }

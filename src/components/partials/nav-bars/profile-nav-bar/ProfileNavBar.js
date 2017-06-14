@@ -6,6 +6,8 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import '../../../../Main.css';
 import './ProfileNavBar.css';
 import {white} from 'material-ui/styles/colors';
+import {connect} from 'react-redux'
+import * as constants from '../../../../redux/constants'
 
 let styles = {
     iconStyle: {
@@ -13,10 +15,13 @@ let styles = {
     }
 }
 
-export default class ProfileNavBar extends Component {
-    handleOnItemTouchTap(event, child) {
-        console.log("event", event);
-        console.log("child", child.props.primaryText);
+class ProfileNavBar extends Component {
+    handleOnItemTouchTap(event, child, receiveCurrentUser) {
+        if(child.props.value === "logout") {
+            sessionStorage.removeItem("currentUser");
+            receiveCurrentUser({})
+            window.location = './'
+        }
     }
 
     render() {
@@ -28,12 +33,12 @@ export default class ProfileNavBar extends Component {
                         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                         targetOrigin={{horizontal: 'left', vertical: 'top'}}
                         animated={true}
-                        onItemTouchTap={this.handleOnItemTouchTap}
+                        onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, this.props.receiveCurrentUser)}
                         iconStyle={styles.iconStyle}
                         className={"UserIconMenu"}
                         >
-                        <MenuItem primaryText="Mi perfil" />
-                        <MenuItem primaryText="Cerrar sesión" />
+                        <MenuItem primaryText="Mi perfil" value="myProfile"/>
+                        <MenuItem primaryText="Cerrar sesión" value="logout"/>
                     </IconMenu>
                     <div className="userFullName">{`${this.props.user.name} ${this.props.user.lastName}`}</div>
                 </div>
@@ -50,3 +55,9 @@ ProfileNavBar.displayName = 'ProfileNavBar'
 ProfileNavBar.propTypes = {
   user: PropTypes.object
 };
+
+export const mapDispatchToProps = dispatch => ({
+  receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user})
+})
+
+export default connect(null, mapDispatchToProps)(ProfileNavBar)

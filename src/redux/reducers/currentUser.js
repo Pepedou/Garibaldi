@@ -1,6 +1,6 @@
 import * as constants from "../constants"
 
-export let currentUserReducer = (state = [], action) => {
+export let currentUserReducer = (state = {}, action) => {
   let {type, user} = action
 
   switch (type) {
