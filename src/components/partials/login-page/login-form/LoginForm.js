@@ -39,6 +39,7 @@ class LoginForm extends Component {
             let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue
             let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue
             //TODO: Llamada al servicio
+            sessionStorage.setItem('currentUser', 'usuario');
         } else {
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
         }

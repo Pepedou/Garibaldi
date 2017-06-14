@@ -34,21 +34,27 @@ let store = createStore(
 }
 
  export let everyPageNavigation = store => {
-    // clearNotifications(store)
+    clearNotifications(store)
  }
+
+let requireAuth = (nextState, replace) =>
+{
+   if(!sessionStorage.getItem('currentUser'))
+     replace('/');
+}
 
 const router = (
     <Provider store={store}>
         <MuiThemeProvider>
             <Router history={browserHistory}>
-                <Route path="/" component={LoginLayout} onChange={everyPageNavigation()}>
-                    <IndexRoute component={Login} />
-                    <Route path="/register" component={RegisterPage} />
-                    <Route path="/forgotPassword" component={ForgotPasswordPage} />
+                <Route path="/" component={LoginLayout}>
+                    <IndexRoute component={Login} onChange={everyPageNavigation(store)}/>
+                    <Route path="/register" component={RegisterPage} onChange={everyPageNavigation(store)} />
+                    <Route path="/forgotPassword" component={ForgotPasswordPage} onChange={everyPageNavigation(store)} />
                 </Route>
-                <Route path="/home" component={BaseLayout} onChange={everyPageNavigation()}>
-                    <IndexRoute component={GalleryPage} />
-                    <Route path="/artists" component={ArtistsPage} />
+                <Route path="/home" component={BaseLayout} onChange={everyPageNavigation(store)}>
+                    <IndexRoute component={GalleryPage} onEnter={requireAuth} onChange={everyPageNavigation(store)}/>
+                    <Route path="/artists" component={ArtistsPage} onEnter={requireAuth} onChange={everyPageNavigation(store)}/>
                 </Route>
                 <Route path="/play" component={PlaygroundPage} />
             </Router>
