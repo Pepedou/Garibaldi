@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux'
 import {validateObligatoryFields, getFieldIndex, getUserFields, getFieldValue, isEmailFormatValid, areFieldsEqual, updateField} from '../../../../utils/fieldValidations'
 import DefaultButton from '../../../ui/buttons/DefaultButton'
@@ -41,8 +41,7 @@ class UserForm extends Component {
         this.setState({inputFields: inputFieldsCopy})
     }
 
-    handleOnClick(event, {addNotification, clearAllNotifications}) {
-        clearAllNotifications();
+    handleOnClick(event, {addNotification, clearAllNotifications, loading}) {
         let inputFieldsCopy = {...this.state.inputFields}
 
         let resultUserInformation = validateObligatoryFields(this.state.inputFields.userInformation);
@@ -67,13 +66,16 @@ class UserForm extends Component {
                     let personalInformation = getUserFields(this.state.inputFields.personalInformation);
                     let user = {...userInformation, ...personalInformation};
                     
-                    clearAllNotifications()
+                    clearAllNotifications();
+                    loading(true)
                     axios.post('https://lagunilla.herokuapp.com/api/users/', {user})
                     .then(function (response) {
                         window.location = './'
+                        loading(false)
                     })
                     .catch(function (error) {
                         addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+                        loading(false)
                     })
                 } else {
                     inputFieldsCopy.userInformation = updateField(inputFieldsCopy.userInformation, "email", "errorText", "El email no es igual a su confirmación");
@@ -151,11 +153,18 @@ class UserForm extends Component {
   }
 }
 
+UserForm.propTypes = {
+    addNotification: PropTypes.func,
+    clearAllNotifications: PropTypes.func,
+    loading: PropTypes.func
+}
+
 UserForm.displayName = 'UserForm'
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
-  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
 export default connect(null, mapDispatchToProps)(UserForm)

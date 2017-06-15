@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 
 export default class LoaderComponent extends Component {

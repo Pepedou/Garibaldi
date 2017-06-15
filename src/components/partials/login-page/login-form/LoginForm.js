@@ -30,7 +30,7 @@ class LoginForm extends Component {
         this.setState({inputFields: inputFieldsCopy})
     }
 
-    handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser}){
+    handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser, loading}){
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
         let result = validateObligatoryFields(this.state.inputFields)
@@ -40,14 +40,17 @@ class LoginForm extends Component {
             let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue
             
             clearAllNotifications()
+            loading(true)
             axios.get(`https://lagunilla.herokuapp.com/api/login?email=${usernameValue}&password=${passwordValue}`)
             .then(function (response) {
                 sessionStorage.setItem('currentUser', response.data);
                 receiveCurrentUser(response.data)
                 window.location = './home'
+                loading(false)
             })
             .catch(function (error) {
                 addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+                loading(false)
             })
 
         } else {
@@ -111,15 +114,17 @@ class LoginForm extends Component {
 LoginForm.displayName = 'LoginForm'
 
 LoginForm.propTypes = {
-  addNotification: PropTypes.func,
-  clearAllNotifications: PropTypes.func,
-  receiveCurrentUser: PropTypes.func
+    addNotification: PropTypes.func,
+    clearAllNotifications: PropTypes.func,
+    receiveCurrentUser: PropTypes.func,
+    loading: PropTypes.func
 }
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user})
+  receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user}),
+  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
 export default connect(null, mapDispatchToProps)(LoginForm)

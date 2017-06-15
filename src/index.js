@@ -37,10 +37,15 @@ export let receiveCurrentUser = (store, currentUser) => {
   store.dispatch({type: constants.CURRENT_USER_RECIEVED, user: currentUser})
 }
 
+export let hideLoader = (store) => {
+  store.dispatch({type: constants.SHOW_LOADER, showLoader: false})
+}
+
 export let everyPageNavigation = store => {
     clearNotifications(store)
     let currentUser = sessionStorage.getItem('currentUser') || {}
     receiveCurrentUser(store, currentUser)
+    hideLoader(store)
  }
 
 let requireAuth = (nextState, replace) =>
