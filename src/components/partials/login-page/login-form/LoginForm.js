@@ -46,12 +46,12 @@ class LoginForm extends Component {
             .then(function (response) {
                 sessionStorage.setItem('currentUser', response.data);
                 receiveCurrentUser(response.data)
-                window.location = './home'
                 loading(false)
+                window.location = './home'
             })
             .catch(function (error) {
                 loading(false)
-                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.message});
+                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
                 
             })
 

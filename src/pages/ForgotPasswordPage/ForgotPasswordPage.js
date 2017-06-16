@@ -40,12 +40,12 @@ class ForgotPassword extends Component {
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
         axios.post(`https://lagunilla.herokuapp.com/api/resetPassword?email=${emailValue}`)
         .then(function (response) {
-            window.location = './'
             loading(false)
+            window.location = './'
         })
         .catch(function (error) {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.message});
             loading(false)
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
         })
     } else {
         addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})

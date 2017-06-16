@@ -2,11 +2,21 @@ export let registerUserFields = {
     userInformation: [
         {
             inputType: "textField",
-            floatingLabelText: "Nombre de usuario",
-            hintText: "Ingresa el nombre de usuario",
-            id: "username",
-            type: "text",
+            floatingLabelText: "Email",
+            hintText: "Ingresa el email",
+            id: "email",
+            type: "email",
             className: "userField obligatoryField userInformation TextField",
+            errorText: "",
+            defaultValue: ""
+        },
+        {
+            inputType: "textField",
+            floatingLabelText: "Confirmación de Email",
+            hintText: "Ingresa el email nuevamente",
+            id: "confirmEmail",
+            type: "email",
+            className: "obligatoryField userInformation TextField",
             errorText: "",
             defaultValue: ""
         },
@@ -26,26 +36,6 @@ export let registerUserFields = {
             hintText: "Ingresa la contraseña nuevamente",
             id: "confirmPassword",
             type: "password",
-            className: "obligatoryField userInformation TextField",
-            errorText: "",
-            defaultValue: ""
-        },
-        {
-            inputType: "textField",
-            floatingLabelText: "Email",
-            hintText: "Ingresa el email",
-            id: "email",
-            type: "email",
-            className: "userField obligatoryField userInformation TextField",
-            errorText: "",
-            defaultValue: ""
-        },
-        {
-            inputType: "textField",
-            floatingLabelText: "Confirmación de Email",
-            hintText: "Ingresa el email nuevamente",
-            id: "confirmEmail",
-            type: "email",
             className: "obligatoryField userInformation TextField",
             errorText: "",
             defaultValue: ""

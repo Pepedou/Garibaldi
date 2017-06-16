@@ -70,14 +70,14 @@ class UserForm extends Component {
                     
                     clearAllNotifications();
                     loading(true)
-                    axios.post('https://lagunilla.herokuapp.com/api/users/', {user})
+                    axios.post('https://lagunilla.herokuapp.com/api/users/', user,  { headers: { 'Content-Type': 'application/json' } })
                     .then(function (response) {
-                        window.location = './'
                         loading(false)
+                        window.location = './'
                     })
                     .catch(function (error) {
-                        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.message});
                         loading(false)
+                        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
                     })
                 } else {
                     inputFieldsCopy.userInformation = updateField(inputFieldsCopy.userInformation, "email", "errorText", "El email no es igual a su confirmación");
