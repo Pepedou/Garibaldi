@@ -44,7 +44,7 @@ class ForgotPassword extends Component {
             loading(false)
         })
         .catch(function (error) {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.message});
             loading(false)
         })
     } else {

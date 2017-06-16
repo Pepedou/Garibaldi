@@ -21,7 +21,7 @@ class GalleryPage extends Component {
           }
         })
         .catch(function (error) {
-          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
+          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.message});
         })
     }
 

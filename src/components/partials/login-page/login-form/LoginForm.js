@@ -36,8 +36,9 @@ class LoginForm extends Component {
         let result = validateObligatoryFields(this.state.inputFields)
 
         if(result.valid){
+            let md5 = require('js-md5')
             let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue
-            let passwordValue = getFieldValue(inputFieldsCopy, "password").defaultValue
+            let passwordValue = md5(getFieldValue(inputFieldsCopy, "password").defaultValue)
             
             clearAllNotifications()
             loading(true)
@@ -49,8 +50,9 @@ class LoginForm extends Component {
                 loading(false)
             })
             .catch(function (error) {
-                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error});
                 loading(false)
+                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.message});
+                
             })
 
         } else {
