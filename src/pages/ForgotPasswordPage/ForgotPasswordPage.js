@@ -7,6 +7,7 @@ import {NotificationTypes} from '../../components/alerts/notifications/Notificat
 import {validateObligatoryFields, getFieldIndex, getFieldValue} from '../../utils/fieldValidations'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
+import {handleError} from '../../utils/errorHandling'
 import {connect} from 'react-redux'
 import * as constants from '../../redux/constants'
 import axios from 'axios'
@@ -122,7 +123,7 @@ export const mapStateToProps = ({showLoader}) => ({
 })
 
 export const mapDispatchToProps = dispatch => ({
-  addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
+  addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })

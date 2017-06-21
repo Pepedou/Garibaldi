@@ -4,6 +4,7 @@ import {validateObligatoryFields, getFieldIndex, getUserFields, getFieldValue, i
 import DefaultButton from '../../../ui/buttons/DefaultButton'
 import InputFieldComponent from '../../../ui/input-field/InputFieldComponent'
 import {getForm, FormType} from '../../../../utils/forms/formUtils'
+import {handleError} from '../../../../utils/errorHandling'
 import {NotificationTypes} from '../../../alerts/notifications/NotificationTypes'
 import * as constants from '../../../../redux/constants'
 import '../../../../Main.css';
@@ -164,7 +165,7 @@ UserForm.propTypes = {
 UserForm.displayName = 'UserForm'
 
 export const mapDispatchToProps = dispatch => ({
-  addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
+  addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })

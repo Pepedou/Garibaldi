@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import Mosaic from '../../components/partials/gallery-page/mosaic/Mosaic'
 // import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
 import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
+import {handleError} from '../../utils/errorHandling'
 import axios from 'axios'
 import './GalleryPage.css'
 
@@ -68,7 +69,7 @@ export const mapStateToProps = ({artGallery, currentArt, currentUser}) => ({
 export const mapDispatchToProps = dispatch => ({
   receiveArtGallery: artGallery => dispatch({type: constants.ART_GALLERY_RECIEVED, artGallery}),
   receiveCurrentArt: art => dispatch({type: constants.CURRENT_ART_RECEIVED, art}),
-  addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
+  addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
 })
 

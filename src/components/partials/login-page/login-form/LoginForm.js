@@ -10,6 +10,7 @@ import '../../../../Main.css'
 import './LoginForm.css'
 import axios from 'axios'
 import {getForm, FormType} from '../../../../utils/forms/formUtils'
+import {handleError} from '../../../../utils/errorHandling'
 import {NotificationTypes} from '../../../alerts/notifications/NotificationTypes'
 
 class LoginForm extends Component {
@@ -52,7 +53,6 @@ class LoginForm extends Component {
             .catch(function (error) {
                 loading(false)
                 addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
-                
             })
 
         } else {
@@ -123,7 +123,7 @@ LoginForm.propTypes = {
 }
 
 export const mapDispatchToProps = dispatch => ({
-  addNotification: notification => dispatch({type: constants.ADD_NOTIFICATION, notification}),
+  addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
   receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user}),
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
