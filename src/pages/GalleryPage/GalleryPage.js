@@ -9,9 +9,9 @@ import './GalleryPage.css'
 
 class GalleryPage extends Component {
     componentWillMount() {
-        let {clearAllNotifications, receiveArtGallery, receiveCurrentArt, addNotification, user} = this.props
+        let {clearAllNotifications, receiveArtGallery, receiveCurrentArt, addNotification, currentUser} = this.props
         clearAllNotifications()
-        axios.get(`https://lagunilla.herokuapp.com/api/mosaic?email=${user.email}`)
+        axios.get(`https://lagunilla.herokuapp.com/api/mosaic?email=${currentUser.email}`)
         .then(function (response) {
           if(response.data.length > 0) {
             receiveArtGallery(response.data);
@@ -61,8 +61,8 @@ GalleryPage.propTypes = {
   clearAllNotifications: PropTypes.func
 }
 
-export const mapStateToProps = ({artGallery, currentArt, user}) => ({
-  artGallery, currentArt, user
+export const mapStateToProps = ({artGallery, currentArt, currentUser}) => ({
+  artGallery, currentArt, currentUser
 })
 
 export const mapDispatchToProps = dispatch => ({

@@ -43,7 +43,7 @@ export let hideLoader = (store) => {
 
 export let everyPageNavigation = store => {
     clearNotifications(store)
-    let currentUser = sessionStorage.getItem('currentUser') || {}
+    let currentUser = JSON.parse(sessionStorage.getItem('currentUser')) || {}
     receiveCurrentUser(store, currentUser)
     hideLoader(store)
  }

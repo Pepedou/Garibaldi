@@ -44,7 +44,7 @@ class LoginForm extends Component {
             loading(true)
             axios.get(`https://lagunilla.herokuapp.com/api/login?email=${usernameValue}&password=${passwordValue}`)
             .then(function (response) {
-                sessionStorage.setItem('currentUser', response.data);
+                sessionStorage.setItem('currentUser', JSON.stringify(response.data))
                 receiveCurrentUser(response.data)
                 loading(false)
                 window.location = './home'

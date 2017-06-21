@@ -9,7 +9,7 @@ class BaseLayout extends Component {
   render() {
     return (
       <div className="BaseLaProfileNavBaryout container-fluid degraded-container">
-        <ProfileNavBar user={this.props.user}/>
+        <ProfileNavBar user={this.props.currentUser}/>
         {/*<MainNavBar user={this.props.user}/>*/}
         <div className="row"><NotificationComponent/></div>
 	      <div className="row">{this.props.children}</div>
@@ -21,11 +21,11 @@ class BaseLayout extends Component {
 BaseLayout.displayName = 'BaseLayout'
 
 BaseLayout.propTypes = {
-  user: PropTypes.object
+  currentUser: PropTypes.object
 };
 
-export const mapStateToProps = ({user}) => ({
-  user
+export const mapStateToProps = ({currentUser}) => ({
+  currentUser
 })
 
 export default connect(mapStateToProps, null)(BaseLayout)
