@@ -1,0 +1,170 @@
+exports[`test CardComponent renders 1`] = `
+<div
+  style={
+    Object {
+      "WebkitTapHighlightColor": "rgba(0,0,0,0)",
+      "backgroundColor": "#ffffff",
+      "borderRadius": 2,
+      "boxShadow": "0 1px 6px rgba(0, 0, 0, 0.12),
+             0 1px 4px rgba(0, 0, 0, 0.12)",
+      "boxSizing": "border-box",
+      "color": "rgba(0, 0, 0, 0.87)",
+      "fontFamily": "Roboto, sans-serif",
+      "muiPrepared": true,
+      "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+      "zIndex": 1,
+    }
+  }>
+  <div
+    style={
+      Object {
+        "paddingBottom": 0,
+      }
+    }>
+    <div
+      style={
+        Object {
+          "muiPrepared": true,
+          "position": "relative",
+        }
+      }>
+      <div
+        style={
+          Object {
+            "muiPrepared": true,
+          }
+        }>
+        <img
+          alt=""
+          src=""
+          style={
+            Object {
+              "maxWidth": "100%",
+              "minWidth": "100%",
+              "muiPrepared": true,
+              "verticalAlign": "top",
+              "width": "100%",
+            }
+          } />
+      </div>
+      <div
+        style={
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "muiPrepared": true,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }>
+        <div
+          style={
+            Object {
+              "height": "100%",
+              "muiPrepared": true,
+              "position": "relative",
+            }
+          }>
+          <div
+            style={
+              Object {
+                "background": "rgba(0, 0, 0, 0.54)",
+                "bottom": 0,
+                "left": 0,
+                "muiPrepared": true,
+                "paddingTop": 8,
+                "position": "absolute",
+                "right": 0,
+              }
+            }>
+            <div
+              style={
+                Object {
+                  "muiPrepared": true,
+                  "padding": 16,
+                  "position": "relative",
+                }
+              }>
+              <span
+                style={
+                  Object {
+                    "color": "rgba(255, 255, 255, 0.87)",
+                    "display": "block",
+                    "fontSize": 24,
+                    "lineHeight": "36px",
+                    "muiPrepared": true,
+                  }
+                }>
+                
+              </span>
+              <span
+                style={
+                  Object {
+                    "color": "rgba(255, 255, 255, 0.54)",
+                    "display": "block",
+                    "fontSize": 14,
+                    "muiPrepared": true,
+                  }
+                }>
+                
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      style={
+        Object {
+          "muiPrepared": true,
+          "padding": 16,
+          "position": "relative",
+        }
+      }>
+      <span
+        style={
+          Object {
+            "color": "rgba(0, 0, 0, 0.87)",
+            "display": "block",
+            "fontSize": 24,
+            "lineHeight": "36px",
+            "muiPrepared": true,
+          }
+        }>
+        
+      </span>
+      <span
+        style={
+          Object {
+            "color": "rgba(0, 0, 0, 0.54)",
+            "display": "block",
+            "fontSize": 14,
+            "muiPrepared": true,
+          }
+        }>
+        
+      </span>
+    </div>
+    <div
+      style={
+        Object {
+          "color": "rgba(0, 0, 0, 0.87)",
+          "fontSize": 14,
+          "muiPrepared": true,
+          "padding": 16,
+        }
+      }>
+      
+    </div>
+    <div
+      style={
+        Object {
+          "muiPrepared": true,
+          "padding": 8,
+          "position": "relative",
+        }
+      } />
+  </div>
+</div>
+`;

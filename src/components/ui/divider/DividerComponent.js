@@ -13,7 +13,3 @@ export default class DividerComponent extends Component {
         )
     }
 }
-
-DividerComponent.propTypes = {
-  style: PropTypes.object
-};
