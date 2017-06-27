@@ -1,0 +1,33 @@
+exports[`test LoginNavbar renders 1`] = `
+<div
+  className="LoginNavbar row">
+  <div
+    className="col-xs-12 col-md-4">
+    <a
+      className="loginOption"
+      id="loginOption"
+      onClick={[Function]}
+      style={Object {}}>
+      Iniciar sesión
+    </a>
+    <a
+      className="loginOption"
+      id="registerOption"
+      onClick={[Function]}
+      style={Object {}}>
+      Regístrate
+    </a>
+  </div>
+  <div
+    className="col-xs-12 col-md-4">
+    <center>
+      <img
+        alt=""
+        id="whiteNavLogo"
+        src="" />
+    </center>
+  </div>
+  <div
+    className="col-xs-12 col-md-4" />
+</div>
+`;

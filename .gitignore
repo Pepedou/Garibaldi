@@ -5,6 +5,7 @@
 
 # testing
 /coverage
+/src/pages/PlaygroundPage/PlaygroundPage.js
 
 # production
 /build

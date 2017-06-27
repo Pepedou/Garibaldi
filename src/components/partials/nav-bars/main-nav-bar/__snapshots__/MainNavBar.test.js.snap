@@ -1,0 +1,60 @@
+exports[`test MainNavBar renders 1`] = `
+<div
+  className="MainNavBar navbar navbar-default navbar-static-top">
+  <div
+    className="container">
+    <div
+      className="row">
+      <div
+        className="col-xs-12 col-md-12">
+        <ul
+          className="nav navbar-nav navbar-left">
+          <li>
+            <a
+              onClick={[Function]}
+              style={Object {}}>
+              Archivo
+            </a>
+          </li>
+          <li>
+            <a
+              onClick={[Function]}
+              style={Object {}}>
+              Artistas
+            </a>
+          </li>
+          <li>
+            <div
+              className="SearchBar">
+              <i
+                className="glyphicon glyphicon-search searchElement"
+                id="filterIcon" />
+              <input
+                className="searchElement"
+                id="filterInput"
+                placeholder="Filtrar información..."
+                type="text" />
+              <select
+                className="searchElement"
+                id="filterTypeSelect">
+                <option
+                  value="1">
+                  Nombre de la pieza
+                </option>
+                <option
+                  value="2">
+                  Año
+                </option>
+                <option
+                  value="3">
+                  Artista
+                </option>
+              </select>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+`;

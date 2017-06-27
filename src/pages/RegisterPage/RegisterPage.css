@@ -1,0 +1,14 @@
+.RegisterForm {
+    color: #828282;
+    padding: 0px 20px 0px 20px;
+}
+
+.marginTop{
+    margin-top: 20px;
+}
+
+#registerLogo{
+    content: url("../../content/images/gray_logo.png");
+    width: 150px;
+    margin: 25px 0px;
+}

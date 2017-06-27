@@ -1,0 +1,29 @@
+.LoginNavbar {
+    background-color: #000000;
+    color: #F2F2F2;
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+a.loginOption {
+    float: right;
+    margin-left: 20px;
+    cursor: pointer;
+    color: #F2F2F2;
+    padding-top: 2px;
+}
+
+a.loginOption:hover{
+    font-weight: bold;
+    border: none !important;
+}
+
+a:link  
+{  
+ text-decoration:none;  
+} 
+
+#whiteNavLogo{
+    content: url("../../../../content/images/logo_white_name.png");
+    width: 30%;
+}

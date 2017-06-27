@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+    color: #828282;
+    background-color: #e8e8e8;
+}
+
+div.container-fluid{
+    padding: 0px;
+}
+
+select {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    color: #555;
+    padding: 5px;
+}
+
+div.row{
+    margin:0px;
+}
+
+.whiteNavLogo{
+    content: url("./content/images/logo_white_name.png");
+}
+
+.col-xs-12, .col-md-12{
+    padding: 0px;
+}

@@ -1,0 +1,66 @@
+ section, h1 {
+     margin: 2rem 4rem;
+ }
+
+ .square {
+     width: 150px;
+     height: 150px;
+     background: blue;
+     position: relative;
+ }
+
+ /* The skew method */
+ #skew .square {
+     background-color: purple;
+     -webkit-transition: transform 2s;
+     -moz-transition: transform 2s;
+     -o-transition: transform 2s;
+     -ms-transition: transform 2s;
+     transition: transform 2s;
+ }
+
+ #skew .square:hover {
+    -webkit-transform: skewX(-20deg);
+    -moz-transform: skewX(-20deg);
+    -o-transform: skewX(-20deg);
+    -ms-transform: skewX(-20deg);
+    transform: skewX(-20deg);
+ }
+
+ /* The scale() method */
+ #scale .square div {
+     background: #000;
+     position: absolute;
+     left: 25%;
+     top: 25%;
+     width: 75px;
+     height: 75px;
+     transition: transform 3s, background-color 2s 0.5s;
+ }
+
+ #scale .square div:hover {
+    background-color: blue;
+    transform: scale(2, 2);
+ }
+
+ /* The rotate() method */
+ #rotate .square {
+     background-color: tomato;
+     transition: transform 5s;
+ }
+
+ #rotate .square:hover {
+    transform: rotate(360deg);
+ }
+
+ /* The translate() method */
+ #translate .square {
+     background-color: orange;
+     transition: transform 2.5s, background-color 2s 0.5s;
+ }
+
+ #translate .square:hover {
+     background-color: green;     
+     transform: translateX(900px) rotate(360deg);
+ }
+

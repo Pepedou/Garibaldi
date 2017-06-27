@@ -1,0 +1,28 @@
+.UserForm{
+    padding: 20px;
+}
+
+.subtitle {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.marginTop{
+    margin-top: 20px;
+}
+
+.smallPadding {
+    padding: 0px 5px;
+}
+
+.smallSize {
+    width: 70px;
+}
+
+#saveUserBtn{
+    float: right;
+}
+
+.userColumn {
+    padding: 0px 10px;
+}
