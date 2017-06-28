@@ -40,7 +40,7 @@ class ProfileNavBar extends Component {
                         <MenuItem primaryText="Mi perfil" value="myProfile"/>
                         <MenuItem primaryText="Cerrar sesión" value="logout"/>
                     </IconMenu>
-                    <div className="userFullName">{`${this.props.user.name} ${this.props.user.lastName}`}</div>
+                    <div className="userFullName">{this.props.user.name}</div>
                 </div>
                 <div className="col-xs-4 col-md-6">
                     <img src="" alt="" className="whiteNavLogo"/>

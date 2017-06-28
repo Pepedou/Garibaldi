@@ -22,8 +22,10 @@ export default class MainNavBar extends Component {
                                         : <Link to="/artistProfile">Perfil de artista</Link>
                                     }
                                 </li>
+                            </ul>
+                            <ul className="nav navbar-nav navbar-right">
                                 <li>
-                                    <SearchBar />
+                                    <SearchBar user={this.props.user}/>
                                 </li>
                             </ul>
                         </div>

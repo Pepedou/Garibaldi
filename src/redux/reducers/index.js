@@ -3,7 +3,7 @@ import {showLoaderReducer} from './showLoader'
 import {notificationsReducer} from './notifications'
 import {currentUserReducer} from './currentUser'
 import {artGalleryReducer, updatingArtGalleryReducer} from './artGallery'
-import {currentArtReducer, updatingCurrentArtReducer} from './currentArt'
+import {currentArtReducer} from './currentArt'
 
 const reducers = combineReducers({
   showLoader: showLoaderReducer,
@@ -11,8 +11,7 @@ const reducers = combineReducers({
   currentUser: currentUserReducer,
   artGallery: artGalleryReducer,
   updatingArtGallery: updatingArtGalleryReducer,
-  currentArt: currentArtReducer,
-  updatingCurrentArt: updatingCurrentArtReducer
+  currentArt: currentArtReducer
 })
 
 export default reducers

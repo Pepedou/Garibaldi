@@ -10,14 +10,16 @@ const styles = {
   iconStyle: {fill: 'white'}
 };
 
-export default class GridListComponent extends Component {
-    
+let getColumns = () => screen.width >= 320 && screen.width < 768 ? 1
+: screen.width >= 768 && screen.width < 1024 ? 2
+: 3
 
-    render() {
+export default class GridListComponent extends Component {
+   render() {
         return(
             <GridList
                 style={styles.gridList}
-                cols={3}
+                cols={getColumns()}
                 padding={5}
                 >
                 {this.props.cardList.map((card, key) => (

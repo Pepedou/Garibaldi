@@ -5,6 +5,7 @@ import Mosaic from '../../components/partials/gallery-page/mosaic/Mosaic'
 // import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
 import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
 import {handleError} from '../../utils/errorHandling'
+import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import axios from 'axios'
 import './GalleryPage.css'
 
@@ -30,22 +31,26 @@ class GalleryPage extends Component {
         // let artCard = this.props.artGallery.length > 0 ? <ArtCard currentArt={this.props.currentArt}/> : null
         return (
             <div className="col-xs-12 col-md-12 GalleryPage">
-                <div className="row">
-                    <div className="col-xs-12 col-md-8">
-                        <div className="row">
-                            <Mosaic artGallery={this.props.artGallery}/>
+                {
+                    this.props.updatingArtGallery
+                    ? <div className="marginTop row"><center><LoaderComponent/></center></div>
+                    : <div className="row">
+                        <div className="col-xs-12 col-md-8">
+                            <div className="row">
+                                <Mosaic artGallery={this.props.artGallery}/>
+                            </div>
                         </div>
-                    </div>
-                    <div className="ArtPanelColumn col-xs-12 col-md-4">
-                        <div className="row">
-                            <div className="col-xs-12 col-md-12">
-                                {/*{
-                                    artCard
-                                }*/}
+                        <div className="ArtPanelColumn col-xs-12 col-md-4">
+                            <div className="row">
+                                <div className="col-xs-12 col-md-12">
+                                    {/*{
+                                        artCard
+                                    }*/}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                }
             </div>
         );
     }
@@ -56,14 +61,15 @@ GalleryPage.displayName = 'GalleryPage'
 GalleryPage.propTypes = {
   artGallery: PropTypes.array,
   currentArt: PropTypes.object,
+  updatingArtGallery: PropTypes.bool,
   receiveArtGallery: PropTypes.func,
   receiveCurrentArt: PropTypes.func,
   addNotification: PropTypes.func,
   clearAllNotifications: PropTypes.func
 }
 
-export const mapStateToProps = ({artGallery, currentArt, currentUser}) => ({
-  artGallery, currentArt, currentUser
+export const mapStateToProps = ({artGallery, currentArt, currentUser, updatingArtGallery}) => ({
+  artGallery, currentArt, currentUser, updatingArtGallery
 })
 
 export const mapDispatchToProps = dispatch => ({

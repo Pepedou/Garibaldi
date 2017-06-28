@@ -3,16 +3,23 @@ import {PageTypes} from '../utils/constants/PageTypes'
 
 let getArtGalleryFilterOptions = user => {
     let defaultOptions = [
-      {value:"1", text: "Nombre de la pieza"},
-      {value:"2", text: "Año"}
+      {value:"1", filter: "Todo"},
+      {value:"2", filter: "Nombre de la pieza"},
+      {value:"3", filter: "Año"}
     ]
 
     if(UserTypes.GESTOR_CULTURAL){
-      defaultOptions.push({value:"3", text: "Artista"})
+      defaultOptions.push({value:"4", filter: "Artista"})
     }
 
     return defaultOptions
 }
+
+let getArtistsFilterOptions= user => [
+  {value:"1", filter: "Todo"},
+  {value:"2", filter: "Nombre del artista"},
+  {value:"3", filter: "Corriente"}
+]
 
 export let getFilterOptions = (user, page) => {
   if(page === PageTypes.ART_GALLERY) {
@@ -24,4 +31,13 @@ export let getFilterOptions = (user, page) => {
   }
 }
 
-let getArtistsFilterOptions= user => []
+export let getFilterService = () => {
+  let currentLocation = window.location.href
+  if(currentLocation.includes("home")) {
+    return "https://lagunilla.herokuapp.com/api/" //TODO: Poner servicio
+  } else if(currentLocation.includes("artists")) {
+    return "https://lagunilla.herokuapp.com/api/" //TODO: Poner servicio
+  } else {
+    return ""
+  }
+}

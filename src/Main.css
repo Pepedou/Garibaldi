@@ -26,3 +26,17 @@ div.row{
 .col-xs-12, .col-md-12{
     padding: 0px;
 }
+
+button.defaultBtn {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 4px 10px;
+    cursor: pointer;
+    color: #828282;
+}
+
+button.defaultBtn:hover{
+    background-color: #ccc;
+    border: 1px solid #828282;
+}
