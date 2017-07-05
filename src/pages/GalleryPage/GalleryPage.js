@@ -12,7 +12,7 @@ class GalleryPage extends Component {
     componentWillMount() {
         let {clearAllNotifications, receiveArtGallery, receiveCurrentArt, addNotification, currentUser} = this.props
         clearAllNotifications()
-        axios.get(`https://lagunilla.herokuapp.com/api/mosaic?email=${currentUser.email}`)
+        axios.get(`https://babelagunilla.herokuapp.com/api/mosaic?email=${currentUser.email}`)
         .then(function (response) {
           if(response.data.length > 0) {
             receiveArtGallery(response.data);
