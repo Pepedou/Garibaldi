@@ -8,11 +8,8 @@ require('./ArtCard.css')
 export default class ArtCard extends Component {
     handleAddCategory(artCardInformationCopy) {
         let emptyCategory = {
-            required: false,
-            editableName: true,
-            editableValue: true,
-            categoryName: "Nombre de la categoría...",
-            categoryValue: "Valor de la categoría..."
+            label: "Nombre de la categoría...",
+            value: "Valor de la categoría..."
         }
         artCardInformationCopy.categories.push(emptyCategory);
         //TODO: Poner el dispatch para actualizar detalle
@@ -22,13 +19,13 @@ export default class ArtCard extends Component {
         return (
             <div className="ArtCard">
                 <CardComponent 
-                headerTitle={this.props.currentArt.title}
-                headerSubtitle={this.props.currentArt.year}
-                overlayTitle={this.props.currentArt.title}
-                overlaySubtitle={this.props.currentArt.year}
-                cardImage={this.props.currentArt.source}
-                cardTitle={this.props.currentArt.artist}
-                cardSubtitle={this.props.currentArt.description}
+                headerTitle={this.props.currentArt.detail.title}
+                headerSubtitle={this.props.currentArt.detail.year}
+                overlayTitle={this.props.currentArt.detail.title}
+                overlaySubtitle={this.props.currentArt.detail.year}
+                cardImage={this.props.currentArt.detail.source}
+                cardTitle={this.props.currentArt.detail.author}
+                cardSubtitle={this.props.currentArt.detail.description}
                 cardDescription={<CardDescription artCardInformation={this.props.currentArt} onTouchTap={this.handleAddCategory.bind(this)}/>}
                 cardActions={<CardActions artCardInformation={this.props.currentArt}/>}
                 />

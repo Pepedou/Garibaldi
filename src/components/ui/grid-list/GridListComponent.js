@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Checkbox from 'material-ui/Checkbox';
+import {MosaicTypes} from '../../../utils/constants/MosaicTypes'
 
 const styles = {
   gridList: {
@@ -11,21 +12,44 @@ const styles = {
 };
 
 export default class GridListComponent extends Component {
-    
+    getTitle(mosaicType, card) {
+        if(mosaicType === MosaicTypes.ART) {
+            return card.title
+        } else {
+            return `${card.name} ${card.lastName}`
+        }
+    }
+
+    getSubtitle(mosaicType, card) {
+        if(mosaicType === MosaicTypes.ART) {
+            return card.author
+        } else {
+            return card.email
+        }
+    }
+
+    getSource(mosaicType, card) {
+        if(mosaicType === MosaicTypes.ART) {
+            return card.source
+        } else {
+            return card.photo
+        }
+    }
 
     render() {
+        let {mosaicType} = this.props
         return(
             <GridList
                 style={styles.gridList}
-                cols={3}
+                cols={4}
                 padding={5}
                 >
                 {this.props.cardList.map((card, key) => (
                     <GridTile
                         key={key}
-                        title={card.title}
-                        subtitle={card.artist}
-                        onTouchTap={(event) => this.props.onTouchTap(event, card)}
+                        title={this.getTitle(mosaicType, card)}
+                        subtitle={this.getSubtitle(mosaicType, card)}
+                        onTouchTap={(event) => this.props.onTouchTap(event, card, mosaicType)}
                         actionIcon={<Checkbox
                                         label=""
                                         labelStyle={styles.labelStyle}
@@ -33,7 +57,7 @@ export default class GridListComponent extends Component {
                                         onCheck={(event) => this.props.onCheck(event, card)}
                                         />}
                         >
-                            <img src={card.source} alt=""/>
+                            <img src={this.getSource(mosaicType, card)} alt=""/>
                     </GridTile>
                 ))}
             </GridList>

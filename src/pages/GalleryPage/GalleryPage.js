@@ -6,28 +6,17 @@ import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
 import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
 import {handleError} from '../../utils/errorHandling'
 import axios from 'axios'
+import {MosaicTypes} from '../../utils/constants/MosaicTypes'
 import './GalleryPage.css'
 
 class GalleryPage extends Component {
-    getCurrentArtGallery(id, receiveCurrentArt, addNotification) {
-        axios.get(`https://babelagunilla.herokuapp.com/api/getArtPieceDetail?id=${id}`)
-        .then(function (response) {
-            receiveCurrentArt(response.data);
-        })
-        .catch(function (error) {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
-        })
-    }
-
     componentWillMount() {
-        let {clearAllNotifications, receiveArtGallery, receiveCurrentArt, addNotification, currentUser} = this.props
-        let getCurrentArtGallery = this.getCurrentArtGallery
+        let {clearAllNotifications, receiveArtGallery, addNotification, currentUser} = this.props
         clearAllNotifications()
         axios.get(`https://babelagunilla.herokuapp.com/api/mosaic?email=${currentUser.email}`)
         .then(function (response) {
           if(response.data.length > 0) {
             receiveArtGallery(response.data);
-            getCurrentArtGallery(response.data[0]._id, receiveCurrentArt, addNotification);
           } else {
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
           }
@@ -40,24 +29,15 @@ class GalleryPage extends Component {
     render() {
         let artCard = this.props.artGallery.length > 0 ? <ArtCard currentArt={this.props.currentArt}/> : null
         return (
-            <div className="col-xs-12 col-md-12 GalleryPage">
-                <div className="row">
-                    <div className="col-xs-12 col-md-8">
-                        <div className="row">
-                            <Mosaic artGallery={this.props.artGallery}/>
-                        </div>
-                    </div>
-                    <div className="ArtPanelColumn col-xs-12 col-md-4">
-                        <div className="row">
-                            <div className="col-xs-12 col-md-12">
-                                {
-                                    artCard
-                                }
-                            </div>
-                        </div>
+        <div className="col-xs-12 col-md-12 GalleryPage">
+            <div className="row">
+                <div className="col-xs-12 col-md-12">
+                    <div className="row">
+                        <Mosaic cardList={this.props.artGallery} mosaicType={MosaicTypes.ART}/>
                     </div>
                 </div>
             </div>
+        </div>
         );
     }
 }
@@ -66,20 +46,17 @@ GalleryPage.displayName = 'GalleryPage'
 
 GalleryPage.propTypes = {
   artGallery: PropTypes.array,
-  currentArt: PropTypes.object,
   receiveArtGallery: PropTypes.func,
-  receiveCurrentArt: PropTypes.func,
   addNotification: PropTypes.func,
   clearAllNotifications: PropTypes.func
 }
 
-export const mapStateToProps = ({artGallery, currentArt, currentUser}) => ({
-  artGallery, currentArt, currentUser
+export const mapStateToProps = ({artGallery, currentUser}) => ({
+  artGallery, currentUser
 })
 
 export const mapDispatchToProps = dispatch => ({
   receiveArtGallery: artGallery => dispatch({type: constants.ART_GALLERY_RECIEVED, artGallery}),
-  receiveCurrentArt: art => dispatch({type: constants.CURRENT_ART_RECEIVED, art}),
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
 })
