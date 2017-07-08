@@ -18,7 +18,7 @@ let styles = {
 class ProfileNavBar extends Component {
     handleOnItemTouchTap(event, child, receiveCurrentUser) {
         if(child.props.value === "logout") {
-            sessionStorage.removeItem("currentUser");
+            localStorage.removeItem("currentUser");
             receiveCurrentUser({})
             window.location = './'
         }

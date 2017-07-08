@@ -43,14 +43,14 @@ export let hideLoader = (store) => {
 
 export let everyPageNavigation = store => {
     clearNotifications(store)
-    let currentUser = JSON.parse(sessionStorage.getItem('currentUser')) || {}
+    let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
     receiveCurrentUser(store, currentUser)
     hideLoader(store)
  }
 
 let requireAuth = (nextState, replace) =>
 {
-   if(!sessionStorage.getItem('currentUser'))
+   if(!localStorage.getItem('currentUser'))
      replace('/');
 }
 

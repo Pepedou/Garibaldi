@@ -12,6 +12,23 @@ const styles = {
 };
 
 export default class GridListComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            columns: this.getColumnNumber()
+        };
+    }
+
+    getColumnNumber() {
+        if(screen.width >= 1024) {
+            return 4
+        } else if(screen.width >= 768 && screen.width < 1024) {
+            return 3
+        } else {
+            return 1
+        }
+    }
+
     getTitle(mosaicType, card) {
         if(mosaicType === MosaicTypes.ART) {
             return card.title
@@ -41,7 +58,7 @@ export default class GridListComponent extends Component {
         return(
             <GridList
                 style={styles.gridList}
-                cols={4}
+                cols={this.state.columns}
                 padding={5}
                 >
                 {this.props.cardList.map((card, key) => (
