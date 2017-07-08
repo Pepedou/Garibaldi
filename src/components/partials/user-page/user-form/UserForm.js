@@ -71,7 +71,7 @@ class UserForm extends Component {
                     
                     clearAllNotifications();
                     loading(true)
-                    axios.post('https://babelagunilla.herokuapp.com//api/users/', user,  { headers: { 'Content-Type': 'application/json' } })
+                    axios.post('https://babelagunilla.herokuapp.com/api/users/', user,  { headers: { 'Content-Type': 'application/json' } })
                     .then(function (response) {
                         loading(false)
                         window.location = './'

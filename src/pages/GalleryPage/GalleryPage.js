@@ -2,21 +2,32 @@ import React, {Component, PropTypes} from 'react'
 import * as constants from '../../redux/constants'
 import {connect} from 'react-redux'
 import Mosaic from '../../components/partials/gallery-page/mosaic/Mosaic'
-// import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
+import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
 import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
 import {handleError} from '../../utils/errorHandling'
 import axios from 'axios'
 import './GalleryPage.css'
 
 class GalleryPage extends Component {
+    getCurrentArtGallery(id, receiveCurrentArt, addNotification) {
+        axios.get(`https://babelagunilla.herokuapp.com/api/getArtPieceDetail?id=${id}`)
+        .then(function (response) {
+            receiveCurrentArt(response.data);
+        })
+        .catch(function (error) {
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+        })
+    }
+
     componentWillMount() {
         let {clearAllNotifications, receiveArtGallery, receiveCurrentArt, addNotification, currentUser} = this.props
+        let getCurrentArtGallery = this.getCurrentArtGallery
         clearAllNotifications()
-        axios.get(`https://babelagunilla.herokuapp.com//api/mosaic?email=${currentUser.email}`)
+        axios.get(`https://babelagunilla.herokuapp.com/api/mosaic?email=${currentUser.email}`)
         .then(function (response) {
           if(response.data.length > 0) {
             receiveArtGallery(response.data);
-            receiveCurrentArt(response.data[0]);
+            getCurrentArtGallery(response.data[0]._id, receiveCurrentArt, addNotification);
           } else {
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
           }
@@ -27,7 +38,7 @@ class GalleryPage extends Component {
     }
 
     render() {
-        // let artCard = this.props.artGallery.length > 0 ? <ArtCard currentArt={this.props.currentArt}/> : null
+        let artCard = this.props.artGallery.length > 0 ? <ArtCard currentArt={this.props.currentArt}/> : null
         return (
             <div className="col-xs-12 col-md-12 GalleryPage">
                 <div className="row">
@@ -39,9 +50,9 @@ class GalleryPage extends Component {
                     <div className="ArtPanelColumn col-xs-12 col-md-4">
                         <div className="row">
                             <div className="col-xs-12 col-md-12">
-                                {/*{
+                                {
                                     artCard
-                                }*/}
+                                }
                             </div>
                         </div>
                     </div>
