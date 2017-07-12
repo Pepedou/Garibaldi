@@ -1,4 +1,4 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
 import Divider from 'material-ui/Divider';
 import {grey500} from 'material-ui/styles/colors';
 

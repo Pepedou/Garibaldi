@@ -30,5 +30,5 @@ export default class CardActions extends Component {
 CardActions.displayName = 'CardActions'
 
 CardActions.propTypes = {
-  artCardInformation: PropTypes.object
+  artistCardInformation: PropTypes.object
 };

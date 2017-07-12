@@ -1,0 +1,9 @@
+.ArtistCard{
+    margin: auto;
+}
+
+@media screen and (min-width: 1024px) {
+    .ArtistCard{
+        width: 50%;
+    }
+}
