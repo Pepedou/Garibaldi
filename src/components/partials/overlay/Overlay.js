@@ -8,9 +8,7 @@ export default class Overlay extends Component {
             isVisible: false
         };
     }
-
-
-
+    
   render() {
     return (this.props.isVisible ?
     <div className="Overlay">

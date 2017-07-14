@@ -5,6 +5,13 @@
     margin-right: 20px;
 }
 
+@media screen and (max-width: 400px) {
+    .whiteNavLogo{
+        content: url("../../../../content/images/logo_white_clip.png");
+        width: 20px;
+    }
+}
+
 .ProfileNavBar {
     background-color: #4b4b4b;
     color: white;

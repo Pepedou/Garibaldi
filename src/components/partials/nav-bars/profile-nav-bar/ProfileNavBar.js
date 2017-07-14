@@ -18,7 +18,7 @@ let styles = {
 class ProfileNavBar extends Component {
     handleOnItemTouchTap(event, child, receiveCurrentUser) {
         if(child.props.value === "logout") {
-            sessionStorage.removeItem("currentUser");
+            localStorage.removeItem("currentUser");
             receiveCurrentUser({})
             window.location = './'
         }
@@ -35,7 +35,7 @@ class ProfileNavBar extends Component {
                         animated={true}
                         onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, this.props.receiveCurrentUser)}
                         iconStyle={styles.iconStyle}
-                        className={"UserIconMenu"}
+                        className="UserIconMenu"
                         >
                         <MenuItem primaryText="Mi perfil" value="myProfile"/>
                         <MenuItem primaryText="Cerrar sesión" value="logout"/>

@@ -1,12 +1,72 @@
-import React, {Component} from 'react';
+import React, {Component, PropTypes} from 'react';
+import * as constants from '../../redux/constants'
+import {connect} from 'react-redux'
+import axios from 'axios'
+import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
+import {handleError} from '../../utils/errorHandling'
+import Mosaic from '../../components/partials/mosaic/Mosaic'
+import {MosaicTypes} from '../../utils/constants/MosaicTypes'
+import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 
-export default class ArtistsPage extends Component {
+class ArtistsPage extends Component {
+    componentWillMount() {
+        let {clearAllNotifications, receiveArtistGallery, addNotification, loadingGallery} = this.props
+        clearAllNotifications()
+        loadingGallery(true)
+        axios.get(`https://babelagunilla.herokuapp.com/api/artists`)
+        .then(function (response) {
+          if(response.data.length > 0) {
+            receiveArtistGallery(response.data);
+          } else {
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
+          }
+          loadingGallery(false)
+        })
+        .catch(function (error) {
+          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+          loadingGallery(false)
+        })
+    }
+
     render() {
-        // <Carousel items={items} active={0} ></Carousel>
-        // const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         return (
-            <div className="main-area row">
+        <div className="col-xs-12 col-md-12 ArtistsPage">
+            <div className="row">
+                <div className="col-xs-12 col-md-12">
+                    <div className="row">
+                        {
+                          this.props.updatingArtistGallery
+                          ? <div className="marginTop"><center><LoaderComponent/></center></div>
+                          : <Mosaic cardList={this.props.artistGallery}  mosaicType={MosaicTypes.ARTIST}/>
+                        }
+                    </div>
+                </div>
             </div>
+        </div>
         );
     }
 }
+
+ArtistsPage.displayName = 'ArtistsPage'
+
+ArtistsPage.propTypes = {
+  artistGallery: PropTypes.array,
+  receiveArtistGallery: PropTypes.func,
+  addNotification: PropTypes.func,
+  clearAllNotifications: PropTypes.func,
+  loadingGallery: PropTypes.func,
+  updatingArtistGallery: PropTypes.bool
+}
+
+export const mapStateToProps = ({artistGallery, updatingArtistGallery}) => ({
+  artistGallery, updatingArtistGallery
+})
+
+export const mapDispatchToProps = dispatch => ({
+  receiveArtistGallery: artistGallery => dispatch({type: constants.ARTIST_GALLERY_RECIEVED, artistGallery}),
+  addNotification: notification => handleError(dispatch, notification),
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  loadingGallery: updatingArtistGallery => dispatch({type: constants.UPDATING_ARTIST_GALLERY, updatingArtistGallery})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArtistsPage)

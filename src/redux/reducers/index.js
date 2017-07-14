@@ -3,7 +3,10 @@ import {showLoaderReducer} from './showLoader'
 import {notificationsReducer} from './notifications'
 import {currentUserReducer} from './currentUser'
 import {artGalleryReducer, updatingArtGalleryReducer} from './artGallery'
-import {currentArtReducer} from './currentArt'
+import {artistGalleryReducer, updatingArtistGalleryReducer} from './artistGallery'
+import {currentArtReducer, updatingCurrentArtReducer} from './currentArt'
+import {currentArtistReducer, updatingCurrentArtistReducer} from './currentArtist'
+import {showArtOverlayReducer, showArtistOverlayReducer, showFullImageOverlayReducer} from './overlay'
 
 const reducers = combineReducers({
   showLoader: showLoaderReducer,
@@ -11,7 +14,15 @@ const reducers = combineReducers({
   currentUser: currentUserReducer,
   artGallery: artGalleryReducer,
   updatingArtGallery: updatingArtGalleryReducer,
-  currentArt: currentArtReducer
+  artistGallery: artistGalleryReducer,
+  updatingArtistGallery: updatingArtistGalleryReducer,
+  currentArt: currentArtReducer,
+  updatingCurrentArt: updatingCurrentArtReducer,
+  currentArtist: currentArtistReducer,
+  updatingCurrentArtist: updatingCurrentArtistReducer,
+  showArtOverlay: showArtOverlayReducer,
+  showArtistOverlay: showArtistOverlayReducer,
+  showFullImageOverlay: showFullImageOverlayReducer
 })
 
 export default reducers

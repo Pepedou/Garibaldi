@@ -27,6 +27,50 @@ div.row{
     padding: 0px;
 }
 
+div.Overlay {
+    position: absolute;
+    width: 100vw;
+    z-index: 14;
+    top: 0px;
+    height: 100rem;
+    padding: 0% 5%;
+    background: url('./content/images/background-black.png');
+}
+
+.Overlay-content {
+    float: left;
+    width: 100%;
+}
+
+.Closebtn {
+    color: white;
+    text-decoration: none;
+    font-size: 2em;
+    cursor: pointer;
+    text-align: right;
+    float: right;
+}
+
+div.FullImageOverlay-overlay{
+    background-color: black;
+}
+
+.FullImageOverlay-image{
+    width: 100%;
+}
+
+.FullImage-button {
+    cursor: pointer;
+    text-align: right;
+    color: white;
+    background-color: black;
+    padding: 2px 5px;
+}
+
+.FullImage-button:hover{
+    font-weight: bold;
+}
+
 button.defaultBtn {
     background-color: white;
     border: 1px solid #ccc;

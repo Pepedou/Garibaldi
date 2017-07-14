@@ -1,6 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Checkbox from 'material-ui/Checkbox';
+import {MosaicTypes} from '../../../utils/constants/MosaicTypes'
 
 const styles = {
   gridList: {
@@ -10,24 +11,64 @@ const styles = {
   iconStyle: {fill: 'white'}
 };
 
-let getColumns = () => screen.width >= 320 && screen.width < 768 ? 1
-: screen.width >= 768 && screen.width < 1024 ? 2
-: 3
-
 export default class GridListComponent extends Component {
-   render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            columns: this.getColumnNumber()
+        };
+    }
+
+    getColumnNumber() {
+        if(screen.width >= 1024) {
+            return 4
+        } else if(screen.width >= 768 && screen.width < 1024) {
+            return 3
+        } else if(screen.width >= 400 && screen.width < 768) {
+            return 2
+        } else {
+            return 1
+        }
+    }
+
+    getTitle(mosaicType, card) {
+        if(mosaicType === MosaicTypes.ART) {
+            return card.title
+        } else {
+            return `${card.name} ${card.lastName}`
+        }
+    }
+
+    getSubtitle(mosaicType, card) {
+        if(mosaicType === MosaicTypes.ART) {
+            return card.author
+        } else {
+            return card.email
+        }
+    }
+
+    getSource(mosaicType, card) {
+        if(mosaicType === MosaicTypes.ART) {
+            return card.source
+        } else {
+            return card.photo
+        }
+    }
+
+    render() {
+        let {mosaicType} = this.props
         return(
             <GridList
                 style={styles.gridList}
-                cols={getColumns()}
+                cols={this.state.columns}
                 padding={5}
                 >
                 {this.props.cardList.map((card, key) => (
                     <GridTile
                         key={key}
-                        title={card.title}
-                        subtitle={card.artist}
-                        onTouchTap={(event) => this.props.onTouchTap(event, card)}
+                        title={this.getTitle(mosaicType, card)}
+                        subtitle={this.getSubtitle(mosaicType, card)}
+                        onTouchTap={(event) => this.props.onTouchTap(event, card, mosaicType)}
                         actionIcon={<Checkbox
                                         label=""
                                         labelStyle={styles.labelStyle}
@@ -35,7 +76,7 @@ export default class GridListComponent extends Component {
                                         onCheck={(event) => this.props.onCheck(event, card)}
                                         />}
                         >
-                            <img src={card.source} alt=""/>
+                            <img src={this.getSource(mosaicType, card)} alt=""/>
                     </GridTile>
                 ))}
             </GridList>
