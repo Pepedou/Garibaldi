@@ -33,7 +33,7 @@ div.Overlay {
     width: 100vw;
     z-index: 14;
     top: 0px;
-    height: 100vh;
+    height: 100rem;
     padding: 0% 5%;
     background: url('./content/images/background-black.png');
 }
@@ -50,4 +50,24 @@ div.Overlay {
     cursor: pointer;
     text-align: right;
     float: right;
+}
+
+div.FullImageOverlay-overlay{
+    background-color: black;
+}
+
+.FullImageOverlay-image{
+    width: 100%;
+}
+
+.FullImage-button {
+    cursor: pointer;
+    text-align: right;
+    color: white;
+    background-color: black;
+    padding: 2px 5px;
+}
+
+.FullImage-button:hover{
+    font-weight: bold;
 }

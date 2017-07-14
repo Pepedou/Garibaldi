@@ -63,7 +63,10 @@ class GalleryPage extends Component {
                         {
                             this.props.updatingCurrentArt
                             ? <div className="marginTop"><center><LoaderComponent/></center></div>
-                            : Object.getOwnPropertyNames(this.props.currentArt).length > 0 ? <ArtCard currentArt={this.props.currentArt} receiveCurrentArt={this.props.receiveCurrentArt}/> : null
+                            : Object.getOwnPropertyNames(this.props.currentArt).length > 0 ? <ArtCard 
+                                                                                                currentArt={this.props.currentArt} 
+                                                                                                receiveCurrentArt={this.props.receiveCurrentArt}
+                                                                                                showFullImageOverlayRecieved={this.props.showFullImageOverlayRecieved}/> : null
                         }
                     </div>
                 </div>
@@ -85,7 +88,8 @@ GalleryPage.propTypes = {
   loadingGallery: PropTypes.func,
   loadingArtDetail: PropTypes.func,
   updatingArtGallery: PropTypes.bool,
-  updatingCurrentArt: PropTypes.bool
+  updatingCurrentArt: PropTypes.bool,
+  showFullImageOverlayRecieved: PropTypes.func
 }
 
 export const mapStateToProps = ({artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt}) => ({
@@ -98,7 +102,8 @@ export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
   loadingGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
-  loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt})
+  loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
+  showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryPage)

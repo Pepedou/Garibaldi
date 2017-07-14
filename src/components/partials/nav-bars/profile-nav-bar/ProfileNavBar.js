@@ -35,7 +35,7 @@ class ProfileNavBar extends Component {
                         animated={true}
                         onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, this.props.receiveCurrentUser)}
                         iconStyle={styles.iconStyle}
-                        className={"UserIconMenu"}
+                        className="UserIconMenu"
                         >
                         <MenuItem primaryText="Mi perfil" value="myProfile"/>
                         <MenuItem primaryText="Cerrar sesión" value="logout"/>

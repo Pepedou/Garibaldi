@@ -16,9 +16,17 @@ export default class ArtCard extends Component {
         this.props.receiveCurrentArt(currentArtCopy)
     }
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOverlayVisible: false
+        };
+    }
+
     render() {
         return (
             <div className="ArtCard">
+                <div className="FullImage-button" onClick={() => this.props.showFullImageOverlayRecieved(true)}>Imagen completa</div>
                 <CardComponent 
                     overlayTitle={<Category category={{required: true, categoryName: 'Obra', categoryValue: this.props.currentArt.detail.title.value, editableName: false, editableValue: true}}/>}
                     overlaySubtitle={<Category category={{required: false, categoryName: 'Año', categoryValue: this.props.currentArt.detail.year.value, editableName: false, editableValue: true}}/>}
@@ -37,5 +45,6 @@ ArtCard.displayName = 'ArtCard'
 
 ArtCard.propTypes = {
   currentArt: PropTypes.object,
-  receiveCurrentArt: PropTypes.func
+  receiveCurrentArt: PropTypes.func,
+  showFullImageOverlayRecieved: PropTypes.func
 }

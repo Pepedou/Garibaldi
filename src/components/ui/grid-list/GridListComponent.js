@@ -24,6 +24,8 @@ export default class GridListComponent extends Component {
             return 4
         } else if(screen.width >= 768 && screen.width < 1024) {
             return 3
+        } else if(screen.width >= 400 && screen.width < 768) {
+            return 2
         } else {
             return 1
         }

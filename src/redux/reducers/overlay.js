@@ -23,3 +23,15 @@ export let showArtistOverlayReducer = (state = false, action) => {
     return state
   }
 }
+
+export let showFullImageOverlayReducer = (state = false, action) => {
+  let {type, show} = action
+
+  switch (type) {
+  case constants.SHOW_FULL_IMAGE_OVERLAY:
+    return show
+
+  default:
+    return state
+  }
+}

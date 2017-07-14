@@ -18,7 +18,10 @@ class ArtCardOverlay extends Component {
                 {
                     this.props.updatingCurrentArt
                     ? <div className="marginTop"><center><LoaderComponent/></center></div>
-                    : <ArtCard currentArt={this.props.currentArt} receiveCurrentArt={this.props.receiveCurrentArt}/>
+                    : <ArtCard 
+                        currentArt={this.props.currentArt} 
+                        receiveCurrentArt={this.props.receiveCurrentArt} 
+                        showFullImageOverlayRecieved={this.props.showFullImageOverlayRecieved}/>
                 }
             </div>
         </div> : null);
@@ -32,7 +35,8 @@ ArtCardOverlay.propTypes = {
   showArtOverlayRecieved: PropTypes.func,
   receiveCurrentArt: PropTypes.func,
   currentArt: PropTypes.object,
-  updatingCurrentArt: PropTypes.bool
+  updatingCurrentArt: PropTypes.bool,
+  showFullImageOverlayRecieved: PropTypes.func
 }
 
 export const mapStateToProps = ({showArtOverlay, currentArt, updatingCurrentArt}) => ({
@@ -41,7 +45,8 @@ export const mapStateToProps = ({showArtOverlay, currentArt, updatingCurrentArt}
 
 export const mapDispatchToProps = dispatch => ({
   showArtOverlayRecieved: show => dispatch({type: constants.SHOW_ART_OVERLAY, show}),
-  receiveCurrentArt: art => dispatch({type: constants.CURRENT_ART_RECEIVED, art})
+  receiveCurrentArt: art => dispatch({type: constants.CURRENT_ART_RECEIVED, art}),
+  showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtCardOverlay)
