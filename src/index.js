@@ -1,25 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {Router, Route, IndexRoute, browserHistory} from 'react-router';
-import './index.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
-import GalleryPage from './pages/GalleryPage/GalleryPage';
-import ArtistsPage from './pages/ArtistsPage/ArtistsPage';
-import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage';
-import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Router, Route, IndexRoute, browserHistory} from 'react-router'
+import './index.css'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap-theme.css'
+import GalleryPage from './pages/GalleryPage/GalleryPage'
+import ArtistsPage from './pages/ArtistsPage/ArtistsPage'
+import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage'
 import LoginLayout from './components/layouts/login-layout/LoginLayout'
 import BaseLayout from './components/layouts/base/BaseLayout'
-import Login from './Login';
-import RegisterPage from './pages/RegisterPage/RegisterPage';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Login from './Login'
+import RegisterPage from './pages/RegisterPage/RegisterPage'
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk';
+import thunk from 'redux-thunk'
 import reducers from './redux/reducers'
 import * as constants from "./redux/constants"
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
 
 let store = createStore(
  reducers,

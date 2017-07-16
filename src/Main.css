@@ -4,6 +4,10 @@ body {
     background-color: #e8e8e8;
 }
 
+a {
+    cursor: pointer;
+}
+
 div.container-fluid{
     padding: 0px;
 }
