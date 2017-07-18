@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import ArtistCard from '../artist-card/ArtistCard'
 import * as constants from '../../../../redux/constants'
 import LoaderComponent from '../../../../components/ui/loader/LoaderComponent'

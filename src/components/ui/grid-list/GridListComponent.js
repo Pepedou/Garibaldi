@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Checkbox from 'material-ui/Checkbox';
 import {MosaicTypes} from '../../../utils/constants/MosaicTypes'

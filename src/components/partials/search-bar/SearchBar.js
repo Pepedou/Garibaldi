@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {getFilterOptions, getFilterService} from '../../../utils/filterUtils'
 import {PageTypes} from '../../../utils/constants/PageTypes'
 import * as constants from '../../../redux/constants'

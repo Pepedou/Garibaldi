@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import SearchBar from '../../search-bar/SearchBar';
 import {Link} from 'react-router';
 import {UserTypes} from '../../../../utils/constants/UserTypes'

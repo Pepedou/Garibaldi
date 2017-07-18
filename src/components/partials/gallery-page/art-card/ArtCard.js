@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import CardComponent from '../../../ui/card/CardComponent.js'
 import CardDescription from './CardDescription'
 import CardActions from './CardActions'

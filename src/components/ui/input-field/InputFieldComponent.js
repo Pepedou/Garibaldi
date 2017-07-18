@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import TextFieldComponent from '../text-field/TextFieldComponent'
 import SelectFieldComponent from '../select-field/SelectFieldComponent'
 

@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import GridListComponent from '../../ui/grid-list/GridListComponent'
 import * as constants from '../../../redux/constants'
 import {connect} from 'react-redux'
@@ -40,17 +41,17 @@ class Mosaic extends Component {
   }
 
   handleOnTouchTap(event, card, mosaicType) {
-      let {receiveCurrentArt, receiveCurrentArtist, addNotification, showArtOverlayRecieved, showArtistOverlayRecieved, loadingArtDetail, loadingArtistDetail} = this.props
-
-      if(mosaicType === MosaicTypes.ART) {
-        this.getArtDetail(card, receiveCurrentArt, showArtOverlayRecieved, addNotification, loadingArtDetail)
-      } else {
-        this.getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail)
+      if(event.target.type !== "checkbox") {
+        let {receiveCurrentArt, receiveCurrentArtist, addNotification, showArtOverlayRecieved, showArtistOverlayRecieved, loadingArtDetail, loadingArtistDetail} = this.props
+        if(mosaicType === MosaicTypes.ART) {
+          this.getArtDetail(card, receiveCurrentArt, showArtOverlayRecieved, addNotification, loadingArtDetail)
+        } else {
+          this.getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail)
+        }
       }
   }
 
   handleOnCheck(event, card) {
-    event.stopImmediatePropagation()
     console.log(card)
   }
     

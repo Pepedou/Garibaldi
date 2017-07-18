@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import LoginNavbar from '../../components/partials/nav-bars/login-nav-bar/LoginNavbar';
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import {getForm, FormType} from '../../utils/forms/formUtils'
