@@ -17,6 +17,7 @@ export default class DefaultButton extends Component {
                 style={{...styles.button, float:this.props.floatStyle}}
                 onTouchTap={this.props.onTouchTap}
                 className={this.props.className}
+                type={this.props.type}
                 />
         )
     }
@@ -27,5 +28,6 @@ DefaultButton.propTypes = {
   labelPosition: PropTypes.string,
   onTouchTap: PropTypes.func,
   className: PropTypes.string,
-  floatStyle: PropTypes.string
+  floatStyle: PropTypes.string,
+  type: PropTypes.string
 };

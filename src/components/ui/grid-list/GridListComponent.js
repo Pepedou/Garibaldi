@@ -57,7 +57,7 @@ export default class GridListComponent extends Component {
     }
 
     render() {
-        let {mosaicType} = this.props
+        let {mosaicType, addCheckCard, deleteCheckCard} = this.props
         return(
             <GridList
                 style={styles.gridList}
@@ -74,7 +74,7 @@ export default class GridListComponent extends Component {
                                         label=""
                                         labelStyle={styles.labelStyle}
                                         iconStyle={styles.iconStyle}
-                                        onCheck={(event) => this.props.onCheck(event, card)}
+                                        onCheck={(event) => this.props.onCheck(event, card, addCheckCard, deleteCheckCard)}
                                         />}
                         >
                             <img src={this.getSource(mosaicType, card)} alt=""/>
@@ -88,5 +88,7 @@ export default class GridListComponent extends Component {
 GridListComponent.propTypes = {
   cardList: PropTypes.array,
   onTouchTap: PropTypes.func,
-  onCheck: PropTypes.func
+  onCheck: PropTypes.func,
+  addCheckCard: PropTypes.func,
+  deleteCheckCard: PropTypes.func
 };

@@ -7,6 +7,7 @@ import {artistGalleryReducer, updatingArtistGalleryReducer} from './artistGaller
 import {currentArtReducer, updatingCurrentArtReducer} from './currentArt'
 import {currentArtistReducer, updatingCurrentArtistReducer} from './currentArtist'
 import {showArtOverlayReducer, showArtistOverlayReducer, showFullImageOverlayReducer} from './overlay'
+import {checkCardsReducer} from './floatingBar'
 
 const reducers = combineReducers({
   showLoader: showLoaderReducer,
@@ -22,7 +23,8 @@ const reducers = combineReducers({
   updatingCurrentArtist: updatingCurrentArtistReducer,
   showArtOverlay: showArtOverlayReducer,
   showArtistOverlay: showArtistOverlayReducer,
-  showFullImageOverlay: showFullImageOverlayReducer
+  showFullImageOverlay: showFullImageOverlayReducer,
+  checkCards: checkCardsReducer
 })
 
 export default reducers

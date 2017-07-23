@@ -6,10 +6,13 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
 import GalleryPage from './pages/GalleryPage/GalleryPage'
 import ArtistsPage from './pages/ArtistsPage/ArtistsPage'
+import AddCardPage from './pages/AddCardPage/AddCardPage'
+import UserProfilePage from './pages/UserProfilePage/UserProfilePage'
 import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage'
 import LoginLayout from './components/layouts/login-layout/LoginLayout'
 import BaseLayout from './components/layouts/base/BaseLayout'
+import SimpleLayout from './components/layouts/simple/SimpleLayout'
 import Login from './Login'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -33,6 +36,10 @@ export let clearNotifications = (store) => {
   store.dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
 }
 
+export let clearCheckCards = (store) => {
+  store.dispatch({type: constants.CLEAR_CHECK_CARDS})
+}
+
 export let receiveCurrentUser = (store, currentUser) => {
   store.dispatch({type: constants.CURRENT_USER_RECIEVED, user: currentUser})
 }
@@ -43,15 +50,24 @@ export let hideLoader = (store) => {
 
 export let everyPageNavigation = store => {
     clearNotifications(store)
+    clearCheckCards(store)
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
     receiveCurrentUser(store, currentUser)
     hideLoader(store)
- }
+}
 
-let requireAuth = (nextState, replace) =>
-{
-   if(!localStorage.getItem('currentUser'))
-     replace('/');
+function requireAuth(store, checkLogin) {
+  return (nextState, replace) => {
+    everyPageNavigation(store)
+    if(!localStorage.getItem('currentUser')) {
+        if(nextState.location.pathname !== "/" && checkLogin) {
+            replace('/')
+        }
+    } else {
+        if(nextState.location.pathname === "/")
+            replace('/home')
+    }
+  };
 }
 
 const router = (
@@ -59,13 +75,17 @@ const router = (
         <MuiThemeProvider>
             <Router history={browserHistory}>
                 <Route path="/" component={LoginLayout}>
-                    <IndexRoute component={Login} onChange={everyPageNavigation(store)}/>
-                    <Route path="/register" component={RegisterPage} onChange={everyPageNavigation(store)} />
-                    <Route path="/forgotPassword" component={ForgotPasswordPage} onChange={everyPageNavigation(store)} />
+                    <IndexRoute component={Login} onEnter={requireAuth(store, false)}/>
+                    <Route path="/register" component={RegisterPage} onEnter={requireAuth(store, false)} />
+                    <Route path="/forgotPassword" component={ForgotPasswordPage} onEnter={requireAuth(store, false)} />
                 </Route>
-                <Route path="/home" component={BaseLayout} onChange={everyPageNavigation(store)}>
-                    <IndexRoute component={GalleryPage} onEnter={requireAuth} onChange={everyPageNavigation(store)}/>
-                    <Route path="/artists" component={ArtistsPage} onEnter={requireAuth} onChange={everyPageNavigation(store)}/>
+                <Route path="/home" component={BaseLayout} onEnter={requireAuth(store, true)}>
+                    <IndexRoute component={GalleryPage} onEnter={requireAuth(store, true)}/>
+                    <Route path="/artists" component={ArtistsPage} onEnter={requireAuth(store, true)}/>
+                </Route>
+                <Route component={SimpleLayout}>
+                    <Route path="/newElement" component={AddCardPage} onEnter={requireAuth(store, true)}/>
+                    <Route path="/myUserProfile" component={UserProfilePage} onEnter={requireAuth(store, true)}/>
                 </Route>
                 <Route path="/play" component={PlaygroundPage} />
             </Router>

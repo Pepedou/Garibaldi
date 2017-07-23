@@ -51,8 +51,12 @@ class Mosaic extends Component {
       }
   }
 
-  handleOnCheck(event, card) {
-    console.log(card)
+  handleOnCheck(event, card, addCheckCard, deleteCheckCard) {
+    if(event.target.checked) {
+      addCheckCard(card._id)
+    } else {
+      deleteCheckCard(card._id)
+    }
   }
     
   render() {
@@ -62,6 +66,8 @@ class Mosaic extends Component {
           this.props.cardList && <GridListComponent 
                                     cardList={this.props.cardList}
                                     mosaicType={this.props.mosaicType}
+                                    addCheckCard={this.props.addCheckCard}
+                                    deleteCheckCard={this.props.deleteCheckCard}
                                     onTouchTap={this.handleOnTouchTap.bind(this)}
                                     onCheck={this.handleOnCheck.bind(this)}/>
         }
@@ -80,6 +86,8 @@ Mosaic.propTypes = {
   addNotification: PropTypes.func,
   loadingArtistDetail: PropTypes.func,
   loadingArtDetail: PropTypes.func,
+  addCheckCard: PropTypes.func,
+  deleteCheckCard: PropTypes.func
 }
 
 export const mapDispatchToProps = dispatch => ({
@@ -89,7 +97,9 @@ export const mapDispatchToProps = dispatch => ({
   showArtOverlayRecieved: show => dispatch({type: constants.SHOW_ART_OVERLAY, show}),
   showArtistOverlayRecieved: show => dispatch({type: constants.SHOW_ARTIST_OVERLAY, show}),
   loadingArtistDetail: updatingCurrentArtist => dispatch({type: constants.UPDATING_CURRENT_ARTIST, updatingCurrentArtist}),
-  loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt})
+  loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
+  addCheckCard: cardId => dispatch({type: constants.ADD_CHECK_CARD, cardId}),
+  deleteCheckCard: cardId => dispatch({type: constants.DELETE_CHECK_CARD, cardId})
 })
 
 export default connect(null, mapDispatchToProps)(Mosaic)

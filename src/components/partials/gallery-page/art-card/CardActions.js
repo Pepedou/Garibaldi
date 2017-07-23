@@ -6,7 +6,7 @@ export default class CardActions extends Component {
     render() {
         return (
             <div className="CardActions row">
-                {/*<center>
+                <center>
                     <DefaultButton
                         label="Guardar"
                         floatStyle="center"
@@ -22,7 +22,7 @@ export default class CardActions extends Component {
                         floatStyle="center"
                         onTouchTap={event => this.handlePDF(event, this.props.artCardInformation)}
                         />
-                </center>*/}
+                </center>
             </div>
         );
   }

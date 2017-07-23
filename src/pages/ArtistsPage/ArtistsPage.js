@@ -31,19 +31,15 @@ class ArtistsPage extends Component {
 
     render() {
         return (
-        <div className="col-xs-12 col-md-12 ArtistsPage">
-            <div className="row">
-                <div className="col-xs-12 col-md-12">
-                    <div className="row">
-                        {
-                          this.props.updatingArtistGallery
-                          ? <div className="marginTop"><center><LoaderComponent/></center></div>
-                          : <Mosaic cardList={this.props.artistGallery}  mosaicType={MosaicTypes.ARTIST}/>
-                        }
-                    </div>
-                </div>
-            </div>
-        </div>
+          <div className="col-xs-12 col-md-12 ArtistsPage">
+              <div className="row">
+                  {
+                    this.props.updatingArtistGallery
+                    ? <div className="marginTop"><center><LoaderComponent/></center></div>
+                    : <Mosaic cardList={this.props.artistGallery}  mosaicType={MosaicTypes.ARTIST}/>
+                  }
+              </div>
+          </div>
         );
     }
 }

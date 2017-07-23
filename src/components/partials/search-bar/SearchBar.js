@@ -39,7 +39,6 @@ class SearchBar extends Component {
             getFilterOptions(this.props.currentUser, PageTypes.ART_GALLERY).map((item, key) => <option value={item.value} key={key}>{item.filter}</option>)
           }
         </select>
-        <button type="button" className="defaultBtn" onClick={event => this.handleOnClick(event, this.props)}>Buscar</button>
       </div>
     );
   }

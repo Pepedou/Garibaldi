@@ -33,6 +33,7 @@ class ForgotPassword extends Component {
 }
 
   handleOnClick(event, {addNotification, clearAllNotifications, loading}){ 
+    event.preventDefault()
     let inputFieldsCopy = [...this.state.inputFields]
     let result = validateObligatoryFields(this.state.inputFields);
 
@@ -76,28 +77,30 @@ class ForgotPassword extends Component {
                 </div>
                 <div className="row marginTop">
                     <div className="form-group">
-                        {
-                            this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
-                                                                        inputType={item.inputType} 
-                                                                        hintText={item.hintText}
-                                                                        floatingLabelText={item.floatingLabelText}
-                                                                        className={item.className}
-                                                                        id={item.id}
-                                                                        type={item.type}
-                                                                        errorText={item.errorText}
-                                                                        options={item.options}
-                                                                        defaultValue={item.defaultValue}
-                                                                        onChange={event => this.handleOnChange(event)}/>)
-                        }
-                        <center>
-                            <DefaultButton
-                                label="Recuperar Contraseña"
-                                labelPosition="after"
-                                floatStyle="center"
-                                onTouchTap={event => this.handleOnClick(event, this.props)}
-                                className="marginTop"
-                                />
-                        </center>
+                        <form onSubmit={event => this.handleOnClick(event, this.props)}>
+                            {
+                                this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
+                                                                            inputType={item.inputType} 
+                                                                            hintText={item.hintText}
+                                                                            floatingLabelText={item.floatingLabelText}
+                                                                            className={item.className}
+                                                                            id={item.id}
+                                                                            type={item.type}
+                                                                            errorText={item.errorText}
+                                                                            options={item.options}
+                                                                            defaultValue={item.defaultValue}
+                                                                            onChange={event => this.handleOnChange(event)}/>)
+                            }
+                            <center>
+                                <DefaultButton
+                                    label="Recuperar Contraseña"
+                                    labelPosition="after"
+                                    floatStyle="center"
+                                    className="marginTop"
+                                    type="submit"
+                                    />
+                            </center>
+                        </form>
                     </div>
                 </div>
             </div>

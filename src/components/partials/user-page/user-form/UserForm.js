@@ -44,6 +44,7 @@ class UserForm extends Component {
     }
 
     handleOnClick(event, {addNotification, clearAllNotifications, loading}) {
+        event.preventDefault()
         let inputFieldsCopy = {...this.state.inputFields}
 
         let resultUserInformation = validateObligatoryFields(this.state.inputFields.userInformation);
@@ -104,54 +105,56 @@ class UserForm extends Component {
   render() {
     return (
       <div className="UserForm row">
-        <div className="col-xs-12 col-md-6 userColumn">
-            <div className="row subtitle">Datos de usuario</div>
-            <div className="row">
-                <div className="col-xs-12 col-md-12">
-                    {
-                        this.state.inputFields.userInformation.map((item, key) => <InputFieldComponent key={key}
-                                                                inputType={item.inputType} 
-                                                                hintText={item.hintText}
-                                                                floatingLabelText={item.floatingLabelText}
-                                                                className={item.className}
-                                                                id={item.id}
-                                                                type={item.type}
-                                                                errorText={item.errorText}
-                                                                options={item.options}
-                                                                defaultValue={item.defaultValue}
-                                                                onChange={event => this.handleOnChange(event)}/>)
-                    }
+        <form onSubmit={event => this.handleOnClick(event, this.props)}>
+            <div className="col-xs-12 col-md-6 userColumn">
+                <div className="row subtitle">Datos de usuario</div>
+                <div className="row">
+                    <div className="col-xs-12 col-md-12">
+                        {
+                            this.state.inputFields.userInformation.map((item, key) => <InputFieldComponent key={key}
+                                                                    inputType={item.inputType} 
+                                                                    hintText={item.hintText}
+                                                                    floatingLabelText={item.floatingLabelText}
+                                                                    className={item.className}
+                                                                    id={item.id}
+                                                                    type={item.type}
+                                                                    errorText={item.errorText}
+                                                                    options={item.options}
+                                                                    defaultValue={item.defaultValue}
+                                                                    onChange={event => this.handleOnChange(event)}/>)
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-        <div className="col-xs-12 col-md-6 userColumn">
-            <div className="row subtitle">Datos personales</div>
-            <div className="row">
-                <div className="col-xs-12 col-md-12">
-                    {
-                        this.state.inputFields.personalInformation.map((item, key) => <InputFieldComponent key={key}
-                                                                inputType={item.inputType} 
-                                                                hintText={item.hintText}
-                                                                floatingLabelText={item.floatingLabelText}
-                                                                className={item.className}
-                                                                id={item.id}
-                                                                type={item.type}
-                                                                errorText={item.errorText}
-                                                                options={item.options}
-                                                                defaultValue={item.defaultValue}
-                                                                onChange={event => this.handleOnChange(event)}/>)
-                    }
+            <div className="col-xs-12 col-md-6 userColumn">
+                <div className="row subtitle">Datos personales</div>
+                <div className="row">
+                    <div className="col-xs-12 col-md-12">
+                        {
+                            this.state.inputFields.personalInformation.map((item, key) => <InputFieldComponent key={key}
+                                                                    inputType={item.inputType} 
+                                                                    hintText={item.hintText}
+                                                                    floatingLabelText={item.floatingLabelText}
+                                                                    className={item.className}
+                                                                    id={item.id}
+                                                                    type={item.type}
+                                                                    errorText={item.errorText}
+                                                                    options={item.options}
+                                                                    defaultValue={item.defaultValue}
+                                                                    onChange={event => this.handleOnChange(event)}/>)
+                        }
+                    </div>
                 </div>
             </div>
-        </div>
-        <div className="row">
-            <DefaultButton
-                label="Guardar Usuario"
-                labelPosition="after"
-                floatStyle="right"
-                onTouchTap={event => this.handleOnClick(event, this.props)}
-                />
-        </div>
+            <div className="row">
+                <DefaultButton
+                    label="Guardar Usuario"
+                    labelPosition="after"
+                    floatStyle="right"
+                    type="submit"
+                    />
+            </div>
+        </form>
     </div>
     );
   }

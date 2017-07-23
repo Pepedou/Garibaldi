@@ -33,6 +33,7 @@ class LoginForm extends Component {
     }
 
     handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser, loading}){
+        event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
         let result = validateObligatoryFields(this.state.inputFields)
@@ -77,7 +78,8 @@ class LoginForm extends Component {
                 </div>
                 <div className="row marginTop">
                     <div className="form-group">
-                        {
+                        <form onSubmit={event => this.handleOnClick(event, this.props)}>
+                            {
                                 this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
                                                                         inputType={item.inputType} 
                                                                         hintText={item.hintText}
@@ -89,16 +91,17 @@ class LoginForm extends Component {
                                                                         options={item.options}
                                                                         defaultValue={item.defaultValue}
                                                                         onChange={event => this.handleOnChange(event)}/>)
-                                }
-                        <center>
-                            <DefaultButton
-                                label="Iniciar Sesión"
-                                labelPosition="after"
-                                floatStyle="center"
-                                onTouchTap={event => this.handleOnClick(event, this.props)}
-                                className="marginTop"
-                                />
-                        </center>
+                            }
+                            <center>
+                                <DefaultButton
+                                    label="Iniciar Sesión"
+                                    labelPosition="after"
+                                    floatStyle="center"
+                                    className="marginTop"
+                                    type="submit"
+                                    />
+                            </center>
+                        </form>
                     </div>
                 </div>
                 <div className="row marginTop">

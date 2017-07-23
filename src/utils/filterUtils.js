@@ -1,5 +1,6 @@
 import {UserTypes} from '../utils/constants/UserTypes'
 import {PageTypes} from '../utils/constants/PageTypes'
+import ApiRoutes from '../utils/services/apiRoutes'
 
 let getArtGalleryFilterOptions = user => {
     let defaultOptions = [
@@ -34,9 +35,9 @@ export let getFilterOptions = (user, page) => {
 export let getFilterService = () => {
   let currentLocation = window.location.href
   if(currentLocation.includes("home")) {
-    return "https://lagunilla.herokuapp.com/api/" //TODO: Poner servicio
+    return ApiRoutes.getServiceUrl(ApiRoutes.MOSAIC) //TODO: Poner servicio
   } else if(currentLocation.includes("artists")) {
-    return "https://lagunilla.herokuapp.com/api/" //TODO: Poner servicio
+    return ApiRoutes.getServiceUrl(ApiRoutes.ARTISTS) //TODO: Poner servicio
   } else {
     return ""
   }
