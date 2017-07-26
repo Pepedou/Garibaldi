@@ -14,7 +14,7 @@ import './GalleryPage.css'
 class GalleryPage extends Component {
     getArtDetail(cardId, receiveCurrentArt, addNotification, loadingArtDetail) {
       loadingArtDetail(true)
-      axios.get(`https://babelagunilla.herokuapp.com/api/getArtPieceDetail?id=${cardId}`)
+      axios.get(`https://lazarocardenas.herokuapp.com/api/ArtPieces/${cardId}`)
       .then(function (response) {
           receiveCurrentArt(response.data)
           loadingArtDetail(false)
@@ -30,7 +30,7 @@ class GalleryPage extends Component {
         let getArtDetail = this.getArtDetail
         clearAllNotifications()
         loadingGallery(true)
-        axios.get(`https://babelagunilla.herokuapp.com/api/mosaic?email=${currentUser.email}`)
+        axios.get('https://lazarocardenas.herokuapp.com/api/ArtPieces')
         .then(function (response) {
           if(response.data.length > 0) {
             getArtDetail(response.data[0]._id, receiveCurrentArt, addNotification, loadingArtDetail)
@@ -38,7 +38,8 @@ class GalleryPage extends Component {
             loadingGallery(false)
           } else {
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
-          }
+            loadingGallery(false)
+        }
         })
         .catch(function (error) {
           addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});

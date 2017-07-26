@@ -21,7 +21,7 @@ class FloatingBar extends Component {
   }
 
   addCard(){
-
+    window.location = './newArt'
   }
 
   render() {

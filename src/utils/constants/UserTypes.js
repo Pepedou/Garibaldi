@@ -1,4 +1,4 @@
 export let UserTypes = {
-    GESTOR_CULTURAL: "1",
-    ARTISTA: "2"
+    GESTOR_CULTURAL: "CulturalHelper",
+    ARTISTA: "Artist"
 }

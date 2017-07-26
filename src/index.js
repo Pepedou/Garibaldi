@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap/dist/css/bootstrap-theme.css'
 import GalleryPage from './pages/GalleryPage/GalleryPage'
 import ArtistsPage from './pages/ArtistsPage/ArtistsPage'
-import AddCardPage from './pages/AddCardPage/AddCardPage'
+import NewArtPage from './pages/NewArtPage/NewArtPage'
 import UserProfilePage from './pages/UserProfilePage/UserProfilePage'
 import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage'
@@ -84,7 +84,7 @@ const router = (
                     <Route path="/artists" component={ArtistsPage} onEnter={requireAuth(store, true)}/>
                 </Route>
                 <Route component={SimpleLayout}>
-                    <Route path="/newElement" component={AddCardPage} onEnter={requireAuth(store, true)}/>
+                    <Route path="/newArt" component={NewArtPage} onEnter={requireAuth(store, true)}/>
                     <Route path="/myUserProfile" component={UserProfilePage} onEnter={requireAuth(store, true)}/>
                 </Route>
                 <Route path="/play" component={PlaygroundPage} />

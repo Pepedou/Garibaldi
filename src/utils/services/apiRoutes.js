@@ -1,6 +1,6 @@
 export default {
     getServiceUrl: function(apiConstant) {
-        return "https://lagunilla.herokuapp.com" + apiConstant;
+        return "https://lazarocardenas.herokuapp.com/" + apiConstant;
     },
     LOGIN: "/api/login/",
     USERS: "/api/users/",

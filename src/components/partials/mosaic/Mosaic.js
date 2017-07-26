@@ -15,7 +15,7 @@ class Mosaic extends Component {
         showArtOverlayRecieved(true)
     }
     loadingGallery(true)
-    axios.get(`https://babelagunilla.herokuapp.com/api/getArtPieceDetail?id=${card._id}`)
+    axios.get(`https://lazarocardenas.herokuapp.com/api/ArtPieces/${card._id}/getArtPieceDetail`)
     .then(function (response) {
       receiveCurrentArt(response.data)
       loadingGallery(false)
@@ -29,7 +29,7 @@ class Mosaic extends Component {
   getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail) {
     showArtistOverlayRecieved(true)
     loadingArtistDetail(true)
-    axios.get(`https://babelagunilla.herokuapp.com/api/getArtistDetail?id=${card._id}`)
+    axios.get(`https://lazarocardenas.herokuapp.com/api/Artists/${card._id}/getArtistDetail`)
     .then(function (response) {
         receiveCurrentArtist(response.data)
         loadingArtistDetail(false)

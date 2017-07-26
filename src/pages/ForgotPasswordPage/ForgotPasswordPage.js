@@ -41,7 +41,7 @@ class ForgotPassword extends Component {
         clearAllNotifications();
         loading(true)
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
-        axios.post(`https://babelagunilla.herokuapp.com/api/resetPassword?email=${emailValue}`)
+        axios.post(`https://lazarocardenas.herokuapp.com/api/Credentials/reset?email=${emailValue}`) //enviar el email en el body como objeto
         .then(function (response) {
             loading(false)
             window.location = './'

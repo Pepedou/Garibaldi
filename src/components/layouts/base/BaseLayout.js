@@ -21,7 +21,7 @@ class BaseLayout extends Component {
 
       showArtistOverlayRecieved(true)
       loadingArtistDetail(true)
-      axios.get(`https://babelagunilla.herokuapp.com/api/getArtistDetail?id=${currentUser._id}`)
+      axios.get(`https://lazarocardenas.herokuapp.com/api/Artists/${currentUser._id}/getArtistDetail`)
       .then(function (response) {
           receiveCurrentArtist(response.data)
           loadingArtistDetail(false)

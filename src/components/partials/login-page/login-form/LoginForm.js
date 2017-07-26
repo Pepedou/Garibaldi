@@ -32,12 +32,26 @@ class LoginForm extends Component {
         this.setState({inputFields: inputFieldsCopy})
     }
 
+    getCredential(userId, receiveCurrentUser, loading, addNotification) {
+        axios.get(`https://lazarocardenas.herokuapp.com/api/Credentials/${userId}`)
+        .then(function (response) {
+            localStorage.setItem('currentUser', JSON.stringify(response.data))
+            receiveCurrentUser(response.data)
+            loading(false)
+            window.location = './home'
+        })
+        .catch(function (error) {
+            loading(false)
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+        })
+    }
+
     handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser, loading}){
         event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
         let result = validateObligatoryFields(this.state.inputFields)
-
+        let getCredential = this.getCredential
         if(result.valid){
             let md5 = require('js-md5')
             let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue
@@ -45,12 +59,10 @@ class LoginForm extends Component {
             
             clearAllNotifications()
             loading(true)
-            axios.get(`https://babelagunilla.herokuapp.com/api/login?email=${usernameValue}&password=${passwordValue}`)
+            let credentials = {email: usernameValue, password: passwordValue}
+            axios.post('https://lazarocardenas.herokuapp.com/api/Credentials/login', credentials, { headers: { 'Content-Type': 'application/json' } })
             .then(function (response) {
-                localStorage.setItem('currentUser', JSON.stringify(response.data))
-                receiveCurrentUser(response.data)
-                loading(false)
-                window.location = './home'
+                getCredential(response.data.userId, receiveCurrentUser, loading, addNotification)
             })
             .catch(function (error) {
                 loading(false)
