@@ -12,7 +12,7 @@ import InputFieldComponent from '../../components/ui/input-field/InputFieldCompo
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import Dropzone from 'react-dropzone'
 
-require('./NewArtPage.css')
+require('./NewArtistPage.css')
 
 let style = {
     mainStyle: {
@@ -34,30 +34,30 @@ let style = {
     }
 }
 
-class NewArtPage extends Component {
+class NewArtistPage extends Component {
     constructor(props)
     {
         super(props)
 
         this.state = {
-            inputFields: getForm(FormType.NEW_ART),
+            inputFields: getForm(FormType.NEW_ARTIST),
             sourceImage: "",
             dataSource: []
         }
     }
 
     componentWillMount() {
-        let setState = this.setState.bind(this)
-        let {addNotification} = this.props
-        axios.get('https://lazarocardenas.herokuapp.com/api/Artists')
-        .then(function (response) {
-            let artists = []
-            response.data.map((item, key) => artists.push(`${item.name} ${item.lastName}`))
-            setState({dataSource: artists})
-        })
-        .catch(function (error) {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
-        })
+        // let setState = this.setState.bind(this)
+        // let {addNotification} = this.props
+        // axios.get('https://lazarocardenas.herokuapp.com/api/CulturalHelpers')
+        // .then(function (response) {
+        //     let culturalHelpers = []
+        //     //response.data.map((item, key) => culturalHelpers.push(`${item.name} ${item.lastName}`))
+        //     setState({dataSource: culturalHelpers})
+        // })
+        // .catch(function (error) {
+        //     addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+        // })
     }
 
     handleOnChange(event, index, value){
@@ -109,7 +109,7 @@ class NewArtPage extends Component {
                                 onDropRejected={(files) => this.onDropRejected(files, this.props)}
                                 accept="image/jpeg, image/png"
                                 multiple={false}
-                                name="source"
+                                name="photo"
                                 maxSize={15000000}
                                 style={style.mainStyle}
                                 activeStyle={style.activeStyle}
@@ -152,9 +152,9 @@ class NewArtPage extends Component {
     }
 }
 
-NewArtPage.displayName = 'NewArtPage'
+NewArtistPage.displayName = 'NewArtistPage'
 
-NewArtPage.propTypes = {
+NewArtistPage.propTypes = {
     addNotification: PropTypes.func,
     clearAllNotifications: PropTypes.func
 }
@@ -164,4 +164,4 @@ export const mapDispatchToProps = dispatch => ({
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
 })
 
-export default connect(null, mapDispatchToProps)(NewArtPage)
+export default connect(null, mapDispatchToProps)(NewArtistPage)

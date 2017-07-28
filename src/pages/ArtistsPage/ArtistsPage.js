@@ -14,7 +14,7 @@ class ArtistsPage extends Component {
         let {clearAllNotifications, receiveArtistGallery, addNotification, loadingGallery} = this.props
         clearAllNotifications()
         loadingGallery(true)
-        axios.get(`https://lazarocardenas.herokuapp.com/api/Artists`)
+        axios.get(`https://lazarocardenas.herokuapp.com/api/Artists`)  //TODO: Usar el mosaico
         .then(function (response) {
           if(response.data.length > 0) {
             receiveArtistGallery(response.data);

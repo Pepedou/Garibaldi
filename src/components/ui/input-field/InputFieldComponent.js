@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import TextFieldComponent from '../text-field/TextFieldComponent'
 import SelectFieldComponent from '../select-field/SelectFieldComponent'
+import AutocompleteComponent from '../autocomplete/AutocompleteComponent'
 
 export default class InputFieldComponent extends Component {
     render() {
@@ -17,6 +18,17 @@ export default class InputFieldComponent extends Component {
                 errorText={this.props.errorText}
                 defaultValue={this.props.defaultValue}
                 onChange={this.props.onChange}
+                />
+            : this.props.inputType === "autocomplete"
+            ? <AutocompleteComponent
+                hintText={this.props.hintText}
+                floatingLabelText={this.props.floatingLabelText}
+                name={this.props.name}
+                id={this.props.id}
+                className={this.props.className}
+                errorText={this.props.errorText}
+                onNewRequest={this.props.onNewRequest}
+                dataSource={this.props.dataSource}
                 />
             : <SelectFieldComponent
                 hintText={this.props.hintText}

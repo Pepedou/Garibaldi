@@ -18,7 +18,7 @@ export default class MainNavBar extends Component {
                                 </li>
                                 <li>
                                     {
-                                        this.props.user.userType === UserTypes.GESTOR_CULTURAL
+                                        this.props.user.ownerType === UserTypes.GESTOR_CULTURAL
                                         ? <Link to="/artists">Artistas</Link>
                                         : <Link onClick={this.props.artistProfileClick}>Perfil de artista</Link>
                                     }

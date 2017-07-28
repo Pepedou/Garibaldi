@@ -1,5 +1,15 @@
 export let newArtFields = [
     {
+        inputType: "autocomplete",
+        floatingLabelText: "Artista",
+        hintText: "Ingrese el artista",
+        id: "author",
+        type: "text",
+        className: "obligatoryField TextField",
+        errorText: "",
+        defaultValue: ""
+    },
+    {
         inputType: "textField",
         floatingLabelText: "Título",
         hintText: "Ingrese el título",
@@ -16,16 +26,6 @@ export let newArtFields = [
         id: "year",
         type: "text",
         className: "TextField",
-        errorText: "",
-        defaultValue: ""
-    },
-    {
-        inputType: "textField",
-        floatingLabelText: "Artista",
-        hintText: "Ingrese el artista",
-        id: "author",
-        type: "text",
-        className: "obligatoryField TextField",
         errorText: "",
         defaultValue: ""
     },

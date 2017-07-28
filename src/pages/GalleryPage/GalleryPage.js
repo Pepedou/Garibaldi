@@ -30,7 +30,7 @@ class GalleryPage extends Component {
         let getArtDetail = this.getArtDetail
         clearAllNotifications()
         loadingGallery(true)
-        axios.get('https://lazarocardenas.herokuapp.com/api/ArtPieces')
+        axios.get('https://lazarocardenas.herokuapp.com/api/ArtPieces') //TODO: Usar el mosaico
         .then(function (response) {
           if(response.data.length > 0) {
             getArtDetail(response.data[0]._id, receiveCurrentArt, addNotification, loadingArtDetail)

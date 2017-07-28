@@ -21,7 +21,11 @@ class FloatingBar extends Component {
   }
 
   addCard(){
-    window.location = './newArt'
+    if(window.location.pathname === "/home"){
+      window.location = './newArt'
+    } else {
+      window.location = './newArtist'
+    }
   }
 
   render() {

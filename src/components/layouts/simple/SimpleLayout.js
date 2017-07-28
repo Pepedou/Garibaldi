@@ -4,13 +4,7 @@ import ProfileNavBar from '../../partials/nav-bars/profile-nav-bar/ProfileNavBar
 import {connect} from 'react-redux'
 import * as constants from '../../../redux/constants'
 import NotificationComponent from '../../alerts/notifications/NotificationComponent'
-import ArtCardOverlay from '../../partials/gallery-page/art-card-overlay/ArtCardOverlay'
-import ArtistCardOverlay from '../../partials/artist-page/artist-card-overlay/ArtistCardOverlay'
-import FullImageOverlay from '../../partials/gallery-page/full-image-overlay/FullImageOverlay'
-import MainNavBar from '../../partials/nav-bars/main-nav-bar/MainNavBar'
-import FloatingBar from '../../partials/floating-bar/FloatingBar'
-import {NotificationTypes} from '../../../components/alerts/notifications/NotificationTypes'
-import {handleError} from '../../../utils/errorHandling'
+import ReturnNavBar from '../../partials/nav-bars/return-nav-bar/ReturnNavBar'
 import axios from 'axios'
 
 require('../../../Main.css');
@@ -20,6 +14,7 @@ class SimpleLayout extends Component {
     return (
       <div className="SimpleLayout container-fluid degraded-container">
         <ProfileNavBar user={this.props.currentUser}/>
+        <ReturnNavBar/>
         <div className="row"><NotificationComponent/></div>
         <div className="row">{this.props.children}</div>
       </div>
