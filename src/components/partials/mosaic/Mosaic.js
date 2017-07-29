@@ -7,6 +7,7 @@ import axios from 'axios'
 import {NotificationTypes} from '../../../components/alerts/notifications/NotificationTypes'
 import {handleError} from '../../../utils/errorHandling'
 import {MosaicTypes} from '../../../utils/constants/MosaicTypes'
+import apiRoutes from '../../../utils/services/apiRoutes'
 import './Mosaic.css'
 
 class Mosaic extends Component {
@@ -15,7 +16,7 @@ class Mosaic extends Component {
         showArtOverlayRecieved(true)
     }
     loadingGallery(true)
-    axios.get(`https://lazarocardenas.herokuapp.com/api/ArtPieces/${card._id}/getArtPieceDetail`)
+    axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${card._id}/getArtPieceDetail`)
     .then(function (response) {
       receiveCurrentArt(response.data)
       loadingGallery(false)
@@ -29,7 +30,7 @@ class Mosaic extends Component {
   getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail) {
     showArtistOverlayRecieved(true)
     loadingArtistDetail(true)
-    axios.get(`https://lazarocardenas.herokuapp.com/api/Artists/${card._id}/getArtistDetail`)
+    axios.get(`${apiRoutes.getServiceUrl()}/api/Artists/${card.id}/getArtistDetail`)
     .then(function (response) {
         receiveCurrentArtist(response.data)
         loadingArtistDetail(false)

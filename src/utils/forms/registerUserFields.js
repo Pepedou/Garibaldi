@@ -47,7 +47,7 @@ export let registerUserFields = {
             className: "userField userInformation SelectField",
             errorText: "",
             options: [{value: "CulturalHelper", text: "Gestor Cultural"}, {value: "Artist", text: "Artista"}],
-            defaultValue: "1"
+            defaultValue: "CulturalHelper"
         }
     ],
     personalInformation: [

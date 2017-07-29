@@ -4,24 +4,21 @@ import InlineEdit from 'react-edit-inline';
 require('./Category.css')
 
 export default class Category extends Component {
-  customValidateText(text) {
+  handleChange(text) {
       return true
-  }
-
-  dataChanged(data) {
-      console.log(data)
   }
 
   render() {
     let classNamesForName = `CategoryName ${this.props.category.required}`;
     let classNamesForValue = `CategoryValue ${this.props.category.required}`;
-
+    let {position} = this.props
     let categoryNameComponent = <InlineEdit
               className={classNamesForName}
               activeClassName="EditingCategory"
               text={this.props.category.categoryName}
               paramName="message"
-              change={this.dataChanged}
+              validate={(data) => this.props.validate(data, position, "label")}
+              change={this.handleChange}
             />
 
     let categoryValueComponent = <InlineEdit
@@ -29,7 +26,8 @@ export default class Category extends Component {
               activeClassName="EditingCategory"
               text={this.props.category.categoryValue}
               paramName="message"
-              change={this.dataChanged}
+              validate={(data) => this.props.validate(data, position, "value")}
+              change={this.handleChange}
             />
 
     if(!this.props.category.editableName) {
@@ -51,5 +49,7 @@ export default class Category extends Component {
 Category.displayName = 'Category'
 
 Category.propTypes = {
-  category: PropTypes.object
+  position: PropTypes.number,
+  category: PropTypes.object,
+  validate: PropTypes.func
 };

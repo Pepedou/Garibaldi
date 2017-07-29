@@ -9,6 +9,7 @@ import {validateObligatoryFields, getFieldIndex, getFieldValue} from '../../util
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import {handleError} from '../../utils/errorHandling'
+import apiRoutes from '../../utils/services/apiRoutes'
 import {connect} from 'react-redux'
 import * as constants from '../../redux/constants'
 import axios from 'axios'
@@ -41,7 +42,7 @@ class ForgotPassword extends Component {
         clearAllNotifications();
         loading(true)
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
-        axios.post(`https://lazarocardenas.herokuapp.com/api/Credentials/reset?email=${emailValue}`) //enviar el email en el body como objeto
+        axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/reset?email=${emailValue}`) //enviar el email en el body como objeto
         .then(function (response) {
             loading(false)
             window.location = './'

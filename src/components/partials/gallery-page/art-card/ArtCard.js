@@ -30,8 +30,8 @@ export default class ArtCard extends Component {
                 <div className="FullImage-button" onClick={() => this.props.showFullImageOverlayRecieved(true)}>Imagen completa</div>
                 <CardComponent 
                     overlayTitle={<Category category={{required: true, categoryName: 'Obra', categoryValue: this.props.currentArt.detail.title.value, editableName: false, editableValue: true}}/>}
-                    overlaySubtitle={<Category category={{required: false, categoryName: 'Año', categoryValue: this.props.currentArt.detail.year.value, editableName: false, editableValue: true}}/>}
-                    cardImage={this.props.currentArt.detail.source.value}
+                    overlaySubtitle={<Category category={{required: false, categoryName: 'Año', categoryValue: this.props.currentArt.detail.year.value.toString(), editableName: false, editableValue: true}}/>}
+                    cardImage={this.props.currentArt.detail.images.value.standard}
                     cardTitle={<Category category={{required: true, categoryName: 'Artista', categoryValue: this.props.currentArt.detail.author.value, editableName: false, editableValue: true}}/>}
                     cardSubtitle={<Category category={{required: false, categoryName: 'Descripción', categoryValue: this.props.currentArt.detail.description.value, editableName: false, editableValue: true}}/>}
                     cardDescription={<CardDescription artCardInformation={this.props.currentArt} onTouchTap={this.handleAddCategory.bind(this)}/>}

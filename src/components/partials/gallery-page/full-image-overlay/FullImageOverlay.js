@@ -15,7 +15,9 @@ class FullImageOverlay extends Component {
                     <a className="Closebtn" onClick={() => this.toggleOverlay(this.props.showFullImageOverlayRecieved)}>&times;</a>
                     <div className="Overlay-content">
                         {
-                            <img src={this.props.currentArt.detail.source.value} alt="" className="FullImageOverlay-image"/>
+                            <center>
+                                <img src={this.props.currentArt.detail.source.value} alt="" className="FullImageOverlay-image"/>
+                            </center>
                         }
                     </div>
                 </div> : null

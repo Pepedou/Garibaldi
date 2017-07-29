@@ -13,6 +13,7 @@ import axios from 'axios'
 import {getForm, FormType} from '../../../../utils/forms/formUtils'
 import {handleError} from '../../../../utils/errorHandling'
 import {NotificationTypes} from '../../../alerts/notifications/NotificationTypes'
+import apiRoutes from '../../../../utils/services/apiRoutes'
 
 class LoginForm extends Component {
     constructor(props)
@@ -33,7 +34,7 @@ class LoginForm extends Component {
     }
 
     getCredential(userId, receiveCurrentUser, loading, addNotification) {
-        axios.get(`https://lazarocardenas.herokuapp.com/api/Credentials/${userId}`)
+        axios.get(`${apiRoutes.getServiceUrl()}/api/Credentials/${userId}`)
         .then(function (response) {
             localStorage.setItem('currentUser', JSON.stringify(response.data))
             receiveCurrentUser(response.data)
@@ -60,7 +61,7 @@ class LoginForm extends Component {
             clearAllNotifications()
             loading(true)
             let credentials = {email: usernameValue, password: passwordValue}
-            axios.post('https://lazarocardenas.herokuapp.com/api/Credentials/login', credentials, { headers: { 'Content-Type': 'application/json' } })
+            axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/login`, credentials, { headers: { 'Content-Type': 'application/json' } })
             .then(function (response) {
                 getCredential(response.data.userId, receiveCurrentUser, loading, addNotification)
             })
@@ -68,7 +69,6 @@ class LoginForm extends Component {
                 loading(false)
                 addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
             })
-
         } else {
             addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
         }

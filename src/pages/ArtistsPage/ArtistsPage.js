@@ -7,6 +7,7 @@ import {NotificationTypes} from '../../components/alerts/notifications/Notificat
 import {handleError} from '../../utils/errorHandling'
 import Mosaic from '../../components/partials/mosaic/Mosaic'
 import {MosaicTypes} from '../../utils/constants/MosaicTypes'
+import apiRoutes from '../../utils/services/apiRoutes'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 
 class ArtistsPage extends Component {
@@ -14,7 +15,7 @@ class ArtistsPage extends Component {
         let {clearAllNotifications, receiveArtistGallery, addNotification, loadingGallery} = this.props
         clearAllNotifications()
         loadingGallery(true)
-        axios.get(`https://lazarocardenas.herokuapp.com/api/Artists`)  //TODO: Usar el mosaico
+        axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`) //TODO: Usar mosaico
         .then(function (response) {
           if(response.data.length > 0) {
             receiveArtistGallery(response.data);

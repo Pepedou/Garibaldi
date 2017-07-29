@@ -9,12 +9,13 @@ import {handleError} from '../../utils/errorHandling'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import axios from 'axios'
 import {MosaicTypes} from '../../utils/constants/MosaicTypes'
+import apiRoutes from '../../utils/services/apiRoutes'
 import './GalleryPage.css'
 
 class GalleryPage extends Component {
     getArtDetail(cardId, receiveCurrentArt, addNotification, loadingArtDetail) {
       loadingArtDetail(true)
-      axios.get(`https://lazarocardenas.herokuapp.com/api/ArtPieces/${cardId}`)
+      axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${cardId}/getArtPieceDetail`)
       .then(function (response) {
           receiveCurrentArt(response.data)
           loadingArtDetail(false)
@@ -30,10 +31,11 @@ class GalleryPage extends Component {
         let getArtDetail = this.getArtDetail
         clearAllNotifications()
         loadingGallery(true)
-        axios.get('https://lazarocardenas.herokuapp.com/api/ArtPieces') //TODO: Usar el mosaico
+        
+        axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/mosaic`, {params: {credential: currentUser}})
         .then(function (response) {
           if(response.data.length > 0) {
-            getArtDetail(response.data[0]._id, receiveCurrentArt, addNotification, loadingArtDetail)
+            getArtDetail(response.data[0].id, receiveCurrentArt, addNotification, loadingArtDetail)
             receiveArtGallery(response.data);
             loadingGallery(false)
           } else {

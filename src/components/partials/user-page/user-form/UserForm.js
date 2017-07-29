@@ -8,6 +8,7 @@ import {getForm, FormType} from '../../../../utils/forms/formUtils'
 import {handleError} from '../../../../utils/errorHandling'
 import {NotificationTypes} from '../../../alerts/notifications/NotificationTypes'
 import * as constants from '../../../../redux/constants'
+import apiRoutes from '../../../../utils/services/apiRoutes'
 import '../../../../Main.css';
 import './UserForm.css';
 import axios from 'axios'
@@ -73,7 +74,7 @@ class UserForm extends Component {
                     
                     clearAllNotifications();
                     loading(true)
-                    axios.post('https://lazarocardenas.herokuapp.com/api/Credentials/register', user, { headers: { 'Content-Type': 'application/json' } })
+                    axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/register`, user, { headers: { 'Content-Type': 'application/json' } })
                     .then(function (response) {
                         loading(false)
                         window.location = './'

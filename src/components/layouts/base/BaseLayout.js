@@ -11,6 +11,7 @@ import MainNavBar from '../../partials/nav-bars/main-nav-bar/MainNavBar'
 import FloatingBar from '../../partials/floating-bar/FloatingBar'
 import {NotificationTypes} from '../../../components/alerts/notifications/NotificationTypes'
 import {handleError} from '../../../utils/errorHandling'
+import apiRoutes from '../../../utils/services/apiRoutes'
 import axios from 'axios'
 
 require('../../../Main.css');
@@ -21,7 +22,7 @@ class BaseLayout extends Component {
 
       showArtistOverlayRecieved(true)
       loadingArtistDetail(true)
-      axios.get(`https://lazarocardenas.herokuapp.com/api/Artists/${currentUser._id}/getArtistDetail`)
+      axios.get(`${apiRoutes.getServiceUrl()}/api/Artists/${currentUser.ownerId}/getArtistDetail`)
       .then(function (response) {
           receiveCurrentArtist(response.data)
           loadingArtistDetail(false)

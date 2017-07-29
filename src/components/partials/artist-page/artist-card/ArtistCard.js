@@ -19,12 +19,13 @@ export default class ArtistCard extends Component {
     }
 
     render() {
+        let photo = this.props.currentArtist.detail.photo.value === "" || !this.props.currentArtist.detail.photo.value ? "https://s3.amazonaws.com/whisperinvest-images/default.png" : this.props.currentArtist.detail.photo.value
         return (
             <div className="ArtistCard">
                 <CardComponent 
                     overlayTitle={<Category category={{required: true, categoryName: 'Nombre', categoryValue: this.props.currentArtist.detail.name.value, editableName: false, editableValue: true}}/>}
                     overlaySubtitle={<Category category={{required: true, categoryName: 'Apellido', categoryValue: this.props.currentArtist.detail.lastName.value, editableName: false, editableValue: true}}/>}
-                    cardImage={this.props.currentArtist.detail.photo.value}
+                    cardImage={photo}
                     cardTitle={<Category category={{required: true, categoryName: 'Correo electrónico', categoryValue: this.props.currentArtist.detail.email.value, editableName: false, editableValue: true}}/>}
                     cardSubtitle={<Category category={{required: false, categoryName: 'Teléfono', categoryValue: this.props.currentArtist.detail.phone.value, editableName: false, editableValue: true}}/>}
                     cardDescription={<CardDescription artistCardInformation={this.props.currentArtist} onTouchTap={this.handleAddCategory.bind(this)}/>}

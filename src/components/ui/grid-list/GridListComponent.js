@@ -50,9 +50,9 @@ export default class GridListComponent extends Component {
 
     getSource(mosaicType, card) {
         if(mosaicType === MosaicTypes.ART) {
-            return card.source
+            return card.images.thumbnail 
         } else {
-            return card.photo
+            return card.photo === "" || !card.photo ? "https://s3.amazonaws.com/whisperinvest-images/default.png" : card.photo 
         }
     }
 
