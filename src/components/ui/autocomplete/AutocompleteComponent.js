@@ -38,6 +38,7 @@ export default class AutocompleteComponent extends Component {
                 onNewRequest={this.props.onNewRequest}
                 dataSourceConfig={{ text: 'text', value: 'value',}}
                 dataSource ={this.props.dataSource}
+                onUpdateInput={this.props.onUpdateInput}
                 fullWidth={true}
                 maxSearchResults={5}
                 filter={this.filterData.bind(this)}
@@ -59,5 +60,6 @@ AutocompleteComponent.propTypes = {
   className: PropTypes.string,
   errorText: PropTypes.string,
   onNewRequest: PropTypes.func,
-  dataSource: PropTypes.array
+  dataSource: PropTypes.array,
+  onUpdateInput: PropTypes.func
 };

@@ -25,6 +25,7 @@ let getAutocompleteField = props => <AutocompleteComponent
             errorText={props.errorText}
             onNewRequest={props.onNewRequest}
             dataSource={props.dataSource}
+            onUpdateInput={props.onUpdateInput}
             />
 
 let getSelectField = props => <SelectFieldComponent
@@ -67,5 +68,6 @@ InputFieldComponent.propTypes = {
   options: PropTypes.array,
   defaultValue: PropTypes.string,
   onChange: PropTypes.func,
-  onNewRequest: PropTypes.func
+  onNewRequest: PropTypes.func,
+  onUpdateInput: PropTypes.func
 };

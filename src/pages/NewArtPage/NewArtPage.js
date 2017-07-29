@@ -82,8 +82,16 @@ class NewArtPage extends Component {
         inputFieldsCopy[currentFieldIndex].defaultValue = value.text
 
         this.setState({artistId: value.value})
-
         this.setState({inputFields: inputFieldsCopy})
+    }
+
+    handleOnUpdateInput(data, id){
+        if(!this.state.dataSource.find(item => item.text.toUpperCase() === data.toUpperCase())){
+            let inputFieldsCopy = [...this.state.inputFields]
+            let currentFieldIndex = getFieldIndex(inputFieldsCopy, id)
+            inputFieldsCopy[currentFieldIndex].defaultValue = ""
+            this.setState({inputFields: inputFieldsCopy})
+        }
     }
 
     onDropAccepted(files, {clearAllNotifications, addNotification}) {
@@ -186,7 +194,7 @@ class NewArtPage extends Component {
             let source = this.uploadFile(sourceImage, addNotification, loading)
         } else {
             loading(false)
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo y la imagen de la obra"})
+            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Seleccione la imagen de la obra e ingrese la información de los campos marcados en rojo (en los campos con catálogos asegurese de seleccionar una opción correcta)"})
         }
         this.setState({inputFields: result.fieldList})
     }
@@ -226,7 +234,8 @@ class NewArtPage extends Component {
                                                                     defaultValue={item.defaultValue}
                                                                     dataSource={this.state.dataSource}
                                                                     onChange={event => this.handleOnChange(event)}
-                                                                    onNewRequest={value => this.handleOnNewRequest(value, item.id)}/>)
+                                                                    onNewRequest={value => this.handleOnNewRequest(value, item.id)}
+                                                                    onUpdateInput={value => this.handleOnUpdateInput(value, item.id)}/>)
 
                                     
                         }
