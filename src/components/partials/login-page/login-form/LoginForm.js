@@ -11,8 +11,7 @@ import '../../../../Main.css'
 import './LoginForm.css'
 import axios from 'axios'
 import {getForm, FormType} from '../../../../utils/forms/formUtils'
-import {handleError} from '../../../../utils/errorHandling'
-import {NotificationTypes} from '../../../alerts/notifications/NotificationTypes'
+import {handleError, ERROR_CODES} from '../../../../utils/errorHandling'
 import apiRoutes from '../../../../utils/services/apiRoutes'
 
 class LoginForm extends Component {
@@ -43,7 +42,7 @@ class LoginForm extends Component {
         })
         .catch(function (error) {
             loading(false)
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+            addNotification(error.response.data.error)
         })
     }
 
@@ -57,8 +56,6 @@ class LoginForm extends Component {
             let md5 = require('js-md5')
             let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue
             let passwordValue = md5(getFieldValue(inputFieldsCopy, "password").defaultValue)
-            
-            clearAllNotifications()
             loading(true)
             let credentials = {email: usernameValue, password: passwordValue}
             axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/login`, credentials, { headers: { 'Content-Type': 'application/json' } })
@@ -67,10 +64,10 @@ class LoginForm extends Component {
             })
             .catch(function (error) {
                 loading(false)
-                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+                addNotification(error.response.data.error)
             })
         } else {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
+            addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})
         }
         this.setState({inputFields: result.fieldList})
     }

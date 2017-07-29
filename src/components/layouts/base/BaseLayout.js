@@ -9,17 +9,17 @@ import ArtistCardOverlay from '../../partials/artist-page/artist-card-overlay/Ar
 import FullImageOverlay from '../../partials/gallery-page/full-image-overlay/FullImageOverlay'
 import MainNavBar from '../../partials/nav-bars/main-nav-bar/MainNavBar'
 import FloatingBar from '../../partials/floating-bar/FloatingBar'
-import {NotificationTypes} from '../../../components/alerts/notifications/NotificationTypes'
 import {handleError} from '../../../utils/errorHandling'
 import apiRoutes from '../../../utils/services/apiRoutes'
+
 import axios from 'axios'
 
 require('../../../Main.css');
 
 class BaseLayout extends Component {
   artistProfileClick() {
-      let {currentUser, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail} = this.props
-
+      let {currentUser, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail, clearAllNotifications} = this.props
+      clearAllNotifications()
       showArtistOverlayRecieved(true)
       loadingArtistDetail(true)
       axios.get(`${apiRoutes.getServiceUrl()}/api/Artists/${currentUser.ownerId}/getArtistDetail`)
@@ -28,7 +28,7 @@ class BaseLayout extends Component {
           loadingArtistDetail(false)
       })
       .catch(function (error) {
-          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data})
+          addNotification(error.response.data.error)
           loadingArtistDetail(false)
       })
   }
@@ -56,7 +56,8 @@ BaseLayout.propTypes = {
   receiveCurrentArtist: PropTypes.func,
   showArtistOverlayRecieved: PropTypes.func,
   addNotification: PropTypes.func,
-  loadingArtistDetail: PropTypes.func
+  loadingArtistDetail: PropTypes.func,
+  clearAllNotifications: PropTypes.func
 };
 
 export const mapStateToProps = ({currentUser}) => ({
@@ -67,7 +68,8 @@ export const mapDispatchToProps = dispatch => ({
   receiveCurrentArtist: artist => dispatch({type: constants.CURRENT_ARTIST_RECEIVED, artist}),
   showArtistOverlayRecieved: show => dispatch({type: constants.SHOW_ARTIST_OVERLAY, show}),
   addNotification: notification => handleError(dispatch, notification),
-  loadingArtistDetail: updatingCurrentArtist => dispatch({type: constants.UPDATING_CURRENT_ARTIST, updatingCurrentArtist})
+  loadingArtistDetail: updatingCurrentArtist => dispatch({type: constants.UPDATING_CURRENT_ARTIST, updatingCurrentArtist}),
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)

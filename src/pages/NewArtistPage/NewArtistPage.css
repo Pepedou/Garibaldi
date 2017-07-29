@@ -1,0 +1,30 @@
+#preview{
+    width: 100%;
+}
+
+div.DropZoneSection{
+    padding: 3rem;
+}
+
+p.DropZoneSection-message{
+    padding: 1rem;
+}
+
+div.CategoriesSection{
+    padding: 3rem;
+}
+
+div.NewArtistForm {
+    padding: 0 3rem;
+}
+
+div.Category{
+    padding: 1rem 0;
+}
+
+a.Closebtn {
+    position: relative;
+    top: 1rem;
+    right: 0.5rem;
+    color: gray;
+}

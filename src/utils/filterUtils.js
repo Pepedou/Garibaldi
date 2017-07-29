@@ -1,11 +1,9 @@
 import {UserTypes} from '../utils/constants/UserTypes'
 import {PageTypes} from '../utils/constants/PageTypes'
-import ApiRoutes from '../utils/services/apiRoutes'
 
 let getArtGalleryFilterOptions = user => {
     let defaultOptions = [
-      {value:"title", filter: "Nombre de la pieza"},
-      {value:"year", filter: "Año"}
+      {value:"title", filter: "Nombre de la pieza"}
     ]
 
     if(UserTypes.GESTOR_CULTURAL){

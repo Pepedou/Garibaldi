@@ -4,11 +4,10 @@ import LoginNavbar from '../../components/partials/nav-bars/login-nav-bar/LoginN
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import {getForm, FormType} from '../../utils/forms/formUtils'
 import NotificationComponent from '../../components/alerts/notifications/NotificationComponent'
-import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
 import {validateObligatoryFields, getFieldIndex, getFieldValue} from '../../utils/fieldValidations'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
-import {handleError} from '../../utils/errorHandling'
+import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import apiRoutes from '../../utils/services/apiRoutes'
 import {connect} from 'react-redux'
 import * as constants from '../../redux/constants'
@@ -37,22 +36,22 @@ class ForgotPassword extends Component {
     event.preventDefault()
     let inputFieldsCopy = [...this.state.inputFields]
     let result = validateObligatoryFields(this.state.inputFields);
-
+    clearAllNotifications()
     if(result.valid){
-        clearAllNotifications();
         loading(true)
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
-        axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/reset?email=${emailValue}`) //enviar el email en el body como objeto
+        let email = {email: emailValue}
+        axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/reset`, email, { headers: { 'Content-Type': 'application/json' } })
         .then(function (response) {
             loading(false)
             window.location = './'
         })
         .catch(function (error) {
             loading(false)
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+            addNotification(error.response.data.error)
         })
     } else {
-        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
+        addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})
     }
     this.setState({inputFields: result.fieldList})
   }

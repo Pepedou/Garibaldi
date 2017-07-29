@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import * as constants from '../../redux/constants'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
-import {handleError} from '../../utils/errorHandling'
+import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import Mosaic from '../../components/partials/mosaic/Mosaic'
 import {MosaicTypes} from '../../utils/constants/MosaicTypes'
 import apiRoutes from '../../utils/services/apiRoutes'
@@ -20,12 +19,12 @@ class ArtistsPage extends Component {
           if(response.data.length > 0) {
             receiveArtistGallery(response.data);
           } else {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
+            addNotification({code: ERROR_CODES.NO_RESULTS_FOUND.code})
           }
           loadingGallery(false)
         })
         .catch(function (error) {
-          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+          addNotification(error.response.data.error)
           loadingGallery(false)
         })
     }

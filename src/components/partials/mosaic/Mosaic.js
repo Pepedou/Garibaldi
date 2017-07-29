@@ -4,7 +4,6 @@ import GridListComponent from '../../ui/grid-list/GridListComponent'
 import * as constants from '../../../redux/constants'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {NotificationTypes} from '../../../components/alerts/notifications/NotificationTypes'
 import {handleError} from '../../../utils/errorHandling'
 import {MosaicTypes} from '../../../utils/constants/MosaicTypes'
 import apiRoutes from '../../../utils/services/apiRoutes'
@@ -16,13 +15,13 @@ class Mosaic extends Component {
         showArtOverlayRecieved(true)
     }
     loadingGallery(true)
-    axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${card._id}/getArtPieceDetail`)
+    axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${card.id}/getArtPieceDetail`)
     .then(function (response) {
       receiveCurrentArt(response.data)
       loadingGallery(false)
     })
     .catch(function (error) {
-        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data})
+        addNotification(error.response.data.error)
         loadingGallery(false)
     })
   }
@@ -36,14 +35,15 @@ class Mosaic extends Component {
         loadingArtistDetail(false)
     })
     .catch(function (error) {
-        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data})
+        addNotification(error.response.data.error)
         loadingArtistDetail(false)
     })
   }
 
   handleOnTouchTap(event, card, mosaicType) {
       if(event.target.type !== "checkbox") {
-        let {receiveCurrentArt, receiveCurrentArtist, addNotification, showArtOverlayRecieved, showArtistOverlayRecieved, loadingArtDetail, loadingArtistDetail} = this.props
+        let {receiveCurrentArt, receiveCurrentArtist, addNotification, showArtOverlayRecieved, showArtistOverlayRecieved, loadingArtDetail, loadingArtistDetail, clearAllNotifications} = this.props
+        clearAllNotifications()
         if(mosaicType === MosaicTypes.ART) {
           this.getArtDetail(card, receiveCurrentArt, showArtOverlayRecieved, addNotification, loadingArtDetail)
         } else {
@@ -88,7 +88,8 @@ Mosaic.propTypes = {
   loadingArtistDetail: PropTypes.func,
   loadingArtDetail: PropTypes.func,
   addCheckCard: PropTypes.func,
-  deleteCheckCard: PropTypes.func
+  deleteCheckCard: PropTypes.func,
+  clearAllNotifications: PropTypes.func
 }
 
 export const mapDispatchToProps = dispatch => ({
@@ -100,7 +101,8 @@ export const mapDispatchToProps = dispatch => ({
   loadingArtistDetail: updatingCurrentArtist => dispatch({type: constants.UPDATING_CURRENT_ARTIST, updatingCurrentArtist}),
   loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
   addCheckCard: cardId => dispatch({type: constants.ADD_CHECK_CARD, cardId}),
-  deleteCheckCard: cardId => dispatch({type: constants.DELETE_CHECK_CARD, cardId})
+  deleteCheckCard: cardId => dispatch({type: constants.DELETE_CHECK_CARD, cardId}),
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
 })
 
 export default connect(null, mapDispatchToProps)(Mosaic)

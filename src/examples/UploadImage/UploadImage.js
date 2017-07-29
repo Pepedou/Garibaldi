@@ -69,7 +69,7 @@ export default class UploadImage extends Component {
         const list = this.state.images.map((image, i) => {
             return (
                 <li key={i}>
-                    <img style={{width: 72}} src={image.secure_url} /> <br />
+                    <img style={{width: 72}} src={image.secure_url} alt=""/> <br />
                     <a id={i} onClick={this.removeImage.bind(this)} href="#">delete</a>
                 </li>
             )

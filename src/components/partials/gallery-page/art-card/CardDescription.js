@@ -2,16 +2,17 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Category from '../../../ui/category/Category.js';
 import DefaultButton from '../../../ui/buttons/DefaultButton'
+import {getDetailValue} from '../../../../utils/fieldValidations'
 
 export default class CardDescription extends Component {
     render() {
         return (
             <div className="CardDescription row">
-                <Category category={{required: false, categoryName: 'Técnica', categoryValue: this.props.artCardInformation.detail.technique.value, editableName: false, editableValue: true}}/>
-                <Category category={{required: false, categoryName: 'Materiales', categoryValue: this.props.artCardInformation.detail.materials.value, editableName: false, editableValue: true}}/>
-                <Category category={{required: false, categoryName: 'Medidas', categoryValue: this.props.artCardInformation.detail.measurements.value, editableName: false, editableValue: true}}/>
+                <Category category={{required: false, categoryName: 'Técnica', categoryValue: getDetailValue(this.props.artCardInformation.detail.technique.value), editableName: false, editableValue: true}}/>
+                <Category category={{required: false, categoryName: 'Materiales', categoryValue: getDetailValue(this.props.artCardInformation.detail.materials.value), editableName: false, editableValue: true}}/>
+                <Category category={{required: false, categoryName: 'Medidas', categoryValue: getDetailValue(this.props.artCardInformation.detail.measurements.value), editableName: false, editableValue: true}}/>
                 {
-                    this.props.artCardInformation.categories.map((item, key) => <Category key={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}}/>)
+                    this.props.artCardInformation.categories.map((item, key) => <Category key={key} position={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}} validate={this.props.handleCategoryValidation}/>)
                 }
                 <center>
                     <DefaultButton
@@ -29,5 +30,6 @@ CardDescription.displayName = 'CardDescription'
 
 CardDescription.propTypes = {
   artCardInformation: PropTypes.object,
-  onTouchTap: PropTypes.func
+  onTouchTap: PropTypes.func,
+  handleCategoryValidation: PropTypes.func
 };

@@ -43,7 +43,7 @@ export let newArtistFields = [
         inputType: "autocomplete",
         floatingLabelText: "Gestor Cultural",
         hintText: "Ingrese el nombre",
-        id: "rep",
+        id: "culturalHelperId",
         type: "text",
         className: "TextField",
         errorText: "",

@@ -4,8 +4,7 @@ import * as constants from '../../redux/constants'
 import {connect} from 'react-redux'
 import Mosaic from '../../components/partials/mosaic/Mosaic'
 import ArtCard from '../../components/partials/gallery-page/art-card/ArtCard'
-import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
-import {handleError} from '../../utils/errorHandling'
+import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import axios from 'axios'
 import {MosaicTypes} from '../../utils/constants/MosaicTypes'
@@ -21,7 +20,7 @@ class GalleryPage extends Component {
           loadingArtDetail(false)
       })
       .catch(function (error) {
-          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+          addNotification(error.response.data.error)
           loadingArtDetail(false)
       })
     }
@@ -39,12 +38,12 @@ class GalleryPage extends Component {
             receiveArtGallery(response.data);
             loadingGallery(false)
           } else {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
+            addNotification({code: ERROR_CODES.NO_RESULTS_FOUND.code})
             loadingGallery(false)
         }
         })
         .catch(function (error) {
-          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+          addNotification(error.response.data.error)
           loadingGallery(false)
         })
     }

@@ -1,35 +1,35 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {getFilterOptions, getFilterService} from '../../../utils/filterUtils'
+import {getFilterOptions} from '../../../utils/filterUtils'
 import {PageTypes} from '../../../utils/constants/PageTypes'
 import * as constants from '../../../redux/constants'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {NotificationTypes} from '../../../components/alerts/notifications/NotificationTypes'
-import {handleError} from '../../../utils/errorHandling'
+import {handleError, ERROR_CODES} from '../../../utils/errorHandling'
 import apiRoutes from '../../../utils/services/apiRoutes'
 require('./SearchBar.css')
 require('../../../Main.css')
 
 class SearchBar extends Component {
   filterArtists(value, filter, {addNotification, clearAllNotifications, receiveArtistGallery, updateArtGallery}) {
-    let filterObject = JSON.stringify()
     axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`, {params: {filter: {where: {[filter]: {"like" : value, "options": "i" }}}}})
     .then(function (response) {
         updateArtGallery(false)
         receiveArtistGallery(response.data);
 
         if(response.data.length === 0){
-          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
+          clearAllNotifications()
+          addNotification({code: ERROR_CODES.NO_RESULTS_FOUND.code})
         }
     })
     .catch(function (error) {
         updateArtGallery(false)
-        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+        clearAllNotifications()
+        addNotification(error.response.data.error)
     })
   }
 
-  getArtDetail(cardId, receiveCurrentArt, addNotification, loadingArtDetail) {
+  getArtDetail(cardId, receiveCurrentArt, addNotification, loadingArtDetail, clearAllNotifications) {
       loadingArtDetail(true)
       axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${cardId}/getArtPieceDetail`)
       .then(function (response) {
@@ -37,7 +37,8 @@ class SearchBar extends Component {
           loadingArtDetail(false)
       })
       .catch(function (error) {
-          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+          clearAllNotifications()
+          addNotification(error.response.data.error)
           loadingArtDetail(false)
       })
     }
@@ -51,15 +52,17 @@ class SearchBar extends Component {
 
         if(response.data.length > 0) {
           loadingArtDetail(true)
-          getArtDetail(response.data[0].id, receiveCurrentArt, addNotification, loadingArtDetail)
+          getArtDetail(response.data[0].id, receiveCurrentArt, addNotification, loadingArtDetail, clearAllNotifications)
         } else {
+          clearAllNotifications()
           receiveCurrentArt({})
-          addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No hay resultados para la búsqueda especificada"});
+          addNotification({code: ERROR_CODES.NO_RESULTS_FOUND.code})
         }
     })
     .catch(function (error) {
+        clearAllNotifications()
         updateArtGallery(false)
-        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+        addNotification(error.response.data.error)
     })
   }
 

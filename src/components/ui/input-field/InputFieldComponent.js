@@ -47,6 +47,8 @@ let getInputField = props => {
             return getSelectField(props);
         case "autocomplete":
             return getAutocompleteField(props);
+        default:
+            return null;
     }
 }
 

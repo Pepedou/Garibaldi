@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import * as constants from '../../redux/constants'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
-import {handleError} from '../../utils/errorHandling'
-import {uploadFile} from '../../utils/services/uploadImagesUtils'
+import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import {getForm, FormType} from '../../utils/forms/formUtils'
-import {validateObligatoryFields, getFieldValue, getFieldIndex, getUserFields} from '../../utils/fieldValidations'
+import {validateObligatoryFields, getFieldIndex} from '../../utils/fieldValidations'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import Dropzone from 'react-dropzone'
-import Category from '../../components/ui/category/Category.js';
+import Category from '../../components/ui/category/Category.js'
 import apiRoutes from '../../utils/services/apiRoutes'
-import sha1 from 'sha1';
-import superagent from 'superagent';
+import sha1 from 'sha1'
+import superagent from 'superagent'
+import transformToImages from '../../utils/services/cloudinaryImageTransform'
+import {UserTypes} from '../../utils/constants/UserTypes'
 
 require('./NewArtPage.css')
 
@@ -56,15 +56,24 @@ class NewArtPage extends Component {
 
     componentWillMount() {
         let setState = this.setState.bind(this)
-        let {addNotification} = this.props
+        let {addNotification, currentUser} = this.props
+        let inputFieldsCopy = [...this.state.inputFields]
         axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`)
         .then(function (response) {
             let artists = []
             response.data.map((item, key) => artists.push({text: `${item.name} ${item.lastName}`, value: item.id}))
             setState({dataSource: artists})
+
+            if(currentUser.ownerType === UserTypes.ARTISTA) {
+                let currentFieldIndex = getFieldIndex(inputFieldsCopy, "author")
+                let newInputList = [...inputFieldsCopy.slice(0,currentFieldIndex), ...inputFieldsCopy.slice(currentFieldIndex+1)]
+                setState({inputFields: newInputList})
+            }
+
+            
         })
         .catch(function (error) {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+            addNotification(error.response.data.error)
         })
     }
 
@@ -102,7 +111,7 @@ class NewArtPage extends Component {
 
     onDropRejected(files, {clearAllNotifications, addNotification}) {
         clearAllNotifications()
-        addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "La imagen seleccionada no cumple con las características requeridas"})
+        addNotification({code: ERROR_CODES.WRONG_IMAGE.code})
     }
 
     handleAddCategory(event) {
@@ -132,7 +141,7 @@ class NewArtPage extends Component {
         return art
     }
 
-    uploadFile(file, addNotification, loading) {
+    uploadFile(file, addNotification, loading, currentUser) {
         const cloudName = 'zamancer'; // FROM CLOUDINARY SETTINGS
         const apiKey = '874385962738742'; // FROM CLOUDINARY SETTINGS
         const apiSecret = 'QLGmPgxfLxR72oBwfveKk4cn00M'; // FROM CLOUDINARY SETTINGS
@@ -160,16 +169,21 @@ class NewArtPage extends Component {
 
         uploadRequest.end((err, res) => {
             if(err) {
-                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "No se pudo guardar la imagen"})
+                addNotification({code: ERROR_CODES.CANT_SAVE_IMAGE.code})
                 return;
             }
 
             const uploaded = res.body;
             let art = this.getArtFieldsValues()
+            art.images = transformToImages(uploaded.secure_url);
             art.artistId = this.state.artistId
             art.source = uploaded.secure_url
-            let categories = this.state.categories
-            art.categories = categories
+            art.categories = this.state.categories
+
+            if(currentUser.ownerType === UserTypes.ARTISTA) {
+                art.artistId = currentUser.ownerId
+                art.author = `${currentUser.name} ${currentUser.lastName}`
+            }
 
             axios.post(`${apiRoutes.getServiceUrl()}/api/ArtPieces`, art, { headers: { 'Content-Type': 'application/json' } })
             .then(function (response) {
@@ -178,93 +192,107 @@ class NewArtPage extends Component {
             })
             .catch(function (error) {
                 loading(false)
-                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+                addNotification(error.response.data.error)
             })
         })
     }
 
-    handleOnClick(event, {clearAllNotifications, addNotification, loading}) {
+    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser}) {
         loading(true)
         event.preventDefault()
         clearAllNotifications();
-        let inputFieldsCopy = [...this.state.inputFields]
         let sourceImage = this.state.sourceImage
         let result = validateObligatoryFields(this.state.inputFields)
-        if(result.valid && sourceImage != ""){
-            let source = this.uploadFile(sourceImage, addNotification, loading)
+        if(result.valid && sourceImage !== ""){
+            this.uploadFile(sourceImage, addNotification, loading, currentUser)
         } else {
             loading(false)
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Seleccione la imagen de la obra e ingrese la información de los campos marcados en rojo (en los campos con catálogos asegurese de seleccionar una opción correcta)"})
+            addNotification({code: ERROR_CODES.REQUIRED_FIELDS_NEW_ART.code})
         }
         this.setState({inputFields: result.fieldList})
+    }
+
+    deleteImage() {
+        this.setState({sourcePreview: ""})
     }
 
     render() {
         return (
             <div className="col-xs-12 col-md-12 NewArtPage">
-                <div className="row">
-                    <div className="col-xs-12 col-md-4 DropZoneSection">
-                        <center>
-                            <Dropzone 
-                                onDropAccepted={(files) => this.onDropAccepted(files, this.props)}
-                                onDropRejected={(files) => this.onDropRejected(files, this.props)}
-                                accept="image/jpeg, image/png"
-                                multiple={false}
-                                name="source"
-                                maxSize={15000000}
-                                style={style.mainStyle}
-                                activeStyle={style.activeStyle}
-                                rejectStyle={style.rejectStyle}>
-                                <p className="DropZoneSection-message">Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
-                            </Dropzone>
-                            <img alt="" src={this.state.sourcePreview} id="preview"/>
-                        </center>
-                    </div>
-                    <div className="col-xs-12 col-md-4 NewArtForm">
-                        {
-                            this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
-                                                                    inputType={item.inputType} 
-                                                                    hintText={item.hintText}
-                                                                    floatingLabelText={item.floatingLabelText}
-                                                                    className={item.className}
-                                                                    id={item.id}
-                                                                    type={item.type}
-                                                                    errorText={item.errorText}
-                                                                    options={item.options}
-                                                                    defaultValue={item.defaultValue}
-                                                                    dataSource={this.state.dataSource}
-                                                                    onChange={event => this.handleOnChange(event)}
-                                                                    onNewRequest={value => this.handleOnNewRequest(value, item.id)}
-                                                                    onUpdateInput={value => this.handleOnUpdateInput(value, item.id)}/>)
+                    {
+                        this.props.showLoader
+                        ? <div className="marginTop row"><center><LoaderComponent/></center></div>
+                        : <div className="row">
+                            <div className="col-xs-12 col-md-4 DropZoneSection">
+                                <center>
+                                    <Dropzone 
+                                        onDropAccepted={(files) => this.onDropAccepted(files, this.props)}
+                                        onDropRejected={(files) => this.onDropRejected(files, this.props)}
+                                        accept="image/jpeg, image/png"
+                                        multiple={false}
+                                        name="source"
+                                        maxSize={15000000}
+                                        style={style.mainStyle}
+                                        activeStyle={style.activeStyle}
+                                        rejectStyle={style.rejectStyle}>
+                                        <p className="DropZoneSection-message">Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
+                                    </Dropzone>
+                                    {
+                                        this.state.sourcePreview !== "" || this.state.sourcePrevie
+                                        ? <div className="PreviewSection">
+                                            <a className="Closebtn" onClick={this.deleteImage.bind(this)}>&times;</a>
+                                            <img alt="" src={this.state.sourcePreview} id="preview"/>
+                                        </div>
+                                        : null
+                                    }
+                                </center>
+                            </div>
+                            <div className="col-xs-12 col-md-4 NewArtForm">
+                                {
+                                    this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
+                                                                            inputType={item.inputType} 
+                                                                            hintText={item.hintText}
+                                                                            floatingLabelText={item.floatingLabelText}
+                                                                            className={item.className}
+                                                                            id={item.id}
+                                                                            type={item.type}
+                                                                            errorText={item.errorText}
+                                                                            options={item.options}
+                                                                            defaultValue={item.defaultValue}
+                                                                            dataSource={this.state.dataSource}
+                                                                            onChange={event => this.handleOnChange(event)}
+                                                                            onNewRequest={value => this.handleOnNewRequest(value, item.id)}
+                                                                            onUpdateInput={value => this.handleOnUpdateInput(value, item.id)}/>)
 
-                                    
-                        }
-                    </div>
-                    <div className="col-xs-12 col-md-4 CategoriesSection">
-                        {
-                            this.state.categories.map((item, key) => <Category 
-                                                                        key={key}
-                                                                        position={key}
-                                                                        category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}}
-                                                                        validate={this.handleCategoryValidation.bind(this)}/>)
-                        }
-                        <center>
-                            <DefaultButton
-                                label="Agregar Categoría"
-                                floatStyle="center"
-                                onTouchTap={event => this.handleAddCategory(event)}
-                                />
-                        </center>
-                        <center>
-                            <DefaultButton
-                                label="Crear"
-                                floatStyle="center"
-                                className="marginTop"
-                                onTouchTap={event => this.handleOnClick(event, this.props)}
-                                />
-                        </center>
-                    </div>
-                </div>
+                                            
+                                }
+                            </div>
+                            <div className="col-xs-12 col-md-4 CategoriesSection">
+                                {
+                                    this.state.categories.map((item, key) => <Category 
+                                                                                key={key}
+                                                                                position={key}
+                                                                                category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}}
+                                                                                validate={this.handleCategoryValidation.bind(this)}/>)
+                                }
+                                <center>
+                                    <DefaultButton
+                                        label="Agregar Categoría"
+                                        floatStyle="center"
+                                        onTouchTap={event => this.handleAddCategory(event)}
+                                        />
+                                </center>
+                                <center>
+                                    <DefaultButton
+                                        label="Crear"
+                                        floatStyle="center"
+                                        className="marginTop"
+                                        onTouchTap={event => this.handleOnClick(event, this.props)}
+                                        />
+                                </center>
+                            </div>
+                        </div>
+                    }
             </div>
         );
     }
@@ -275,8 +303,14 @@ NewArtPage.displayName = 'NewArtPage'
 NewArtPage.propTypes = {
     addNotification: PropTypes.func,
     clearAllNotifications: PropTypes.func,
-    loading: PropTypes.func
+    loading: PropTypes.func,
+    showLoader: PropTypes.bool,
+    currentUser: PropTypes.object
 }
+
+export const mapStateToProps = ({showLoader, currentUser}) => ({
+  showLoader, currentUser
+})
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
@@ -284,4 +318,4 @@ export const mapDispatchToProps = dispatch => ({
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
-export default connect(null, mapDispatchToProps)(NewArtPage)
+export default connect(mapStateToProps, mapDispatchToProps)(NewArtPage)

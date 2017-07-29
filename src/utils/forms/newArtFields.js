@@ -33,7 +33,7 @@ export let newArtFields = [
         inputType: "textField",
         floatingLabelText: "Descripción",
         hintText: "Ingrese la descripción",
-        id: "detail",
+        id: "description",
         type: "text",
         className: "TextField",
         errorText: "",

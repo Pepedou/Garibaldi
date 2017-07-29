@@ -17,7 +17,7 @@ export default class Category extends Component {
               activeClassName="EditingCategory"
               text={this.props.category.categoryName}
               paramName="message"
-              validate={(data) => this.props.validate(data, position, "label")}
+              validate={(data) => this.props.validate && this.props.validate(data, position, "label")}
               change={this.handleChange}
             />
 
@@ -26,7 +26,7 @@ export default class Category extends Component {
               activeClassName="EditingCategory"
               text={this.props.category.categoryValue}
               paramName="message"
-              validate={(data) => this.props.validate(data, position, "value")}
+              validate={(data) => this.props.validate && this.props.validate(data, position, "value")}
               change={this.handleChange}
             />
 

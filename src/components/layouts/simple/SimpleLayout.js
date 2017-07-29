@@ -2,10 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ProfileNavBar from '../../partials/nav-bars/profile-nav-bar/ProfileNavBar';
 import {connect} from 'react-redux'
-import * as constants from '../../../redux/constants'
 import NotificationComponent from '../../alerts/notifications/NotificationComponent'
 import ReturnNavBar from '../../partials/nav-bars/return-nav-bar/ReturnNavBar'
-import axios from 'axios'
 
 require('../../../Main.css');
 

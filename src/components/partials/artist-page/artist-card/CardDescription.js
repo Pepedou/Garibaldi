@@ -8,7 +8,7 @@ export default class CardDescription extends Component {
         return (
             <div className="CardDescription row">
                 {
-                    this.props.artistCardInformation.categories.map((item, key) => <Category key={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}}/>)
+                    this.props.artistCardInformation.categories.map((item, key) => <Category key={key} position={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}} validate={this.props.handleCategoryValidation}/>)
                 }
                 <center>
                     <DefaultButton
@@ -26,5 +26,6 @@ CardDescription.displayName = 'CardDescription'
 
 CardDescription.propTypes = {
   artistCardInformation: PropTypes.object,
-  onTouchTap: PropTypes.func
+  onTouchTap: PropTypes.func,
+  handleCategoryValidation: PropTypes.func
 };
