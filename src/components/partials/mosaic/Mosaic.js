@@ -21,8 +21,9 @@ class Mosaic extends Component {
       loadingGallery(false)
     })
     .catch(function (error) {
-        addNotification(error.response.data.error)
+        showArtOverlayRecieved(false)
         loadingGallery(false)
+        addNotification(error.response.data.error)
     })
   }
 
@@ -35,8 +36,9 @@ class Mosaic extends Component {
         loadingArtistDetail(false)
     })
     .catch(function (error) {
-        addNotification(error.response.data.error)
+        showArtistOverlayRecieved(false)
         loadingArtistDetail(false)
+        addNotification(error.response.data.error)
     })
   }
 

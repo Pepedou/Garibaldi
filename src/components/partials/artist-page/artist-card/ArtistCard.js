@@ -31,8 +31,20 @@ export default class ArtistCard extends Component {
         this.props.receiveCurrentArt(currentArtistCopy)
     }
 
+    getPhoto(currentArtist) {
+        if( Object.getOwnPropertyNames(currentArtist).length > 0) {
+            if(this.props.currentArtist.detail.photo.value === "" || !this.props.currentArtist.detail.photo.value) {
+                return "https://s3.amazonaws.com/whisperinvest-images/default.png"
+            } else {
+                return this.props.currentArtist.detail.photo.value
+            }
+        } else {
+            return "https://s3.amazonaws.com/whisperinvest-images/default.png"
+        }
+    }
+
     render() {
-        let photo = this.props.currentArtist.detail.photo.value === "" || !this.props.currentArtist.detail.photo.value ? "https://s3.amazonaws.com/whisperinvest-images/default.png" : this.props.currentArtist.detail.photo.value
+        let photo = this.getPhoto(this.props.currentArtist)
         return (
             <div className="ArtistCard">
                 <CardComponent 
