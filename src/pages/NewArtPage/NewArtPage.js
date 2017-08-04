@@ -149,7 +149,7 @@ class NewArtPage extends Component {
                         : <div className="row">
                             <div className="col-xs-12 col-md-4 DropZoneSection">
                                 <center>
-                                    <DropZoneComponent {...this.props} setState={this.setState.bind(this)} sourceImage={this.state.sourceImage}/>
+                                    <DropZoneComponent setState={this.setState.bind(this)} sourceImage={this.state.sourceImage}/>
                                 </center>
                             </div>
                             <div className="col-xs-12 col-md-4 NewArtForm">
@@ -211,7 +211,8 @@ NewArtPage.propTypes = {
     clearAllNotifications: PropTypes.func,
     loading: PropTypes.func,
     showLoader: PropTypes.bool,
-    currentUser: PropTypes.object
+    currentUser: PropTypes.object,
+    loadingDropzone: PropTypes.func
 }
 
 export const mapStateToProps = ({showLoader, currentUser}) => ({

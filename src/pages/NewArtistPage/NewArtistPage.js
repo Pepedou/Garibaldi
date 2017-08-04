@@ -143,7 +143,7 @@ class NewArtistPage extends Component {
                     : <div className="row">
                         <div className="col-xs-12 col-md-4 DropZoneSection">
                             <center>
-                                <DropZoneComponent {...this.props} setState={this.setState.bind(this)} sourceImage={this.state.sourceImage}/>
+                                <DropZoneComponent setState={this.setState.bind(this)} sourceImage={this.state.sourceImage}/>
                             </center>
                         </div>
                         <div className="col-xs-12 col-md-4 NewArtistForm">
