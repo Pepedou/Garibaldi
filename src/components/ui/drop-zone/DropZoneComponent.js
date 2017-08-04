@@ -1,0 +1,97 @@
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import Dropzone from 'react-dropzone'
+import {ERROR_CODES} from '../../../utils/errorHandling'
+import {uploadFile} from '../../../utils/services/uploadImage'
+import LoaderComponent from '../../../components/ui/loader/LoaderComponent'
+import * as constants from '../../../redux/constants'
+import {connect} from 'react-redux'
+import {handleError} from '../../../utils/errorHandling'
+
+let style = {
+    mainStyle: {
+        borderStyle: "dashed",
+        borderWidth: 2,
+        height: 200
+    },
+    activeStyle: {
+        borderStyle: "dashed",
+        borderColor: "green",
+        borderWidth: 2,
+        height: 200
+    },
+    rejectStyle: {
+        borderStyle: "dashed",
+        borderColor: "red",
+        borderWidth: 2,
+        height: 200
+    }
+}
+
+class DropZoneComponent extends Component {
+    onDropAccepted(files, {clearAllNotifications, addNotification, setState, loadingDropzone}) {
+        clearAllNotifications()
+        loadingDropzone(true)
+        uploadFile(files[0], addNotification, setState, loadingDropzone)
+    }
+
+    onDropRejected(files, {clearAllNotifications, addNotification, setState}) {
+        clearAllNotifications()
+        addNotification({code: ERROR_CODES.WRONG_IMAGE.code})
+    }
+
+    deleteImage(event, {setState}) {
+        event.preventDefault();
+        setState({sourceImage: ""});
+    }
+
+    render() {
+        let {sourceImage, showDropzoneLoader} = this.props
+        return showDropzoneLoader
+            ? <div className="marginTop row"><center><LoaderComponent/></center></div>
+            : <div className="DropZoneComponent">
+                <Dropzone 
+                    onDropAccepted={(files) => this.onDropAccepted(files, this.props)}
+                    onDropRejected={(files) => this.onDropRejected(files, this.props)}
+                    accept="image/jpeg, image/png"
+                    multiple={false}
+                    name="source"
+                    maxSize={15000000}
+                    style={style.mainStyle}
+                    activeStyle={style.activeStyle}
+                    rejectStyle={style.rejectStyle}>
+                    <p className="DropZoneSection-message">Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
+                </Dropzone>
+                {
+                    sourceImage !== "" || sourceImage
+                    ? <div className="PreviewSection">
+                        <a className="Closebtn" onClick={(event) => this.deleteImage(event, this.props)}>&times;</a>
+                        <img alt="" src={sourceImage} id="preview"/>
+                    </div>
+                    : null
+                }
+            </div>
+    }
+}
+
+DropZoneComponent.displayName = 'DropZoneComponent'
+
+DropZoneComponent.propTypes = {
+    addNotification: PropTypes.func,
+    clearAllNotifications: PropTypes.func,
+    loadingDropzone: PropTypes.func,
+    showDropzoneLoader: PropTypes.bool,
+    sourceImage: PropTypes.any
+}
+
+export const mapStateToProps = ({showDropzoneLoader}) => ({
+  showDropzoneLoader
+})
+
+export const mapDispatchToProps = dispatch => ({
+  addNotification: notification => handleError(dispatch, notification),
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  loadingDropzone: showDropzoneLoader => dispatch({type: constants.SHOW_DROPZONE_LOADER, showDropzoneLoader})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DropZoneComponent)
