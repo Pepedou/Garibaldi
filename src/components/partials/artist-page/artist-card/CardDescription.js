@@ -5,16 +5,17 @@ import DefaultButton from '../../../ui/buttons/DefaultButton'
 
 export default class CardDescription extends Component {
     render() {
+        let {artistCardInformation, handleCategoryValidation, onTouchTap} = this.props
         return (
             <div className="CardDescription row">
                 {
-                    this.props.artistCardInformation.categories.map((item, key) => <Category key={key} position={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}} validate={this.props.handleCategoryValidation}/>)
+                    artistCardInformation.categories.map((item, key) => <Category key={key} position={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}} validate={handleCategoryValidation}/>)
                 }
                 <center>
                     <DefaultButton
                         label="Agregar Categoría"
                         floatStyle="center"
-                        onTouchTap={event => this.props.onTouchTap(event)}
+                        onTouchTap={event => onTouchTap(event)}
                         />
                 </center>
             </div>

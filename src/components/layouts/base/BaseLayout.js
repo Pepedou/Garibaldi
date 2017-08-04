@@ -36,12 +36,12 @@ class BaseLayout extends Component {
   render() {
     return (
       <div className="BaseLayout container-fluid degraded-container">
-        <FloatingBar />
-        <ArtCardOverlay />
-        <ArtistCardOverlay />
-        <FullImageOverlay />
-        <ProfileNavBar user={this.props.currentUser}/>
-        <MainNavBar user={this.props.currentUser} artistProfileClick={this.artistProfileClick.bind(this)}/>
+        <FloatingBar {...this.props}/>
+        <ArtCardOverlay {...this.props}/>
+        <ArtistCardOverlay {...this.props}/>
+        <FullImageOverlay {...this.props}/>
+        <ProfileNavBar {...this.props}/>
+        <MainNavBar {...this.props} artistProfileClick={this.artistProfileClick.bind(this)}/>
         <div className="row"><NotificationComponent/></div>
         <div className="row">{this.props.children}</div>
       </div>
@@ -52,24 +52,57 @@ class BaseLayout extends Component {
 BaseLayout.displayName = 'BaseLayout'
 
 BaseLayout.propTypes = {
+  checkCards: PropTypes.array,
+  currentArt: PropTypes.object,
+  currentArtist: PropTypes.object,
   currentUser: PropTypes.object,
-  receiveCurrentArtist: PropTypes.func,
-  showArtistOverlayRecieved: PropTypes.func,
+  showArtOverlay: PropTypes.bool,
+  showArtistOverlay: PropTypes.bool,
+  showFullImageOverlay: PropTypes.bool,
+  updatingCurrentArt: PropTypes.bool,
+  updatingCurrentArtist: PropTypes.bool,
   addNotification: PropTypes.func,
+  clearAllNotifications: PropTypes.func,
+  loadingArtDetail: PropTypes.func,
   loadingArtistDetail: PropTypes.func,
-  clearAllNotifications: PropTypes.func
+  receiveArtGallery: PropTypes.func,
+  receiveArtistGallery: PropTypes.func,
+  receiveCurrentArt: PropTypes.func,
+  receiveCurrentArtist: PropTypes.func,
+  receiveCurrentUser: PropTypes.func,
+  showArtOverlayRecieved: PropTypes.func,
+  showArtistOverlayRecieved: PropTypes.func,
+  showFullImageOverlayRecieved: PropTypes.func,
+  updateArtGallery: PropTypes.func
 };
 
-export const mapStateToProps = ({currentUser}) => ({
-  currentUser
+export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentUser, showArtOverlay, 
+  showArtistOverlay, showFullImageOverlay, updatingCurrentArt, updatingCurrentArtist}) => ({
+  checkCards,
+  currentArt,
+  currentArtist,
+  currentUser,
+  showArtOverlay,
+  showArtistOverlay,
+  showFullImageOverlay,
+  updatingCurrentArt,
+  updatingCurrentArtist
 })
 
 export const mapDispatchToProps = dispatch => ({
-  receiveCurrentArtist: artist => dispatch({type: constants.CURRENT_ARTIST_RECEIVED, artist}),
-  showArtistOverlayRecieved: show => dispatch({type: constants.SHOW_ARTIST_OVERLAY, show}),
   addNotification: notification => handleError(dispatch, notification),
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
   loadingArtistDetail: updatingCurrentArtist => dispatch({type: constants.UPDATING_CURRENT_ARTIST, updatingCurrentArtist}),
-  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+  receiveArtGallery: artGallery => dispatch({type: constants.ART_GALLERY_RECIEVED, artGallery}),
+  receiveArtistGallery: artistGallery => dispatch({type: constants.ARTIST_GALLERY_RECIEVED, artistGallery}),
+  receiveCurrentArt: art => dispatch({type: constants.CURRENT_ART_RECEIVED, art}),
+  receiveCurrentArtist: artist => dispatch({type: constants.CURRENT_ARTIST_RECEIVED, artist}),
+  receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user}),
+  showArtOverlayRecieved: show => dispatch({type: constants.SHOW_ART_OVERLAY, show}),
+  showArtistOverlayRecieved: show => dispatch({type: constants.SHOW_ARTIST_OVERLAY, show}),
+  showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show}),
+  updateArtGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)

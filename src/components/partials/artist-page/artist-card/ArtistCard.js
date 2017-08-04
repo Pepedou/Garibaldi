@@ -10,16 +10,18 @@ import {getDetailValue} from '../../../../utils/fieldValidations'
 
 export default class ArtistCard extends Component {
     handleAddCategory(event) {
+        let {receiveCurrentArtist} = this.props
         let currentArtistCopy = {...this.props.currentArtist}
         let emptyCategory = {
             label: "Nombre de la categoría...",
             value: "Valor de la categoría..."
         }
         currentArtistCopy.categories.push(emptyCategory)
-        this.props.receiveCurrentArtist(currentArtistCopy)
+        receiveCurrentArtist(currentArtistCopy)
     }
 
     handleCategoryValidation(data, position, property) {
+        let {receiveCurrentArtist} = this.props
         let currentArtistCopy = {...this.props.currentArtist}
         let currentCategoriesCopy = currentArtistCopy.categories
         if(data === ""){
@@ -28,7 +30,7 @@ export default class ArtistCard extends Component {
            currentCategoriesCopy[position][property] = data
         }
         currentArtistCopy.categories = currentCategoriesCopy
-        this.props.receiveCurrentArt(currentArtistCopy)
+        receiveCurrentArtist(currentArtistCopy)
     }
 
     getPhoto(currentArtist) {
@@ -44,17 +46,18 @@ export default class ArtistCard extends Component {
     }
 
     render() {
-        let photo = this.getPhoto(this.props.currentArtist)
+        let {currentArtist} = this.props
+        let photo = this.getPhoto(currentArtist)
         return (
             <div className="ArtistCard">
                 <CardComponent 
-                    overlayTitle={<Category category={{required: true, categoryName: 'Nombre', categoryValue: this.props.currentArtist.detail.name.value, editableName: false, editableValue: true}}/>}
-                    overlaySubtitle={<Category category={{required: true, categoryName: 'Apellido', categoryValue: this.props.currentArtist.detail.lastName.value, editableName: false, editableValue: true}}/>}
+                    overlayTitle={<Category category={{required: true, categoryName: 'Nombre', categoryValue: currentArtist.detail.name.value, editableName: false, editableValue: true}}/>}
+                    overlaySubtitle={<Category category={{required: true, categoryName: 'Apellido', categoryValue: currentArtist.detail.lastName.value, editableName: false, editableValue: true}}/>}
                     cardImage={photo}
-                    cardTitle={<Category category={{required: true, categoryName: 'Email', categoryValue: this.props.currentArtist.detail.email.value, editableName: false, editableValue: false}}/>}
-                    cardSubtitle={<Category category={{required: false, categoryName: 'Teléfono', categoryValue: getDetailValue(this.props.currentArtist.detail.phone.value), editableName: false, editableValue: true}}/>}
-                    cardDescription={<CardDescription artistCardInformation={this.props.currentArtist} onTouchTap={this.handleAddCategory.bind(this)} handleCategoryValidation={this.handleCategoryValidation.bind(this)}/>}
-                    cardActions={<CardActions artCardInformation={this.props.currentArtist}/>}
+                    cardTitle={<Category category={{required: true, categoryName: 'Email', categoryValue: currentArtist.detail.email.value, editableName: false, editableValue: false}}/>}
+                    cardSubtitle={<Category category={{required: false, categoryName: 'Teléfono', categoryValue: getDetailValue(currentArtist.detail.phone.value), editableName: false, editableValue: true}}/>}
+                    cardDescription={<CardDescription artistCardInformation={currentArtist} onTouchTap={this.handleAddCategory.bind(this)} handleCategoryValidation={this.handleCategoryValidation.bind(this)}/>}
+                    cardActions={<CardActions artCardInformation={currentArtist}/>}
                 />
             </div>
         )
@@ -65,5 +68,6 @@ ArtistCard.displayName = 'ArtistCard'
 
 ArtistCard.propTypes = {
   currentArtist: PropTypes.object,
+  receiveCurrentArt: PropTypes.func,
   receiveCurrentArtist: PropTypes.func
 }

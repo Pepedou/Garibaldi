@@ -1,28 +1,27 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ArtCard from '../art-card/ArtCard'
-import * as constants from '../../../../redux/constants'
 import LoaderComponent from '../../../../components/ui/loader/LoaderComponent'
-import {connect} from 'react-redux'
 require('../../../../Main.css')
 
-class ArtCardOverlay extends Component {
+export default class ArtCardOverlay extends Component {
     toggleOverlay(showArtOverlayRecieved) {
         showArtOverlayRecieved(false)
     }
 
     render() {
-        return (this.props.showArtOverlay ?
+        let {showArtOverlay, showArtOverlayRecieved, updatingCurrentArt, currentArt, receiveCurrentArt, showFullImageOverlayRecieved} = this.props
+        return (showArtOverlay ?
         <div className="Overlay">
-            <a className="Closebtn" onClick={() => this.toggleOverlay(this.props.showArtOverlayRecieved)}>&times;</a>
+            <a className="Closebtn" onClick={() => this.toggleOverlay(showArtOverlayRecieved)}>&times;</a>
             <div className="Overlay-content">
                 {
-                    this.props.updatingCurrentArt
+                    updatingCurrentArt
                     ? <div className="marginTop"><center><LoaderComponent/></center></div>
                     : <ArtCard 
-                        currentArt={this.props.currentArt} 
-                        receiveCurrentArt={this.props.receiveCurrentArt} 
-                        showFullImageOverlayRecieved={this.props.showFullImageOverlayRecieved}/>
+                        currentArt={currentArt} 
+                        receiveCurrentArt={receiveCurrentArt} 
+                        showFullImageOverlayRecieved={showFullImageOverlayRecieved}/>
                 }
             </div>
         </div> : null);
@@ -39,15 +38,3 @@ ArtCardOverlay.propTypes = {
   updatingCurrentArt: PropTypes.bool,
   showFullImageOverlayRecieved: PropTypes.func
 }
-
-export const mapStateToProps = ({showArtOverlay, currentArt, updatingCurrentArt}) => ({
-  showArtOverlay, currentArt, updatingCurrentArt
-})
-
-export const mapDispatchToProps = dispatch => ({
-  showArtOverlayRecieved: show => dispatch({type: constants.SHOW_ART_OVERLAY, show}),
-  receiveCurrentArt: art => dispatch({type: constants.CURRENT_ART_RECEIVED, art}),
-  showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show})
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ArtCardOverlay)

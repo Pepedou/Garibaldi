@@ -16,16 +16,18 @@ export default class ArtCard extends Component {
     }
 
     handleAddCategory(event) {
+        let {receiveCurrentArt} = this.props
         let currentArtCopy = {...this.props.currentArt}
         let emptyCategory = {
             label: "Nombre de la categoría...",
             value: "Valor de la categoría..."
         }
         currentArtCopy.categories.push(emptyCategory)
-        this.props.receiveCurrentArt(currentArtCopy)
+        receiveCurrentArt(currentArtCopy)
     }
 
     handleCategoryValidation(data, position, property) {
+        let {receiveCurrentArt} = this.props
         let currentArtCopy = {...this.props.currentArt}
         let currentCategoriesCopy = currentArtCopy.categories
         if(data === ""){
@@ -34,21 +36,22 @@ export default class ArtCard extends Component {
            currentCategoriesCopy[position][property] = data
         }
         currentArtCopy.categories = currentCategoriesCopy
-        this.props.receiveCurrentArt(currentArtCopy)
+        receiveCurrentArt(currentArtCopy)
     }
 
     render() {
+        let {showFullImageOverlayRecieved, currentArt} = this.props
         return (
             <div className="ArtCard">
-                <div className="FullImage-button" onClick={() => this.props.showFullImageOverlayRecieved(true)}>Imagen completa</div>
+                <div className="FullImage-button" onClick={() => showFullImageOverlayRecieved(true)}>Imagen completa</div>
                 <CardComponent 
-                    overlayTitle={<Category category={{required: true, categoryName: 'Obra', categoryValue: this.props.currentArt.detail.title.value, editableName: false, editableValue: true}}/>}
-                    overlaySubtitle={<Category category={{required: false, categoryName: 'Año', categoryValue: getDetailValue(this.props.currentArt.detail.year.value.toString()), editableName: false, editableValue: true}}/>}
-                    cardImage={this.props.currentArt.detail.images.value.standard}
-                    cardTitle={<Category category={{required: true, categoryName: 'Artista', categoryValue: this.props.currentArt.detail.author.value, editableName: false, editableValue: false}}/>}
-                    cardSubtitle={<Category category={{required: false, categoryName: 'Descripción', categoryValue: getDetailValue(this.props.currentArt.detail.description.value), editableName: false, editableValue: true}}/>}
-                    cardDescription={<CardDescription artCardInformation={this.props.currentArt} onTouchTap={this.handleAddCategory.bind(this)}  handleCategoryValidation={this.handleCategoryValidation.bind(this)}/>}
-                    cardActions={<CardActions artCardInformation={this.props.currentArt}/>}
+                    overlayTitle={<Category category={{required: true, categoryName: 'Obra', categoryValue: currentArt.detail.title.value, editableName: false, editableValue: true}}/>}
+                    overlaySubtitle={<Category category={{required: false, categoryName: 'Año', categoryValue: getDetailValue(currentArt.detail.year.value.toString()), editableName: false, editableValue: true}}/>}
+                    cardImage={currentArt.detail.images.value.standard}
+                    cardTitle={<Category category={{required: true, categoryName: 'Artista', categoryValue: currentArt.detail.author.value, editableName: false, editableValue: false}}/>}
+                    cardSubtitle={<Category category={{required: false, categoryName: 'Descripción', categoryValue: getDetailValue(currentArt.detail.description.value), editableName: false, editableValue: true}}/>}
+                    cardDescription={<CardDescription artCardInformation={currentArt} onTouchTap={this.handleAddCategory.bind(this)}  handleCategoryValidation={this.handleCategoryValidation.bind(this)}/>}
+                    cardActions={<CardActions artCardInformation={currentArt}/>}
                 />
             </div>
         )

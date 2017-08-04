@@ -2,15 +2,13 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {getFilterOptions} from '../../../utils/filterUtils'
 import {PageTypes} from '../../../utils/constants/PageTypes'
-import * as constants from '../../../redux/constants'
-import {connect} from 'react-redux'
 import axios from 'axios'
-import {handleError, ERROR_CODES} from '../../../utils/errorHandling'
+import {ERROR_CODES} from '../../../utils/errorHandling'
 import apiRoutes from '../../../utils/services/apiRoutes'
 require('./SearchBar.css')
 require('../../../Main.css')
 
-class SearchBar extends Component {
+export default class SearchBar extends Component {
   filterArtists(value, filter, {addNotification, clearAllNotifications, receiveArtistGallery, updateArtGallery}) {
     axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`, {params: {filter: {where: {[filter]: {"like" : value, "options": "i" }}}}})
     .then(function (response) {
@@ -82,12 +80,13 @@ class SearchBar extends Component {
 
   render() {
     let page = window.location.pathname === '/home' ? PageTypes.ART_GALLERY : PageTypes.ARTISTS
+    let {currentUser} = this.props
     return (
       <div className="SearchBar">
         <input type="text" className="searchElement" placeholder="Filtrar información..." id="filterInput" onChange={event => this.handleOnChange(event, this.props)}/>
         <select className="searchElement" id="filterTypeSelect">
           {
-            getFilterOptions(this.props.currentUser, page).map((item, key) => <option value={item.value} key={key}>{item.filter}</option>)
+            getFilterOptions(currentUser, page).map((item, key) => <option value={item.value} key={key}>{item.filter}</option>)
           }
         </select>
       </div>
@@ -106,19 +105,3 @@ SearchBar.propTypes = {
   updateArtGallery: PropTypes.func,
   receiveArtistGallery: PropTypes.func
 };
-
-export const mapStateToProps = ({currentUser}) => ({
-  currentUser
-})
-
-export const mapDispatchToProps = dispatch => ({
-  receiveArtGallery: artGallery => dispatch({type: constants.ART_GALLERY_RECIEVED, artGallery}),
-  receiveCurrentArt: art => dispatch({type: constants.CURRENT_ART_RECEIVED, art}),
-  addNotification: notification => handleError(dispatch, notification),
-  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  updateArtGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
-  loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
-  receiveArtistGallery: artistGallery => dispatch({type: constants.ARTIST_GALLERY_RECIEVED, artistGallery})
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(SearchBar)

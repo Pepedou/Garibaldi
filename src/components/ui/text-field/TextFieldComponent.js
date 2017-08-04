@@ -21,6 +21,8 @@ const styles = {
   }
 };
 
+let getRows = isMultiLine => isMultiLine ? 3 : 1
+
 export default class TextFieldComponent extends Component {
     render() {
         return(
@@ -34,6 +36,8 @@ export default class TextFieldComponent extends Component {
                 errorText={this.props.errorText}
                 onChange={this.props.onChange}
                 defaultValue={this.props.defaultValue}
+                multiLine={this.props.multiLine}
+                rows={getRows(this.props.multiLine)}
                 fullWidth={true}
                 underlineStyle={styles.underlineStyle}
                 floatingLabelStyle={styles.floatingLabelStyle}
@@ -55,4 +59,9 @@ TextField.propTypes = {
   errorText: PropTypes.string,
   onChange: PropTypes.func,
   defaultValue: PropTypes.string,
+  multiLine: PropTypes.bool
 };
+
+TextFieldComponent.defaultProps = {
+  multiLine: false
+}

@@ -4,10 +4,11 @@ import {connect} from 'react-redux'
 
 class NotificationComponent extends Component {
     render() {
+        let {notifications} = this.props
         return (
-            this.props.notifications.length > 0
+            notifications.length > 0
             ? <div className='Notifications'>
-                { this.props.notifications.map(({type, contentType, messages, message}, key) =>
+                { notifications.map(({type, contentType, messages, message}, key) =>
                     <div className={`alert alert-${type}`} key={key}>
                         {contentType === 'list'
                         ? <div className="NotificationMessages">

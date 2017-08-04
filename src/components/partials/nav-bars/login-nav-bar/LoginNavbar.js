@@ -5,8 +5,9 @@ import './LoginNavbar.css';
 
 export default class LoginNavbar extends Component {
     componentDidMount(){
-        if(this.props.selectedOption){
-            document.getElementById(this.props.selectedOption).style.fontWeight = "bold";
+        let {selectedOption} = this.props
+        if(selectedOption){
+            document.getElementById(selectedOption).style.fontWeight = "bold";
         }
     }
 

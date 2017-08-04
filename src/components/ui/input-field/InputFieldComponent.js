@@ -14,6 +14,7 @@ let getTextFieldComponente = props => <TextFieldComponent
             errorText={props.errorText}
             defaultValue={props.defaultValue}
             onChange={props.onChange}
+            multiLine={props.multiLine}
             />
 
 let getAutocompleteField = props => <AutocompleteComponent
@@ -69,6 +70,7 @@ InputFieldComponent.propTypes = {
   errorText: PropTypes.string,
   options: PropTypes.array,
   defaultValue: PropTypes.string,
+  multiLine: PropTypes.bool,
   onChange: PropTypes.func,
   onNewRequest: PropTypes.func,
   onUpdateInput: PropTypes.func

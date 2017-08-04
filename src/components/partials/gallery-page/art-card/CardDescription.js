@@ -6,19 +6,20 @@ import {getDetailValue} from '../../../../utils/fieldValidations'
 
 export default class CardDescription extends Component {
     render() {
+        let {artCardInformation, handleCategoryValidation, onTouchTap} = this.props
         return (
             <div className="CardDescription row">
-                <Category category={{required: false, categoryName: 'Técnica', categoryValue: getDetailValue(this.props.artCardInformation.detail.technique.value), editableName: false, editableValue: true}}/>
-                <Category category={{required: false, categoryName: 'Materiales', categoryValue: getDetailValue(this.props.artCardInformation.detail.materials.value), editableName: false, editableValue: true}}/>
-                <Category category={{required: false, categoryName: 'Medidas', categoryValue: getDetailValue(this.props.artCardInformation.detail.measurements.value), editableName: false, editableValue: true}}/>
+                <Category category={{required: false, categoryName: 'Técnica', categoryValue: getDetailValue(artCardInformation.detail.technique.value), editableName: false, editableValue: true}}/>
+                <Category category={{required: false, categoryName: 'Materiales', categoryValue: getDetailValue(artCardInformation.detail.materials.value), editableName: false, editableValue: true}}/>
+                <Category category={{required: false, categoryName: 'Medidas', categoryValue: getDetailValue(artCardInformation.detail.measurements.value), editableName: false, editableValue: true}}/>
                 {
-                    this.props.artCardInformation.categories.map((item, key) => <Category key={key} position={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}} validate={this.props.handleCategoryValidation}/>)
+                    artCardInformation.categories.map((item, key) => <Category key={key} position={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}} validate={handleCategoryValidation}/>)
                 }
                 <center>
                     <DefaultButton
                         label="Agregar Categoría"
                         floatStyle="center"
-                        onTouchTap={event => this.props.onTouchTap(event)}
+                        onTouchTap={event => onTouchTap(event)}
                         />
                 </center>
             </div>

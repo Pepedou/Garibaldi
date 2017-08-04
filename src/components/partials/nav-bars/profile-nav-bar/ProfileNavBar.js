@@ -7,8 +7,6 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import '../../../../Main.css';
 import './ProfileNavBar.css';
 import {white} from 'material-ui/styles/colors';
-import {connect} from 'react-redux'
-import * as constants from '../../../../redux/constants'
 
 let styles = {
     iconStyle: {
@@ -16,7 +14,7 @@ let styles = {
     }
 }
 
-class ProfileNavBar extends Component {
+export default class ProfileNavBar extends Component {
     handleOnItemTouchTap(event, child, receiveCurrentUser) {
         if(child.props.value === "logout") {
             localStorage.removeItem("currentUser");
@@ -26,6 +24,7 @@ class ProfileNavBar extends Component {
     }
 
     render() {
+        let {currentUser, receiveCurrentUser} = this.props
         return (
             <div className="ProfileNavBar row">
                 <div className="col-xs-8 col-md-6">
@@ -34,14 +33,14 @@ class ProfileNavBar extends Component {
                         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                         targetOrigin={{horizontal: 'left', vertical: 'top'}}
                         animated={true}
-                        onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, this.props.receiveCurrentUser)}
+                        onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, receiveCurrentUser)}
                         iconStyle={styles.iconStyle}
                         className="UserIconMenu"
                         >
                         <MenuItem primaryText="Mi perfil" value="myProfile"/>
                         <MenuItem primaryText="Cerrar sesión" value="logout"/>
                     </IconMenu>
-                    <div className="userFullName">{this.props.user.name}</div>
+                    <div className="userFullName">{currentUser.name}</div>
                 </div>
                 <div className="col-xs-4 col-md-6">
                     <img src="" alt="" className="whiteNavLogo"/>
@@ -54,11 +53,6 @@ class ProfileNavBar extends Component {
 ProfileNavBar.displayName = 'ProfileNavBar'
 
 ProfileNavBar.propTypes = {
-  user: PropTypes.object
-};
-
-export const mapDispatchToProps = dispatch => ({
-  receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user})
-})
-
-export default connect(null, mapDispatchToProps)(ProfileNavBar)
+  currentUser: PropTypes.object,
+  receiveCurrentUser: PropTypes.func
+}

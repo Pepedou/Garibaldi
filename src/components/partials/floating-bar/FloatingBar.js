@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import SvgIcon from 'material-ui/SvgIcon';
-import {connect} from 'react-redux'
 import {blue500, blue700} from 'material-ui/styles/colors';
 require('./FloatingBar.css')
 
@@ -11,7 +10,7 @@ const style = {
   marginLeft: 20
 };
 
-class FloatingBar extends Component {
+export default class FloatingBar extends Component {
   exportToPdf(event, checkCards){
     console.log(checkCards)
   }
@@ -67,9 +66,3 @@ FloatingBar.displayName = 'FloatingBar'
 FloatingBar.propTypes = {
   checkCards: PropTypes.array,
 };
-
-export const mapStateToProps = ({checkCards}) => ({
-  checkCards
-})
-
-export default connect(mapStateToProps, null)(FloatingBar)

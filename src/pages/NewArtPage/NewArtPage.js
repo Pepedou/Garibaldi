@@ -260,6 +260,7 @@ class NewArtPage extends Component {
                                                                             options={item.options}
                                                                             defaultValue={item.defaultValue}
                                                                             dataSource={this.state.dataSource}
+                                                                            multiLine={item.multiLine}
                                                                             onChange={event => this.handleOnChange(event)}
                                                                             onNewRequest={value => this.handleOnNewRequest(value, item.id)}
                                                                             onUpdateInput={value => this.handleOnUpdateInput(value, item.id)}/>)

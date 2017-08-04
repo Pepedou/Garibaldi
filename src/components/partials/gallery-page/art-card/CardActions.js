@@ -4,23 +4,24 @@ import DefaultButton from '../../../ui/buttons/DefaultButton'
 
 export default class CardActions extends Component {
     render() {
+        let {artCardInformation} = this.props
         return (
             <div className="CardActions row">
                 <center>
                     <DefaultButton
                         label="Guardar"
                         floatStyle="center"
-                        onTouchTap={event => this.handleSave(event, this.props.artCardInformation)}
+                        onTouchTap={event => this.handleSave(event, artCardInformation)}
                         />
                     <DefaultButton
                         label="Eliminar"
                         floatStyle="center"
-                        onTouchTap={event => this.handleDelete(event, this.props.artCardInformation)}
+                        onTouchTap={event => this.handleDelete(event, artCardInformation)}
                         />
                     <DefaultButton
                         label="PDF"
                         floatStyle="center"
-                        onTouchTap={event => this.handlePDF(event, this.props.artCardInformation)}
+                        onTouchTap={event => this.handlePDF(event, artCardInformation)}
                         />
                 </center>
             </div>

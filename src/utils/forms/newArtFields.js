@@ -37,7 +37,8 @@ export let newArtFields = [
         type: "text",
         className: "TextField",
         errorText: "",
-        defaultValue: ""
+        defaultValue: "",
+        multiLine: true
     },
     {
         inputType: "textField",

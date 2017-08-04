@@ -63,14 +63,15 @@ class Mosaic extends Component {
   }
     
   render() {
+    let {cardList, mosaicType, addCheckCard, deleteCheckCard} = this.props
     return (
       <div className="col-xs-12 Mosaic">
         {
-          this.props.cardList && <GridListComponent 
-                                    cardList={this.props.cardList}
-                                    mosaicType={this.props.mosaicType}
-                                    addCheckCard={this.props.addCheckCard}
-                                    deleteCheckCard={this.props.deleteCheckCard}
+          cardList && <GridListComponent 
+                                    cardList={cardList}
+                                    mosaicType={mosaicType}
+                                    addCheckCard={addCheckCard}
+                                    deleteCheckCard={deleteCheckCard}
                                     onTouchTap={this.handleOnTouchTap.bind(this)}
                                     onCheck={this.handleOnCheck.bind(this)}/>
         }
