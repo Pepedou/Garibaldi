@@ -9,35 +9,13 @@ import {getForm, FormType} from '../../utils/forms/formUtils'
 import {validateObligatoryFields, getFieldIndex} from '../../utils/fieldValidations'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
-import Dropzone from 'react-dropzone'
+import DropZoneComponent from '../../components/ui/drop-zone/DropZoneComponent'
 import Category from '../../components/ui/category/Category.js'
 import apiRoutes from '../../utils/services/apiRoutes'
-import sha1 from 'sha1'
-import superagent from 'superagent'
 import transformToImages from '../../utils/services/cloudinaryImageTransform'
 import {UserTypes} from '../../utils/constants/UserTypes'
 
 require('./NewArtPage.css')
-
-let style = {
-    mainStyle: {
-        borderStyle: "dashed",
-        borderWidth: 2,
-        height: 200
-    },
-    activeStyle: {
-        borderStyle: "dashed",
-        borderColor: "green",
-        borderWidth: 2,
-        height: 200
-    },
-    rejectStyle: {
-        borderStyle: "dashed",
-        borderColor: "red",
-        borderWidth: 2,
-        height: 200
-    }
-}
 
 class NewArtPage extends Component {
     constructor(props)
@@ -46,8 +24,7 @@ class NewArtPage extends Component {
 
         this.state = {
             inputFields: getForm(FormType.NEW_ART),
-            sourceImage: {},
-            sourcePreview: "",
+            sourceImage: "",
             dataSource: [],
             categories: [],
             artistId: ""
@@ -103,17 +80,6 @@ class NewArtPage extends Component {
         }
     }
 
-    onDropAccepted(files, {clearAllNotifications, addNotification}) {
-        clearAllNotifications()
-        this.setState({sourceImage: files[0]})
-        this.setState({sourcePreview: files[0].preview})
-    }
-
-    onDropRejected(files, {clearAllNotifications, addNotification}) {
-        clearAllNotifications()
-        addNotification({code: ERROR_CODES.WRONG_IMAGE.code})
-    }
-
     handleAddCategory(event) {
         let currentCategoriesCopy = [...this.state.categories]
         let emptyCategory = {
@@ -141,43 +107,16 @@ class NewArtPage extends Component {
         return art
     }
 
-    uploadFile(file, addNotification, loading, currentUser) {
-        const cloudName = 'zamancer'; // FROM CLOUDINARY SETTINGS
-        const apiKey = '874385962738742'; // FROM CLOUDINARY SETTINGS
-        const apiSecret = 'QLGmPgxfLxR72oBwfveKk4cn00M'; // FROM CLOUDINARY SETTINGS
-        const timeStamp = Date.now() / 1000;
-        const uploadPreset = 'mywnuuzi'; // FROM CLOUDINARY SETTINGS
-
-        const paramStr = 'timestamp=' + timeStamp + '&upload_preset=' + uploadPreset + apiSecret;
-        const url = 'https://api.cloudinary.com/v1_1/' + cloudName + '/image/upload';
-
-        const signature = sha1(paramStr);
-        const params = {
-            'api_key': apiKey,
-            'timestamp': timeStamp,
-            'upload_preset': uploadPreset,
-            'signature': signature
-        }
-
-        const image = file
-        let uploadRequest = superagent.post(url);
-        uploadRequest.attach('file', image);
-
-        Object.keys(params).forEach((key) => {
-            uploadRequest.field(key, params[key]);
-        });
-
-        uploadRequest.end((err, res) => {
-            if(err) {
-                addNotification({code: ERROR_CODES.CANT_SAVE_IMAGE.code})
-                return;
-            }
-
-            const uploaded = res.body;
+    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser}) {
+        loading(true)
+        event.preventDefault()
+        clearAllNotifications();
+        let result = validateObligatoryFields(this.state.inputFields)
+        if(result.valid && this.state.sourceImage !== ""){
             let art = this.getArtFieldsValues()
-            art.images = transformToImages(uploaded.secure_url);
+            art.images = transformToImages(this.state.sourceImage);
             art.artistId = this.state.artistId
-            art.source = uploaded.secure_url
+            art.source = this.state.sourceImage
             art.categories = this.state.categories
 
             if(currentUser.ownerType === UserTypes.ARTISTA) {
@@ -194,26 +133,11 @@ class NewArtPage extends Component {
                 loading(false)
                 addNotification(error.response.data.error)
             })
-        })
-    }
-
-    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser}) {
-        loading(true)
-        event.preventDefault()
-        clearAllNotifications();
-        let sourceImage = this.state.sourceImage
-        let result = validateObligatoryFields(this.state.inputFields)
-        if(result.valid && sourceImage !== ""){
-            this.uploadFile(sourceImage, addNotification, loading, currentUser)
         } else {
             loading(false)
             addNotification({code: ERROR_CODES.REQUIRED_FIELDS_NEW_ART.code})
         }
         this.setState({inputFields: result.fieldList})
-    }
-
-    deleteImage() {
-        this.setState({sourcePreview: ""})
     }
 
     render() {
@@ -225,26 +149,7 @@ class NewArtPage extends Component {
                         : <div className="row">
                             <div className="col-xs-12 col-md-4 DropZoneSection">
                                 <center>
-                                    <Dropzone 
-                                        onDropAccepted={(files) => this.onDropAccepted(files, this.props)}
-                                        onDropRejected={(files) => this.onDropRejected(files, this.props)}
-                                        accept="image/jpeg, image/png"
-                                        multiple={false}
-                                        name="source"
-                                        maxSize={15000000}
-                                        style={style.mainStyle}
-                                        activeStyle={style.activeStyle}
-                                        rejectStyle={style.rejectStyle}>
-                                        <p className="DropZoneSection-message">Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
-                                    </Dropzone>
-                                    {
-                                        this.state.sourcePreview !== "" || this.state.sourcePrevie
-                                        ? <div className="PreviewSection">
-                                            <a className="Closebtn" onClick={this.deleteImage.bind(this)}>&times;</a>
-                                            <img alt="" src={this.state.sourcePreview} id="preview"/>
-                                        </div>
-                                        : null
-                                    }
+                                    <DropZoneComponent {...this.props} setState={this.setState.bind(this)} sourceImage={this.state.sourceImage}/>
                                 </center>
                             </div>
                             <div className="col-xs-12 col-md-4 NewArtForm">

@@ -9,33 +9,11 @@ import {getForm, FormType} from '../../utils/forms/formUtils'
 import {validateObligatoryFields, getFieldIndex, isEmailFormatValid, updateField, getFieldValue} from '../../utils/fieldValidations'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
-import Dropzone from 'react-dropzone'
+import DropZoneComponent from '../../components/ui/drop-zone/DropZoneComponent'
 import Category from '../../components/ui/category/Category.js';
 import apiRoutes from '../../utils/services/apiRoutes'
-import sha1 from 'sha1'
-import superagent from 'superagent'
 
 require('./NewArtistPage.css')
-
-let style = {
-    mainStyle: {
-        borderStyle: "dashed",
-        borderWidth: 2,
-        height: 200
-    },
-    activeStyle: {
-        borderStyle: "dashed",
-        borderColor: "green",
-        borderWidth: 2,
-        height: 200
-    },
-    rejectStyle: {
-        borderStyle: "dashed",
-        borderColor: "red",
-        borderWidth: 2,
-        height: 200
-    }
-}
 
 class NewArtistPage extends Component {
     constructor(props)
@@ -44,8 +22,7 @@ class NewArtistPage extends Component {
 
         this.state = {
             inputFields: getForm(FormType.NEW_ARTIST),
-            sourceImage: {},
-            sourcePreview: "",
+            sourceImage: "",
             dataSource: [],
             categories: []
         }
@@ -90,17 +67,6 @@ class NewArtistPage extends Component {
         }
     }
 
-    onDropAccepted(files, {clearAllNotifications, addNotification}) {
-        clearAllNotifications()
-        this.setState({sourceImage: files[0]})
-        this.setState({sourcePreview: files[0].preview})
-    }
-
-    onDropRejected(files, {clearAllNotifications, addNotification}) {
-        clearAllNotifications()
-        addNotification({code: ERROR_CODES.WRONG_IMAGE.code})
-    }
-
     handleAddCategory(event) {
         let currentCategoriesCopy = [...this.state.categories]
         let emptyCategory = {
@@ -128,81 +94,30 @@ class NewArtistPage extends Component {
         return artist
     }
 
-    uploadFile(file, addNotification, loading) {
-        const cloudName = 'zamancer'; // FROM CLOUDINARY SETTINGS
-        const apiKey = '874385962738742'; // FROM CLOUDINARY SETTINGS
-        const apiSecret = 'QLGmPgxfLxR72oBwfveKk4cn00M'; // FROM CLOUDINARY SETTINGS
-        const timeStamp = Date.now() / 1000;
-        const uploadPreset = 'mywnuuzi'; // FROM CLOUDINARY SETTINGS
-
-        const paramStr = 'timestamp=' + timeStamp + '&upload_preset=' + uploadPreset + apiSecret;
-        const url = 'https://api.cloudinary.com/v1_1/' + cloudName + '/image/upload';
-
-        const signature = sha1(paramStr);
-        const params = {
-            'api_key': apiKey,
-            'timestamp': timeStamp,
-            'upload_preset': uploadPreset,
-            'signature': signature
-        }
-
-        const image = file
-        let uploadRequest = superagent.post(url);
-        uploadRequest.attach('file', image);
-
-        Object.keys(params).forEach((key) => {
-            uploadRequest.field(key, params[key]);
-        });
-
-        uploadRequest.end((err, res) => {
-            if(err) {
-                addNotification({code: ERROR_CODES.CANT_SAVE_IMAGE.code})
-                return;
-            }
-
-            const uploaded = res.body;
-            let artist = this.getArtistFieldsValues()
-            artist.photo = uploaded.secure_url
-            artist.categories = this.state.categories
-
-            axios.post(`${apiRoutes.getServiceUrl()}/api/Artists`, artist, { headers: { 'Content-Type': 'application/json' } })
-            .then(function (response) {
-                loading(false)
-                window.location = './artists'
-            })
-            .catch(function (error) {
-                loading(false)
-                addNotification(error.response.data.error)
-            })
-        })
-    }
-
     handleOnClick(event, {clearAllNotifications, addNotification, loading}) {
         event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
-        let sourceImage = this.state.sourceImage
         let result = validateObligatoryFields(this.state.inputFields)
         if(result.valid){
             let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue
             if(isEmailFormatValid(emailValue)){
                 loading(true)
-                if(sourceImage !== "") {
-                    this.uploadFile(sourceImage, addNotification, loading)
-                } else {
-                    let artist = this.getArtistFieldsValues()
-                    artist.categories = this.state.categories
 
-                    axios.post(`${apiRoutes.getServiceUrl()}/api/Artists`, artist, { headers: { 'Content-Type': 'application/json' } })
-                    .then(function (response) {
-                        loading(false)
-                        window.location = './artists'
-                    })
-                    .catch(function (error) {
-                        loading(false)
-                        addNotification(error.response.data.error)
-                    })
-                }
+                let artist = this.getArtistFieldsValues()
+                artist.categories = this.state.categories
+                artist.photo = this.state.sourceImage
+
+                axios.post(`${apiRoutes.getServiceUrl()}/api/Artists`, artist, { headers: { 'Content-Type': 'application/json' } })
+                .then(function (response) {
+                    loading(false)
+                    window.location = './artists'
+                })
+                .catch(function (error) {
+                    loading(false)
+                    addNotification(error.response.data.error)
+                })
+
             } else {
                inputFieldsCopy = updateField(inputFieldsCopy, "email", "errorText", "El formato del email es incorrecto")
                addNotification({code: ERROR_CODES.CHECK_FIELDS.code})
@@ -228,26 +143,7 @@ class NewArtistPage extends Component {
                     : <div className="row">
                         <div className="col-xs-12 col-md-4 DropZoneSection">
                             <center>
-                                <Dropzone 
-                                    onDropAccepted={(files) => this.onDropAccepted(files, this.props)}
-                                    onDropRejected={(files) => this.onDropRejected(files, this.props)}
-                                    accept="image/jpeg, image/png"
-                                    multiple={false}
-                                    name="photo"
-                                    maxSize={15000000}
-                                    style={style.mainStyle}
-                                    activeStyle={style.activeStyle}
-                                    rejectStyle={style.rejectStyle}>
-                                    <p className="DropZoneSection-message">Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
-                                </Dropzone>
-                                {
-                                    this.state.sourcePreview !== "" || this.state.sourcePrevie
-                                    ? <div className="PreviewSection">
-                                        <a className="Closebtn" onClick={this.deleteImage.bind(this)}>&times;</a>
-                                        <img alt="" src={this.state.sourcePreview} id="preview"/>
-                                    </div>
-                                    : null
-                                }
+                                <DropZoneComponent {...this.props} setState={this.setState.bind(this)} sourceImage={this.state.sourceImage}/>
                             </center>
                         </div>
                         <div className="col-xs-12 col-md-4 NewArtistForm">

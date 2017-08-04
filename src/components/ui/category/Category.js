@@ -23,11 +23,12 @@ export default class Category extends Component {
 
     let categoryValueComponent = <InlineEdit
               className={classNamesForValue}
-              activeClassName="EditingCategory"
+              activeClassName={`EditingCategory ${this.props.category.editingClass}`}
               text={this.props.category.categoryValue}
               paramName="message"
               validate={(data) => this.props.validate && this.props.validate(data, position, "value")}
               change={this.handleChange}
+              editingElement={this.props.editingElement}
             />
 
     if(!this.props.category.editableName) {
@@ -53,3 +54,7 @@ Category.propTypes = {
   category: PropTypes.object,
   validate: PropTypes.func
 };
+
+Category.defaultProps = {
+  editingElement: "input"
+}

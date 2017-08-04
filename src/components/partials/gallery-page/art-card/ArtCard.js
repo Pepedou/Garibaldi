@@ -49,7 +49,7 @@ export default class ArtCard extends Component {
                     overlaySubtitle={<Category category={{required: false, categoryName: 'Año', categoryValue: getDetailValue(currentArt.detail.year.value.toString()), editableName: false, editableValue: true}}/>}
                     cardImage={currentArt.detail.images.value.standard}
                     cardTitle={<Category category={{required: true, categoryName: 'Artista', categoryValue: currentArt.detail.author.value, editableName: false, editableValue: false}}/>}
-                    cardSubtitle={<Category category={{required: false, categoryName: 'Descripción', categoryValue: getDetailValue(currentArt.detail.description.value), editableName: false, editableValue: true}}/>}
+                    cardSubtitle={<Category category={{required: false, categoryName: 'Descripción', categoryValue: getDetailValue(currentArt.detail.description.value), editableName: false, editableValue: true, editingClass:"TextAreaStyle"}} editingElement="textarea"/>}
                     cardDescription={<CardDescription artCardInformation={currentArt} onTouchTap={this.handleAddCategory.bind(this)}  handleCategoryValidation={this.handleCategoryValidation.bind(this)}/>}
                     cardActions={<CardActions artCardInformation={currentArt}/>}
                 />
