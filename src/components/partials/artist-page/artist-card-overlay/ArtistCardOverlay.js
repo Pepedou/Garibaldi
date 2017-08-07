@@ -18,7 +18,7 @@ export default class ArtistCardOverlay extends Component {
                 {
                     updatingCurrentArtist
                     ? <div className="marginTop"><center><LoaderComponent/></center></div>
-                    : <ArtistCard currentArtist={currentArtist} receiveCurrentArtist={receiveCurrentArtist}/>
+                    : <ArtistCard {...this.props}/>
                 }
             </div>
         </div> : null);
@@ -32,5 +32,5 @@ ArtistCardOverlay.propTypes = {
   showArtistOverlayRecieved: PropTypes.func,
   receiveCurrentArtist: PropTypes.func,
   currentArtist: PropTypes.object,
-  updatingCurrentArtist: PropTypes.bool
+  updatingCurrentArtist: PropTypes.bool,
 }

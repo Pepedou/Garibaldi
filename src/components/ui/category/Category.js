@@ -1,47 +1,64 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import InlineEdit from 'react-edit-inline';
+import EditableLabelComponent from '../editable-label/EditableLabel'
 require('./Category.css')
 
 export default class Category extends Component {
-  handleChange(text) {
+  handleChange(value) {
       return true
   }
 
+  handleClick(){
+    console.log("click")
+  }
+
   render() {
-    let classNamesForName = `CategoryName ${this.props.category.required}`;
-    let classNamesForValue = `CategoryValue ${this.props.category.required}`;
-    let {position} = this.props
+    let {position, category, validate, editingElement, isAutocomplete, onNewRequest, dataSource, onUpdateInput} = this.props
+
+    let classNamesForName = `CategoryName`;
+    let classNamesForValue = `CategoryValue ${category.required && "required"} ${category.propertyName}`;
+    
     let categoryNameComponent = <InlineEdit
               className={classNamesForName}
               activeClassName="EditingCategory"
-              text={this.props.category.categoryName}
+              text={category.categoryName}
               paramName="message"
-              validate={(data) => this.props.validate && this.props.validate(data, position, "label")}
-              change={this.handleChange}
+              validate={(data) => validate && validate(data, position, "label", category.propertyName)}
+              change={(value) => this.handleChange(value)}
+              maxLength={500}
+              onClick={this.handleClick}
             />
 
-    let categoryValueComponent = <InlineEdit
+    let categoryValueComponent = isAutocomplete
+           ? <EditableLabelComponent onNewRequest={onNewRequest}
+                                     dataSource={dataSource}
+                                     value={category.categoryValue}
+                                     onUpdateInput={onUpdateInput}
+                                     propertyName={category.propertyName}/>
+           : <InlineEdit
               className={classNamesForValue}
-              activeClassName={`EditingCategory ${this.props.category.editingClass}`}
-              text={this.props.category.categoryValue}
+              activeClassName={`EditingCategory ${category.editingClass}`}
+              text={category.categoryValue}
               paramName="message"
-              validate={(data) => this.props.validate && this.props.validate(data, position, "value")}
-              change={this.handleChange}
-              editingElement={this.props.editingElement}
+              validate={(data) => validate && validate(data, position, "value", category.propertyName)}
+              change={(value) => this.handleChange(value)}
+              editingElement={editingElement}
+              maxLength={500}
+              onClick={this.handleClick}
             />
 
-    if(!this.props.category.editableName) {
-      categoryNameComponent = <div className={classNamesForName}>{this.props.category.categoryName}</div>
+    if(!category.editableName) {
+      categoryNameComponent = <div className={classNamesForName}>{`${category.categoryName}: `}</div>
     }
 
-    if(!this.props.category.editableValue) {
-      categoryValueComponent = <div className={classNamesForValue}>{this.props.category.categoryValue}</div>
+    if(!category.editableValue) {
+      categoryValueComponent = <div className={classNamesForValue}>{category.categoryValue}</div>
     }
 
     return (
       <div className="row Category">
-          {categoryNameComponent}: {categoryValueComponent} 
+          {categoryNameComponent}{categoryValueComponent} 
       </div>
     );
   }
@@ -52,7 +69,11 @@ Category.displayName = 'Category'
 Category.propTypes = {
   position: PropTypes.number,
   category: PropTypes.object,
-  validate: PropTypes.func
+  validate: PropTypes.func,
+  isAutocomplete: PropTypes.bool,
+  onNewRequest: PropTypes.func,
+  dataSource: PropTypes.array,
+  onUpdateInput: PropTypes.func
 };
 
 Category.defaultProps = {

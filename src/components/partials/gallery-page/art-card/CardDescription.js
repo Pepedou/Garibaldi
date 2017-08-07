@@ -6,14 +6,40 @@ import {getDetailValue} from '../../../../utils/fieldValidations'
 
 export default class CardDescription extends Component {
     render() {
-        let {artCardInformation, handleCategoryValidation, onTouchTap} = this.props
+        let {artCardInformation, handleCategoryValidation, onTouchTap, onNewRequest, onUpdateInput, dataSource} = this.props
         return (
             <div className="CardDescription row">
-                <Category category={{required: false, categoryName: 'Técnica', categoryValue: getDetailValue(artCardInformation.detail.technique.value), editableName: false, editableValue: true}}/>
-                <Category category={{required: false, categoryName: 'Materiales', categoryValue: getDetailValue(artCardInformation.detail.materials.value), editableName: false, editableValue: true}}/>
-                <Category category={{required: false, categoryName: 'Medidas', categoryValue: getDetailValue(artCardInformation.detail.measurements.value), editableName: false, editableValue: true}}/>
+                <Category category={{required: false,
+                                     categoryName: 'Técnica',
+                                     categoryValue: getDetailValue(artCardInformation.detail.technique.value),
+                                     editableName: false,
+                                     editableValue: true,
+                                     propertyName: "technique"}}
+                          validate={handleCategoryValidation}/>
+                <Category category={{required: false,
+                                     categoryName: 'Materiales',
+                                     categoryValue: getDetailValue(artCardInformation.detail.materials.value),
+                                     editableName: false,
+                                     editableValue: true,
+                                     propertyName: "materials"}}
+                          validate={handleCategoryValidation}/>
+                <Category category={{required: false,
+                                     categoryName: 'Medidas',
+                                     categoryValue: getDetailValue(artCardInformation.detail.measurements.value),
+                                     editableName: false,
+                                     editableValue: true,
+                                     propertyName: "measurements"}}
+                          validate={handleCategoryValidation}/>
                 {
-                    artCardInformation.categories.map((item, key) => <Category key={key} position={key} category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}} validate={handleCategoryValidation}/>)
+                    artCardInformation.categories.map((item, key) => <Category key={key} 
+                                                                               position={key}
+                                                                               category={{required: false,
+                                                                                          categoryName: item.label,
+                                                                                          categoryValue: item.value,
+                                                                                          editableName: true,
+                                                                                          editableValue: true,
+                                                                                          propertyName: "category"}}
+                                                                               validate={handleCategoryValidation}/>)
                 }
                 <center>
                     <DefaultButton
