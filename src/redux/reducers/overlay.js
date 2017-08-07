@@ -35,3 +35,15 @@ export let showFullImageOverlayReducer = (state = false, action) => {
     return state
   }
 }
+
+export let showDropZoneOverlayReducer = (state = false, action) => {
+  let {type, show} = action
+
+  switch (type) {
+  case constants.SHOW_DROPZONE_OVERLAY:
+    return show
+
+  default:
+    return state
+  }
+}

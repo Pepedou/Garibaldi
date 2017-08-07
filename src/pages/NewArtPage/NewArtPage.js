@@ -24,7 +24,6 @@ class NewArtPage extends Component {
 
         this.state = {
             inputFields: getForm(FormType.NEW_ART),
-            sourceImage: "",
             dataSource: [],
             categories: [],
             artistId: ""
@@ -107,16 +106,16 @@ class NewArtPage extends Component {
         return art
     }
 
-    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser}) {
+    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser, sourceImage}) {
         loading(true)
         event.preventDefault()
         clearAllNotifications();
         let result = validateObligatoryFields(this.state.inputFields)
-        if(result.valid && this.state.sourceImage !== ""){
+        if(result.valid && sourceImage !== ""){
             let art = this.getArtFieldsValues()
-            art.images = transformToImages(this.state.sourceImage);
+            art.images = transformToImages(sourceImage);
             art.artistId = this.state.artistId
-            art.source = this.state.sourceImage
+            art.source = sourceImage
             art.categories = this.state.categories
 
             if(currentUser.ownerType === UserTypes.ARTISTA) {
@@ -141,15 +140,16 @@ class NewArtPage extends Component {
     }
 
     render() {
+        let {sourceImage, showLoader} = this.props
         return (
             <div className="col-xs-12 col-md-12 NewArtPage">
                     {
-                        this.props.showLoader
+                        showLoader
                         ? <div className="marginTop row"><center><LoaderComponent/></center></div>
                         : <div className="row">
                             <div className="col-xs-12 col-md-4 DropZoneSection">
                                 <center>
-                                    <DropZoneComponent setState={this.setState.bind(this)} sourceImage={this.state.sourceImage}/>
+                                    <DropZoneComponent sourceImage={sourceImage}/>
                                 </center>
                             </div>
                             <div className="col-xs-12 col-md-4 NewArtForm">
@@ -212,17 +212,20 @@ NewArtPage.propTypes = {
     loading: PropTypes.func,
     showLoader: PropTypes.bool,
     currentUser: PropTypes.object,
-    loadingDropzone: PropTypes.func
+    loadingDropzone: PropTypes.func,
+    sourceImageRecieved: PropTypes.func,
+    sourceImage: PropTypes.string
 }
 
-export const mapStateToProps = ({showLoader, currentUser}) => ({
-  showLoader, currentUser
+export const mapStateToProps = ({showLoader, currentUser, sourceImage}) => ({
+  showLoader, currentUser, sourceImage
 })
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
+  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader}),
+  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewArtPage)

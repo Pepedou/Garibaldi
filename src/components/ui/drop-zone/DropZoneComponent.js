@@ -7,6 +7,7 @@ import LoaderComponent from '../../../components/ui/loader/LoaderComponent'
 import * as constants from '../../../redux/constants'
 import {connect} from 'react-redux'
 import {handleError} from '../../../utils/errorHandling'
+require('./DropZone.css')
 
 let style = {
     mainStyle: {
@@ -29,10 +30,16 @@ let style = {
 }
 
 class DropZoneComponent extends Component {
-    onDropAccepted(files, {clearAllNotifications, addNotification, setState, loadingDropzone}) {
+    constructor(props)
+    {
+        super(props)
+        props.sourceImageRecieved("")
+    }
+
+    onDropAccepted(files, {clearAllNotifications, addNotification, sourceImageRecieved, loadingDropzone}) {
         clearAllNotifications()
         loadingDropzone(true)
-        uploadFile(files[0], addNotification, setState, loadingDropzone)
+        uploadFile(files[0], addNotification, sourceImageRecieved, loadingDropzone)
     }
 
     onDropRejected(files, {clearAllNotifications, addNotification, setState}) {
@@ -40,9 +47,9 @@ class DropZoneComponent extends Component {
         addNotification({code: ERROR_CODES.WRONG_IMAGE.code})
     }
 
-    deleteImage(event, {setState}) {
+    deleteImage(event, {sourceImageRecieved}) {
         event.preventDefault();
-        setState({sourceImage: ""});
+        sourceImageRecieved("")
     }
 
     render() {
@@ -64,10 +71,14 @@ class DropZoneComponent extends Component {
                 </Dropzone>
                 {
                     sourceImage !== "" || sourceImage
-                    ? <div className="PreviewSection">
-                        <a className="Closebtn" onClick={(event) => this.deleteImage(event, this.props)}>&times;</a>
-                        <img alt="" src={sourceImage} id="preview"/>
-                    </div>
+                    ? <center>
+                        <div className="PreviewSection">
+                            <div className="row">
+                                <a className="CloseDropZonebtn" onClick={(event) => this.deleteImage(event, this.props)}>&times;</a>
+                            </div>
+                            <img alt="" src={sourceImage} id="preview"/>
+                        </div>
+                      </center>
                     : null
                 }
             </div>
@@ -84,14 +95,15 @@ DropZoneComponent.propTypes = {
     sourceImage: PropTypes.any
 }
 
-export const mapStateToProps = ({showDropzoneLoader}) => ({
-  showDropzoneLoader
+export const mapStateToProps = ({showDropzoneLoader, sourceImage}) => ({
+  showDropzoneLoader, sourceImage
 })
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  loadingDropzone: showDropzoneLoader => dispatch({type: constants.SHOW_DROPZONE_LOADER, showDropzoneLoader})
+  loadingDropzone: showDropzoneLoader => dispatch({type: constants.SHOW_DROPZONE_LOADER, showDropzoneLoader}),
+  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropZoneComponent)

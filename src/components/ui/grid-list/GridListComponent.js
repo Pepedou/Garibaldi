@@ -12,24 +12,39 @@ const styles = {
   iconStyle: {fill: 'white'}
 };
 
+let getColumnNumber= () => {
+    if(screen.width >= 1024) {
+        return 4
+    } else if(screen.width >= 768 && screen.width < 1024) {
+        return 3
+    } else if(screen.width >= 400 && screen.width < 768) {
+        return 2
+    } else {
+        return 1
+    }
+}
+
 export default class GridListComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            columns: this.getColumnNumber()
+            columns: getColumnNumber()
         };
+
+        this.updateColumnNumber = this.updateColumnNumber.bind(this);
     }
 
-    getColumnNumber() {
-        if(screen.width >= 1024) {
-            return 4
-        } else if(screen.width >= 768 && screen.width < 1024) {
-            return 3
-        } else if(screen.width >= 400 && screen.width < 768) {
-            return 2
-        } else {
-            return 1
-        }
+    componentDidMount() {
+        window.addEventListener("resize", this.updateColumnNumber);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateColumnNumber);
+    }
+
+    updateColumnNumber(event) {
+        event.preventDefault()
+        this.setState({columns: getColumnNumber()})
     }
 
     getTitle(mosaicType, card) {

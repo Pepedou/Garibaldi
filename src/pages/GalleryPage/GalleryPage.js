@@ -66,10 +66,7 @@ class GalleryPage extends Component {
                         {
                             this.props.updatingCurrentArt
                             ? <div className="marginTop"><center><LoaderComponent/></center></div>
-                            : Object.getOwnPropertyNames(this.props.currentArt).length > 0 ? <ArtCard 
-                                                                                                currentArt={this.props.currentArt} 
-                                                                                                receiveCurrentArt={this.props.receiveCurrentArt}
-                                                                                                showFullImageOverlayRecieved={this.props.showFullImageOverlayRecieved}/> : null
+                            : Object.getOwnPropertyNames(this.props.currentArt).length > 0 ? <ArtCard {...this.props}/> : null
                         }
                     </div>
                 </div>
@@ -84,6 +81,7 @@ GalleryPage.displayName = 'GalleryPage'
 GalleryPage.propTypes = {
   artGallery: PropTypes.array,
   currentArt: PropTypes.object,
+  sourceImage: PropTypes.string,
   updatingArtGallery: PropTypes.bool,
   receiveArtGallery: PropTypes.func,
   receiveCurrentArt: PropTypes.func,
@@ -92,11 +90,12 @@ GalleryPage.propTypes = {
   loadingGallery: PropTypes.func,
   loadingArtDetail: PropTypes.func,
   updatingCurrentArt: PropTypes.bool,
-  showFullImageOverlayRecieved: PropTypes.func
+  showFullImageOverlayRecieved: PropTypes.func,
+  showDropZoneOverlayRecieved: PropTypes.func
 }
 
-export const mapStateToProps = ({artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt}) => ({
-  artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt
+export const mapStateToProps = ({artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt, sourceImage}) => ({
+  artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt, sourceImage
 })
 
 export const mapDispatchToProps = dispatch => ({
@@ -106,7 +105,8 @@ export const mapDispatchToProps = dispatch => ({
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
   loadingGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
   loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
-  showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show})
+  showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show}),
+  showDropZoneOverlayRecieved: show => dispatch({type: constants.SHOW_DROPZONE_OVERLAY, show})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryPage)

@@ -18,10 +18,7 @@ export default class ArtCardOverlay extends Component {
                 {
                     updatingCurrentArt
                     ? <div className="marginTop"><center><LoaderComponent/></center></div>
-                    : <ArtCard 
-                        currentArt={currentArt} 
-                        receiveCurrentArt={receiveCurrentArt} 
-                        showFullImageOverlayRecieved={showFullImageOverlayRecieved}/>
+                    : <ArtCard {...this.props}/>
                 }
             </div>
         </div> : null);

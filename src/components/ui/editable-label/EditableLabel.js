@@ -43,7 +43,10 @@ export default class EditableLabelComponent extends Component {
             : <AutoComplete
                 className="autocomplete"
                 id={propertyName}
-                onNewRequest={onNewRequest}
+                onNewRequest={(value) => {
+                    onNewRequest(value)
+                    this.handleBlur()
+                }}
                 dataSourceConfig={{ text: 'text', value: 'value'}}
                 dataSource={dataSource}
                 onUpdateInput={onUpdateInput}
@@ -52,7 +55,9 @@ export default class EditableLabelComponent extends Component {
                 underlineStyle={styles.underlineStyle}
                 inputStyle={styles.inputStyle}
                 underlineFocusStyle={styles.underlineFocusStyle}
-                onBlur={this.handleBlur.bind(this)}
+                onClose={this.handleBlur.bind(this)}
+                openOnFocus={true}
+                searchText={value}
                 />
     }
 }

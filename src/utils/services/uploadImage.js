@@ -2,7 +2,7 @@ import sha1 from 'sha1'
 import superagent from 'superagent'
 import {ERROR_CODES} from '../../utils/errorHandling'
 
-export let uploadFile = (file, addNotification, setState, loadingDropzone) => {
+export let uploadFile = (file, addNotification, sourceImageRecieved, loadingDropzone) => {
         const cloudName = 'zamancer'; // FROM CLOUDINARY SETTINGS
         const apiKey = '874385962738742'; // FROM CLOUDINARY SETTINGS
         const apiSecret = 'QLGmPgxfLxR72oBwfveKk4cn00M'; // FROM CLOUDINARY SETTINGS
@@ -36,7 +36,7 @@ export let uploadFile = (file, addNotification, setState, loadingDropzone) => {
             }
 
             const uploaded = res.body;
-            setState({sourceImage: uploaded.secure_url})
+            sourceImageRecieved(uploaded.secure_url)
             loadingDropzone(false)
         })
     }

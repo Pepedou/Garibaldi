@@ -8,6 +8,7 @@ import ArtCardOverlay from '../../partials/gallery-page/art-card-overlay/ArtCard
 import ArtistCardOverlay from '../../partials/artist-page/artist-card-overlay/ArtistCardOverlay'
 import FullImageOverlay from '../../partials/gallery-page/full-image-overlay/FullImageOverlay'
 import MainNavBar from '../../partials/nav-bars/main-nav-bar/MainNavBar'
+import DropZoneOverlay from '../../partials/overlay/DropZoneOverlay'
 import FloatingBar from '../../partials/floating-bar/FloatingBar'
 import {handleError} from '../../../utils/errorHandling'
 import apiRoutes from '../../../utils/services/apiRoutes'
@@ -39,6 +40,7 @@ class BaseLayout extends Component {
         <FloatingBar {...this.props}/>
         <ArtCardOverlay {...this.props}/>
         <ArtistCardOverlay {...this.props}/>
+        <DropZoneOverlay {...this.props}/>
         <FullImageOverlay {...this.props}/>
         <ProfileNavBar {...this.props}/>
         <MainNavBar {...this.props} artistProfileClick={this.artistProfileClick.bind(this)}/>
@@ -58,7 +60,9 @@ BaseLayout.propTypes = {
   currentUser: PropTypes.object,
   showArtOverlay: PropTypes.bool,
   showArtistOverlay: PropTypes.bool,
+  showDropZoneOverlay: PropTypes.bool,
   showFullImageOverlay: PropTypes.bool,
+  sourceImage: PropTypes.string,
   updatingCurrentArt: PropTypes.bool,
   updatingCurrentArtist: PropTypes.bool,
   addNotification: PropTypes.func,
@@ -72,12 +76,13 @@ BaseLayout.propTypes = {
   receiveCurrentUser: PropTypes.func,
   showArtOverlayRecieved: PropTypes.func,
   showArtistOverlayRecieved: PropTypes.func,
+  showDropZoneOverlayRecieved: PropTypes.func,
   showFullImageOverlayRecieved: PropTypes.func,
   updateArtGallery: PropTypes.func
 };
 
 export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentUser, showArtOverlay, 
-  showArtistOverlay, showFullImageOverlay, updatingCurrentArt, updatingCurrentArtist}) => ({
+  showArtistOverlay, showFullImageOverlay, updatingCurrentArt, updatingCurrentArtist, showDropZoneOverlay, sourceImage}) => ({
   checkCards,
   currentArt,
   currentArtist,
@@ -85,8 +90,10 @@ export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentU
   showArtOverlay,
   showArtistOverlay,
   showFullImageOverlay,
+  sourceImage,
   updatingCurrentArt,
-  updatingCurrentArtist
+  updatingCurrentArtist,
+  showDropZoneOverlay
 })
 
 export const mapDispatchToProps = dispatch => ({
@@ -103,6 +110,7 @@ export const mapDispatchToProps = dispatch => ({
   showArtistOverlayRecieved: show => dispatch({type: constants.SHOW_ARTIST_OVERLAY, show}),
   showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show}),
   updateArtGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
+  showDropZoneOverlayRecieved: show => dispatch({type: constants.SHOW_DROPZONE_OVERLAY, show})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)

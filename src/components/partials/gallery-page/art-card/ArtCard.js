@@ -6,8 +6,14 @@ import CardActions from './CardActions'
 import Category from '../../../ui/category/Category'
 import {getDetailValue} from '../../../../utils/fieldValidations'
 import apiRoutes from '../../../../utils/services/apiRoutes'
+import SvgIcon from 'material-ui/SvgIcon';
 import axios from 'axios'
+import {white} from 'material-ui/styles/colors';
 require('./ArtCard.css')
+
+let editBtnStyle = {
+    color: white
+}
 
 export default class ArtCard extends Component {
     constructor(props) {
@@ -96,7 +102,8 @@ export default class ArtCard extends Component {
             categories: this.state.editedArt.categories
         }
 
-        let {currentArtist, loadingArtDetail, addNotification} = this.props
+        let {currentArtist, loadingArtDetail, addNotification, sourceImage} = this.props
+        let source = sourceImage
         loadingArtDetail(true)
         // axios.patch(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${currentArt.detail.id}`, data, { headers: { 'Content-Type': 'application/json' } })
         // .then(function (response) {
@@ -118,11 +125,22 @@ export default class ArtCard extends Component {
     }
 
     render() {
-        let {showFullImageOverlayRecieved} = this.props
+        let {showFullImageOverlayRecieved, showDropZoneOverlayRecieved} = this.props
         let {editedArt} = this.state
         return (
             <div className="ArtCard">
-                <div className="FullImage-button" onClick={() => showFullImageOverlayRecieved(true)}>Imagen completa</div>
+                <div className="imageHeaderBar row">
+                    <div className="editImageBtn col-xs-6 col-md-6" onClick={() => showDropZoneOverlayRecieved(true)}>
+                        <SvgIcon style={editBtnStyle}>
+                            <path d="M2 12.88V16h3.12L14 7.12 10.88 4 2 12.88zm14.76-8.51c.33-.33.33-.85 0-1.18l-1.95-1.95c-.33-.33-.85-.33-1.18 0L12 2.88 15.12 6l1.64-1.63z"/>
+                        </SvgIcon>
+                    </div>
+                    <div className="FullImage-button col-xs-6 col-md-6" onClick={() => showFullImageOverlayRecieved(true)}>
+                        <SvgIcon style={editBtnStyle}>
+                            <path d="M19 12h-2v3h-3v2h5v-5zM7 9h3V7H5v5h2V9zm14-6H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16.01H3V4.99h18v14.02z"/>
+                        </SvgIcon>
+                    </div>
+                </div>
                 <CardComponent 
                     overlayTitle={<Category category={{required: true,
                                                        categoryName: 'Obra',
@@ -173,8 +191,10 @@ ArtCard.displayName = 'ArtCard'
 
 ArtCard.propTypes = {
   currentArt: PropTypes.object,
+  sourceImage: PropTypes.string,
   receiveCurrentArt: PropTypes.func,
   showFullImageOverlayRecieved: PropTypes.func,
   loadingArtDetail: PropTypes.func,
   addNotification: PropTypes.func,
+  showDropZoneOverlayRecieved: PropTypes.func
 }

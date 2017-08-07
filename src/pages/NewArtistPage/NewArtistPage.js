@@ -22,7 +22,6 @@ class NewArtistPage extends Component {
 
         this.state = {
             inputFields: getForm(FormType.NEW_ARTIST),
-            sourceImage: "",
             dataSource: [],
             categories: []
         }
@@ -94,7 +93,7 @@ class NewArtistPage extends Component {
         return artist
     }
 
-    handleOnClick(event, {clearAllNotifications, addNotification, loading}) {
+    handleOnClick(event, {clearAllNotifications, addNotification, loading, sourceImage}) {
         event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
@@ -106,7 +105,7 @@ class NewArtistPage extends Component {
 
                 let artist = this.getArtistFieldsValues()
                 artist.categories = this.state.categories
-                artist.photo = this.state.sourceImage
+                artist.photo = sourceImage
 
                 axios.post(`${apiRoutes.getServiceUrl()}/api/Artists`, artist, { headers: { 'Content-Type': 'application/json' } })
                 .then(function (response) {
@@ -135,15 +134,16 @@ class NewArtistPage extends Component {
     }
 
     render() {
+        let {sourceImage, showLoader} = this.props
         return (
             <div className="col-xs-12 col-md-12 NewArtPage">
                 {
-                    this.props.showLoader
+                    showLoader
                     ? <div className="marginTop row"><center><LoaderComponent/></center></div>
                     : <div className="row">
                         <div className="col-xs-12 col-md-4 DropZoneSection">
                             <center>
-                                <DropZoneComponent setState={this.setState.bind(this)} sourceImage={this.state.sourceImage}/>
+                                <DropZoneComponent sourceImage={sourceImage}/>
                             </center>
                         </div>
                         <div className="col-xs-12 col-md-4 NewArtistForm">
@@ -202,17 +202,20 @@ NewArtistPage.propTypes = {
     addNotification: PropTypes.func,
     clearAllNotifications: PropTypes.func,
     loading: PropTypes.func,
-    showLoader: PropTypes.bool
+    showLoader: PropTypes.bool,
+    sourceImageRecieved: PropTypes.func,
+    sourceImage: PropTypes.string
 }
 
-export const mapStateToProps = ({showLoader}) => ({
-  showLoader
+export const mapStateToProps = ({showLoader, sourceImage}) => ({
+  showLoader, sourceImage
 })
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
+  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader}),
+  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewArtistPage)

@@ -64,19 +64,32 @@ div.Overlay {
 }
 
 div.FullImageOverlay-overlay{
-    background-color: black;
+    background-color: #4b4b4b;
+}
+
+div.DropZone--overlay{
+    background-color: #4b4b4b;
 }
 
 .FullImageOverlay-image{
     max-width: 100%;
 }
 
+.imageHeaderBar{
+    background-color: #4b4b4b;
+}
+
+.editImageBtn{
+    top: 0.6rem;
+    cursor: pointer;
+}
+
 .FullImage-button {
     cursor: pointer;
     text-align: right;
     color: white;
-    background-color: black;
     padding: 2px 5px;
+    top: 0.2rem;
 }
 
 .FullImage-button:hover{

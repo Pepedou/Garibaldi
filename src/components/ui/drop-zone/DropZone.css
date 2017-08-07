@@ -1,0 +1,22 @@
+#preview{
+    max-width: 100%;
+}
+
+div.DropZoneSection{
+    padding: 3rem;
+}
+
+p.DropZoneSection-message{
+    padding: 1rem;
+}
+
+a.CloseDropZonebtn {
+    margin-top: 0.5rem;
+    right: 0.5rem;
+    color: gray;
+    text-decoration: none;
+    font-size: 2em;
+    cursor: pointer;
+    text-align: right;
+    float: right;
+}
