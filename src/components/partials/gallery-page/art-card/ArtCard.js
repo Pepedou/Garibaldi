@@ -75,7 +75,7 @@ export default class ArtCard extends Component {
         if(!this.state.dataSource.find(item => item.text.toUpperCase() === data.toUpperCase())){
             let editedArtCopy = {...this.state.editedArt}
             editedArtCopy.detail.author.value = this.props.currentArt.detail.author.value
-            // editedArtCopy.detail.artistId.value = 0
+            // editedArtCopy.detail.artistId.value = this.props.currentArt.detail.artistId.value
             
             this.setState({editedArt: editedArtCopy})
         }
