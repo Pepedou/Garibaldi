@@ -10,11 +10,10 @@ export default class CardDescription extends Component {
             <div className="CardDescription row">
                 <Category category={{required: true,
                                                     categoryName: 'Gestor Cultural',
-                                                    //categoryValue: artistCardInformation.detail.gcname.value, //TODO: Poner el valor correcto
-                                                    categoryValue: "Nombre del gestor cultural",
+                                                    categoryValue: artistCardInformation.detail.culturalHelperName,
                                                     editableName: false,
                                                     editableValue: true,
-                                                    propertyName: "gcName"}} //TODO: Poner el valor correcto
+                                                    propertyName: "culturalHelperName"}}
                                          validate={handleCategoryValidation}
                                          isAutocomplete={true}
                                          dataSource={dataSource}

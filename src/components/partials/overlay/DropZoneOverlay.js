@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DropZoneComponent from '../..//ui/drop-zone/DropZoneComponent'
 require('../../../Main.css')
+require('./DropZoneOverlay.css')
 
 export default class DropZoneOverlay extends Component {
     toggleOverlay(showDropZoneOverlayRecieved) {

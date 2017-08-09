@@ -1,0 +1,28 @@
+@media screen and (min-width: 320px) {
+}
+
+@media screen and (min-width: 768px) {
+    div.DropZone--overlay div.DropzoneSquare{
+        width: 30%;
+        float: right;
+    }
+
+    div.DropZone--overlay div.PreviewSection{
+        width: 65%;
+        float: left;
+        margin-right: 3rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    div.DropZone--overlay div.DropzoneSquare{
+        width: 30%;
+        float: right;
+    }
+
+    div.DropZone--overlay div.PreviewSection{
+        width: 65%;
+        float: left;
+        margin-right: 3rem;
+    }
+}

@@ -9,8 +9,10 @@ import Category from '../../../ui/category/Category'
 import {getDetailValue} from '../../../../utils/fieldValidations'
 import axios from 'axios'
 import apiRoutes from '../../../../utils/services/apiRoutes'
-import SvgIcon from 'material-ui/SvgIcon';
-import {white} from 'material-ui/styles/colors';
+import SvgIcon from 'material-ui/SvgIcon'
+import {white} from 'material-ui/styles/colors'
+import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
+const objectAssign = require('object-assign')
 
 let editBtnStyle = {
     color: white
@@ -22,7 +24,7 @@ export default class ArtistCard extends Component {
         super(props)
 
         this.state = {
-            editedArtist: {...props.currentArtist},
+            editedArtist: objectAssign({}, {...props.currentArtist}),
             dataSource: []
         }
     }
@@ -73,8 +75,8 @@ export default class ArtistCard extends Component {
 
     handleOnNewRequest(value){
         let editedArtistCopy = {...this.state.editedArtist}
-        editedArtistCopy.detail.gcname.value = value.text //TODO: Poner el valor correcto
-        // editedArtistCopy.detail.culturalHelperId.value = value.value
+        editedArtistCopy.detail.culturalHelperName = value.text
+        editedArtistCopy.detail.culturalHelperId.value = value.value
         
         this.setState({editedArtist: editedArtistCopy})
     }
@@ -82,8 +84,8 @@ export default class ArtistCard extends Component {
     handleOnUpdateInput(data){
         if(!this.state.dataSource.find(item => item.text.toUpperCase() === data.toUpperCase())){
             let editedArtistCopy = {...this.state.editedArtist}
-            editedArtistCopy.detail.gcname.value = this.props.currentArt.detail.gcname.value  //TODO: Poner el valor correcto
-            // editedArtCopy.detail.culturalHelperId.value = this.props.currentArt.detail.culturalHelperId.value
+            editedArtistCopy.detail.culturalHelperName = this.props.currentArtist.detail.culturalHelperName
+            editedArtistCopy.detail.culturalHelperId.value = this.props.currentArtist.detail.culturalHelperId.value
             
             this.setState({editedArtist: editedArtistCopy})
         }
@@ -102,31 +104,43 @@ export default class ArtistCard extends Component {
     }
 
     handleSave(event) {
-        let data = {
+        let {currentArtist, loadingArtistDetail, addNotification, sourceImage} = this.props
+
+        let newArtist = {
             name: this.state.editedArtist.detail.name.value,
             lastName: this.state.editedArtist.detail.lastName.value,
             phone: this.state.editedArtist.detail.phone.value,
-            photo: this.state.editedArtist.detail.photo.value,
-            // culturalHelperId: this.state.editedArtist.detail.culturalHelperId.value,
-            categories: this.state.categories
+            photo: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArtist.detail.photo.value,
+            culturalHelperId: this.state.editedArtist.detail.culturalHelperId.value,
+            categories: this.state.editedArtist.categories
         }
 
-        let {currentArtist, loadingArtistDetail, addNotification, sourceImage} = this.props
-        let source = sourceImage
+        let data = JSON.stringify(newArtist)
+
         loadingArtistDetail(true)
-        // axios.patch(`${apiRoutes.getServiceUrl()}/api/Artists/${currentArtist.detail.id}`, data, { headers: { 'Content-Type': 'application/json' } })
-        // .then(function (response) {
-        //     //TODO: Ver que hacer una vez que se actualiza
-        //     loadingArtistDetail(true)
-        // })
-        // .catch(function (error) {
-        //     addNotification(error.response.data.error)
-        //     loadingArtistDetail(true)
-        // })
+        axios.patch(`${apiRoutes.getServiceUrl()}/api/Artists/${currentArtist.id}`, data, { headers: { 'Content-Type': 'application/json' } })
+        .then(function (response) {
+            location.reload()
+        })
+        .catch(function (error) {
+            addNotification(error.response.data.error)
+            loadingArtistDetail(false)
+        })
     }
 
     handleDelete() {
-        
+        let {currentArtist, loadingArtistDetail, addNotification} = this.props
+        let ids = [currentArtist.id]
+
+        loadingArtistDetail(true)
+        axios.delete(`${apiRoutes.getServiceUrl()}/api/Artists/eliminate`, ids, { headers: { 'Content-Type': 'application/json' } })
+        .then(function (response) {
+            location.reload()
+        })
+        .catch(function (error) {
+            addNotification(error.response.data.error)
+            loadingArtistDetail(false)
+        })
     }
 
     handlePDF() {
@@ -135,7 +149,7 @@ export default class ArtistCard extends Component {
 
     render() {
         let {editedArtist} = this.state
-        let {showDropZoneOverlayRecieved} = this.props
+        let {showDropZoneOverlayRecieved, sourceImage} = this.props
         let photo = this.getPhoto(editedArtist)
         return (
             <div className="ArtistCard">
@@ -161,7 +175,7 @@ export default class ArtistCard extends Component {
                                                           editableValue: true,
                                                           propertyName: "lastName"}}
                                                validate={this.handleCategoryValidation.bind(this)}/>}
-                    cardImage={photo}
+                    cardImage={sourceImage !== "" ? sourceImage : photo}
                     cardTitle={<Category category={{required: true,
                                                     categoryName: 'Email',
                                                     categoryValue: editedArtist.detail.email.value,

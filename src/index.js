@@ -49,12 +49,17 @@ export let hideLoader = (store) => {
   store.dispatch({type: constants.SHOW_LOADER, showLoader: false})
 }
 
+export let clearSourceImage = (store) => {
+  store.dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage: ""})
+}
+
 export let everyPageNavigation = store => {
     clearNotifications(store)
     clearCheckCards(store)
     let currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
     receiveCurrentUser(store, currentUser)
     hideLoader(store)
+    clearSourceImage(store)
 }
 
 function requireAuth(store, checkLogin) {

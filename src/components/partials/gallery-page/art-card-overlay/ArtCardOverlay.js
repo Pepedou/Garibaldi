@@ -10,7 +10,7 @@ export default class ArtCardOverlay extends Component {
     }
 
     render() {
-        let {showArtOverlay, showArtOverlayRecieved, updatingCurrentArt, currentArt, receiveCurrentArt, showFullImageOverlayRecieved} = this.props
+        let {showArtOverlay, showArtOverlayRecieved, updatingCurrentArt} = this.props
         return (showArtOverlay ?
         <div className="Overlay">
             <a className="Closebtn" onClick={() => this.toggleOverlay(showArtOverlayRecieved)}>&times;</a>
@@ -30,8 +30,5 @@ ArtCardOverlay.displayName = 'ArtCardOverlay'
 ArtCardOverlay.propTypes = {
   showArtOverlay: PropTypes.bool,
   showArtOverlayRecieved: PropTypes.func,
-  receiveCurrentArt: PropTypes.func,
-  currentArt: PropTypes.object,
-  updatingCurrentArt: PropTypes.bool,
-  showFullImageOverlayRecieved: PropTypes.func
+  updatingCurrentArt: PropTypes.bool
 }

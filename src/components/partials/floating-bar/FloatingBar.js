@@ -4,6 +4,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import SvgIcon from 'material-ui/SvgIcon';
 import {blue500, blue700} from 'material-ui/styles/colors';
+import axios from 'axios'
+import apiRoutes from '../../../utils/services/apiRoutes'
 require('./FloatingBar.css')
 
 const style = {
@@ -15,8 +17,42 @@ export default class FloatingBar extends Component {
     console.log(checkCards)
   }
 
+  deleteArtPieces(ids, props) {
+    let {addNotification, loadingArtGallery} = props
+
+    loadingArtGallery(true)
+    axios.patch(`${apiRoutes.getServiceUrl()}/api/ArtPieces/eliminate`, ids, { headers: { 'Content-Type': 'application/json' } })
+    .then(function (response) {
+        location.reload()
+    })
+    .catch(function (error) {
+        addNotification(error.response.data.error)
+        loadingArtGallery(false)
+    })
+  }
+
+  deleteArtists(ids, props) {
+    let {addNotification, loadingArtistGallery} = props
+
+    loadingArtistGallery(true)
+    axios.patch(`${apiRoutes.getServiceUrl()}/api/Artists/eliminate`, ids, { headers: { 'Content-Type': 'application/json' } })
+    .then(function (response) {
+        location.reload()
+    })
+    .catch(function (error) {
+        addNotification(error.response.data.error)
+        loadingArtistGallery(false)
+    })
+  }
+
   deleteCards(event, checkCards){
-    console.log(checkCards)
+    if(checkCards.length > 0){
+      if(window.location.pathname === "/home"){
+        this.deleteArtPieces(checkCards, this.props)
+      } else {
+        this.deleteArtists(checkCards, this.props)
+      }
+    }
   }
 
   addCard(){

@@ -6,9 +6,11 @@ import CardActions from './CardActions'
 import Category from '../../../ui/category/Category'
 import {getDetailValue} from '../../../../utils/fieldValidations'
 import apiRoutes from '../../../../utils/services/apiRoutes'
-import SvgIcon from 'material-ui/SvgIcon';
+import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
+import SvgIcon from 'material-ui/SvgIcon'
 import axios from 'axios'
-import {white} from 'material-ui/styles/colors';
+import {white} from 'material-ui/styles/colors'
+const objectAssign = require('object-assign')
 require('./ArtCard.css')
 
 let editBtnStyle = {
@@ -20,14 +22,14 @@ export default class ArtCard extends Component {
         super(props);
         this.state = {
             isOverlayVisible: false,
-            editedArt: {...props.currentArt},
+            editedArt: objectAssign({}, {...props.currentArt}),
             dataSource: []
         };
     }
 
     componentWillMount() {
         let setState = this.setState.bind(this)
-        let {addNotification, currentUser} = this.props
+        let {addNotification} = this.props
         axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`)
         .then(function (response) {
             let artists = []
@@ -72,23 +74,27 @@ export default class ArtCard extends Component {
     handleOnNewRequest(value){
         let editedArtCopy = {...this.state.editedArt}
         editedArtCopy.detail.author.value = value.text
-        // editedArtCopy.detail.artistId.value = value.value
+        editedArtCopy.detail.artistId.value = value.value
         
         this.setState({editedArt: editedArtCopy})
     }
 
     handleOnUpdateInput(data){
+        let {currentArt} = this.props
+        let editedArtCopy = {...this.state.editedArt}
+
         if(!this.state.dataSource.find(item => item.text.toUpperCase() === data.toUpperCase())){
-            let editedArtCopy = {...this.state.editedArt}
-            editedArtCopy.detail.author.value = this.props.currentArt.detail.author.value
-            // editedArtCopy.detail.artistId.value = this.props.currentArt.detail.artistId.value
+            editedArtCopy.detail.author.value = currentArt.detail.author.value
+            editedArtCopy.detail.artistId.value = currentArt.detail.artistId.value
             
             this.setState({editedArt: editedArtCopy})
         }
     }
 
     handleSave(event) {
-        let data = {
+        let {currentArt, loadingArtDetail, addNotification, sourceImage} = this.props
+
+        let newArt = {
             author: this.state.editedArt.detail.author.value,
             title: this.state.editedArt.detail.title.value,
             year: this.state.editedArt.detail.year.value,
@@ -96,28 +102,37 @@ export default class ArtCard extends Component {
             technique: this.state.editedArt.detail.technique.value,
             materials: this.state.editedArt.detail.materials.value,
             measurements: this.state.editedArt.detail.measurements.value,
-            // artistId: this.state.editedArt.detail.artistId.value,
-            images: this.state.editedArt.detail.images.value,
-            // culturalHelperId: this.state.editedArt.detail.culturalHelperId.value,
-            categories: this.state.editedArt.categories
+            artistId: this.state.editedArt.detail.artistId.value,
+            categories: this.state.editedArt.categories,
+            images: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArt.detail.images.value
         }
 
-        let {currentArtist, loadingArtDetail, addNotification, sourceImage} = this.props
-        let source = sourceImage
+        let data = JSON.stringify(newArt)
+
         loadingArtDetail(true)
-        // axios.patch(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${currentArt.detail.id}`, data, { headers: { 'Content-Type': 'application/json' } })
-        // .then(function (response) {
-        //     //TODO: Ver que hacer una vez que se actualiza
-        //     loadingArtDetail(true)
-        // })
-        // .catch(function (error) {
-        //     addNotification(error.response.data.error)
-        //     loadingArtDetail(true)
-        // })
+        axios.patch(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${currentArt.id}`, data, { headers: { 'Content-Type': 'application/json' } })
+        .then(function (response) {
+            location.reload()
+        })
+        .catch(function (error) {
+            addNotification(error.response.data.error)
+            loadingArtDetail(false)
+        })
     }
 
     handleDelete() {
-        
+        let {currentArt, loadingArtDetail, addNotification} = this.props
+        let ids = [currentArt.id]
+
+        loadingArtDetail(true)
+        axios.patch(`${apiRoutes.getServiceUrl()}/api/ArtPieces/eliminate`, ids, { headers: { 'Content-Type': 'application/json' } })
+        .then(function (response) {
+            location.reload()
+        })
+        .catch(function (error) {
+            addNotification(error.response.data.error)
+            loadingArtDetail(false)
+        })
     }
 
     handlePDF() {
@@ -125,7 +140,7 @@ export default class ArtCard extends Component {
     }
 
     render() {
-        let {showFullImageOverlayRecieved, showDropZoneOverlayRecieved} = this.props
+        let {showFullImageOverlayRecieved, showDropZoneOverlayRecieved, sourceImage} = this.props
         let {editedArt} = this.state
         return (
             <div className="ArtCard">
@@ -156,7 +171,7 @@ export default class ArtCard extends Component {
                                                           editableValue: true,
                                                           propertyName: "year"}}
                                                validate={this.handleCategoryValidation.bind(this)}/>}
-                    cardImage={editedArt.detail.images.value.standard}
+                    cardImage={sourceImage !== "" ? sourceImage : editedArt.detail.images.value.standard}
                     cardTitle={<Category category={{required: true,
                                                     categoryName: 'Artista',
                                                     categoryValue: editedArt.detail.author.value,

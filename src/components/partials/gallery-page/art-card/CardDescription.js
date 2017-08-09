@@ -6,7 +6,7 @@ import {getDetailValue} from '../../../../utils/fieldValidations'
 
 export default class CardDescription extends Component {
     render() {
-        let {artCardInformation, handleCategoryValidation, onTouchTap, onNewRequest, onUpdateInput, dataSource} = this.props
+        let {artCardInformation, handleCategoryValidation, onTouchTap} = this.props
         return (
             <div className="CardDescription row">
                 <Category category={{required: false,

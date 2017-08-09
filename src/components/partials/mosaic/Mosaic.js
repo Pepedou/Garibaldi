@@ -56,9 +56,9 @@ class Mosaic extends Component {
 
   handleOnCheck(event, card, addCheckCard, deleteCheckCard) {
     if(event.target.checked) {
-      addCheckCard(card._id)
+      addCheckCard(card.id)
     } else {
-      deleteCheckCard(card._id)
+      deleteCheckCard(card.id)
     }
   }
     

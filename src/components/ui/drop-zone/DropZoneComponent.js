@@ -30,12 +30,6 @@ let style = {
 }
 
 class DropZoneComponent extends Component {
-    constructor(props)
-    {
-        super(props)
-        props.sourceImageRecieved("")
-    }
-
     onDropAccepted(files, {clearAllNotifications, addNotification, sourceImageRecieved, loadingDropzone}) {
         clearAllNotifications()
         loadingDropzone(true)
@@ -57,7 +51,8 @@ class DropZoneComponent extends Component {
         return showDropzoneLoader
             ? <div className="marginTop row"><center><LoaderComponent/></center></div>
             : <div className="DropZoneComponent">
-                <Dropzone 
+                <Dropzone
+                    className="DropzoneSquare"
                     onDropAccepted={(files) => this.onDropAccepted(files, this.props)}
                     onDropRejected={(files) => this.onDropRejected(files, this.props)}
                     accept="image/jpeg, image/png"
@@ -92,7 +87,8 @@ DropZoneComponent.propTypes = {
     clearAllNotifications: PropTypes.func,
     loadingDropzone: PropTypes.func,
     showDropzoneLoader: PropTypes.bool,
-    sourceImage: PropTypes.any
+    sourceImage: PropTypes.any,
+    sourceImageRecieved: PropTypes.func
 }
 
 export const mapStateToProps = ({showDropzoneLoader, sourceImage}) => ({

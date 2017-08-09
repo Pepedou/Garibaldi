@@ -140,7 +140,7 @@ class NewArtPage extends Component {
     }
 
     render() {
-        let {sourceImage, showLoader} = this.props
+        let {showLoader} = this.props
         return (
             <div className="col-xs-12 col-md-12 NewArtPage">
                     {
@@ -149,7 +149,7 @@ class NewArtPage extends Component {
                         : <div className="row">
                             <div className="col-xs-12 col-md-4 DropZoneSection">
                                 <center>
-                                    <DropZoneComponent sourceImage={sourceImage}/>
+                                    <DropZoneComponent/>
                                 </center>
                             </div>
                             <div className="col-xs-12 col-md-4 NewArtForm">
