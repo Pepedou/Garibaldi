@@ -29,10 +29,6 @@ div.row{
     margin:0px;
 }
 
-.whiteNavLogo{
-    content: url("./content/images/logo_white_name.png");
-}
-
 .col-xs-12, .col-md-12{
     padding: 0px;
 }

@@ -13,6 +13,7 @@ import axios from 'axios'
 import {getForm, FormType} from '../../../../utils/forms/formUtils'
 import {handleError, ERROR_CODES} from '../../../../utils/errorHandling'
 import apiRoutes from '../../../../utils/services/apiRoutes'
+import images from '../../../../content/images/exportImages'
 
 class LoginForm extends Component {
     constructor(props)
@@ -79,7 +80,7 @@ class LoginForm extends Component {
             <div className="col-xs-12 col-md-4">
                 <div className="row marginTop">
                     <center>
-                        <img src="" id="mainLogo" alt=""/>
+                        <img src={images.gray_logo} id="mainLogo" alt=""/>
                     </center>
                 </div>
                 <div className="row marginTop">

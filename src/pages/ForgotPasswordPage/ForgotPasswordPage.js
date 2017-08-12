@@ -11,6 +11,7 @@ import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import apiRoutes from '../../utils/services/apiRoutes'
 import {connect} from 'react-redux'
 import * as constants from '../../redux/constants'
+import images from '../../content/images/exportImages'
 import axios from 'axios'
 import '../../Main.css';
 import './ForgotPasswordPage.css';
@@ -69,7 +70,7 @@ class ForgotPassword extends Component {
             <div className="col-xs-12 col-md-4">
                 <div className="row marginTop">
                     <center>
-                        <img src="" id="passwordLogo" alt=""/>
+                        <img src={images.gray_logo} id="passwordLogo" alt=""/>
                     </center>
                 </div>
                 <div className="row marginTop">
