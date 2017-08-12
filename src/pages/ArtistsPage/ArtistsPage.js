@@ -14,7 +14,7 @@ class ArtistsPage extends Component {
         let {clearAllNotifications, receiveArtistGallery, addNotification, loadingGallery} = this.props
         clearAllNotifications()
         loadingGallery(true)
-        axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`) //TODO: Usar mosaico
+        axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`)
         .then(function (response) {
           if(response.data.length > 0) {
             receiveArtistGallery(response.data);
