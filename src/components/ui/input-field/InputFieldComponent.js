@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TextFieldComponent from '../text-field/TextFieldComponent'
 import SelectFieldComponent from '../select-field/SelectFieldComponent'
 import AutocompleteComponent from '../autocomplete/AutocompleteComponent'
+import ToggleFieldComponent from '../toggle-field/ToggleFieldComponent'
 
 let getTextFieldComponente = props => <TextFieldComponent
             hintText={props.hintText}
@@ -40,6 +41,13 @@ let getSelectField = props => <SelectFieldComponent
             onChange={props.onChange}
                 />
 
+let getToggleField = props => <ToggleFieldComponent 
+            labelOnTrue={props.labelOnTrue}
+            labelOnFalse={props.labelOnFalse}
+            defaultToggled={props.defaultToggled}
+            handleToggle={props.handleToggle}
+                />
+
 let getInputField = props => {
     switch (props.inputType) {
         case "textField":
@@ -48,6 +56,8 @@ let getInputField = props => {
             return getSelectField(props);
         case "autocomplete":
             return getAutocompleteField(props);
+        case "toggle":
+            return getToggleField(props);
         default:
             return null;
     }
@@ -73,5 +83,9 @@ InputFieldComponent.propTypes = {
   multiLine: PropTypes.bool,
   onChange: PropTypes.func,
   onNewRequest: PropTypes.func,
-  onUpdateInput: PropTypes.func
+  onUpdateInput: PropTypes.func,
+  labelOnTrue: PropTypes.string,
+  labelOnFalse: PropTypes.string,
+  defaultToggled: PropTypes.bool,
+  handleToggle: PropTypes.func
 };

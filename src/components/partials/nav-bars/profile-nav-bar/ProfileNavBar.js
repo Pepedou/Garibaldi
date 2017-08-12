@@ -20,6 +20,8 @@ export default class ProfileNavBar extends Component {
             localStorage.removeItem("currentUser");
             receiveCurrentUser({})
             window.location = './'
+        } else {
+            window.location = './myUserProfile'
         }
     }
 

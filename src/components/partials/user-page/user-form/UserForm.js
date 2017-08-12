@@ -95,7 +95,7 @@ class UserForm extends Component {
 
         } else {
             this.setState({inputFields: {userInformation: resultUserInformation.fieldList, personalInformation: resultPersonalInformation.fieldList}})
-            addNotification({code: ERROR_CODES.NO_RESULTS_FOUND.code})
+            addNotification({code: ERROR_CODES.CHECK_FIELDS.code})
         }
 
         this.setState({inputFields: {userInformation: inputFieldsCopy.userInformation, personalInformation: inputFieldsCopy.personalInformation}})
