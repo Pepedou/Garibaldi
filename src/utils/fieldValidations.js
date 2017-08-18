@@ -55,4 +55,4 @@ export let isEmailFormatValid = (email) => {
     return re.test(email)
 }
 
-export let getDetailValue = value => value === "" ? "Valor no definido" : value
+export let getDetailValue = value => value === "" || !value ? "Valor no definido" : value

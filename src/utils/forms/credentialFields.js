@@ -105,7 +105,7 @@ export let credentialFields = {
             inputType: "textField",
             floatingLabelText: "Nueva contraseña",
             hintText: "Ingresa la nueva contraseña",
-            id: "password",
+            id: "newPassword",
             type: "password",
             className: "userField obligatoryField passwordField TextField",
             errorText: "",

@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 import SvgIcon from 'material-ui/SvgIcon';
-import {blue500, blue700} from 'material-ui/styles/colors';
-import axios from 'axios'
-import apiRoutes from '../../../utils/services/apiRoutes'
+import {blue500, blue700} from 'material-ui/styles/colors'
+import ArtPieceServices from '../../../utils/services/artPiecesServices'
+import ArtistServices from '../../../utils/services/artistServices'
+
 require('./FloatingBar.css')
 
 const style = {
@@ -18,29 +19,31 @@ export default class FloatingBar extends Component {
   }
 
   deleteArtPieces(ids, props) {
-    let {addNotification, loadingArtGallery} = props
+    let {addNotification, loadingArtGallery, clearCheckCards} = props
 
     loadingArtGallery(true)
-    axios.patch(`${apiRoutes.getServiceUrl()}/api/ArtPieces/eliminate`, ids, { headers: { 'Content-Type': 'application/json' } })
+    ArtPieceServices.destroyMany(ids)
     .then(function (response) {
         location.reload()
     })
     .catch(function (error) {
-        addNotification(error.response.data.error)
+        addNotification(error)
+        clearCheckCards()
         loadingArtGallery(false)
     })
   }
 
   deleteArtists(ids, props) {
-    let {addNotification, loadingArtistGallery} = props
+    let {addNotification, loadingArtistGallery, clearCheckCards} = props
 
     loadingArtistGallery(true)
-    axios.patch(`${apiRoutes.getServiceUrl()}/api/Artists/eliminate`, ids, { headers: { 'Content-Type': 'application/json' } })
+    ArtistServices.destroyMany(ids)
     .then(function (response) {
         location.reload()
     })
     .catch(function (error) {
-        addNotification(error.response.data.error)
+        addNotification(error)
+        clearCheckCards()
         loadingArtistGallery(false)
     })
   }
@@ -101,4 +104,5 @@ FloatingBar.displayName = 'FloatingBar'
 
 FloatingBar.propTypes = {
   checkCards: PropTypes.array,
+  clearCheckCards: PropTypes.func
 };

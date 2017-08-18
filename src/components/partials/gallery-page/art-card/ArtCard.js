@@ -7,6 +7,7 @@ import Category from '../../../ui/category/Category'
 import {getDetailValue} from '../../../../utils/fieldValidations'
 import apiRoutes from '../../../../utils/services/apiRoutes'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
+import ArtPieceServices from '../../../../utils/services/artPiecesServices'
 import SvgIcon from 'material-ui/SvgIcon'
 import axios from 'axios'
 import {white} from 'material-ui/styles/colors'
@@ -107,30 +108,27 @@ export default class ArtCard extends Component {
             images: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArt.detail.images.value
         }
 
-        let data = JSON.stringify(newArt)
-
         loadingArtDetail(true)
-        axios.patch(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${currentArt.id}`, data, { headers: { 'Content-Type': 'application/json' } })
+        ArtPieceServices.update(currentArt.id, newArt)
         .then(function (response) {
             location.reload()
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
             loadingArtDetail(false)
         })
     }
 
     handleDelete() {
         let {currentArt, loadingArtDetail, addNotification} = this.props
-        let ids = [currentArt.id]
 
         loadingArtDetail(true)
-        axios.patch(`${apiRoutes.getServiceUrl()}/api/ArtPieces/eliminate`, ids, { headers: { 'Content-Type': 'application/json' } })
+        ArtPieceServices.destroy(currentArt.id)
         .then(function (response) {
             location.reload()
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
             loadingArtDetail(false)
         })
     }

@@ -12,6 +12,7 @@ import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import {getTypeName} from '../../utils/constants/UserTypes'
 import {validateObligatoryFields, getFieldIndex, getUserFields, getFieldValue} from '../../utils/fieldValidations'
+import CredentialServices from '../../utils/services/credentialServices'
 
 require('./UserProfilePage.css')
 
@@ -92,13 +93,13 @@ class UserProfilePage extends Component {
             user.active = getFieldValue(this.state.inputFields.personalLeftInformation, "active").defaultToggled;
 
             loading(true)
-            axios.patch(`${apiRoutes.getServiceUrl()}/api/Credentials/${currentUser.id}`, user, { headers: { 'Content-Type': 'application/json' } })
+            CredentialServices.update(currentUser.id, user)
             .then(function (response) {
                 loading(false)
             })
             .catch(function (error) {
+                addNotification(error)
                 loading(false)
-                addNotification(error.response.data.error)
             })
         } else {
             this.setState({inputFields: {personalLeftInformation: personalLeftInformation.fieldList, personalRightInformation: personalRightInformation.fieldList, passwordField: this.state.inputFields.passwordField}})
@@ -115,7 +116,7 @@ class UserProfilePage extends Component {
     }
 
     handleChangePassword(event, props) {
-        let {loading, addNotification, clearAllNotifications} = props
+        let {loading, addNotification, clearAllNotifications, currentUser} = props
 
         clearAllNotifications()
 
@@ -123,6 +124,10 @@ class UserProfilePage extends Component {
 
         if(passwordFields.valid) {
             let passwordValues = getUserFields(this.state.inputFields.passwordField)
+            let md5 = require('js-md5')
+            passwordValues.newPassword = md5(passwordValues.newPassword)
+            passwordValues.oldPassword = md5(passwordValues.oldPassword)
+            passwordValues.id = currentUser.id
 
             loading(true)
             axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/change-password`, passwordValues, { headers: { 'Content-Type': 'application/json' } })
@@ -145,7 +150,7 @@ class UserProfilePage extends Component {
                 ? <div className="marginTop row"><center><LoaderComponent/></center></div>
                 : <div className="col-xs-12 col-md-12 UserProfilePage">
                     <div className="row">
-                        <div className="col-xs-12 col-md-6 userColumn">
+                        <div className="col-xs-12 col-md-6 userProfileColumn">
                             <div className="row subtitle">Datos del usuario</div>
                             <div className="row">
                                 <div className="userLabel">Email: </div>
@@ -174,7 +179,7 @@ class UserProfilePage extends Component {
                                 }
                             </div>
                         </div>
-                        <div className="col-xs-12 col-md-6 userColumn">
+                        <div className="col-xs-12 col-md-6 userProfileColumn">
                             <div className="row subtitle">Datos del domicilio</div>
                             {
                                 this.state.inputFields.personalRightInformation.map((item, key) => <InputFieldComponent key={key}

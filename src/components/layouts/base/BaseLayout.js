@@ -67,6 +67,7 @@ BaseLayout.propTypes = {
   updatingCurrentArtist: PropTypes.bool,
   addNotification: PropTypes.func,
   clearAllNotifications: PropTypes.func,
+  clearCheckCards: PropTypes.func,
   loadingArtDetail: PropTypes.func,
   loadingArtGallery: PropTypes.func,
   loadingArtistDetail: PropTypes.func,
@@ -101,6 +102,7 @@ export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentU
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  clearCheckCards: show => dispatch({type: constants.CLEAR_CHECK_CARDS}),
   loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
   loadingArtistDetail: updatingCurrentArtist => dispatch({type: constants.UPDATING_CURRENT_ARTIST, updatingCurrentArtist}),
   loadingArtGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),

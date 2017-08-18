@@ -12,6 +12,7 @@ import apiRoutes from '../../../../utils/services/apiRoutes'
 import SvgIcon from 'material-ui/SvgIcon'
 import {white} from 'material-ui/styles/colors'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
+import ArtistServices from '../../../../utils/services/artistServices'
 const objectAssign = require('object-assign')
 
 let editBtnStyle = {
@@ -84,8 +85,8 @@ export default class ArtistCard extends Component {
     handleOnUpdateInput(data){
         if(!this.state.dataSource.find(item => item.text.toUpperCase() === data.toUpperCase())){
             let editedArtistCopy = {...this.state.editedArtist}
-            editedArtistCopy.detail.culturalHelperName = this.props.currentArtist.detail.culturalHelperName
-            editedArtistCopy.detail.culturalHelperId.value = this.props.currentArtist.detail.culturalHelperId.value
+            editedArtistCopy.detail.culturalHelperName = "Valor no definido"
+            editedArtistCopy.detail.culturalHelperId.value = 0
             
             this.setState({editedArtist: editedArtistCopy})
         }
@@ -115,30 +116,27 @@ export default class ArtistCard extends Component {
             categories: this.state.editedArtist.categories
         }
 
-        let data = JSON.stringify(newArtist)
-
-        loadingArtistDetail(true)
-        axios.patch(`${apiRoutes.getServiceUrl()}/api/Artists/${currentArtist.id}`, data, { headers: { 'Content-Type': 'application/json' } })
+        loadingArtistDetail(true)  
+        ArtistServices.update(currentArtist.id, newArtist)
         .then(function (response) {
             location.reload()
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
             loadingArtistDetail(false)
         })
     }
 
     handleDelete() {
         let {currentArtist, loadingArtistDetail, addNotification} = this.props
-        let ids = [currentArtist.id]
 
         loadingArtistDetail(true)
-        axios.delete(`${apiRoutes.getServiceUrl()}/api/Artists/eliminate`, ids, { headers: { 'Content-Type': 'application/json' } })
+        ArtistServices.destroy(currentArtist.id)
         .then(function (response) {
             location.reload()
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
             loadingArtistDetail(false)
         })
     }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Category from '../../../ui/category/Category.js';
 import DefaultButton from '../../../ui/buttons/DefaultButton'
+import {getDetailValue} from '../../../../utils/fieldValidations'
 
 export default class CardDescription extends Component {
     render() {
@@ -10,7 +11,7 @@ export default class CardDescription extends Component {
             <div className="CardDescription row">
                 <Category category={{required: true,
                                                     categoryName: 'Gestor Cultural',
-                                                    categoryValue: artistCardInformation.detail.culturalHelperName,
+                                                    categoryValue: getDetailValue(artistCardInformation.detail.culturalHelperName),
                                                     editableName: false,
                                                     editableValue: true,
                                                     propertyName: "culturalHelperName"}}
