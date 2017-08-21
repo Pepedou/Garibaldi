@@ -53,4 +53,8 @@ div.passwordColumn {
     div.passwordColumn {
         padding: 0rem 1rem;
     }
+
+    div.userProfileColumn {
+        padding: 0;
+    }
 }

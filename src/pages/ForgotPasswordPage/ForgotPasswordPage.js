@@ -67,7 +67,7 @@ class ForgotPassword extends Component {
             ? <div className="marginTop row"><center><LoaderComponent/></center></div>
             : <div className="row">
             <div className="col-xs-0 col-md-4"></div>
-            <div className="col-xs-12 col-md-4">
+            <div className="col-xs-12 col-md-4 ForgotPasswordMain">
                 <div className="row marginTop">
                     <center>
                         <img src={images.gray_logo} id="passwordLogo" alt=""/>

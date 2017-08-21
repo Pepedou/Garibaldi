@@ -18,8 +18,8 @@ class Register extends Component {
           <LoginNavbar selectedOption="registerOption"/>
           <div className="row"><NotificationComponent/></div>
           <div className="RegisterForm row">
-              <div className="col-xs-0 col-md-3"></div>
-              <div className="col-xs-12 col-md-6">
+              <div className="col-xs-0 col-md-2 col-lg-3"></div>
+              <div className="col-xs-12 col-md-8 col-lg-6">
                   <div className="row marginTop">
                       <center>
                         <img src={images.gray_logo} id="registerLogo" alt=""/>
@@ -37,7 +37,7 @@ class Register extends Component {
                     : <UserForm/>
                   }
               </div>
-              <div className="col-xs-0 col-md-3"></div>
+              <div className="col-xs-0 col-md-2 col-lg-3"></div>
           </div>
       </div>
     </div>
