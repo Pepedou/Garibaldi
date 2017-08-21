@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as constants from '../../redux/constants'
 import {connect} from 'react-redux'
-import axios from 'axios'
 import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import {getForm, FormType} from '../../utils/forms/formUtils'
@@ -11,9 +10,10 @@ import InputFieldComponent from '../../components/ui/input-field/InputFieldCompo
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import DropZoneComponent from '../../components/ui/drop-zone/DropZoneComponent'
 import Category from '../../components/ui/category/Category.js'
-import apiRoutes from '../../utils/services/apiRoutes'
 import transformToImages from '../../utils/services/cloudinaryImageTransform'
 import {UserTypes} from '../../utils/constants/UserTypes'
+import ArtistServices from '../../utils/services/artistServices'
+import ArtPieceServices from '../../utils/services/artPiecesServices'
 
 require('./NewArtPage.css')
 
@@ -34,10 +34,11 @@ class NewArtPage extends Component {
         let setState = this.setState.bind(this)
         let {addNotification, currentUser} = this.props
         let inputFieldsCopy = [...this.state.inputFields]
-        axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`)
+
+        ArtistServices.getAll()
         .then(function (response) {
             let artists = []
-            response.data.map((item, key) => artists.push({text: `${item.name} ${item.lastName}`, value: item.id}))
+            response.map((item, key) => artists.push({text: `${item.name} ${item.lastName}`, value: item.id}))
             setState({dataSource: artists})
 
             if(currentUser.ownerType === UserTypes.ARTISTA) {
@@ -45,11 +46,9 @@ class NewArtPage extends Component {
                 let newInputList = [...inputFieldsCopy.slice(0,currentFieldIndex), ...inputFieldsCopy.slice(currentFieldIndex+1)]
                 setState({inputFields: newInputList})
             }
-
-            
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
         })
     }
 
@@ -123,14 +122,14 @@ class NewArtPage extends Component {
                 art.author = `${currentUser.name} ${currentUser.lastName}`
             }
 
-            axios.post(`${apiRoutes.getServiceUrl()}/api/ArtPieces`, art, { headers: { 'Content-Type': 'application/json' } })
+            ArtPieceServices.create(art)
             .then(function (response) {
                 loading(false)
                 window.location = './home'
             })
             .catch(function (error) {
                 loading(false)
-                addNotification(error.response.data.error)
+                addNotification(error)
             })
         } else {
             loading(false)

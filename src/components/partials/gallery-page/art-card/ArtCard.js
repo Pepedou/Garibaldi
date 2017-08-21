@@ -5,12 +5,11 @@ import CardDescription from './CardDescription'
 import CardActions from './CardActions'
 import Category from '../../../ui/category/Category'
 import {getDetailValue} from '../../../../utils/fieldValidations'
-import apiRoutes from '../../../../utils/services/apiRoutes'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
 import ArtPieceServices from '../../../../utils/services/artPiecesServices'
 import SvgIcon from 'material-ui/SvgIcon'
-import axios from 'axios'
 import {white} from 'material-ui/styles/colors'
+import ArtistServices from '../../../../utils/services/artistServices'
 const objectAssign = require('object-assign')
 require('./ArtCard.css')
 
@@ -31,14 +30,15 @@ export default class ArtCard extends Component {
     componentWillMount() {
         let setState = this.setState.bind(this)
         let {addNotification} = this.props
-        axios.get(`${apiRoutes.getServiceUrl()}/api/Artists`)
+
+        ArtistServices.getAll()
         .then(function (response) {
             let artists = []
-            response.data.map((item, key) => artists.push({text: `${item.name} ${item.lastName}`, value: item.id}))
+            response.map((item, key) => artists.push({text: `${item.name} ${item.lastName}`, value: item.id}))
             setState({dataSource: artists})
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
         })
     }
 

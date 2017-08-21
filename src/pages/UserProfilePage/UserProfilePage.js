@@ -5,8 +5,6 @@ import {getForm, FormType} from '../../utils/forms/formUtils'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import DividerComponent from '../../components/ui/divider/DividerComponent'
-import apiRoutes from '../../utils/services/apiRoutes'
-import axios from 'axios'
 import * as constants from '../../redux/constants'
 import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
@@ -53,13 +51,13 @@ class UserProfilePage extends Component {
         let {addNotification, currentUser} = this.props
         let setState = this.setState.bind(this)
         let {inputFields} = this.state
-        console.log("bla")
-        axios.get(`${apiRoutes.getServiceUrl()}/api/Credentials/${currentUser.id}`)
+        
+        CredentialServices.getById(currentUser.id)
         .then(function (response) {
-            updateFields(response.data, inputFields, setState)
+            updateFields(response, inputFields, setState)
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
         })
     }
 
@@ -79,7 +77,7 @@ class UserProfilePage extends Component {
     }
 
     handleSaveUser(event, props) {
-        let {loading, currentUser, addNotification, clearAllNotifications} = props
+        let {loading, currentUser, addNotification, clearAllNotifications, receiveCurrentUser} = props
 
         clearAllNotifications()
 
@@ -96,6 +94,7 @@ class UserProfilePage extends Component {
             CredentialServices.update(currentUser.id, user)
             .then(function (response) {
                 loading(false)
+                receiveCurrentUser(response)
             })
             .catch(function (error) {
                 addNotification(error)
@@ -130,13 +129,13 @@ class UserProfilePage extends Component {
             passwordValues.id = currentUser.id
 
             loading(true)
-            axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/change-password`, passwordValues, { headers: { 'Content-Type': 'application/json' } })
+
+            CredentialServices.changePassword(passwordValues)
             .then(function (response) {
-                location.reload();
+                location.reload()
             })
             .catch(function (error) {
-                loading(false)
-                addNotification(error.response.data.error)
+                addNotification(error)
             })
         } else {
             this.setState({inputFields: {personalLeftInformation: this.state.inputFields.personalLeftInformation, personalRightInformation: this.state.inputFields.personalRightInformation, passwordField: passwordFields.fieldList}})
@@ -244,7 +243,8 @@ UserProfilePage.propTypes = {
     currentUser: PropTypes.object,
     addNotification: PropTypes.func,
     clearAllNotifications: PropTypes.func,
-    loading: PropTypes.func
+    loading: PropTypes.func,
+    receiveCurrentUser: PropTypes.func
 }
 
 export const mapStateToProps = ({currentUser, showLoader}) => ({
@@ -254,7 +254,8 @@ export const mapStateToProps = ({currentUser, showLoader}) => ({
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
+  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader}),
+  receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage)

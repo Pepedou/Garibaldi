@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import GridListComponent from '../../ui/grid-list/GridListComponent'
 import * as constants from '../../../redux/constants'
 import {connect} from 'react-redux'
-import axios from 'axios'
 import {handleError} from '../../../utils/errorHandling'
 import {MosaicTypes} from '../../../utils/constants/MosaicTypes'
-import apiRoutes from '../../../utils/services/apiRoutes'
+import ArtPieceServices from '../../../utils/services/artPiecesServices'
+import ArtistServices from '../../../utils/services/artistServices'
 import './Mosaic.css'
 
 class Mosaic extends Component {
@@ -15,30 +15,32 @@ class Mosaic extends Component {
         showArtOverlayRecieved(true)
     }
     loadingGallery(true)
-    axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${card.id}/getArtPieceDetail`)
+
+    ArtPieceServices.getDetail(card.id)
     .then(function (response) {
-      receiveCurrentArt(response.data)
-      loadingGallery(false)
+        receiveCurrentArt(response)
+        loadingGallery(false)
     })
     .catch(function (error) {
         showArtOverlayRecieved(false)
         loadingGallery(false)
-        addNotification(error.response.data.error)
+        addNotification(error)
     })
   }
 
   getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail) {
     showArtistOverlayRecieved(true)
     loadingArtistDetail(true)
-    axios.get(`${apiRoutes.getServiceUrl()}/api/Artists/${card.id}/getArtistDetail`)
+
+    ArtistServices.getDetail(card.id)
     .then(function (response) {
-        receiveCurrentArtist(response.data)
+        receiveCurrentArtist(response)
         loadingArtistDetail(false)
     })
     .catch(function (error) {
         showArtistOverlayRecieved(false)
         loadingArtistDetail(false)
-        addNotification(error.response.data.error)
+        addNotification(error)
     })
   }
 

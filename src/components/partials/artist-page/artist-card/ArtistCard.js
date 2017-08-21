@@ -7,12 +7,12 @@ import CardDescription from './CardDescription'
 import CardActions from './CardActions'
 import Category from '../../../ui/category/Category'
 import {getDetailValue} from '../../../../utils/fieldValidations'
-import axios from 'axios'
-import apiRoutes from '../../../../utils/services/apiRoutes'
 import SvgIcon from 'material-ui/SvgIcon'
 import {white} from 'material-ui/styles/colors'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
 import ArtistServices from '../../../../utils/services/artistServices'
+import CulturalHelpersServices from '../../../../utils/services/culturalHelperServices'
+
 const objectAssign = require('object-assign')
 
 let editBtnStyle = {
@@ -33,14 +33,15 @@ export default class ArtistCard extends Component {
     componentWillMount() {
         let setState = this.setState.bind(this)
         let {addNotification} = this.props
-        axios.get(`${apiRoutes.getServiceUrl()}/api/CulturalHelpers`)
+
+        CulturalHelpersServices.getAll()
         .then(function (response) {
             let culturalHelpers = []
-            response.data.map((item, key) => culturalHelpers.push({text: `${item.name} ${item.lastName}`, value: item.id}))
+            response.map((item, key) => culturalHelpers.push({text: `${item.name} ${item.lastName}`, value: item.id}))
             setState({dataSource: culturalHelpers})
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
         })
     }
 

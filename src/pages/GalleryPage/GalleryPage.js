@@ -9,20 +9,22 @@ import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import axios from 'axios'
 import {MosaicTypes} from '../../utils/constants/MosaicTypes'
 import apiRoutes from '../../utils/services/apiRoutes'
+import ArtPieceServices from '../../utils/services/artPiecesServices'
 import './GalleryPage.css'
 
 class GalleryPage extends Component {
     getArtDetail(cardId, receiveCurrentArt, addNotification, loadingArtDetail) {
       loadingArtDetail(true)
-      axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${cardId}/getArtPieceDetail`)
-      .then(function (response) {
-          receiveCurrentArt(response.data)
-          loadingArtDetail(false)
-      })
-      .catch(function (error) {
-          addNotification(error.response.data.error)
-          loadingArtDetail(false)
-      })
+
+      ArtPieceServices.getDetail(cardId)
+        .then(function (response) {
+            receiveCurrentArt(response)
+            loadingArtDetail(false)
+        })
+        .catch(function (error) {
+            addNotification(error)
+            loadingArtDetail(false)
+        })
     }
 
     componentWillMount() {

@@ -5,6 +5,7 @@ import {PageTypes} from '../../../utils/constants/PageTypes'
 import axios from 'axios'
 import {ERROR_CODES} from '../../../utils/errorHandling'
 import apiRoutes from '../../../utils/services/apiRoutes'
+import ArtPieceServices from '../../../utils/services/artPiecesServices'
 require('./SearchBar.css')
 require('../../../Main.css')
 
@@ -29,14 +30,15 @@ export default class SearchBar extends Component {
 
   getArtDetail(cardId, receiveCurrentArt, addNotification, loadingArtDetail, clearAllNotifications) {
       loadingArtDetail(true)
-      axios.get(`${apiRoutes.getServiceUrl()}/api/ArtPieces/${cardId}/getArtPieceDetail`)
+
+      ArtPieceServices.getDetail(cardId)
       .then(function (response) {
-          receiveCurrentArt(response.data)
+          receiveCurrentArt(response)
           loadingArtDetail(false)
       })
       .catch(function (error) {
           clearAllNotifications()
-          addNotification(error.response.data.error)
+          addNotification(error)
           loadingArtDetail(false)
       })
     }

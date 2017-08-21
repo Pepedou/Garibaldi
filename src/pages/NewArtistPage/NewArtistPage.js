@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import * as constants from '../../redux/constants'
 import {connect} from 'react-redux'
-import axios from 'axios'
 import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import {getForm, FormType} from '../../utils/forms/formUtils'
@@ -11,7 +10,8 @@ import InputFieldComponent from '../../components/ui/input-field/InputFieldCompo
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import DropZoneComponent from '../../components/ui/drop-zone/DropZoneComponent'
 import Category from '../../components/ui/category/Category.js';
-import apiRoutes from '../../utils/services/apiRoutes'
+import CulturalHelpersServices from '../../utils/services/culturalHelperServices'
+import ArtistServices from '../../utils/services/artistServices'
 
 require('./NewArtistPage.css')
 
@@ -30,14 +30,15 @@ class NewArtistPage extends Component {
     componentWillMount() {
         let setState = this.setState.bind(this)
         let {addNotification} = this.props
-        axios.get(`${apiRoutes.getServiceUrl()}/api/CulturalHelpers`)
+
+        CulturalHelpersServices.getAll()
         .then(function (response) {
             let culturalHelpers = []
-            response.data.map((item, key) => culturalHelpers.push({text: `${item.name} ${item.lastName}`, value: item.id}))
+            response.map((item, key) => culturalHelpers.push({text: `${item.name} ${item.lastName}`, value: item.id}))
             setState({dataSource: culturalHelpers})
         })
         .catch(function (error) {
-            addNotification(error.response.data.error)
+            addNotification(error)
         })
     }
 
@@ -107,14 +108,14 @@ class NewArtistPage extends Component {
                 artist.categories = this.state.categories
                 artist.photo = sourceImage
 
-                axios.post(`${apiRoutes.getServiceUrl()}/api/Artists`, artist, { headers: { 'Content-Type': 'application/json' } })
+                ArtistServices.create(artist)
                 .then(function (response) {
                     loading(false)
                     window.location = './artists'
                 })
                 .catch(function (error) {
                     loading(false)
-                    addNotification(error.response.data.error)
+                    addNotification(error)
                 })
 
             } else {

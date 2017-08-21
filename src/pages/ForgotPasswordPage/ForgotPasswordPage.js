@@ -8,13 +8,12 @@ import {validateObligatoryFields, getFieldIndex, getFieldValue} from '../../util
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import {handleError, ERROR_CODES} from '../../utils/errorHandling'
-import apiRoutes from '../../utils/services/apiRoutes'
 import {connect} from 'react-redux'
 import * as constants from '../../redux/constants'
 import images from '../../content/images/exportImages'
-import axios from 'axios'
 import '../../Main.css';
 import './ForgotPasswordPage.css';
+import CredentialServices from '../../utils/services/credentialServices'
 
 class ForgotPassword extends Component {
   constructor(props)
@@ -42,14 +41,15 @@ class ForgotPassword extends Component {
         loading(true)
         let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue;
         let email = {email: emailValue}
-        axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/reset`, email, { headers: { 'Content-Type': 'application/json' } })
+
+        CredentialServices.forgotPassword(email)
         .then(function (response) {
             loading(false)
             window.location = './'
         })
         .catch(function (error) {
             loading(false)
-            addNotification(error.response.data.error)
+            addNotification(error)
         })
     } else {
         addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})

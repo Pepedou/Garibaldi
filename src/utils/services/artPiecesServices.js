@@ -11,7 +11,13 @@ class ArtPieceServices {
                 'Content-Type': 'application/json'
             }
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('La información de las obras no se puede consultar en este momento');
+            } else {
+                return res.json()
+            }
+        })
     }
 
     getById(id) {
@@ -20,6 +26,30 @@ class ArtPieceServices {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('No se puede consultar la información de la obra en este momento');
+            } else {
+                return res.json()
+            }
+        })
+    }
+
+    getDetail(id) {
+        return fetch(`${baseUrl}/ArtPieces/${id}/getArtPieceDetail`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('No se puede consultar la información de la obra en este momento');
+            } else {
+                return res.json()
             }
         })
     }
@@ -33,7 +63,11 @@ class ArtPieceServices {
             },
             body: JSON.stringify(artPiece)
         })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('La obra no se pudo crear');
+            }
+        })
     }
 
     update(id, artPiece) {

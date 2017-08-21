@@ -11,25 +11,25 @@ import MainNavBar from '../../partials/nav-bars/main-nav-bar/MainNavBar'
 import DropZoneOverlay from '../../partials/overlay/DropZoneOverlay'
 import FloatingBar from '../../partials/floating-bar/FloatingBar'
 import {handleError} from '../../../utils/errorHandling'
-import apiRoutes from '../../../utils/services/apiRoutes'
-
-import axios from 'axios'
+import ArtistServices from '../../../utils/services/artistServices'
 
 require('../../../Main.css');
 
 class BaseLayout extends Component {
+
   artistProfileClick() {
       let {currentUser, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail, clearAllNotifications} = this.props
       clearAllNotifications()
       showArtistOverlayRecieved(true)
       loadingArtistDetail(true)
-      axios.get(`${apiRoutes.getServiceUrl()}/api/Artists/${currentUser.ownerId}/getArtistDetail`)
+
+      ArtistServices.getDetail(currentUser.ownerId)
       .then(function (response) {
-          receiveCurrentArtist(response.data)
+          receiveCurrentArtist(response)
           loadingArtistDetail(false)
       })
       .catch(function (error) {
-          addNotification(error.response.data.error)
+          addNotification(error)
           loadingArtistDetail(false)
       })
   }

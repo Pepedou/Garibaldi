@@ -9,11 +9,10 @@ import InputFieldComponent from '../../../ui/input-field/InputFieldComponent'
 import * as constants from '../../../../redux/constants'
 import '../../../../Main.css'
 import './LoginForm.css'
-import axios from 'axios'
 import {getForm, FormType} from '../../../../utils/forms/formUtils'
 import {handleError, ERROR_CODES} from '../../../../utils/errorHandling'
-import apiRoutes from '../../../../utils/services/apiRoutes'
 import images from '../../../../content/images/exportImages'
+import CredentialServices from '../../../../utils/services/credentialServices'
 
 class LoginForm extends Component {
     constructor(props)
@@ -34,16 +33,16 @@ class LoginForm extends Component {
     }
 
     getCredential(userId, receiveCurrentUser, loading, addNotification) {
-        axios.get(`${apiRoutes.getServiceUrl()}/api/Credentials/${userId}`)
+        CredentialServices.getById(userId)
         .then(function (response) {
-            localStorage.setItem('currentUser', JSON.stringify(response.data))
-            receiveCurrentUser(response.data)
+            localStorage.setItem('currentUser', JSON.stringify(response))
+            receiveCurrentUser(response)
             loading(false)
             window.location = './home'
         })
         .catch(function (error) {
             loading(false)
-            addNotification(error.response.data.error)
+            addNotification(error)
         })
     }
 
@@ -59,13 +58,14 @@ class LoginForm extends Component {
             let passwordValue = md5(getFieldValue(inputFieldsCopy, "password").defaultValue)
             loading(true)
             let credentials = {email: usernameValue, password: passwordValue}
-            axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/login`, credentials, { headers: { 'Content-Type': 'application/json' } })
+
+            CredentialServices.login(credentials)
             .then(function (response) {
-                getCredential(response.data.userId, receiveCurrentUser, loading, addNotification)
+                getCredential(response.userId, receiveCurrentUser, loading, addNotification)
             })
             .catch(function (error) {
                 loading(false)
-                addNotification(error.response.data.error)
+                addNotification(error)
             })
         } else {
             addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})

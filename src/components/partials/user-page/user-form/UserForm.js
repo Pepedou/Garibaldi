@@ -7,10 +7,9 @@ import InputFieldComponent from '../../../ui/input-field/InputFieldComponent'
 import {getForm, FormType} from '../../../../utils/forms/formUtils'
 import {handleError, ERROR_CODES} from '../../../../utils/errorHandling'
 import * as constants from '../../../../redux/constants'
-import apiRoutes from '../../../../utils/services/apiRoutes'
+import CredentialServices from '../../../../utils/services/credentialServices'
 import '../../../../Main.css';
 import './UserForm.css';
-import axios from 'axios'
 
 class UserForm extends Component {
     constructor(props)
@@ -73,14 +72,15 @@ class UserForm extends Component {
                     let user = {...userInformation, ...personalInformation};
                 
                     loading(true)
-                    axios.post(`${apiRoutes.getServiceUrl()}/api/Credentials/register`, user, { headers: { 'Content-Type': 'application/json' } })
+
+                    CredentialServices.register(user)
                     .then(function (response) {
                         loading(false)
                         window.location = './'
                     })
                     .catch(function (error) {
                         loading(false)
-                        addNotification(error.response.data.error)
+                        addNotification(error)
                     })
                 } else {
                     inputFieldsCopy.userInformation = updateField(inputFieldsCopy.userInformation, "email", "errorText", "El email no es igual a su confirmación");
