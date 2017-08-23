@@ -8,6 +8,7 @@ div.DropZoneSection{
 
 div.DropZoneSection-message{
     padding: 1rem;
+    text-align: center;
 }
 
 a.CloseDropZonebtn {
@@ -19,4 +20,5 @@ a.CloseDropZonebtn {
     cursor: pointer;
     text-align: right;
     float: right;
+    line-height: 2rem;
 }

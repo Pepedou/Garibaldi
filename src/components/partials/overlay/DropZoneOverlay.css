@@ -2,27 +2,33 @@
 }
 
 @media screen and (min-width: 768px) {
+    div.DropZone--overlay{
+        padding: 0 7rem;
+    }
+
     div.DropZone--overlay div.DropzoneSquare{
-        width: 30%;
-        float: right;
+        width: 48%;
+        float: left;
     }
 
     div.DropZone--overlay div.PreviewSection{
-        width: 65%;
-        float: left;
-        margin-right: 3rem;
+        width: 48%;
+        float: right;
     }
 }
 
 @media screen and (min-width: 1024px) {
+    div.DropZone--overlay{
+        padding: 0 15rem;
+    }
+
     div.DropZone--overlay div.DropzoneSquare{
-        width: 30%;
-        float: right;
+        width: 48%;
+        float: left;
     }
 
     div.DropZone--overlay div.PreviewSection{
-        width: 65%;
-        float: left;
-        margin-right: 3rem;
+        width: 48%;
+        float: right;
     }
 }
