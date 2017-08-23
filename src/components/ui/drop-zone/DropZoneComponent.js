@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Dropzone from 'react-dropzone'
 import {ERROR_CODES} from '../../../utils/errorHandling'
-import {uploadFile} from '../../../utils/services/uploadImage'
+import UploadImageService from '../../../utils/services/uploadImageService'
 import LoaderComponent from '../../../components/ui/loader/LoaderComponent'
 import * as constants from '../../../redux/constants'
 import {connect} from 'react-redux'
@@ -33,7 +33,15 @@ class DropZoneComponent extends Component {
     onDropAccepted(files, {clearAllNotifications, addNotification, sourceImageRecieved, loadingDropzone}) {
         clearAllNotifications()
         loadingDropzone(true)
-        uploadFile(files[0], addNotification, sourceImageRecieved, loadingDropzone)
+        UploadImageService.uploadFile(files[0])
+        .then(response => {
+            sourceImageRecieved(response.secure_url)
+            loadingDropzone(false)
+        })
+        .catch(error => {
+            addNotification({code: ERROR_CODES.CANT_SAVE_IMAGE.code})
+            loadingDropzone(false)
+        })
     }
 
     onDropRejected(files, {clearAllNotifications, addNotification, setState}) {
@@ -58,7 +66,6 @@ class DropZoneComponent extends Component {
                     accept="image/jpeg, image/png"
                     multiple={false}
                     name="source"
-                    maxSize={15000000}
                     style={style.mainStyle}
                     activeStyle={style.activeStyle}
                     rejectStyle={style.rejectStyle}>
