@@ -6,7 +6,7 @@ div.DropZoneSection{
     padding: 3rem;
 }
 
-p.DropZoneSection-message{
+div.DropZoneSection-message{
     padding: 1rem;
 }
 

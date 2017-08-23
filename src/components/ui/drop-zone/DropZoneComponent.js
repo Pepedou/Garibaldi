@@ -66,10 +66,15 @@ class DropZoneComponent extends Component {
                     accept="image/jpeg, image/png"
                     multiple={false}
                     name="source"
+                    maxSize={10000000}
                     style={style.mainStyle}
                     activeStyle={style.activeStyle}
                     rejectStyle={style.rejectStyle}>
-                    <p className="DropZoneSection-message">Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
+                    <div className="DropZoneSection-message">
+                        <p>Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
+                        <p>El tamaño máximo aceptado es 10 MB.</p>
+                        <p>Esta acción puede tardar algunos segundos.</p>
+                    </div>
                 </Dropzone>
                 {
                     sourceImage !== "" || sourceImage
