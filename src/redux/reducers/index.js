@@ -1,18 +1,34 @@
 import { combineReducers } from 'redux'
-import {showLoaderReducer} from './showLoader'
+import {showLoaderReducer, showDropzoneLoaderReducer} from './showLoader'
 import {notificationsReducer} from './notifications'
 import {currentUserReducer} from './currentUser'
 import {artGalleryReducer, updatingArtGalleryReducer} from './artGallery'
+import {artistGalleryReducer, updatingArtistGalleryReducer} from './artistGallery'
 import {currentArtReducer, updatingCurrentArtReducer} from './currentArt'
+import {currentArtistReducer, updatingCurrentArtistReducer} from './currentArtist'
+import {showArtOverlayReducer, showArtistOverlayReducer, showFullImageOverlayReducer, showDropZoneOverlayReducer} from './overlay'
+import {checkCardsReducer} from './floatingBar'
+import {sourceImageReducer} from './sourceImage'
 
 const reducers = combineReducers({
   showLoader: showLoaderReducer,
+  showDropzoneLoader: showDropzoneLoaderReducer,
   notifications: notificationsReducer,
   currentUser: currentUserReducer,
   artGallery: artGalleryReducer,
   updatingArtGallery: updatingArtGalleryReducer,
+  artistGallery: artistGalleryReducer,
+  updatingArtistGallery: updatingArtistGalleryReducer,
   currentArt: currentArtReducer,
-  updatingCurrentArt: updatingCurrentArtReducer
+  updatingCurrentArt: updatingCurrentArtReducer,
+  currentArtist: currentArtistReducer,
+  updatingCurrentArtist: updatingCurrentArtistReducer,
+  showArtOverlay: showArtOverlayReducer,
+  showArtistOverlay: showArtistOverlayReducer,
+  showFullImageOverlay: showFullImageOverlayReducer,
+  checkCards: checkCardsReducer,
+  sourceImage: sourceImageReducer,
+  showDropZoneOverlay: showDropZoneOverlayReducer
 })
 
 export default reducers

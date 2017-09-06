@@ -1,10 +1,12 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
 import LoginNavbar from '../../components/partials/nav-bars/login-nav-bar/LoginNavbar'
 import UserForm from '../../components/partials/user-page/user-form/UserForm'
 import DividerComponent from '../../components/ui/divider/DividerComponent'
 import NotificationComponent from '../../components/alerts/notifications/NotificationComponent'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
+import images from '../../content/images/exportImages'
 import '../../Main.css'
 import './RegisterPage.css'
 
@@ -16,11 +18,11 @@ class Register extends Component {
           <LoginNavbar selectedOption="registerOption"/>
           <div className="row"><NotificationComponent/></div>
           <div className="RegisterForm row">
-              <div className="col-xs-0 col-md-3"></div>
-              <div className="col-xs-12 col-md-6">
+              <div className="col-xs-0 col-md-2 col-lg-3"></div>
+              <div className="col-xs-12 col-md-8 col-lg-6">
                   <div className="row marginTop">
                       <center>
-                        <img src="" id="registerLogo" alt=""/>
+                        <img src={images.gray_logo} id="registerLogo" alt=""/>
                       </center>
                   </div>
                   <div className="row marginTop">
@@ -35,7 +37,7 @@ class Register extends Component {
                     : <UserForm/>
                   }
               </div>
-              <div className="col-xs-0 col-md-3"></div>
+              <div className="col-xs-0 col-md-2 col-lg-3"></div>
           </div>
       </div>
     </div>

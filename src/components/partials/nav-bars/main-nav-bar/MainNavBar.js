@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import SearchBar from '../../search-bar/SearchBar';
 import {Link} from 'react-router';
 import {UserTypes} from '../../../../utils/constants/UserTypes'
@@ -6,6 +7,7 @@ import './MainNavBar.css'
 
 export default class MainNavBar extends Component {
     render() {
+        let {currentUser, artistProfileClick} = this.props
         return (
             <div className="MainNavBar navbar navbar-default navbar-static-top">
                 <div className="container">
@@ -17,13 +19,15 @@ export default class MainNavBar extends Component {
                                 </li>
                                 <li>
                                     {
-                                        this.props.user.userType === UserTypes.GESTOR_CULTURAL
+                                        currentUser.ownerType === UserTypes.GESTOR_CULTURAL
                                         ? <Link to="/artists">Artistas</Link>
-                                        : <Link to="/artistProfile">Perfil de artista</Link>
+                                        : <Link onClick={artistProfileClick}>Perfil de artista</Link>
                                     }
                                 </li>
+                            </ul>
+                            <ul className="nav navbar-nav navbar-right">
                                 <li>
-                                    <SearchBar />
+                                    <SearchBar {...this.props}/>
                                 </li>
                             </ul>
                         </div>
@@ -38,5 +42,6 @@ export default class MainNavBar extends Component {
 MainNavBar.displayName = 'MainNavBar'
 
 MainNavBar.propTypes = {
-  user: PropTypes.object
+  currentUser: PropTypes.object,
+  artistProfileClick: PropTypes.func
 };

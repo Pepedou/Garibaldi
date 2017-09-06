@@ -8,7 +8,6 @@
 }
 
 #registerLogo{
-    content: url("../../content/images/gray_logo.png");
     width: 150px;
     margin: 25px 0px;
 }

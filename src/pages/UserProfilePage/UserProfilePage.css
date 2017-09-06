@@ -1,0 +1,60 @@
+div.UserProfilePage{
+    padding: 3rem 10rem;
+}
+
+.subtitle {
+    font-weight: bold;
+    text-align: center;
+}
+
+div.userProfileColumn {
+    padding: 0 5rem 5rem 5rem;
+}
+
+.row.divider {
+    padding: 2rem 0;
+}
+
+div.passwordColumn {
+    padding: 0 30rem;
+}
+
+.userLabel {
+    float: left;
+    margin-right: 5px;
+    color: #828282;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.userValue {
+    float: left;
+    color: #828282;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    div.passwordColumn {
+        padding: 0 15rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    div.UserProfilePage{
+        padding: 1rem 3rem;
+    }
+
+    div.userColumn {
+        padding: 0 0 5rem 0;
+    }
+
+    div.passwordColumn {
+        padding: 0rem 1rem;
+    }
+
+    div.userProfileColumn {
+        padding: 0;
+    }
+}

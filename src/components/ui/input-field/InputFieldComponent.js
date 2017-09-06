@@ -1,33 +1,71 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import TextFieldComponent from '../text-field/TextFieldComponent'
 import SelectFieldComponent from '../select-field/SelectFieldComponent'
+import AutocompleteComponent from '../autocomplete/AutocompleteComponent'
+import ToggleFieldComponent from '../toggle-field/ToggleFieldComponent'
+
+let getTextFieldComponente = props => <TextFieldComponent
+            hintText={props.hintText}
+            floatingLabelText={props.floatingLabelText}
+            name={props.name}
+            id={props.id}
+            className={props.className}
+            type={props.type}
+            errorText={props.errorText}
+            defaultValue={props.defaultValue}
+            onChange={props.onChange}
+            multiLine={props.multiLine}
+            />
+
+let getAutocompleteField = props => <AutocompleteComponent
+            hintText={props.hintText}
+            floatingLabelText={props.floatingLabelText}
+            name={props.name}
+            id={props.id}
+            className={props.className}
+            errorText={props.errorText}
+            onNewRequest={props.onNewRequest}
+            dataSource={props.dataSource}
+            onUpdateInput={props.onUpdateInput}
+            />
+
+let getSelectField = props => <SelectFieldComponent
+            hintText={props.hintText}
+            floatingLabelText={props.floatingLabelText}
+            id={props.id}
+            className={props.className}
+            errorText={props.errorText}
+            options={props.options}
+            defaultValue={props.defaultValue}
+            onChange={props.onChange}
+                />
+
+let getToggleField = props => <ToggleFieldComponent 
+            labelOnTrue={props.labelOnTrue}
+            labelOnFalse={props.labelOnFalse}
+            defaultToggled={props.defaultToggled}
+            handleToggle={props.handleToggle}
+                />
+
+let getInputField = props => {
+    switch (props.inputType) {
+        case "textField":
+            return getTextFieldComponente(props);
+        case "selectField":
+            return getSelectField(props);
+        case "autocomplete":
+            return getAutocompleteField(props);
+        case "toggle":
+            return getToggleField(props);
+        default:
+            return null;
+    }
+}
 
 export default class InputFieldComponent extends Component {
     render() {
-        return(
-            this.props.inputType === "textField"
-            ? <TextFieldComponent
-                hintText={this.props.hintText}
-                floatingLabelText={this.props.floatingLabelText}
-                name={this.props.name}
-                id={this.props.id}
-                className={this.props.className}
-                type={this.props.type}
-                errorText={this.props.errorText}
-                defaultValue={this.props.defaultValue}
-                onChange={this.props.onChange}
-                />
-            : <SelectFieldComponent
-                hintText={this.props.hintText}
-                floatingLabelText={this.props.floatingLabelText}
-                id={this.props.id}
-                className={this.props.className}
-                errorText={this.props.errorText}
-                options={this.props.options}
-                defaultValue={this.props.defaultValue}
-                onChange={this.props.onChange}
-                 />
-        )
+        return getInputField(this.props)
     }
 }
 
@@ -42,5 +80,12 @@ InputFieldComponent.propTypes = {
   errorText: PropTypes.string,
   options: PropTypes.array,
   defaultValue: PropTypes.string,
-  onChange: PropTypes.func
+  multiLine: PropTypes.bool,
+  onChange: PropTypes.func,
+  onNewRequest: PropTypes.func,
+  onUpdateInput: PropTypes.func,
+  labelOnTrue: PropTypes.string,
+  labelOnFalse: PropTypes.string,
+  defaultToggled: PropTypes.bool,
+  handleToggle: PropTypes.func
 };

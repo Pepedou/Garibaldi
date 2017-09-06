@@ -1,0 +1,7 @@
+div.FloatingBar {
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    padding: 10px;
+    z-index: 10;
+}
