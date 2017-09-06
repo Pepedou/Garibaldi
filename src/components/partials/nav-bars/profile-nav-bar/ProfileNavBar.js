@@ -48,6 +48,7 @@ export default class ProfileNavBar extends Component {
     handleOnItemTouchTap(event, child, receiveCurrentUser) {
         if(child.props.value === "logout") {
             localStorage.removeItem("currentUser");
+            localStorage.removeItem("token");
             receiveCurrentUser({})
             window.location = './'
         } else {

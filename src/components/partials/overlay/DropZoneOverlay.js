@@ -11,7 +11,7 @@ export default class DropZoneOverlay extends Component {
     }
 
     render() {
-        let {showDropZoneOverlay, showDropZoneOverlayRecieved, sourceImage} = this.props
+        let {showDropZoneOverlay, showDropZoneOverlayRecieved} = this.props
         return (showDropZoneOverlay 
          ? <div className="Overlay DropZone--overlay">
                 <DefaultButton
@@ -31,6 +31,5 @@ DropZoneOverlay.displayName = 'DropZoneOverlay'
 
 DropZoneOverlay.propTypes = {
   showDropZoneOverlay: PropTypes.bool,
-  showDropZoneOverlayRecieved: PropTypes.func,
-  sourceImage: PropTypes.string
+  showDropZoneOverlayRecieved: PropTypes.func
 }

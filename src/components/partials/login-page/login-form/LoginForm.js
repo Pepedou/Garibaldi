@@ -61,6 +61,7 @@ class LoginForm extends Component {
 
             CredentialServices.login(credentials)
             .then(function (response) {
+                localStorage.setItem('token', response.id)
                 getCredential(response.userId, receiveCurrentUser, loading, addNotification)
             })
             .catch(function (error) {

@@ -4,7 +4,7 @@ const baseUrl = `${apiRoutes.getServiceUrl()}/api`
 
 class CredentialServices {
     getById(id) {
-        return fetch(`${baseUrl}/Credentials/${id}`, {
+        return fetch(`${baseUrl}/Credentials/${id}?access_token=${localStorage.getItem('token')}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -21,7 +21,7 @@ class CredentialServices {
     }
 
     update(id, credential) {
-        return fetch(`${baseUrl}/Credentials/${id}`, {
+        return fetch(`${baseUrl}/Credentials/${id}?access_token=${localStorage.getItem('token')}`, {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
@@ -88,8 +88,24 @@ class CredentialServices {
         })
     }
 
+    resetPassword(newPassword, accessToken) {
+        return fetch(`${baseUrl}/Credentials/reset-password?access_token=${accessToken}`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newPassword)
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('No se pudo cambiar la contraseña');
+            }
+        })
+    }
+
     changePassword(passwordValues) {
-        return fetch(`${baseUrl}/Credentials/change-password`, {
+        return fetch(`${baseUrl}/Credentials/change-password?access_token=${localStorage.getItem('token')}`, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

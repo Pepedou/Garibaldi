@@ -4,6 +4,7 @@ import {newPasswordFields} from './newPasswordFields.js'
 import {newArtFields} from './newArtFields.js'
 import {newArtistFields} from './newArtistFields.js'
 import {credentialFields} from './credentialFields.js'
+import {resetPasswordFields} from './resetPasswordFields.js'
 
 export let FormType = {
     LOGIN: "LOGIN",
@@ -11,7 +12,8 @@ export let FormType = {
     NEW_PASSWORD: "NEW_PASSWORD",
     NEW_ART: "NEW_ART",
     NEW_ARTIST: "NEW_ARTIST",
-    USER_PROFILE: "USER_PROFILE"
+    USER_PROFILE: "USER_PROFILE",
+    RESET_PASSWORD: 'RESET_PASSWORD'
 }
 
 export let getForm = formType => {
@@ -28,6 +30,8 @@ export let getForm = formType => {
             return newArtistFields;
         case FormType.USER_PROFILE:
             return credentialFields;
+        case FormType.RESET_PASSWORD:
+            return resetPasswordFields;
         default:
             return [];
     }
