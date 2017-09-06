@@ -111,7 +111,7 @@ export default class ArtCard extends Component {
         loadingArtDetail(true)
         ArtPieceServices.update(currentArt.id, newArt)
         .then(function (response) {
-            location.reload()
+            window.location.reload()
         })
         .catch(function (error) {
             addNotification(error)
@@ -125,7 +125,7 @@ export default class ArtCard extends Component {
         loadingArtDetail(true)
         ArtPieceServices.destroy(currentArt.id)
         .then(function (response) {
-            location.reload()
+            window.location.reload()
         })
         .catch(function (error) {
             addNotification(error)

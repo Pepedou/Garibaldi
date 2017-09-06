@@ -132,7 +132,7 @@ class UserProfilePage extends Component {
 
             CredentialServices.changePassword(passwordValues)
             .then(function (response) {
-                location.reload()
+                window.location.reload()
             })
             .catch(function (error) {
                 addNotification(error)

@@ -120,7 +120,7 @@ export default class ArtistCard extends Component {
         loadingArtistDetail(true)  
         ArtistServices.update(currentArtist.id, newArtist)
         .then(function (response) {
-            location.reload()
+            window.location.reload()
         })
         .catch(function (error) {
             addNotification(error)
@@ -134,7 +134,7 @@ export default class ArtistCard extends Component {
         loadingArtistDetail(true)
         ArtistServices.destroy(currentArtist.id)
         .then(function (response) {
-            location.reload()
+            window.location.reload()
         })
         .catch(function (error) {
             addNotification(error)

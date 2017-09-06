@@ -24,7 +24,7 @@ export default class FloatingBar extends Component {
     loadingArtGallery(true)
     ArtPieceServices.destroyMany(ids)
     .then(function (response) {
-        location.reload()
+        window.location.reload()
     })
     .catch(function (error) {
         addNotification(error)
@@ -39,7 +39,7 @@ export default class FloatingBar extends Component {
     loadingArtistGallery(true)
     ArtistServices.destroyMany(ids)
     .then(function (response) {
-        location.reload()
+        window.location.reload()
     })
     .catch(function (error) {
         addNotification(error)
