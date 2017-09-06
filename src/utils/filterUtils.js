@@ -3,16 +3,20 @@ import {PageTypes} from '../utils/constants/PageTypes'
 
 let getArtGalleryFilterOptions = user => {
     let defaultOptions = [
-      {value:"1", text: "Nombre de la pieza"},
-      {value:"2", text: "Año"}
+      {value:"title", filter: "Nombre de la pieza"}
     ]
 
     if(UserTypes.GESTOR_CULTURAL){
-      defaultOptions.push({value:"3", text: "Artista"})
+      defaultOptions.push({value:"author", filter: "Artista"})
     }
 
     return defaultOptions
 }
+
+let getArtistsFilterOptions= user => [
+  {value:"name", filter: "Nombre del artista"},
+  {value:"lastName", filter: "Apellido del artista"}
+]
 
 export let getFilterOptions = (user, page) => {
   if(page === PageTypes.ART_GALLERY) {
@@ -23,5 +27,3 @@ export let getFilterOptions = (user, page) => {
     return []
   }
 }
-
-let getArtistsFilterOptions= user => []

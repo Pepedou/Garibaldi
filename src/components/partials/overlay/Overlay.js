@@ -8,15 +8,14 @@ export default class Overlay extends Component {
             isVisible: false
         };
     }
-
-
-
+    
   render() {
-    return (this.props.isVisible ?
+    let {isVisible, onClose, children}
+    return (isVisible ?
     <div className="Overlay">
-        <a className="Closebtn" onClick={this.props.onClose}>&times;</a>
+        <a className="Closebtn" onClick={onClose}>&times;</a>
         <div className="Overlay-content">
-            {this.props.children}
+            {children}
         </div>
     </div> : null);
   }

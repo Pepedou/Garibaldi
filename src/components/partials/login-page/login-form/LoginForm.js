@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react'
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router';
 import {connect} from 'react-redux'
 import {validateObligatoryFields, getFieldValue, getFieldIndex} from '../../../../utils/fieldValidations'
@@ -8,10 +9,10 @@ import InputFieldComponent from '../../../ui/input-field/InputFieldComponent'
 import * as constants from '../../../../redux/constants'
 import '../../../../Main.css'
 import './LoginForm.css'
-import axios from 'axios'
 import {getForm, FormType} from '../../../../utils/forms/formUtils'
-import {handleError} from '../../../../utils/errorHandling'
-import {NotificationTypes} from '../../../alerts/notifications/NotificationTypes'
+import {handleError, ERROR_CODES} from '../../../../utils/errorHandling'
+import images from '../../../../content/images/exportImages'
+import CredentialServices from '../../../../utils/services/credentialServices'
 
 class LoginForm extends Component {
     constructor(props)
@@ -31,32 +32,44 @@ class LoginForm extends Component {
         this.setState({inputFields: inputFieldsCopy})
     }
 
+    getCredential(userId, receiveCurrentUser, loading, addNotification) {
+        CredentialServices.getById(userId)
+        .then(function (response) {
+            localStorage.setItem('currentUser', JSON.stringify(response))
+            receiveCurrentUser(response)
+            loading(false)
+            window.location = './home'
+        })
+        .catch(function (error) {
+            loading(false)
+            addNotification(error)
+        })
+    }
+
     handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser, loading}){
+        event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
         let result = validateObligatoryFields(this.state.inputFields)
-
+        let getCredential = this.getCredential
         if(result.valid){
             let md5 = require('js-md5')
             let usernameValue = getFieldValue(inputFieldsCopy, "username").defaultValue
             let passwordValue = md5(getFieldValue(inputFieldsCopy, "password").defaultValue)
-            
-            clearAllNotifications()
             loading(true)
-            axios.get(`https://lagunilla.herokuapp.com/api/login?email=${usernameValue}&password=${passwordValue}`)
+            let credentials = {email: usernameValue, password: passwordValue}
+
+            CredentialServices.login(credentials)
             .then(function (response) {
-                sessionStorage.setItem('currentUser', JSON.stringify(response.data))
-                receiveCurrentUser(response.data)
-                loading(false)
-                window.location = './home'
+                localStorage.setItem('token', response.id)
+                getCredential(response.userId, receiveCurrentUser, loading, addNotification)
             })
             .catch(function (error) {
                 loading(false)
-                addNotification({type: NotificationTypes.DANGER, contentType: "text", message: error.response.data});
+                addNotification(error)
             })
-
         } else {
-            addNotification({type: NotificationTypes.DANGER, contentType: "text", message: "Ingrese la información de los campos marcados en rojo"})
+            addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})
         }
         this.setState({inputFields: result.fieldList})
     }
@@ -68,7 +81,7 @@ class LoginForm extends Component {
             <div className="col-xs-12 col-md-4">
                 <div className="row marginTop">
                     <center>
-                        <img src="" id="mainLogo" alt=""/>
+                        <img src={images.gray_logo} id="mainLogo" alt=""/>
                     </center>
                 </div>
                 <div className="row marginTop">
@@ -76,7 +89,8 @@ class LoginForm extends Component {
                 </div>
                 <div className="row marginTop">
                     <div className="form-group">
-                        {
+                        <form onSubmit={event => this.handleOnClick(event, this.props)}>
+                            {
                                 this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
                                                                         inputType={item.inputType} 
                                                                         hintText={item.hintText}
@@ -88,16 +102,17 @@ class LoginForm extends Component {
                                                                         options={item.options}
                                                                         defaultValue={item.defaultValue}
                                                                         onChange={event => this.handleOnChange(event)}/>)
-                                }
-                        <center>
-                            <DefaultButton
-                                label="Iniciar Sesión"
-                                labelPosition="after"
-                                floatStyle="center"
-                                onTouchTap={event => this.handleOnClick(event, this.props)}
-                                className="marginTop"
-                                />
-                        </center>
+                            }
+                            <center>
+                                <DefaultButton
+                                    label="Iniciar Sesión"
+                                    labelPosition="after"
+                                    floatStyle="center"
+                                    className="marginTop"
+                                    type="submit"
+                                    />
+                            </center>
+                        </form>
                     </div>
                 </div>
                 <div className="row marginTop">

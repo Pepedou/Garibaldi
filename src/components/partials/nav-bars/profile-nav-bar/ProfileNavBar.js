@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
@@ -6,8 +7,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import '../../../../Main.css';
 import './ProfileNavBar.css';
 import {white} from 'material-ui/styles/colors';
-import {connect} from 'react-redux'
-import * as constants from '../../../../redux/constants'
+import images from '../../../../content/images/exportImages'
 
 let styles = {
     iconStyle: {
@@ -15,16 +15,49 @@ let styles = {
     }
 }
 
-class ProfileNavBar extends Component {
+let getScreenLogo= () => {
+    if(screen.width > 400) {
+        return images.logo_white_name
+    } 
+    return images.logo_white_clip
+}
+
+export default class ProfileNavBar extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            logoImage: images.logo_white_name
+        };
+
+        this.updateLogo = this.updateLogo.bind(this);
+    }
+
+    componentDidMount() {
+        window.addEventListener("resize", this.updateLogo);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener("resize", this.updateLogo);
+    }
+
+    updateLogo(event) {
+        event.preventDefault()
+        this.setState({logoImage: getScreenLogo()})
+    }
+
     handleOnItemTouchTap(event, child, receiveCurrentUser) {
         if(child.props.value === "logout") {
-            sessionStorage.removeItem("currentUser");
+            localStorage.removeItem("currentUser");
+            localStorage.removeItem("token");
             receiveCurrentUser({})
             window.location = './'
+        } else {
+            window.location = './myUserProfile'
         }
     }
 
     render() {
+        let {currentUser, receiveCurrentUser} = this.props
         return (
             <div className="ProfileNavBar row">
                 <div className="col-xs-8 col-md-6">
@@ -33,17 +66,17 @@ class ProfileNavBar extends Component {
                         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                         targetOrigin={{horizontal: 'left', vertical: 'top'}}
                         animated={true}
-                        onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, this.props.receiveCurrentUser)}
+                        onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, receiveCurrentUser)}
                         iconStyle={styles.iconStyle}
-                        className={"UserIconMenu"}
+                        className="UserIconMenu"
                         >
                         <MenuItem primaryText="Mi perfil" value="myProfile"/>
                         <MenuItem primaryText="Cerrar sesión" value="logout"/>
                     </IconMenu>
-                    <div className="userFullName">{`${this.props.user.name} ${this.props.user.lastName}`}</div>
+                    <div className="userFullName">{currentUser.name}</div>
                 </div>
                 <div className="col-xs-4 col-md-6">
-                    <img src="" alt="" className="whiteNavLogo"/>
+                    <img src={this.state.logoImage} alt="" className="whiteNavLogo"/>
                 </div>
             </div>
         );
@@ -53,11 +86,6 @@ class ProfileNavBar extends Component {
 ProfileNavBar.displayName = 'ProfileNavBar'
 
 ProfileNavBar.propTypes = {
-  user: PropTypes.object
-};
-
-export const mapDispatchToProps = dispatch => ({
-  receiveCurrentUser: user => dispatch({type: constants.CURRENT_USER_RECIEVED, user})
-})
-
-export default connect(null, mapDispatchToProps)(ProfileNavBar)
+  currentUser: PropTypes.object,
+  receiveCurrentUser: PropTypes.func
+}

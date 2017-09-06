@@ -7,9 +7,21 @@ div.Category{
     font-weight: bold;
 }
 
+.CategoryValue {
+    float: left;
+    margin-left: 5px;
+}
+
+div.autocompleteLabel {
+    float: left;
+    margin-left: 5px;
+}
+
 .EditingCategory{
     border: 0px;
+    background-color: transparent;
     border-bottom: 1px solid rgb(158, 158, 158);
+    float: left;
 }
 
 .EditingCategory:focus{
@@ -23,4 +35,30 @@ div.Category{
 
 .CategoryActions {
     float: right;
+}
+
+.TextAreaStyle{
+    border: 0px;
+    background-color: transparent;
+    border-bottom: 1px solid rgb(158, 158, 158);
+    width: 100%;
+    height: 7rem;
+}
+
+div.autocomplete{
+    height: 40px !important;
+    margin-left: 5px;
+}
+
+div.autocomplete input{
+    height: 30px !important;
+    margin-left: 5px;
+}
+
+.ArtistCard div.autocomplete{
+    height: 35px !important;
+}
+
+.ArtistCard div.autocomplete input{
+    height: 25px !important;
 }

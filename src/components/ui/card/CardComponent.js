@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 export default class CardComponent extends Component {
@@ -6,7 +7,7 @@ export default class CardComponent extends Component {
         return(
             <Card>
                 <CardMedia
-                overlay={<CardTitle title={this.props.overlayTitle} subtitle={this.props.overlaySubtitle} />}
+                    overlay={<CardTitle title={this.props.overlayTitle} subtitle={this.props.overlaySubtitle} />}
                 >
                 <img src={this.props.cardImage} alt=""/>
                 </CardMedia>
@@ -23,11 +24,11 @@ export default class CardComponent extends Component {
 }
 
 CardComponent.propTypes = {
-  overlayTitle: PropTypes.string,
-  overlaySubtitle: PropTypes.string,
+  overlayTitle: PropTypes.any,
+  overlaySubtitle: PropTypes.any,
   cardImage: PropTypes.string,
-  cardTitle: PropTypes.string,
-  cardSubtitle: PropTypes.string,
+  cardTitle: PropTypes.any,
+  cardSubtitle: PropTypes.any,
   cardDescription: PropTypes.any,
   cardActions: PropTypes.any
 };

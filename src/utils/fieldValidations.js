@@ -15,8 +15,10 @@ export let getUserFields = fieldList => {
     let userFieldList = {};
     for(let i = 0; i < fieldList.length; i++)
     {
-        if(fieldList[i].className.indexOf("userField") !== -1){
-            userFieldList[fieldList[i].id] = fieldList[i].defaultValue;
+        if(fieldList[i].inputType !== "toggle") {
+            if(fieldList[i].className.indexOf("userField") !== -1){
+                userFieldList[fieldList[i].id] = fieldList[i].defaultValue;
+            }
         }
     }
     return userFieldList;
@@ -27,16 +29,18 @@ export let validateObligatoryFields = (fieldList) => {
     for(let i = 0; i < fieldList.length; i++)
     {
         fieldList[i].errorText = ""
-        if(fieldList[i].className.indexOf("obligatoryField") !== -1){
-            if(fieldList[i].className.indexOf("TextField")) {
-                if(fieldList[i].defaultValue === ""){
-                    fieldList[i].errorText = "Campo obligatorio"
-                    valid = false;
-                }
-            } else {
-                if(fieldList[i].defaultValue === "-1"){
-                    fieldList[i].errorText = "Campo obligatorio"
-                    valid = false;
+        if(fieldList[i].inputType !== "toggle") {
+            if(fieldList[i].className.indexOf("obligatoryField") !== -1){
+                if(fieldList[i].className.indexOf("TextField")) {
+                    if(fieldList[i].defaultValue === ""){
+                        fieldList[i].errorText = "Campo obligatorio"
+                        valid = false;
+                    }
+                } else {
+                    if(fieldList[i].defaultValue === "-1"){
+                        fieldList[i].errorText = "Campo obligatorio"
+                        valid = false;
+                    }
                 }
             }
         }
@@ -51,3 +55,4 @@ export let isEmailFormatValid = (email) => {
     return re.test(email)
 }
 
+export let getDetailValue = value => value === "" || !value ? "Valor no definido" : value

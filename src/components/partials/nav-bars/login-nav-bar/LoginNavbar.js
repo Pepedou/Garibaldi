@@ -1,11 +1,14 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router';
 import './LoginNavbar.css';
+import images from '../../../../content/images/exportImages'
 
 export default class LoginNavbar extends Component {
     componentDidMount(){
-        if(this.props.selectedOption){
-            document.getElementById(this.props.selectedOption).style.fontWeight = "bold";
+        let {selectedOption} = this.props
+        if(selectedOption){
+            document.getElementById(selectedOption).style.fontWeight = "bold";
         }
     }
 
@@ -18,7 +21,7 @@ export default class LoginNavbar extends Component {
                 </div>
                 <div className="col-xs-12 col-md-4">
                     <center>
-                        <img src="" alt="" id="whiteNavLogo"/>
+                        <img src={images.logo_white_name} alt="" id="whiteNavLogo"/>
                     </center>
                 </div>
                 <div className="col-xs-12 col-md-4"></div>

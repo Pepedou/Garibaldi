@@ -43,11 +43,11 @@ export let registerUserFields = {
         {
             inputType: "selectField",
             floatingLabelText: "Tipo de usuario",
-            id: "userType",
+            id: "ownerType",
             className: "userField userInformation SelectField",
             errorText: "",
-            options: [{value: 1, text: "Gestor Cultural"}, {value: 2, text: "Artista"}],
-            defaultValue: "1"
+            options: [{value: "CulturalHelper", text: "Gestor Cultural"}, {value: "Artist", text: "Artista"}],
+            defaultValue: "CulturalHelper"
         }
     ],
     personalInformation: [

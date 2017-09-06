@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import RaisedButton from 'material-ui/RaisedButton';
 
 const styles = {
@@ -16,6 +17,7 @@ export default class DefaultButton extends Component {
                 style={{...styles.button, float:this.props.floatStyle}}
                 onTouchTap={this.props.onTouchTap}
                 className={this.props.className}
+                type={this.props.type}
                 />
         )
     }
@@ -26,5 +28,6 @@ DefaultButton.propTypes = {
   labelPosition: PropTypes.string,
   onTouchTap: PropTypes.func,
   className: PropTypes.string,
-  floatStyle: PropTypes.string
+  floatStyle: PropTypes.string,
+  type: PropTypes.string
 };
