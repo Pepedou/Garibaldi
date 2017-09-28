@@ -1,5 +1,3 @@
-require("./ArtistCard.css")
-
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import CardComponent from '../../../ui/card/CardComponent.js'
@@ -12,6 +10,8 @@ import {white} from 'material-ui/styles/colors'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
 import ArtistServices from '../../../../utils/services/artistServices'
 import CulturalHelpersServices from '../../../../utils/services/culturalHelperServices'
+
+require("./ArtistCard.css")
 
 const objectAssign = require('object-assign')
 
