@@ -13,11 +13,11 @@ const styles = {
 };
 
 let getColumnNumber= () => {
-    if(screen.width >= 1024) {
+    if(window.screen.width >= 1024) {
         return 4
-    } else if(screen.width >= 768 && screen.width < 1024) {
+    } else if(window.screen.width >= 768 && window.screen.width < 1024) {
         return 3
-    } else if(screen.width >= 400 && screen.width < 768) {
+    } else if(window.screen.width >= 400 && window.screen.width < 768) {
         return 2
     } else {
         return 1

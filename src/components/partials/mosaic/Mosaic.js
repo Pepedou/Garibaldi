@@ -11,7 +11,7 @@ import './Mosaic.css'
 
 class Mosaic extends Component {
   getArtDetail(card, receiveCurrentArt, showArtOverlayRecieved, addNotification, loadingGallery) {
-    if(screen.width < 1024) {
+    if(window.screen.width < 1024) {
         showArtOverlayRecieved(true)
     }
     loadingGallery(true)

@@ -16,7 +16,7 @@ let styles = {
 }
 
 let getScreenLogo= () => {
-    if(screen.width > 400) {
+    if(window.screen.width > 400) {
         return images.logo_white_name
     } 
     return images.logo_white_clip
