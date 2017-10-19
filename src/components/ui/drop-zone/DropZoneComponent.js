@@ -55,12 +55,13 @@ class DropZoneComponent extends Component {
     }
 
     render() {
-        let {sourceImage, showDropzoneLoader} = this.props
+        let {sourceImage, showDropzoneLoader, className} = this.props
+        let dropClass = `DropzoneSquare ${className}`
         return showDropzoneLoader
             ? <div className="marginTop row"><center><LoaderComponent/></center></div>
             : <div className="DropZoneComponent">
                 <Dropzone
-                    className="DropzoneSquare"
+                    className={dropClass}
                     onDropAccepted={(files) => this.onDropAccepted(files, this.props)}
                     onDropRejected={(files) => this.onDropRejected(files, this.props)}
                     accept="image/jpeg, image/png"
@@ -100,7 +101,8 @@ DropZoneComponent.propTypes = {
     loadingDropzone: PropTypes.func,
     showDropzoneLoader: PropTypes.bool,
     sourceImage: PropTypes.any,
-    sourceImageRecieved: PropTypes.func
+    sourceImageRecieved: PropTypes.func,
+    className: PropTypes.string
 }
 
 export const mapStateToProps = ({showDropzoneLoader, sourceImage}) => ({

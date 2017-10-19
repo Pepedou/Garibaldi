@@ -1,0 +1,37 @@
+@media screen and (min-width: 320px) {
+    .CreateTemplatePage {
+        padding: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .CreateTemplatePage {
+        padding: 2rem 10rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .CreateTemplatePage {
+        padding: 2rem 13rem;
+    }
+}
+
+.templateNameWrapper {
+    width: 50%;
+}
+
+.dropZoneWrapper {
+    padding: 2rem 2rem;
+}
+
+.subtitle{
+    padding-bottom: 1rem;
+}
+
+.colorPickerWrapper {
+    padding-top: 2rem;
+}
+
+.block-picker {
+    margin-top: 1rem;
+}

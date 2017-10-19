@@ -24,6 +24,9 @@ export default class MainNavBar extends Component {
                                         : <Link onClick={artistProfileClick}>Perfil de artista</Link>
                                     }
                                 </li>
+                                <li>
+                                    <Link to="/createTemplate">Crear Plantilla</Link>
+                                </li>
                             </ul>
                             <ul className="nav navbar-nav navbar-right">
                                 <li>

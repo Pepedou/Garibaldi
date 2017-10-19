@@ -11,7 +11,9 @@ export default class ReturnNavBar extends Component {
                         <ul className="nav navbar-nav navbar-left">
                             <li>
                                 {
-                                    window.location.pathname === "/newArt" || window.location.pathname === "/myUserProfile"
+                                    window.location.pathname === "/newArt"
+                                    || window.location.pathname === "/myUserProfile"
+                                    || window.location.pathname === "/createTemplate"
                                     ? <Link to="/home">Regresar al Archivo</Link>
                                     : <Link to="/artists">Regresar a Artistas</Link>
                                 }
