@@ -94,7 +94,7 @@ class NewArtistPage extends Component {
         return artist
     }
 
-    handleOnClick(event, {clearAllNotifications, addNotification, loading, sourceImage}) {
+    handleOnClick(event, {clearAllNotifications, addNotification, loading, sourceImage, extraImages}) {
         event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
@@ -107,6 +107,7 @@ class NewArtistPage extends Component {
                 let artist = this.getArtistFieldsValues()
                 artist.categories = this.state.categories
                 artist.photo = sourceImage
+                artist.extraImages = extraImages
 
                 ArtistServices.create(artist)
                 .then(function (response) {
@@ -165,8 +166,6 @@ class NewArtistPage extends Component {
 
                                         
                             }
-                        </div>
-                        <div className="col-xs-12 col-md-4 CategoriesSection">
                             {
                                 this.state.categories.map((item, key) => <Category 
                                                                             key={key}
@@ -181,13 +180,20 @@ class NewArtistPage extends Component {
                                     onTouchTap={event => this.handleAddCategory(event)}
                                     />
                             </center>
+                        </div>
+                        <div className="col-xs-12 col-md-4 CategoriesSection">
                             <center>
-                                <DefaultButton
-                                    label="Crear"
-                                    floatStyle="center"
-                                    className="marginTop"
-                                    onTouchTap={event => this.handleOnClick(event, this.props)}
-                                    />
+                                <div className="row">
+                                    <DropZoneComponent hasExtraImages={true}/>
+                                </div>
+                                <div className="row">
+                                    <DefaultButton
+                                        label="Crear"
+                                        floatStyle="center"
+                                        className="marginTop"
+                                        onTouchTap={event => this.handleOnClick(event, this.props)}
+                                        />
+                                </div>
                             </center>
                         </div>
                     </div>
@@ -205,11 +211,12 @@ NewArtistPage.propTypes = {
     loading: PropTypes.func,
     showLoader: PropTypes.bool,
     sourceImageRecieved: PropTypes.func,
-    sourceImage: PropTypes.string
+    sourceImage: PropTypes.string,
+    extraImages: PropTypes.array
 }
 
-export const mapStateToProps = ({showLoader, sourceImage}) => ({
-  showLoader, sourceImage
+export const mapStateToProps = ({showLoader, sourceImage, extraImages}) => ({
+  showLoader, sourceImage, extraImages
 })
 
 export const mapDispatchToProps = dispatch => ({

@@ -5,30 +5,10 @@
     div.DropZone--overlay{
         padding: 0 7rem;
     }
-
-    div.DropZone--overlay div.DropzoneSquare{
-        width: 48%;
-        float: left;
-    }
-
-    div.DropZone--overlay div.PreviewSection{
-        width: 48%;
-        float: right;
-    }
 }
 
 @media screen and (min-width: 1024px) {
     div.DropZone--overlay{
         padding: 0 15rem;
-    }
-
-    div.DropZone--overlay div.DropzoneSquare{
-        width: 48%;
-        float: left;
-    }
-
-    div.DropZone--overlay div.PreviewSection{
-        width: 48%;
-        float: right;
     }
 }

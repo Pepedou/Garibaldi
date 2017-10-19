@@ -28,13 +28,14 @@ class Mosaic extends Component {
     })
   }
 
-  getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail) {
+  getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail, extraImagesReceived) {
     showArtistOverlayRecieved(true)
     loadingArtistDetail(true)
 
     ArtistServices.getDetail(card.id)
     .then(function (response) {
         receiveCurrentArtist(response)
+        //extraImagesReceived(response.extraImages) TODO: Descomentar cuando el get regrese este dato
         loadingArtistDetail(false)
     })
     .catch(function (error) {
@@ -46,12 +47,13 @@ class Mosaic extends Component {
 
   handleOnTouchTap(event, card, mosaicType) {
       if(event.target.type !== "checkbox") {
-        let {receiveCurrentArt, receiveCurrentArtist, addNotification, showArtOverlayRecieved, showArtistOverlayRecieved, loadingArtDetail, loadingArtistDetail, clearAllNotifications} = this.props
+        let {receiveCurrentArt, receiveCurrentArtist, addNotification, showArtOverlayRecieved, showArtistOverlayRecieved, loadingArtDetail, 
+          loadingArtistDetail, clearAllNotifications, extraImagesReceived} = this.props
         clearAllNotifications()
         if(mosaicType === MosaicTypes.ART) {
           this.getArtDetail(card, receiveCurrentArt, showArtOverlayRecieved, addNotification, loadingArtDetail)
         } else {
-          this.getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail)
+          this.getArtistDetail(card, receiveCurrentArtist, showArtistOverlayRecieved, addNotification, loadingArtistDetail, extraImagesReceived)
         }
       }
   }
@@ -94,7 +96,8 @@ Mosaic.propTypes = {
   loadingArtDetail: PropTypes.func,
   addCheckCard: PropTypes.func,
   deleteCheckCard: PropTypes.func,
-  clearAllNotifications: PropTypes.func
+  clearAllNotifications: PropTypes.func,
+  extraImagesReceived: PropTypes.func
 }
 
 export const mapDispatchToProps = dispatch => ({
@@ -107,7 +110,8 @@ export const mapDispatchToProps = dispatch => ({
   loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
   addCheckCard: cardId => dispatch({type: constants.ADD_CHECK_CARD, cardId}),
   deleteCheckCard: cardId => dispatch({type: constants.DELETE_CHECK_CARD, cardId}),
-  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  extraImagesReceived: image => dispatch({type: constants.EXTRA_IMAGES_RECIEVED, image})
 })
 
 export default connect(null, mapDispatchToProps)(Mosaic)

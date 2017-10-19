@@ -22,3 +22,21 @@ a.CloseDropZonebtn {
     float: right;
     line-height: 2rem;
 }
+
+img.extraImagePreview{
+    max-width: 100%;
+    height: 88%;
+}
+
+div.extraImage{
+    width: 50%;
+    height: 19rem;
+    float: left;
+}
+
+@media screen and (max-width: 400px) {
+    div.extraImage{
+        width: 100%;
+    }
+}
+

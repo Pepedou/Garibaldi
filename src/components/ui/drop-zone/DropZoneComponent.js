@@ -30,12 +30,18 @@ let style = {
 }
 
 class DropZoneComponent extends Component {
-    onDropAccepted(files, {clearAllNotifications, addNotification, sourceImageRecieved, loadingDropzone}) {
+    onDropAccepted(files, {clearAllNotifications, addNotification, sourceImageRecieved, loadingDropzone, hasExtraImages, addExtraImage, loadingExtraDropzone}) {
         clearAllNotifications()
         loadingDropzone(true)
+        
         UploadImageService.uploadFile(files[0])
         .then(response => {
-            sourceImageRecieved(response.secure_url)
+            if(!hasExtraImages){
+                sourceImageRecieved(response.secure_url)
+            } else {
+                addExtraImage(response.secure_url)
+            }
+            
             loadingDropzone(false)
         })
         .catch(error => {
@@ -49,13 +55,17 @@ class DropZoneComponent extends Component {
         addNotification({code: ERROR_CODES.WRONG_IMAGE.code})
     }
 
-    deleteImage(event, {sourceImageRecieved}) {
+    deleteImage(event, sourceImage, {sourceImageRecieved, hasExtraImages, deleteExtraImage}) {
         event.preventDefault();
-        sourceImageRecieved("")
+        if(!hasExtraImages) {
+            sourceImageRecieved("")
+        } else {
+            deleteExtraImage(sourceImage)
+        }
     }
 
     render() {
-        let {sourceImage, showDropzoneLoader} = this.props
+        let {sourceImage, showDropzoneLoader, hasExtraImages, extraImages} = this.props
         return showDropzoneLoader
             ? <div className="marginTop row"><center><LoaderComponent/></center></div>
             : <div className="DropZoneComponent">
@@ -71,19 +81,31 @@ class DropZoneComponent extends Component {
                     activeStyle={style.activeStyle}
                     rejectStyle={style.rejectStyle}>
                     <div className="DropZoneSection-message">
+                        {hasExtraImages && <p>Imágenes de perfil extras</p>}
                         <p>Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
                         <p>El tamaño máximo aceptado es 10 MB.</p>
                         <p>Esta acción puede tardar algunos segundos.</p>
                     </div>
                 </Dropzone>
                 {
-                    sourceImage !== "" || sourceImage
+                    !hasExtraImages && (sourceImage !== "" || sourceImage)
                     ? <center>
                         <div className="PreviewSection">
                             <div className="row">
-                                <a className="CloseDropZonebtn" onClick={(event) => this.deleteImage(event, this.props)}>&times;</a>
+                                <a className="CloseDropZonebtn" onClick={(event) => this.deleteImage(event, sourceImage, this.props)}>&times;</a>
                             </div>
                             <img alt="" src={sourceImage} id="preview"/>
+                        </div>
+                      </center>
+                    : hasExtraImages && extraImages.length > 0
+                    ? <center>
+                        <div className="ExtraImagePreviewSection">
+                            {extraImages.map((image, key) => <div className="extraImage">
+                                <div className="row">
+                                    <a className="CloseDropZonebtn" onClick={(event) => this.deleteImage(event, image, this.props)}>&times;</a>
+                                </div>
+                                <img alt="" src={image} className="extraImagePreview"/>
+                            </div>)}
                         </div>
                       </center>
                     : null
@@ -99,19 +121,30 @@ DropZoneComponent.propTypes = {
     clearAllNotifications: PropTypes.func,
     loadingDropzone: PropTypes.func,
     showDropzoneLoader: PropTypes.bool,
+    showExtraDropzoneLoader: PropTypes.bool,
     sourceImage: PropTypes.any,
-    sourceImageRecieved: PropTypes.func
+    extraImages: PropTypes.array,
+    sourceImageRecieved: PropTypes.func,
+    hasExtraImages: PropTypes.boolean,
+    addExtraImage: PropTypes.func,
+    deleteExtraImage: PropTypes.func
 }
 
-export const mapStateToProps = ({showDropzoneLoader, sourceImage}) => ({
-  showDropzoneLoader, sourceImage
+DropZoneComponent.defaultProps = {
+    hasExtraImages: false
+}
+
+export const mapStateToProps = ({showDropzoneLoader, sourceImage, extraImages, showExtraDropzoneLoader}) => ({
+  showDropzoneLoader, sourceImage, extraImages, showExtraDropzoneLoader
 })
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
   loadingDropzone: showDropzoneLoader => dispatch({type: constants.SHOW_DROPZONE_LOADER, showDropzoneLoader}),
-  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage})
+  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage}),
+  addExtraImage: image => dispatch({type: constants.ADD_EXTRA_IMAGE, image}),
+  deleteExtraImage: image => dispatch({type: constants.DELETE_EXTRA_IMAGE, image})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DropZoneComponent)

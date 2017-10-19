@@ -12,6 +12,7 @@ export default class DropZoneOverlay extends Component {
 
     render() {
         let {showDropZoneOverlay, showDropZoneOverlayRecieved} = this.props
+        let firstDropColumn = `col-xs-12 col-md-${window.location.pathname === "/artists" ? 6 : 12}`
         return (showDropZoneOverlay 
          ? <div className="Overlay DropZone--overlay">
                 <DefaultButton
@@ -20,7 +21,20 @@ export default class DropZoneOverlay extends Component {
                     onTouchTap={() => this.toggleOverlay(showDropZoneOverlayRecieved)}
                 />
                 <div className="Overlay-content">
-                    <DropZoneComponent {...this.props}/>
+                    <div className="row">
+                        <div className={firstDropColumn}>
+                            <DropZoneComponent {...this.props}/>
+                        </div>
+                        {
+                            <div className="col-xs-12 col-md-6">
+                                {
+                                    window.location.pathname === "/artists"
+                                    ? <DropZoneComponent {...this.props} hasExtraImages={true}/>
+                                    : null
+                                }
+                            </div>
+                        }
+                    </div>
                 </div>
             </div>
          : null);
