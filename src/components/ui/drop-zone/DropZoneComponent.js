@@ -30,12 +30,15 @@ let style = {
 }
 
 class DropZoneComponent extends Component {
-    onDropAccepted(files, {clearAllNotifications, addNotification, sourceImageRecieved, loadingDropzone}) {
+    onDropAccepted(files, {clearAllNotifications, addNotification, sourceImageRecieved, loadingDropzone, onDropAcceptedExtra, className}) {
         clearAllNotifications()
         loadingDropzone(true)
         UploadImageService.uploadFile(files[0])
         .then(response => {
             sourceImageRecieved(response.secure_url)
+            if(onDropAcceptedExtra) {
+                onDropAcceptedExtra(response.secure_url, className)
+            }
             loadingDropzone(false)
         })
         .catch(error => {
@@ -44,8 +47,9 @@ class DropZoneComponent extends Component {
         })
     }
 
-    onDropRejected(files, {clearAllNotifications, addNotification, setState}) {
+    onDropRejected(files, {clearAllNotifications, addNotification, setState, onDropRejectedExtra, className}) {
         clearAllNotifications()
+        onDropRejectedExtra(className)
         addNotification({code: ERROR_CODES.WRONG_IMAGE.code})
     }
 
@@ -102,7 +106,9 @@ DropZoneComponent.propTypes = {
     showDropzoneLoader: PropTypes.bool,
     sourceImage: PropTypes.any,
     sourceImageRecieved: PropTypes.func,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onDropAcceptedExtra: PropTypes.func,
+    onDropRejectedExtra: PropTypes.func
 }
 
 export const mapStateToProps = ({showDropzoneLoader, sourceImage}) => ({
