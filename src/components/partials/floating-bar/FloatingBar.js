@@ -15,7 +15,7 @@ const style = {
 
 export default class FloatingBar extends Component {
   exportToPdf(event, checkCards){
-    console.log(checkCards)
+    window.location = './exportConfiguration'
   }
 
   deleteArtPieces(ids, props) {
