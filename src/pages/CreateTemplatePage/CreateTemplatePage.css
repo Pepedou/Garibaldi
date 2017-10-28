@@ -1,0 +1,67 @@
+@media screen and (min-width: 320px) {
+    .CreateTemplatePage {
+        padding: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .CreateTemplatePage {
+        padding: 2rem 10rem;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .CreateTemplatePage {
+        padding: 2rem 13rem;
+    }
+}
+
+.templateNameWrapper {
+    width: 50%;
+}
+
+.dropZoneWrapper {
+    padding: 2rem 2rem;
+}
+
+.subtitle{
+    padding-bottom: 1rem;
+}
+
+.colorPickerWrapper {
+    padding-top: 2rem;
+}
+
+.block-picker {
+    margin-top: 1rem;
+}
+
+.templateEntry {
+    background-color: #03A9F4;
+    color: white;
+    float: left;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 2px;
+}
+
+.closeButton {
+    text-align: right;
+    cursor: pointer;
+    float: right;
+    padding-left: 5px;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.closeButton:hover {
+    color: #B0BEC5
+}
+
+.templateNameText {
+    float: left;
+}
+
+.row.templatesCreatedWrapper {
+    margin-bottom: 3rem;
+}
