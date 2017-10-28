@@ -23,7 +23,9 @@ class NewArtistPage extends Component {
         this.state = {
             inputFields: getForm(FormType.NEW_ARTIST),
             dataSource: [],
-            categories: []
+            categories: [],
+            photo: "",
+            profilePics: []
         }
     }
 
@@ -94,10 +96,11 @@ class NewArtistPage extends Component {
         return artist
     }
 
-    handleOnClick(event, {clearAllNotifications, addNotification, loading, sourceImage}) {
+    handleOnClick(event, {clearAllNotifications, addNotification, loading}) {
         event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
+        let {photo, profilePics} = this.state
         let result = validateObligatoryFields(this.state.inputFields)
         if(result.valid){
             let emailValue = getFieldValue(inputFieldsCopy, "email").defaultValue
@@ -106,7 +109,8 @@ class NewArtistPage extends Component {
 
                 let artist = this.getArtistFieldsValues()
                 artist.categories = this.state.categories
-                artist.photo = sourceImage
+                artist.photo = photo
+                artist.profilePics = profilePics
 
                 ArtistServices.create(artist)
                 .then(function (response) {
@@ -130,8 +134,26 @@ class NewArtistPage extends Component {
         }
     }
 
-    deleteImage() {
-        this.setState({sourcePreview: ""})
+    onDropAcceptedExtra(imageList, image) {
+        if(imageList.length === 1) {
+            this.setState({photo: image})
+        }
+        this.setState({profilePics: imageList})
+    }
+
+    deleteExtraImage(imageList, image) {
+        if(imageList.length > 0) {
+            if(image === this.state.photo) {
+                this.setState({photo: imageList[0]})
+            }
+        } else {
+            this.setState({photo: ""})
+        }
+        this.setState({profilePics: imageList})
+    }
+
+    onClickProfilePic(image) {
+        this.setState({photo: image})
     }
 
     render() {
@@ -143,11 +165,26 @@ class NewArtistPage extends Component {
                     ? <div className="marginTop row"><center><LoaderComponent/></center></div>
                     : <div className="row">
                         <div className="col-xs-12 col-md-4 DropZoneSection">
-                            <center>
-                                <DropZoneComponent/>
-                            </center>
+                            <div className="row">
+                                <DropZoneComponent
+                                    hasImageList={true} 
+                                    onDropAcceptedExtra={this.onDropAcceptedExtra.bind(this)}
+                                    deleteExtraImage={this.deleteExtraImage.bind(this)}
+                                    onClickProfilePicExtra={this.onClickProfilePic.bind(this)}/>
+                            </div>
                         </div>
                         <div className="col-xs-12 col-md-4 NewArtistForm">
+                            {
+                                this.state.photo !== ""
+                                ? <div className="row">
+                                     <div className="photoTitle">Imagen de Perfil</div>
+                                     <center>
+                                        <img alt="" src={this.state.photo} className="profilePic"/>
+                                        <div className="profilePicInstruction">De clic sobre la imagen en el apartado de la izquierda para cambiar la imagen de perfil</div>
+                                     </center>
+                                  </div>
+                                : null
+                            }
                             {
                                 this.state.inputFields.map((item, key) => <InputFieldComponent key={key}
                                                                         inputType={item.inputType} 
@@ -167,27 +204,29 @@ class NewArtistPage extends Component {
                             }
                         </div>
                         <div className="col-xs-12 col-md-4 CategoriesSection">
-                            {
-                                this.state.categories.map((item, key) => <Category 
-                                                                            key={key}
-                                                                            position={key}
-                                                                            category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}}
-                                                                            validate={this.handleCategoryValidation.bind(this)}/>)
-                            }
                             <center>
-                                <DefaultButton
-                                    label="Agregar Categoría"
-                                    floatStyle="center"
-                                    onTouchTap={event => this.handleAddCategory(event)}
-                                    />
-                            </center>
-                            <center>
-                                <DefaultButton
-                                    label="Crear"
-                                    floatStyle="center"
-                                    className="marginTop"
-                                    onTouchTap={event => this.handleOnClick(event, this.props)}
-                                    />
+                                <div className="row">
+                                    {
+                                        this.state.categories.map((item, key) => <Category 
+                                                                                    key={key}
+                                                                                    position={key}
+                                                                                    category={{required: false, categoryName: item.label, categoryValue: item.value, editableName: true, editableValue: true}}
+                                                                                    validate={this.handleCategoryValidation.bind(this)}/>)
+                                    }
+                                    <DefaultButton
+                                        label="Agregar Categoría"
+                                        floatStyle="center"
+                                        onTouchTap={event => this.handleAddCategory(event)}
+                                        />
+                                </div>
+                                <div className="row">
+                                    <DefaultButton
+                                        label="Crear"
+                                        floatStyle="center"
+                                        className="marginTop"
+                                        onTouchTap={event => this.handleOnClick(event, this.props)}
+                                        />
+                                </div>
                             </center>
                         </div>
                     </div>
@@ -204,19 +243,17 @@ NewArtistPage.propTypes = {
     clearAllNotifications: PropTypes.func,
     loading: PropTypes.func,
     showLoader: PropTypes.bool,
-    sourceImageRecieved: PropTypes.func,
-    sourceImage: PropTypes.string
+    sourceImageRecieved: PropTypes.func
 }
 
-export const mapStateToProps = ({showLoader, sourceImage}) => ({
-  showLoader, sourceImage
+export const mapStateToProps = ({showLoader}) => ({
+  showLoader
 })
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader}),
-  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage})
+  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewArtistPage)

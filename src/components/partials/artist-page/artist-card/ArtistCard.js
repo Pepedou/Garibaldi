@@ -106,7 +106,7 @@ export default class ArtistCard extends Component {
     }
 
     handleSave(event) {
-        let {currentArtist, loadingArtistDetail, addNotification, sourceImage} = this.props
+        let {currentArtist, loadingArtistDetail, addNotification, sourceImage, extraImages} = this.props
 
         let newArtist = {
             name: this.state.editedArtist.detail.name.value,
@@ -114,7 +114,8 @@ export default class ArtistCard extends Component {
             phone: this.state.editedArtist.detail.phone.value,
             photo: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArtist.detail.photo.value,
             culturalHelperId: this.state.editedArtist.detail.culturalHelperId.value,
-            categories: this.state.editedArtist.categories
+            categories: this.state.editedArtist.categories,
+            profilePics: extraImages
         }
 
         loadingArtistDetail(true)  
@@ -211,5 +212,6 @@ ArtistCard.propTypes = {
   receiveCurrentArtist: PropTypes.func,
   loadingArtistDetail: PropTypes.func,
   addNotification: PropTypes.func,
-  showDropZoneOverlayRecieved: PropTypes.func
+  showDropZoneOverlayRecieved: PropTypes.func,
+  extraImages: PropTypes.array
 }

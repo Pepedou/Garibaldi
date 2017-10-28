@@ -26,7 +26,8 @@ class NewArtPage extends Component {
             inputFields: getForm(FormType.NEW_ART),
             dataSource: [],
             categories: [],
-            artistId: ""
+            artistId: "",
+            sourceImage: ""
         }
     }
 
@@ -105,16 +106,24 @@ class NewArtPage extends Component {
         return art
     }
 
-    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser, sourceImage}) {
+    updateSourceImage(imageList, image) {
+        if(imageList.length === 0) {
+            this.setState({sourceImage: ""})
+        } else {
+            this.setState({sourceImage: image})
+        }
+    }
+
+    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser}) {
         loading(true)
         event.preventDefault()
         clearAllNotifications();
         let result = validateObligatoryFields(this.state.inputFields)
-        if(result.valid && sourceImage !== ""){
+        if(result.valid && this.state.sourceImage !== ""){
             let art = this.getArtFieldsValues()
-            art.images = transformToImages(sourceImage);
+            art.images = transformToImages(this.state.sourceImage);
             art.artistId = this.state.artistId
-            art.source = sourceImage
+            art.source = this.state.sourceImage
             art.categories = this.state.categories
 
             if(currentUser.ownerType === UserTypes.ARTISTA) {
@@ -148,7 +157,10 @@ class NewArtPage extends Component {
                         : <div className="row">
                             <div className="col-xs-12 col-md-4 DropZoneSection">
                                 <center>
-                                    <DropZoneComponent/>
+                                    <DropZoneComponent
+                                        hasImageList={false} 
+                                        onDropAcceptedExtra={this.updateSourceImage.bind(this)}
+                                        deleteExtraImage={this.updateSourceImage.bind(this)}/>
                                 </center>
                             </div>
                             <div className="col-xs-12 col-md-4 NewArtForm">
@@ -211,20 +223,17 @@ NewArtPage.propTypes = {
     loading: PropTypes.func,
     showLoader: PropTypes.bool,
     currentUser: PropTypes.object,
-    loadingDropzone: PropTypes.func,
-    sourceImageRecieved: PropTypes.func,
-    sourceImage: PropTypes.string
+    loadingDropzone: PropTypes.func
 }
 
-export const mapStateToProps = ({showLoader, currentUser, sourceImage}) => ({
-  showLoader, currentUser, sourceImage
+export const mapStateToProps = ({showLoader, currentUser}) => ({
+  showLoader, currentUser
 })
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader}),
-  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage})
+  loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewArtPage)

@@ -58,6 +58,7 @@ BaseLayout.propTypes = {
   currentArt: PropTypes.object,
   currentArtist: PropTypes.object,
   currentUser: PropTypes.object,
+  extraImages: PropTypes.array,
   showArtOverlay: PropTypes.bool,
   showArtistOverlay: PropTypes.bool,
   showDropZoneOverlay: PropTypes.bool,
@@ -81,11 +82,12 @@ BaseLayout.propTypes = {
   showArtistOverlayRecieved: PropTypes.func,
   showDropZoneOverlayRecieved: PropTypes.func,
   showFullImageOverlayRecieved: PropTypes.func,
-  updateArtGallery: PropTypes.func
+  updateArtGallery: PropTypes.func,
 };
 
 export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentUser, showArtOverlay, 
-  showArtistOverlay, showFullImageOverlay, updatingCurrentArt, updatingCurrentArtist, showDropZoneOverlay, sourceImage}) => ({
+  showArtistOverlay, showFullImageOverlay, updatingCurrentArt, updatingCurrentArtist, showDropZoneOverlay, 
+  sourceImage, extraImages}) => ({
   checkCards,
   currentArt,
   currentArtist,
@@ -96,7 +98,8 @@ export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentU
   sourceImage,
   updatingCurrentArt,
   updatingCurrentArtist,
-  showDropZoneOverlay
+  showDropZoneOverlay,
+  extraImages
 })
 
 export const mapDispatchToProps = dispatch => ({
@@ -116,7 +119,9 @@ export const mapDispatchToProps = dispatch => ({
   showArtistOverlayRecieved: show => dispatch({type: constants.SHOW_ARTIST_OVERLAY, show}),
   showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show}),
   updateArtGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
-  showDropZoneOverlayRecieved: show => dispatch({type: constants.SHOW_DROPZONE_OVERLAY, show})
+  showDropZoneOverlayRecieved: show => dispatch({type: constants.SHOW_DROPZONE_OVERLAY, show}),
+  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage}),
+  extraImagesReceived: extraImages => dispatch({type: constants.EXTRA_IMAGES_RECIEVED, extraImages})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)
