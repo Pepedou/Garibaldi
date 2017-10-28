@@ -9,6 +9,8 @@ import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import Checkbox from 'material-ui/Checkbox';
 import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import * as constants from '../../redux/constants'
+import ExportTemplatesServices from '../../utils/services/exportTemplatesServices'
+import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 
 const styles = {
   labelStyle: {color: 'gray'},
@@ -61,8 +63,22 @@ class CreateTemplatePage extends Component {
                 className: "templateName",
                 errorText: "",
                 defaultValue: ""
-            }
+            },
+            templateList: []
         }
+    }
+
+    componentWillMount() {
+        let setState = this.setState.bind(this)
+        let {addNotification} = this.props
+
+        ExportTemplatesServices.getAll()
+        .then(function (response) {
+            setState({templateList: response})
+        })
+        .catch(function (error) {
+            addNotification(error)
+        })
     }
 
     handleOnCheck(event) {
@@ -88,101 +104,153 @@ class CreateTemplatePage extends Component {
         lastColorSelected = color.hex 
     }
 
-    onDropAccepted(image, className) {
+    onDropAccepted(imageList, image, className) {
         template[className] = image
     }
 
-    onDropRejected(className) {
+    deleteExtraImage(imageList, image, className) {
         template[className] = ""
     }
 
     handleOnClickSaveButton(event, props) {
-        let {addNotification, clearAllNotifications} = props
+        let {addNotification, clearAllNotifications, loading} = props
         clearAllNotifications()
+        loading(true)
         let templateNameCopy = {...this.state.templateName}
         if(template.name === "") {
             templateNameCopy.errorText = "Campo obligatorio"
             this.setState({templateName: templateNameCopy})
             addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})
         } else {
-            console.log("Template", template)
+            ExportTemplatesServices.create(template)
+            .then(function (response) {
+                loading(false)
+                window.location.reload()
+            })
+            .catch(function (error) {
+                loading(false)
+                addNotification(error)
+            })
         }
     }
 
+    deleteTemplate(event, id) {
+        let {loading, addNotification} = this.props
+        loading(true)
+        ExportTemplatesServices.destroy(id)
+        .then(function (response) {
+            loading(false)
+            window.location.reload()
+        })
+        .catch(function (error) {
+            loading(false)
+            addNotification(error)
+        })
+    }
+
     render() {
-        return <div className="CreateTemplatePage col-xs-12 col-md-12">
-            <div className="instructions row">Seleccione la información solicitada. Si no desea agregar logo y/o imagen de fondo, no seleccione ninguna imagen.s</div>
-            <div className="row">
-                <div className="col-xs-12 col-md-12 templateNameWrapper">
-                    <InputFieldComponent inputType={this.state.templateName.inputType} 
-                                hintText={this.state.templateName.hintText} 
-                                floatingLabelText={this.state.templateName.floatingLabelText} 
-                                className={this.state.templateName.className} 
-                                id={this.state.templateName.id} 
-                                type={this.state.templateName.type} 
-                                errorText={this.state.templateName.errorText} 
-                                defaultValue={this.state.templateName.defaultValue} 
-                                onChange={event => this.handleOnChange(event)}/>
+        let {showLoader} = this.props
+        return showLoader
+            ? <div className="marginTop row"><center><LoaderComponent/></center></div>
+            :<div className="CreateTemplatePage col-xs-12 col-md-12">
+                {
+                    this.state.templateList.length > 0
+                    ? <div className="row templatesCreatedWrapper">
+                            <div className="col-xs-12 col-md-12">
+                                <div className="subtitle row">Plantillas creadas</div>
+                                <div className="row">
+                                    {
+                                        this.state.templateList.map((value, key) => <div className="templateEntry" key={key}>
+                                            <div className="closeButton" onClick={(event) => this.deleteTemplate(event, value.id)}>&times;</div>
+                                            <div className="templateNameText">{value.name}</div>
+                                        </div>)
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    : null
+                }
+                <div className="row">
+                    <div className="col-xs-12 col-md-12">
+                        <div className="subtitle row">Crear nueva plantilla</div>
+                        <div className="instructions row">Ingrese la información solicitada. Si no desea agregar logo y/o imagen de fondo, no seleccione ninguna imagen.s</div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-12 templateNameWrapper">
+                                <InputFieldComponent inputType={this.state.templateName.inputType} 
+                                            hintText={this.state.templateName.hintText} 
+                                            floatingLabelText={this.state.templateName.floatingLabelText} 
+                                            className={this.state.templateName.className} 
+                                            id={this.state.templateName.id} 
+                                            type={this.state.templateName.type} 
+                                            errorText={this.state.templateName.errorText} 
+                                            defaultValue={this.state.templateName.defaultValue} 
+                                            onChange={event => this.handleOnChange(event)}/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-6 dropZoneWrapper">
+                                <center>
+                                    <div className="row subtitle">Logo</div>
+                                    <DropZoneComponent
+                                        onDropAcceptedExtra={(imageList, image) => this.onDropAccepted(imageList, image, "logo")}
+                                        deleteExtraImage={(imageList, image) => this.deleteExtraImage(imageList, image, "logo")}/>
+                                    <InputFieldComponent inputType="selectField" 
+                                            floatingLabelText="Posición"
+                                            className="positionSelect"
+                                            id="logoPosition"
+                                            type="selectField"
+                                            errorText=""
+                                            options={logoPositionOptions}
+                                            defaultValue={logoPositionOptions[0].text}
+                                            onChange={event => this.handleOnChange(event)}/>
+                                </center>
+                            </div>
+                            <div className="col-xs-12 col-md-6 dropZoneWrapper">
+                                <center>
+                                    <div className="row subtitle">Fondo</div>
+                                    <DropZoneComponent 
+                                        onDropAcceptedExtra={(imageList, image) => this.onDropAccepted(imageList, image, "background")}
+                                        deleteExtraImage={(imageList, image) => this.deleteExtraImage(imageList, image, "background")}/>
+                                    <InputFieldComponent inputType="selectField" 
+                                            floatingLabelText="Posición"
+                                            className="positionSelect"
+                                            id="backgroundPosition"
+                                            type="selectField"
+                                            errorText=""
+                                            options={bgPositionOptions}
+                                            defaultValue={bgPositionOptions[0].text}
+                                            onChange={event => this.handleOnChange(event)}/>
+                                </center>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-xs-12 col-md-6 colorPickerWrapper">
+                                <div className="row subtitle">Color del membrete</div>
+                                <center>
+                                    <BlockPicker onChange={event => this.handleOnChangeColor(event)} colors={colors}/>
+                                </center>
+                            </div>
+                            <div className="col-xs-12 col-md-6 colorPickerWrapper">
+                                <Checkbox
+                                    label="Sin membrete"
+                                    labelStyle={styles.labelStyle}
+                                    iconStyle={styles.iconStyle}
+                                    onCheck={(event) => this.handleOnCheck(event)}
+                                    />
+                            </div>
+                        </div>
+                        <div className="row">
+                            <DefaultButton
+                                label="GUARDAR"
+                                labelPosition="after"
+                                floatStyle="right"
+                                className="marginTop"
+                                onTouchTap={event => this.handleOnClickSaveButton(event, this.props)}
+                                />
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-xs-12 col-md-6 dropZoneWrapper">
-                    <center>
-                        <div className="row subtitle">Logo</div>
-                        <DropZoneComponent onDropAcceptedExtra={this.onDropAccepted.bind(this)} onDropRejectedExtra={this.onDropRejected.bind(this)} className="logo"/>
-                        <InputFieldComponent inputType="selectField" 
-                                floatingLabelText="Posición"
-                                className="positionSelect"
-                                id="logoPosition"
-                                type="selectField"
-                                errorText=""
-                                options={logoPositionOptions}
-                                defaultValue={logoPositionOptions[0].text}
-                                onChange={event => this.handleOnChange(event)}/>
-                    </center>
-                </div>
-                <div className="col-xs-12 col-md-6 dropZoneWrapper">
-                    <center>
-                        <div className="row subtitle">Fondo</div>
-                        <DropZoneComponent onDropAcceptedExtra={this.onDropAccepted.bind(this)} onDropRejectedExtra={this.onDropRejected.bind(this)} className="background"/>
-                        <InputFieldComponent inputType="selectField" 
-                                floatingLabelText="Posición"
-                                className="positionSelect"
-                                id="backgroundPosition"
-                                type="selectField"
-                                errorText=""
-                                options={bgPositionOptions}
-                                defaultValue={bgPositionOptions[0].text}
-                                onChange={event => this.handleOnChange(event)}/>
-                    </center>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-xs-12 col-md-6 colorPickerWrapper">
-                    <div className="row subtitle">Color del membrete</div>
-                    <center>
-                        <BlockPicker onChange={event => this.handleOnChangeColor(event)} colors={colors}/>
-                    </center>
-                </div>
-                <div className="col-xs-12 col-md-6 colorPickerWrapper">
-                    <Checkbox
-                        label="Sin membrete"
-                        labelStyle={styles.labelStyle}
-                        iconStyle={styles.iconStyle}
-                        onCheck={(event) => this.handleOnCheck(event)}
-                        />
-                </div>
-            </div>
-            <div className="row">
-                <DefaultButton
-                    label="GUARDAR"
-                    labelPosition="after"
-                    floatStyle="right"
-                    className="marginTop"
-                    onTouchTap={event => this.handleOnClickSaveButton(event, this.props)}
-                    />
-            </div>
-        </div>
     }
 }
 
@@ -193,9 +261,14 @@ CreateTemplatePage.propTypes = {
     clearAllNotifications: PropTypes.func
 }
 
-export const mapDispatchToProps = dispatch => ({
-    addNotification: notification => handleError(dispatch, notification),
-    clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+export const mapStateToProps = ({showLoader}) => ({
+  showLoader
 })
 
-export default connect(null, mapDispatchToProps)(CreateTemplatePage)
+export const mapDispatchToProps = dispatch => ({
+    addNotification: notification => handleError(dispatch, notification),
+    clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+    loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateTemplatePage)

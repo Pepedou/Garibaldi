@@ -35,3 +35,33 @@
 .block-picker {
     margin-top: 1rem;
 }
+
+.templateEntry {
+    background-color: #03A9F4;
+    color: white;
+    float: left;
+    padding: 1rem;
+    border-radius: 1rem;
+    margin: 2px;
+}
+
+.closeButton {
+    text-align: right;
+    cursor: pointer;
+    float: right;
+    padding-left: 5px;
+    font-weight: bold;
+    font-size: 1.6rem;
+}
+
+.closeButton:hover {
+    color: #B0BEC5
+}
+
+.templateNameText {
+    float: left;
+}
+
+.row.templatesCreatedWrapper {
+    margin-bottom: 3rem;
+}
