@@ -5,30 +5,28 @@
     div.DropZone--overlay{
         padding: 0 7rem;
     }
-
-    div.DropZone--overlay div.DropzoneSquare{
-        width: 48%;
-        float: left;
-    }
-
-    div.DropZone--overlay div.PreviewSection{
-        width: 48%;
-        float: right;
-    }
 }
 
 @media screen and (min-width: 1024px) {
     div.DropZone--overlay{
         padding: 0 15rem;
     }
+}
 
-    div.DropZone--overlay div.DropzoneSquare{
-        width: 48%;
-        float: left;
-    }
+.photoTitle {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
 
-    div.DropZone--overlay div.PreviewSection{
-        width: 48%;
-        float: right;
-    }
+img.profilePic {
+    width: 50%;
+    margin-bottom: 1rem;
+}
+
+.profilePicInstruction {
+    font-style: italic;
+    font-size: 1.3rem;
+    margin-bottom: 3rem;
 }

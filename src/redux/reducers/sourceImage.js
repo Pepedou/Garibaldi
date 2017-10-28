@@ -11,3 +11,15 @@ export let sourceImageReducer = (state = "", action) => {
     return state
   }
 }
+
+export let extraImagesReducer = (state = [], action) => {
+  let {type, extraImages} = action
+
+  switch (type) {
+  case constants.EXTRA_IMAGES_RECIEVED:
+    return extraImages
+
+  default:
+    return state
+  }
+}
