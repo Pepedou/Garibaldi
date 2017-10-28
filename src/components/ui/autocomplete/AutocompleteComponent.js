@@ -18,6 +18,9 @@ const styles = {
   },
   inputStyle:{
     color: grey600
+  },
+  listStyle: {
+    maxHeight: '10rem'
   }
 };
 
@@ -47,6 +50,7 @@ export default class AutocompleteComponent extends Component {
                 floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
                 underlineFocusStyle={styles.underlineFocusStyle}
                 inputStyle={styles.inputStyle}
+                listStyle={styles.listStyle}
                 />
         )
     }

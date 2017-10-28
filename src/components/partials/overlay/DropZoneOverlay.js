@@ -10,9 +10,32 @@ export default class DropZoneOverlay extends Component {
         showDropZoneOverlayRecieved(false)
     }
 
+    onDropAcceptedExtra(imageList, image) {
+        this.props.extraImagesReceived(imageList)
+    }
+
+    deleteExtraImage(imageList, image) {
+        if(imageList.length > 0) {
+            if(image === this.props.sourceImage) {
+                this.props.sourceImageRecieved("")
+            }
+        } else {
+            this.props.sourceImageRecieved("")
+        }
+        this.props.extraImagesReceived(imageList)
+    }
+
+    onClickProfilePic(image) {
+        this.props.sourceImageRecieved(image)
+    }
+
     render() {
-        let {showDropZoneOverlay, showDropZoneOverlayRecieved} = this.props
-        let firstDropColumn = `col-xs-12 col-md-${window.location.pathname === "/artists" ? 6 : 12}`
+        let {showDropZoneOverlay, showDropZoneOverlayRecieved, extraImages, sourceImage} = this.props
+        let hasImageList = window.location.pathname === "/artists"
+        let soloImage = !hasImageList && sourceImage !== "" && sourceImage ? [sourceImage] : []
+        let imageList = hasImageList ? extraImages : soloImage
+        let dropzoneColumn = hasImageList ? `col-xs-12 col-md-6` : `col-xs-12 col-md-12`
+
         return (showDropZoneOverlay 
          ? <div className="Overlay DropZone--overlay">
                 <DefaultButton
@@ -22,18 +45,27 @@ export default class DropZoneOverlay extends Component {
                 />
                 <div className="Overlay-content">
                     <div className="row">
-                        <div className={firstDropColumn}>
-                            <DropZoneComponent {...this.props}/>
+                        <div className={dropzoneColumn}>
+                            {
+                                hasImageList && sourceImage !== ""
+                                ? <div className="row">
+                                     <div className="photoTitle">Imagen de Perfil</div>
+                                     <center>
+                                        <img alt="" src={sourceImage} className="profilePic"/>
+                                        <div className="profilePicInstruction">De clic sobre la imagen en el apartado de la derecha para cambiar la imagen de perfil</div>
+                                     </center>
+                                  </div>
+                                : null
+                            }
                         </div>
-                        {
-                            <div className="col-xs-12 col-md-6">
-                                {
-                                    window.location.pathname === "/artists"
-                                    ? <DropZoneComponent {...this.props} hasExtraImages={true}/>
-                                    : null
-                                }
-                            </div>
-                        }
+                        <div className={dropzoneColumn}>
+                            <DropZoneComponent
+                                hasImageList={hasImageList} 
+                                onDropAcceptedExtra={this.onDropAcceptedExtra.bind(this)}
+                                deleteExtraImage={this.deleteExtraImage.bind(this)}
+                                onClickProfilePicExtra={this.onClickProfilePic.bind(this)}
+                                imageList={imageList}/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,5 +77,9 @@ DropZoneOverlay.displayName = 'DropZoneOverlay'
 
 DropZoneOverlay.propTypes = {
   showDropZoneOverlay: PropTypes.bool,
-  showDropZoneOverlayRecieved: PropTypes.func
+  showDropZoneOverlayRecieved: PropTypes.func,
+  extraImages: PropTypes.array,
+  sourceImage: PropTypes.string,
+  sourceImageRecieved: PropTypes.func,
+  extraImagesReceived: PropTypes.func
 }

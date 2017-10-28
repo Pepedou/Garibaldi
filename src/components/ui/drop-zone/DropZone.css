@@ -1,5 +1,5 @@
-#preview{
-    max-width: 100%;
+.preview{
+    width: 100%;
 }
 
 div.DropZoneSection{
@@ -23,19 +23,20 @@ a.CloseDropZonebtn {
     line-height: 2rem;
 }
 
-img.extraImagePreview{
+img.imagePreview{
     max-width: 100%;
     height: 88%;
+    cursor: pointer;
 }
 
-div.extraImage{
+div.listImage{
     width: 50%;
     height: 19rem;
     float: left;
 }
 
 @media screen and (max-width: 400px) {
-    div.extraImage{
+    div.listImage{
         width: 100%;
     }
 }

@@ -120,6 +120,8 @@ export const mapDispatchToProps = dispatch => ({
   showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show}),
   updateArtGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
   showDropZoneOverlayRecieved: show => dispatch({type: constants.SHOW_DROPZONE_OVERLAY, show}),
+  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage}),
+  extraImagesReceived: extraImages => dispatch({type: constants.EXTRA_IMAGES_RECIEVED, extraImages})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)

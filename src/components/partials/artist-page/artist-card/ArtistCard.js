@@ -115,7 +115,7 @@ export default class ArtistCard extends Component {
             photo: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArtist.detail.photo.value,
             culturalHelperId: this.state.editedArtist.detail.culturalHelperId.value,
             categories: this.state.editedArtist.categories,
-            extraImages: extraImages
+            profilePics: extraImages
         }
 
         loadingArtistDetail(true)  
