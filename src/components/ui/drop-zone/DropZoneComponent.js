@@ -30,17 +30,39 @@ let style = {
 }
 
 class DropZoneComponent extends Component {
-    onDropAccepted(files, {clearAllNotifications, addNotification, sourceImageRecieved, loadingDropzone}) {
+    constructor(props)
+    {
+        super(props)
+
+        this.state = {
+            loading: false,
+            imageList: props.imageList
+        }
+    }
+
+    onDropAccepted(files, {clearAllNotifications, addNotification, hasImageList, onDropAcceptedExtra}) {
         clearAllNotifications()
-        loadingDropzone(true)
+        this.setState({loading: true})
+        let imageListCopy = [...this.state.imageList]
+        let setStateFunc = this.setState.bind(this)
+        
         UploadImageService.uploadFile(files[0])
         .then(response => {
-            sourceImageRecieved(response.secure_url)
-            loadingDropzone(false)
+            if(!hasImageList){
+                imageListCopy[0] = response.secure_url
+            } else {
+                imageListCopy.push(response.secure_url)
+            }
+            setStateFunc({imageList: imageListCopy})
+
+            if(onDropAcceptedExtra){
+                onDropAcceptedExtra(imageListCopy, response.secure_url)
+            }
+            setStateFunc({loading: false})
         })
         .catch(error => {
             addNotification({code: ERROR_CODES.CANT_SAVE_IMAGE.code})
-            loadingDropzone(false)
+            setStateFunc({loading: false})
         })
     }
 
@@ -49,14 +71,33 @@ class DropZoneComponent extends Component {
         addNotification({code: ERROR_CODES.WRONG_IMAGE.code})
     }
 
-    deleteImage(event, {sourceImageRecieved}) {
+    deleteImage(event, image, {deleteExtraImage}) {
         event.preventDefault();
-        sourceImageRecieved("")
+        //Delete image in cloudinary
+
+        let imageListCopy = [...this.state.imageList]
+        let index = imageListCopy.indexOf(image)
+        imageListCopy = [...imageListCopy.slice(0,index), ...imageListCopy.slice(index+1)]
+        this.setState({imageList: imageListCopy})
+
+        if(deleteExtraImage) {
+            deleteExtraImage(imageListCopy, image)
+        } 
+    }
+
+    onClickProfilePic(event, image, {hasImageList, onClickProfilePicExtra}) {
+        if(hasImageList){
+            if(onClickProfilePicExtra) {
+                onClickProfilePicExtra(image)
+            }
+        }
     }
 
     render() {
-        let {sourceImage, showDropzoneLoader} = this.props
-        return showDropzoneLoader
+        let {hasImageList} = this.props
+        let previewImageClass = hasImageList ? "listImage" : "soloImage"
+        let imageClass = hasImageList ? "imagePreview" : "preview"
+        return this.state.loading
             ? <div className="marginTop row"><center><LoaderComponent/></center></div>
             : <div className="DropZoneComponent">
                 <Dropzone
@@ -71,19 +112,22 @@ class DropZoneComponent extends Component {
                     activeStyle={style.activeStyle}
                     rejectStyle={style.rejectStyle}>
                     <div className="DropZoneSection-message">
+                        {hasImageList && <p>Imágenes de perfil</p>}
                         <p>Intente colocar la imagen aquí, o haga clic para seleccionar la imagen que desea cargar.</p>
                         <p>El tamaño máximo aceptado es 10 MB.</p>
                         <p>Esta acción puede tardar algunos segundos.</p>
                     </div>
                 </Dropzone>
                 {
-                    sourceImage !== "" || sourceImage
+                    this.state.imageList.length > 0
                     ? <center>
                         <div className="PreviewSection">
-                            <div className="row">
-                                <a className="CloseDropZonebtn" onClick={(event) => this.deleteImage(event, this.props)}>&times;</a>
-                            </div>
-                            <img alt="" src={sourceImage} id="preview"/>
+                            {this.state.imageList.map((image, key) => <div className={previewImageClass} key={key}>
+                                <div className="row">
+                                    <a className="CloseDropZonebtn" onClick={(event) => this.deleteImage(event, image, this.props)}>&times;</a>
+                                </div>
+                                <img alt="" src={image} className={imageClass} onClick={(event) => this.onClickProfilePic(event, image, this.props)}/>
+                            </div>)}
                         </div>
                       </center>
                     : null
@@ -97,21 +141,21 @@ DropZoneComponent.displayName = 'DropZoneComponent'
 DropZoneComponent.propTypes = {
     addNotification: PropTypes.func,
     clearAllNotifications: PropTypes.func,
-    loadingDropzone: PropTypes.func,
-    showDropzoneLoader: PropTypes.bool,
-    sourceImage: PropTypes.any,
-    sourceImageRecieved: PropTypes.func
+    hasImageList: PropTypes.bool,
+    deleteExtraImage: PropTypes.func,
+    onDropAcceptedExtra: PropTypes.func,
+    onClickProfilePicExtra: PropTypes.func,
+    imageList: PropTypes.array
 }
 
-export const mapStateToProps = ({showDropzoneLoader, sourceImage}) => ({
-  showDropzoneLoader, sourceImage
-})
+DropZoneComponent.defaultProps = {
+    hasImageList: false,
+    imageList: []
+}
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
-  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  loadingDropzone: showDropzoneLoader => dispatch({type: constants.SHOW_DROPZONE_LOADER, showDropzoneLoader}),
-  sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage})
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(DropZoneComponent)
+export default connect(null, mapDispatchToProps)(DropZoneComponent)

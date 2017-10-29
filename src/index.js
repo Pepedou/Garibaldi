@@ -16,6 +16,7 @@ import ExportConfigurationPage from './pages/ExportConfigurationPage/ExportConfi
 import LoginLayout from './components/layouts/login-layout/LoginLayout'
 import BaseLayout from './components/layouts/base/BaseLayout'
 import SimpleLayout from './components/layouts/simple/SimpleLayout'
+import CreateTemplatePage from './pages/CreateTemplatePage/CreateTemplatePage'
 import Login from './Login'
 import RegisterPage from './pages/RegisterPage/RegisterPage'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -96,6 +97,7 @@ const router = (
                     <Route path="/newArt" component={NewArtPage} onEnter={requireAuth(store, true)}/>
                     <Route path="/newArtist" component={NewArtistPage} onEnter={requireAuth(store, true)}/>
                     <Route path="/myUserProfile" component={UserProfilePage} onEnter={requireAuth(store, true)}/>
+                    <Route path="/createTemplate" component={CreateTemplatePage} onEnter={requireAuth(store, true)}/>
                     <Route path="/exportConfiguration" component={ExportConfigurationPage} onEnter={requireAuth(store, true)}/>
                 </Route>
                 <Route path="/play" component={PlaygroundPage} />

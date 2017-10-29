@@ -6,8 +6,9 @@ import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import * as constants from '../../redux/constants'
 import DividerComponent from '../../components/ui/divider/DividerComponent'
 import FilePageBox from '../../components/partials/export-page/file-page-box/FilePageBox'
-import {exportTemplates, exportFiles, exportPages, exportCategories} from '../../mocks/exportStateMock'
+import {exportTemplates, exportFiles, exportPages, exportCategories, exportArtists, exportArtPieces} from '../../mocks/exportStateMock'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
+import DefaultButton from '../../components/ui/buttons/DefaultButton'
 
 class ExportConfigurationPage extends Component {
     constructor(props)
@@ -31,10 +32,19 @@ class ExportConfigurationPage extends Component {
 
     getDropdownOptions() {
         let templateOptions = []
-        Object.keys(exportTemplates).forEach(function(key) {
+        Object.keys(exportTemplates).forEach((key) => {
             templateOptions.push({value: exportTemplates[key].id, text: exportTemplates[key].name})
         })
         return templateOptions
+    }
+
+    handleOnChangeTemplate(event) {
+        //Actualizar el template
+        console.log(event.target)
+    }
+
+    createPreview() {
+
     }
 
     render() {
@@ -51,7 +61,7 @@ class ExportConfigurationPage extends Component {
                                             errorText={this.state.templateDropdown.errorText}
                                             options={this.state.templateDropdown.options}
                                             defaultValue={this.state.templateDropdown.defaultValue}
-                                            onChange={event => this.handleOnChange(event)}/>
+                                            onChange={event => this.handleOnChangeTemplate(event)}/>
                     </div>
                 </div>
             </div>
@@ -61,11 +71,25 @@ class ExportConfigurationPage extends Component {
             <div className="row">
                 <div className="col-xs-12 col-md-12">
                 {
-                    exportFiles.file.pages.map((value, key) => 
-                        <FilePageBox page={exportPages[value]} categories={exportCategories} key={key}/>
-                    )
+                    exportFiles.file.pages.map((value, key) => {
+                        let page = exportPages[value].type === "artist" ? exportArtists[value] : exportArtPieces[value]
+                        return <FilePageBox
+                                    key={key}
+                                    page={page}
+                                    categories={exportCategories}
+                                    type={exportPages[value].type}/>
+                    })
                 }
                 </div>
+            </div>
+            <div className="row buttonWrapper">
+                <DefaultButton
+                    label="ACEPTAR"
+                    labelPosition="after"
+                    floatStyle="right"
+                    className="marginTop"
+                    onTouchTap={event => this.createPreview(event, this.props)}
+                    />
             </div>
         </div>
     }

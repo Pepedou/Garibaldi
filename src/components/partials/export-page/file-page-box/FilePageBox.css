@@ -46,6 +46,10 @@ img.imageItem:hover {
     width: 100%;
 }
 
+img.imageSelected{
+    border: 4px solid #03A9F4;
+}
+
 @media screen and (max-width: 400px) {
     .FilePageBox {
         margin: 1rem;

@@ -20,8 +20,16 @@
     padding: 2rem 15rem;
 }
 
+.buttonWrapper {
+    padding: 2rem 15rem;
+}
+
 @media screen and (max-width: 320px) {
     .dropdownWrapper {
+        padding: 1rem;
+    }
+
+    .buttonWrapper {
         padding: 1rem;
     }
 }
@@ -29,5 +37,9 @@
 @media screen and (max-width: 768px) {
     .dropdownWrapper {
         padding: 2rem;
+    }
+
+    .buttonWrapper {
+        padding: 1rem;
     }
 }
