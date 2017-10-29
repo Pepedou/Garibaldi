@@ -10,6 +10,12 @@ body {
     overflow-y: auto;
 }
 
+.SimpleLayout{
+    padding-bottom: 5rem !important;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
 a {
     cursor: pointer;
 }

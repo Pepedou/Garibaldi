@@ -13,6 +13,7 @@ import FloatingBar from '../../partials/floating-bar/FloatingBar'
 import {handleError} from '../../../utils/errorHandling'
 import ArtistServices from '../../../utils/services/artistServices'
 
+
 require('../../../Main.css');
 
 class BaseLayout extends Component {
@@ -87,7 +88,7 @@ BaseLayout.propTypes = {
 
 export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentUser, showArtOverlay, 
   showArtistOverlay, showFullImageOverlay, updatingCurrentArt, updatingCurrentArtist, showDropZoneOverlay, 
-  sourceImage, extraImages}) => ({
+  sourceImage, extraImages, showPdfPreviewOverlay}) => ({
   checkCards,
   currentArt,
   currentArtist,
@@ -99,7 +100,8 @@ export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentU
   updatingCurrentArt,
   updatingCurrentArtist,
   showDropZoneOverlay,
-  extraImages
+  extraImages,
+  showPdfPreviewOverlay
 })
 
 export const mapDispatchToProps = dispatch => ({

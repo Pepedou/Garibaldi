@@ -43,8 +43,9 @@ class ExportConfigurationPage extends Component {
         console.log(event.target)
     }
 
-    createPreview() {
-
+    createPreview(event, props) {
+        let {showPdfPreviewOverlayRecieved} = props
+        showPdfPreviewOverlayRecieved(true)
     }
 
     render() {
@@ -98,6 +99,9 @@ class ExportConfigurationPage extends Component {
 ExportConfigurationPage.displayName = 'ExportConfigurationPage'
 
 ExportConfigurationPage.propTypes = {
+    addNotification: PropTypes.func,
+    clearAllNotifications: PropTypes.func,
+    showPdfPreviewOverlayRecieved: PropTypes.func
 }
 
 export const mapStateToProps = () => ({
@@ -106,7 +110,8 @@ export const mapStateToProps = () => ({
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
-  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  showPdfPreviewOverlayRecieved: show => dispatch({type: constants.SHOW_PDF_PREVIEW_OVERLAY, show})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExportConfigurationPage)

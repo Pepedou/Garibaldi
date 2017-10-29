@@ -1,0 +1,83 @@
+.pdfPage {
+    background-color: white;
+    padding: 2rem;
+    float: left;
+    width: 100%;
+    height: 792px;
+}
+
+.logoWrapper {
+    width: 100%;
+    float: left;
+}
+
+img.pdfPage.center{
+    margin-left: auto;
+    display: block;
+    margin-right: auto;
+}
+
+img.itemImage {
+    display: block;
+    margin: auto;
+    width: 25%;
+}
+
+.membrete {
+    float: left;
+    width: 100%;
+    height: 2px;
+}
+
+img.pdfLogo {
+    width: 15%;
+}
+
+img.pdfLogo.right{
+    float: right;
+}
+
+img.pdfLogo.left{
+    float: left;
+}
+
+.pdfPage{
+    background-repeat: no-repeat;
+}
+
+.pdfPage.leftTop{
+    background-position: left top;
+}
+
+.pdfPage.leftCenter{
+    background-position: left center;
+}
+
+.pdfPage.leftBottom{
+    background-position: left bottom;
+}
+
+.pdfPage.rightTop{
+    background-position: right top;
+}
+
+.pdfPage.rightCenter{
+    background-position: right center;
+}
+
+.pdfPage.rightBottom{
+    background-position: right bottom;
+}
+
+.pdfPage.centerTop{
+    background-position: center top;
+}
+
+.pdfPage.centerCenter{
+    background-position: center center;
+}
+
+.pdfPage.centerBottom{
+    background-position: center bottom;
+}
+
