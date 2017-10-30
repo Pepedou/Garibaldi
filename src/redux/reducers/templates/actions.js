@@ -1,13 +1,19 @@
 import * as types from './actionTypes'
 import * as selectors from './reducer'
 
-export const loadAllTempaltes = (templates) => {
-    //TODO: Change to Thunk and call service.loadTemplates
-    return { type: types.TEMPLATES_LOAD_TEMPLATES, payload: templates }
+export const loadTemplateConfigForArtists = (artistsIds) => {
+    // TODO: IMPLEMENT
+    return 0
 }
 
-// TODO: loadTemplatesForExportArtists
-// TODO: loadTemplatesForExportArtPieces
+export const loadTemplateConfigForArtPieces = (artPiecesIds) => {
+    // TODO: IMPLEMENT
+    return 0
+}
+
+export const loadAllTempaltes = (templates) => {
+    return { type: types.TEMPLATES_LOAD_TEMPLATES, payload: templates }
+}
 
 export const updateTemplate = (updatedTemplate) => {
     return { type: types.TEMPLATES_UPDATE_CURRENT_TEMPLATE, payload: updatedTemplate }

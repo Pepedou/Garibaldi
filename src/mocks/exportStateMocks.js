@@ -1,14 +1,25 @@
 export const mockedExportState = {
-    currentTemplate: {
-        id: "",
-        name: "",
-        logo: "",
-        logoPosition: "",
-        background: "",
-        backgroundPosition: "",
-        lineColor: ""
-    },
+    showLoader: false,
+    showDropzoneLoader: false,
+    notifications: [],
+    currentUser: {},
+    artGallery: [],
+    updatingArtGallery: false,
+    artistGallery: [],
+    updatingArtistGallery: false,
+    currentArt: {},
+    updatingCurrentArt: false,
+    currentArtist: {},
+    updatingCurrentArtist: false,
+    showArtOverlay: false,
+    showArtistOverlay: false,
+    showFullImageOverlay: false,
+    checkCards: [],
+    sourceImage: '',
+    showDropZoneOverlay: false,
+    extraImages: [],
     exportTemplates: {
+      allTemplates: {
         ID1000: {
             id: "ID1000",
             name: "Plantilla1",
@@ -27,6 +38,16 @@ export const mockedExportState = {
             backgroundPosition: "back-full",
             lineColor: "#F0F0F0"
         }
+      },
+      currentTemplate: {
+        id: '',
+        name: '',
+        logo: '',
+        logoPosition: '',
+        background: '',
+        backgroundPosition: '',
+        lineColor: ''
+      }
     },
     exportFile: {
         id: "ID2000",

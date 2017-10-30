@@ -57,13 +57,13 @@ export default reducer;
 // SELECTORS
 
 export function getCurrentTemplate(state) {
-    return state.currentTemplate
+    return state.exportTemplates.currentTemplate
 }
 
 export function getAllTemplates(state) {
-    return state.exportTemplates
+    return state.exportTemplates.allTemplates
 }
 
 export function getTemplateById(state, id) {
-    return state.exportTemplates[id]
+    return state.exportTemplates.allTemplates[id]
 }
