@@ -1,4 +1,3 @@
-require('./CreateTemplatePage.css')
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
@@ -11,6 +10,7 @@ import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import * as constants from '../../redux/constants'
 import ExportTemplatesServices from '../../utils/services/exportTemplatesServices'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
+require('./CreateTemplatePage.css')
 
 const styles = {
   labelStyle: {color: 'gray'},
