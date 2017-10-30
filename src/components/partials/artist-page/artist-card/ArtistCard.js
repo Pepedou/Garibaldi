@@ -144,7 +144,10 @@ export default class ArtistCard extends Component {
     }
 
     handlePDF() {
-        
+        let {addCheckCard, clearCheckCards, currentArtist} = this.props
+        clearCheckCards()
+        addCheckCard(currentArtist.id)
+        //TODO: Pedir info y redirect
     }
 
     render() {

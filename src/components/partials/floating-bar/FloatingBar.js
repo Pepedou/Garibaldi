@@ -14,8 +14,15 @@ const style = {
 };
 
 export default class FloatingBar extends Component {
-  exportToPdf(event, checkCards){
+  redirectToExportConfiguration() {
     window.location = './exportConfiguration'
+  }
+  exportToPdf(event, checkCards){
+    if(window.location.pathname === "/home"){
+      //TODO: Llamar al de obras
+    } else {
+      //TODO: Llamar al de artistas
+    }
   }
 
   deleteArtPieces(ids, props) {
