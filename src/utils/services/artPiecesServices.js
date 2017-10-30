@@ -122,22 +122,25 @@ class ArtPieceServices {
     }
 
     detailFor(ids) {
-        const toEliminate = {
+        const idsWrapper = {
             ids: ids
         }
 
-        return fetch(`${baseUrl}/ArtPieces/detailFor`, {
+        const toJsonIds = JSON.stringify(idsWrapper)
+
+        return fetch(`${baseUrl}/ArtPieces/detailFor?artPiecesIds=${toJsonIds}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(toEliminate)
+            }
         })
         .then(res => {
             if (!res.ok) {
-                throw new Error('Las obras no se pudieron eliminar');
+                throw new Error('Las obras no se pudieron obtener');
             }
+
+            return res
         })
     }
 }
