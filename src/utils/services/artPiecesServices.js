@@ -120,6 +120,26 @@ class ArtPieceServices {
             }
         })
     }
+
+    detailFor(ids) {
+        const toEliminate = {
+            ids: ids
+        }
+
+        return fetch(`${baseUrl}/ArtPieces/detailFor`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(toEliminate)
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Las obras no se pudieron eliminar');
+            }
+        })
+    }
 }
 
 export default new ArtPieceServices()

@@ -1,17 +1,17 @@
 import { normalize, schema } from 'normalizr'
 
 class ExportArtistsNormalizer {
-    normalizeConfig(templatesResponse, artistsReponse) {
-        const artistsMap = this.recreateArtistsMap(artistsReponse)
-        const normalizedEntities = this.normalizeEntities(artistsMap)
-        const pagesMap = this.createPagesMap(artistsReponse, normalizedEntities.entities.artists)
+    normalizeConfig(templatesResponse, artPiecesResponse) {
+        const artPiecesMap = this.recreateArtPiecesMap(artPiecesResponse)
+        const normalizedEntities = this.normalizeEntities(artPiecesMap)
+        const pagesMap = this.createPagesMap(artPiecesResponse, normalizedEntities.entities.artPieces)
         const exportPages = this.normalizePages(pagesMap)
         const exportFile = this.generateFile(exportPages)
 
         return {
             templates: this.normalizeTemplates(templatesResponse),
             categories: normalizedEntities.entities.categories,
-            artists: normalizedEntities.entities.artists,
+            artPieces: normalizedEntities.entities.artPieces,
             pages: exportPages,
             file: exportFile
         }
@@ -24,19 +24,21 @@ class ExportArtistsNormalizer {
         return normalized.entities.templates
     }
 
-    recreateArtistsMap(artistsReponse) {
-        return artistsReponse.details.map(a => {
+    recreateArtPiecesMap(artPiecesResponse) {
+        return artPiecesResponse.details.map(a => {
             const totalCategories = [
-                { label: 'name', value: a.detail.name.value },
-                { label: 'lastName', value: a.detail.lastName.value },
-                { label: 'email', value: a.detail.email.value },
-                { label: 'phone', value: a.detail.phone.value }
+                { label: 'author', value: a.detail.author.value },
+                { label: 'technique', value: a.detail.technique.value },
+                { label: 'materials', value: a.detail.materials.value },
+                { label: 'measurements', value: a.detail.measurements.value },
+                { label: 'year', value: a.detail.year.value },
+                { label: 'description', value: a.detail.description.value }
             ].concat(a.categories)
 
             return {
                     id: a.id, 
-                    name: a.detail.name.value,
-                    profilesImages: a.profilePics || [],
+                    image: a.detail.images.value.thumbnail || "",
+                    title: a.detail.title.value,
                     categories: totalCategories.map((c, index) => {
                         return {
                             id: 'EXPCAT' + (index + 1),
@@ -51,12 +53,12 @@ class ExportArtistsNormalizer {
     normalizeEntities(artistsMap) {
         const category = new schema.Entity('categories')
 
-        const singleArtist = new schema.Entity('artists', {
+        const singleArtPiece = new schema.Entity('artPieces', {
             categories: [ category ]
         })
 
-        const artistsSchema = new schema.Array(singleArtist)
-        const normalized = normalize(artistsMap, artistsSchema)
+        const artPiecesSchema = new schema.Array(singleArtPiece)
+        const normalized = normalize(artistsMap, artPiecesSchema)
         
         return normalized
     }
@@ -65,9 +67,9 @@ class ExportArtistsNormalizer {
         return artistsReponse.details.map((a, index) => {
             return {
                     id: 'EXPPAGE' + (index + 1), 
-                    type: "Artist",
-                    title: a.detail.name.value,
-                    image: a.detail.photo.value,
+                    type: "ArtPiece",
+                    title: a.detail.title.value,
+                    image: a.detail.images.value.thumbnail,
                     withImage: true,
                     categories: artistEntities[a.id].categories
             }
