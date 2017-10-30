@@ -1,15 +1,12 @@
 import * as types from './actionTypes'
 import * as selectors from './reducer'
-
-export const loadTemplateConfigForArtists = (artistsIds) => {
-    // TODO: IMPLEMENT
-    return 0
-}
-
-export const loadTemplateConfigForArtPieces = (artPiecesIds) => {
-    // TODO: IMPLEMENT
-    return 0
-}
+import * as artistsActions from '../exportArtists/actions'
+import * as categoriesActions from '../exportCategories/actions'
+import * as pagesActions from '../exportPages/actions'
+import * as fileActions from '../exportFile/actions'
+import ExportTemplatesServices from '../../../utils/services/exportTemplatesServices'
+import ArtistsServices from '../../../utils/services/artistServices'
+import ExportArtistsNormalizer from '../../../utils/normalizers/exportArtistsNormalizer'
 
 export const loadAllTempaltes = (templates) => {
     return { type: types.TEMPLATES_LOAD_TEMPLATES, payload: templates }
@@ -33,4 +30,24 @@ export const saveAndRestTemplate = (templateToSave) => {
         //TODO: Use selectors.getCurrentTemplate() to call service.SaveTemplate
         dispatch(resetCurrentTemplate())
     }
+}
+
+export const loadTemplateConfigForArtists = (artistsIds) => {
+    return async(dispatch) => {
+        const fetchedTemplates = await ExportTemplatesServices.getAll()
+        const fetchedArtists = await ArtistsServices.detailFor(artistsIds)
+
+        const { templates, artists, categories, pages, file } = ExportArtistsNormalizer.normalizeConfig(fetchedTemplates, fetchedArtists)
+
+        dispatch(loadAllTempaltes(templates)) // Dispatch an update for exportTemplates.allTemplates
+        dispatch(artistsActions.loadExportArtists(artists)) // Dispatch an update for exportArtists
+        dispatch(categoriesActions.loadExportCategories(categories)) // Dispatch an update for exportCategories
+        dispatch(pagesActions.loadPages(pages)) // Dispatch an update for exportPages
+        dispatch(fileActions.updateExportFile(file)) // Dispatch an update for exportFile
+    }
+}
+
+export const loadTemplateConfigForArtPieces = (artPiecesIds) => {
+    // TODO: IMPLEMENT
+    return 0
 }

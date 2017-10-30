@@ -2,6 +2,15 @@ import * as actions from '../actions'
 import * as actionTypes from '../actionTypes'
 import * as selectors from '../reducer'
 import { Thunk } from 'redux-testkit'
+import * as exportFileActionTypes from '../../exportFile/actionTypes'
+import * as exportArtistsActionTypes from '../../exportArtists/actionTypes'
+import * as exportArtPiecesActionTypes from '../../exportArtPieces/actionTypes'
+import * as exportCategoriesActionTypes from '../../exportCategories/actionTypes'
+import * as exportPagesActionTypes from '../../exportPages/actionTypes'
+import ExportTemplatesServices from '../../../../utils/services/exportTemplatesServices'
+import ArtistsServices from '../../../../utils/services/artistServices'
+jest.mock('../../../../utils/services/exportTemplatesServices.js')
+jest.mock('../../../../utils/services/artistServices.js')
 
 describe('Templates Actions', () => {
 
@@ -63,6 +72,167 @@ describe('Templates Actions', () => {
                 background: "",
                 backgroundPosition: "",
                 lineColor: ""
+            }
+        })
+    })
+
+    it('should dispatch config loading for export artists', async () => {
+        const artistsToExport = ["59f680cc9373be0004b3f067"]
+
+        ExportTemplatesServices.getAll.mockReturnValueOnce(new Promise((resolve, reject) => {
+            resolve([
+                {
+                  "id": "59f67b5d9373be0004b3f066",
+                  "name": "MY TEMPLATE",
+                  "logo": "",
+                  "logoPosition": "left",
+                  "background": "",
+                  "backgroundPosition": "leftTop",
+                  "lineColor": "#22194D"
+                }
+              ])
+        }))
+
+        ArtistsServices.detailFor.mockReturnValueOnce(new Promise((resolve, reject) => {
+            resolve({
+                "details": [
+                  {
+                    "id": "59f680cc9373be0004b3f067",
+                    "detail": {
+                      "photo": {
+                        "filter": "default",
+                        "value": "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg"
+                      },
+                      "email": {
+                        "filter": "not_empty",
+                        "value": "jisoo@correo.com"
+                      },
+                      "name": {
+                        "filter": "not_empty",
+                        "value": "Jisoo"
+                      },
+                      "lastName": {
+                        "filter": "default",
+                        "value": "Blackpink"
+                      },
+                      "phone": {
+                        "filter": "default",
+                        "value": ""
+                      },
+                      "culturalHelperId": {
+                        "filter": "not_empty",
+                        "value": "5983b6370516e90004842382"
+                      },
+                      "culturalHelperName": "Lucia"
+                    },
+                    "categories": [
+                        {
+                            "label": "bla",
+                            "value": "bla"
+                        },
+                        {
+                            "label": "bla2",
+                            "value": "bla2"
+                        }
+                    ]
+                  }
+                ]
+              })
+        }))
+
+
+        const dispatches = await Thunk(actions.loadTemplateConfigForArtists).execute(artistsToExport)
+
+        expect(dispatches.length).toBe(5)
+
+        // Dispatch an update for exportTemplates.allTemplates
+        expect(dispatches[0].getAction()).toEqual({
+            type: actionTypes.TEMPLATES_LOAD_TEMPLATES,
+            payload: {
+                "59f67b5d9373be0004b3f066": {
+                    id: "59f67b5d9373be0004b3f066",
+                    name: "MY TEMPLATE",
+                    logo: "",
+                    logoPosition: "left",
+                    background: "",
+                    backgroundPosition: "leftTop",
+                    lineColor: "#22194D"
+                }
+            }
+        })
+
+        // Dispatch an update for exportArtists
+        expect(dispatches[1].getAction()).toEqual({
+            type: exportArtistsActionTypes.EXPORT_ARTISTS_LOAD_ARTISTS,
+            payload: {
+                "59f680cc9373be0004b3f067": {
+                    id: "59f680cc9373be0004b3f067",
+                    profilesImages: [],
+                    name: "Jisoo",
+                    categories: ["EXPCAT1", "EXPCAT2", "EXPCAT3", "EXPCAT4", "EXPCAT5", "EXPCAT6"]
+                }
+            }
+        })
+
+        // Dispatch an update for exportCategories
+        expect(dispatches[2].getAction()).toEqual({
+            type: exportCategoriesActionTypes.EXPORT_CATEGORIES_LOAD_CATEGORIES,
+            payload: {
+                "EXPCAT1": {
+                    id: "EXPCAT1",
+                    label: "name",
+                    value: "Jisoo"
+                },
+                "EXPCAT2": {
+                    id: "EXPCAT2",
+                    label: "lastName",
+                    value: "Blackpink"
+                },
+                "EXPCAT3": {
+                    id: "EXPCAT3",
+                    label: "email",
+                    value: "jisoo@correo.com"
+                },
+                "EXPCAT4": {
+                    id: "EXPCAT4",
+                    label: "phone",
+                    value: ""
+                },
+                "EXPCAT5": {
+                    id: "EXPCAT5",
+                    label: "bla",
+                    value: "bla"
+                },
+                "EXPCAT6": {
+                    id: "EXPCAT6",
+                    label: "bla2",
+                    value: "bla2"
+                }
+            }
+        })
+
+        // Dispatch an update for exportPages
+        expect(dispatches[3].getAction()).toEqual({
+            type: exportPagesActionTypes.EXPORT_PAGES_LOAD_PAGES,
+            payload: {
+                "EXPPAGE1": {
+                    id: "EXPPAGE1",
+                    type: "Artist",
+                    title: "Jisoo",
+                    image: "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg",
+                    withImage: true,
+                    categories: ["EXPCAT1", "EXPCAT2", "EXPCAT3", "EXPCAT4", "EXPCAT5", "EXPCAT6"]
+                }
+            }
+        })
+
+        // Dispatch an update for exportFile
+        expect(dispatches[4].getAction()).toEqual({
+            type: exportFileActionTypes.EXPORT_FILE_UPDATE_FILE,
+            payload: {
+                id: "EXPFILE1",
+                template: "",
+                pages: ["EXPPAGE1"]
             }
         })
     })

@@ -103,6 +103,26 @@ class ArtistServices {
             }
         })
     }
+
+    detailFor(ids) {
+        const toEliminate = {
+            ids: ids
+        }
+
+        return fetch(`${baseUrl}/Artists/detailFor`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(toEliminate)
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Los artistas no se pudieron obtener');
+            }
+        })
+    }
 }
 
 export default new ArtistServices()

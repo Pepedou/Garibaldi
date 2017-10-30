@@ -5,6 +5,7 @@
   "devDependencies": {
     "node-fetch": "^1.7.1",
     "node-sass": "^4.5.0",
+    "normalizr": "^3.2.4",
     "react-edit-inline": "^1.0.8",
     "react-scripts": "1.0.14",
     "redux-testkit": "^1.0.6",
