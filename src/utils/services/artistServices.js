@@ -109,18 +109,21 @@ class ArtistServices {
             ids: ids
         }
 
-        return fetch(`${baseUrl}/Artists/detailFor`, {
+        const aids = JSON.stringify(toEliminate)
+
+        return fetch(`${baseUrl}/Artists/detailFor?artistsIds=${aids}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(toEliminate)
+            }
         })
         .then(res => {
             if (!res.ok) {
                 throw new Error('Los artistas no se pudieron obtener');
             }
+
+            return res
         })
     }
 }
