@@ -6,7 +6,6 @@ import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import * as constants from '../../redux/constants'
 import DividerComponent from '../../components/ui/divider/DividerComponent'
 import FilePageBox from '../../components/partials/export-page/file-page-box/FilePageBox'
-import {exportTemplates, exportFiles, exportPages, exportCategories, exportArtists, exportArtPieces} from '../../mocks/exportStateMock'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 
@@ -31,16 +30,19 @@ class ExportConfigurationPage extends Component {
     }
 
     getDropdownOptions() {
+        let {exportTemplates} = this.props
         let templateOptions = []
-        Object.keys(exportTemplates).forEach((key) => {
-            templateOptions.push({value: exportTemplates[key].id, text: exportTemplates[key].name})
+        Object.keys(exportTemplates.allTemplates).forEach((key) => {
+            templateOptions.push({value: exportTemplates.allTemplates[key].id, text: exportTemplates.allTemplates[key].name})
         })
         return templateOptions
     }
 
-    handleOnChangeTemplate(event) {
-        //Actualizar el template
-        console.log(event.target)
+    handleOnChangeTemplate(event, props) {
+        let {exportFile} = this.props
+        let exportFileCopy = {...exportFile}
+        exportFileCopy.template = event.target.value
+        //TODO: Dispatch para catualizar exportFile
     }
 
     createPreview() {
@@ -48,6 +50,7 @@ class ExportConfigurationPage extends Component {
     }
 
     render() {
+        let {exportFile, exportPages, exportCategories, exportArtists, exportArtPieces} = this.props
         return <div className="col-xs-12 col-md-12 ExportConfigurationPage">
             <div className="row subtitle">Exportar a PDF</div>
             <div className="row">
@@ -61,7 +64,7 @@ class ExportConfigurationPage extends Component {
                                             errorText={this.state.templateDropdown.errorText}
                                             options={this.state.templateDropdown.options}
                                             defaultValue={this.state.templateDropdown.defaultValue}
-                                            onChange={event => this.handleOnChangeTemplate(event)}/>
+                                            onChange={event => this.handleOnChangeTemplate(event, this.props)}/>
                     </div>
                 </div>
             </div>
@@ -71,12 +74,13 @@ class ExportConfigurationPage extends Component {
             <div className="row">
                 <div className="col-xs-12 col-md-12">
                 {
-                    exportFiles.file.pages.map((value, key) => {
+                    exportFile.file.pages.map((value, key) => {
                         let page = exportPages[value].type === "artist" ? exportArtists[value] : exportArtPieces[value]
                         return <FilePageBox
                                     key={key}
                                     page={page}
                                     categories={exportCategories}
+                                    exportPages={exportPages}
                                     type={exportPages[value].type}/>
                     })
                 }
@@ -98,10 +102,23 @@ class ExportConfigurationPage extends Component {
 ExportConfigurationPage.displayName = 'ExportConfigurationPage'
 
 ExportConfigurationPage.propTypes = {
+    exportTemplates: PropTypes.object,
+    exportFile: PropTypes.object,
+    exportPages: PropTypes.object,
+    exportCategories: PropTypes.object,
+    exportArtists: PropTypes.object,
+    exportArtPieces: PropTypes.object,
+    addNotification: PropTypes.func,
+    clearAllNotifications: PropTypes.func
 }
 
-export const mapStateToProps = () => ({
-  
+export const mapStateToProps = ({exportTemplates, exportFile, exportPages, exportCategories, exportArtists, exportArtPieces}) => ({
+  exportTemplates,
+  exportFile,
+  exportPages,
+  exportCategories,
+  exportArtists,
+  exportArtPieces
 })
 
 export const mapDispatchToProps = dispatch => ({

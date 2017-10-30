@@ -10,6 +10,7 @@ import {white} from 'material-ui/styles/colors'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
 import ArtistServices from '../../../../utils/services/artistServices'
 import CulturalHelpersServices from '../../../../utils/services/culturalHelperServices'
+import images from '../../../../content/images/exportImages'
 
 require("./ArtistCard.css")
 
@@ -96,12 +97,12 @@ export default class ArtistCard extends Component {
     getPhoto(editedArtist) {
         if( Object.getOwnPropertyNames(editedArtist).length > 0) {
             if(editedArtist.detail.photo.value === "" || !editedArtist.detail.photo.value) {
-                return "https://s3.amazonaws.com/whisperinvest-images/default.png"
+                return images.default_user
             } else {
                 return editedArtist.detail.photo.value
             }
         } else {
-            return "https://s3.amazonaws.com/whisperinvest-images/default.png"
+            return images.default_user
         }
     }
 
@@ -144,7 +145,8 @@ export default class ArtistCard extends Component {
     }
 
     handlePDF() {
-        let {addCheckCard, clearCheckCards, currentArtist} = this.props
+        let {addCheckCard, clearCheckCards, currentArtist, loadingArtistDetail} = this.props
+        loadingArtistDetail(true)
         clearCheckCards()
         addCheckCard(currentArtist.id)
         //TODO: Pedir info y redirect

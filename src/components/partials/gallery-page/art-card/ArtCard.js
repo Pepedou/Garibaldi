@@ -134,7 +134,8 @@ export default class ArtCard extends Component {
     }
 
     handlePDF() {
-        let {addCheckCard, clearCheckCards, currentArt} = this.props
+        let {addCheckCard, clearCheckCards, currentArt, loadingArtDetail} = this.props
+        loadingArtDetail(true)
         clearCheckCards()
         addCheckCard(currentArt.id)
         //TODO: Pedir info y redirect
