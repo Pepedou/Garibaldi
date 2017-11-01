@@ -11,6 +11,9 @@ import transformToImages from '../../../../utils/services/cloudinaryImageTransfo
 import ArtistServices from '../../../../utils/services/artistServices'
 import CulturalHelpersServices from '../../../../utils/services/culturalHelperServices'
 import images from '../../../../content/images/exportImages'
+import { loadTemplateConfigForArtists } from '../../../../redux/reducers/templates/actions'
+import {connect} from 'react-redux'
+import { withRouter } from 'react-router'
 
 require("./ArtistCard.css")
 
@@ -20,7 +23,7 @@ let editBtnStyle = {
     color: white
 }
 
-export default class ArtistCard extends Component {
+class ArtistCard extends Component {
     constructor(props)
     {
         super(props)
@@ -144,12 +147,12 @@ export default class ArtistCard extends Component {
         })
     }
 
-    handlePDF() {
-        let {addCheckCard, clearCheckCards, currentArtist, loadingArtistDetail} = this.props
+    async handlePDF() {
+        let {currentArtist, loadingArtistDetail, configExportForArtists, router} = this.props
         loadingArtistDetail(true)
-        clearCheckCards()
-        addCheckCard(currentArtist.id)
-        //TODO: Pedir info y redirect
+        await configExportForArtists([currentArtist.id])
+        loadingArtistDetail(false)
+        router.push('/exportConfiguration')
     }
 
     render() {
@@ -220,3 +223,8 @@ ArtistCard.propTypes = {
   showDropZoneOverlayRecieved: PropTypes.func,
   extraImages: PropTypes.array
 }
+
+export default withRouter(connect(
+  null,
+  { configExportForArtists: loadTemplateConfigForArtists}
+)(ArtistCard))

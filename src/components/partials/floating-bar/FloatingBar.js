@@ -9,6 +9,7 @@ import ArtistServices from '../../../utils/services/artistServices'
 import LoaderComponent from '../../../components/ui/loader/LoaderComponent'
 import { loadTemplateConfigForArtists, loadTemplateConfigForArtPieces } from '../../../redux/reducers/templates/actions'
 import {connect} from 'react-redux'
+import { withRouter } from 'react-router'
 
 require('./FloatingBar.css')
 
@@ -18,18 +19,18 @@ const style = {
 
 export class FloatingBar extends Component {
   async exportToPdf(event, checkCards, props){
-    let {loadingArtDetail, loadingArtistDetail, clearCheckCards, configExportForArtists, configExportForArtPieces} = props
+    let {loadingArtDetail, loadingArtistDetail, configExportForArtists, configExportForArtPieces, router} = props
 
     if(window.location.pathname === "/home"){
       loadingArtDetail(true)
       await configExportForArtPieces(checkCards)
       loadingArtDetail(false)
-      window.location = './exportConfiguration'
+      router.push('/exportConfiguration')
     } else {
       loadingArtistDetail(true)
       await configExportForArtists(checkCards)
-      loadingArtDetail(false)
-      window.location = './exportConfiguration'
+      loadingArtistDetail(false)
+      router.push('/exportConfiguration')
     }
   }
 
@@ -131,7 +132,7 @@ FloatingBar.propTypes = {
 };
 
 
-export default connect(
+export default withRouter(connect(
   null,
   { configExportForArtists: loadTemplateConfigForArtists, configExportForArtPieces: loadTemplateConfigForArtPieces }
-)(FloatingBar)
+)(FloatingBar))

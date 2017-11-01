@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
+import { updatePage } from '../../../../redux/reducers/exportPages/actions'
+import {connect} from 'react-redux'
 require('./FilePageBox.css')
 
 const styles = {
@@ -8,34 +10,41 @@ const styles = {
   iconStyle: {fill: 'gray'}
 };
 
-export default class FilePageBox extends Component {
+class FilePageBox extends Component {
     selectProfileImage(event, pageId, image, key, props) {
-        let {exportPages} = this.props
+        let {exportPages, updatePageExports} = this.props
         let page = exportPages[pageId]
         let pageCopy = {...page}
         pageCopy.image = image
 
-        //TODO: Dispatch para actualizar exportPages
         var images = document.getElementsByClassName(`imageItem${pageId}`)
         for(var i = 0; i < images.length; i++) {
             images[i].classList.remove("imageSelected")
         }
 
         event.target.classList.add("imageSelected")
+
+        updatePageExports(pageCopy)
     }
 
-    onCheckNoImage(event, pageId, props) {
-        let {exportPages} = this.props
+    onCheckNoImage(event, pageId, profilesImages) {
+        let {exportPages, updatePageExports} = this.props
         let page = exportPages[pageId]
         let pageCopy = {...page}
-        pageCopy.withImage = event.target.checked
-        pageCopy.image = ''
+        pageCopy.withImage = !event.target.checked
 
-        //TODO: Dispatch para actualizar exportPages
+        if(event.target.checked) {
+            pageCopy.image = ''
+        } else {
+            pageCopy.image = profilesImages[0]
+        }
+        
+
+        updatePageExports(pageCopy)
     }
 
     onCheckCategory(event, categoryId, pageId) {
-        let {exportPages} = this.props
+        let {exportPages, updatePageExports} = this.props
         let page = exportPages[pageId]
         let pageCopy = {...page}
         
@@ -46,7 +55,7 @@ export default class FilePageBox extends Component {
             pageCopy.categories = [...pageCopy.categories.slice(0,index), ...pageCopy.categories.slice(index+1)]
         }
 
-        //TODO: Dispatch para actualizar exportPages
+        updatePageExports(pageCopy)
     }
 
     isCategoryChecked(categoryId, pageId) {
@@ -59,11 +68,11 @@ export default class FilePageBox extends Component {
         let {page, categories, type, exportPages} = this.props
         return <div className="row">
             <div className="FilePageBox">
-                <div className="row pageTitle">{type === "artist" ? page.name : page.title}</div>
+                <div className="row pageTitle">{type === "Artist" ? page.name : page.title}</div>
                 <div className="row">
                     <div className="col-xs-12 col-md-6">
                         {
-                            type === "artist"
+                            type === "Artist"
                             ? page.profilesImages.length > 0
                                 ? <div className="artistsImagesWrapper">
                                     <div className="instruction">Seleccione la imagen del artista que desea mostrar en el documento</div>
@@ -80,7 +89,7 @@ export default class FilePageBox extends Component {
                                         label="Sin Imagen"
                                         labelStyle={styles.labelStyle}
                                         iconStyle={styles.iconStyle}
-                                        onCheck={(event) => this.props.onCheckNoImage(event, page.id)}
+                                        onCheck={(event) => this.onCheckNoImage(event, page.id, page.profilesImages)}
                                         />
                                 </div>
                                 : <div className="artistWithNoImagesMessage">El artista no tiene imágenes en su perfil</div>
@@ -96,11 +105,11 @@ export default class FilePageBox extends Component {
                             page.categories.map((value, key) => 
                                 <div className="row" key={key}>
                                     <Checkbox
-                                        checked={this.isCategoryChecked(value, page.id).bind(this)}
+                                        checked={this.isCategoryChecked(value, page.id)}
                                         label={categories[value].label}
                                         labelStyle={styles.labelStyle}
                                         iconStyle={styles.iconStyle}
-                                        onCheck={(event) => this.props.onCheckCategory(event, value, page.id)}
+                                        onCheck={(event) => this.onCheckCategory(event, value, page.id)}
                                         />
                                 </div>
                             )
@@ -121,3 +130,8 @@ FilePageBox.propTypes = {
     type: PropTypes.string,
     exportPages: PropTypes.object
 }
+
+export default connect(
+  null,
+  { updatePageExports: updatePage }
+)(FilePageBox)

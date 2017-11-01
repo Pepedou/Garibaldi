@@ -10,6 +10,9 @@ import ArtPieceServices from '../../../../utils/services/artPiecesServices'
 import SvgIcon from 'material-ui/SvgIcon'
 import {white} from 'material-ui/styles/colors'
 import ArtistServices from '../../../../utils/services/artistServices'
+import { loadTemplateConfigForArtPieces } from '../../../../redux/reducers/templates/actions'
+import {connect} from 'react-redux'
+import { withRouter } from 'react-router'
 const objectAssign = require('object-assign')
 require('./ArtCard.css')
 
@@ -17,7 +20,7 @@ let editBtnStyle = {
     color: white
 }
 
-export default class ArtCard extends Component {
+class ArtCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -133,12 +136,12 @@ export default class ArtCard extends Component {
         })
     }
 
-    handlePDF() {
-        let {addCheckCard, clearCheckCards, currentArt, loadingArtDetail} = this.props
+    async handlePDF() {
+        let {currentArt, loadingArtDetail, configExportForArtPieces, router} = this.props
         loadingArtDetail(true)
-        clearCheckCards()
-        addCheckCard(currentArt.id)
-        //TODO: Pedir info y redirect
+        await configExportForArtPieces([currentArt.id])
+        loadingArtDetail(false)
+        router.push('/exportConfiguration')
     }
 
     render() {
@@ -215,3 +218,8 @@ ArtCard.propTypes = {
   addNotification: PropTypes.func,
   showDropZoneOverlayRecieved: PropTypes.func
 }
+
+export default withRouter(connect(
+  null,
+  { configExportForArtPieces: loadTemplateConfigForArtPieces }
+)(ArtCard))

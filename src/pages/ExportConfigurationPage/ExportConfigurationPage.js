@@ -1,12 +1,15 @@
+/*eslint-disable no-mixed-operators*/
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
-import {handleError, ERROR_CODES} from '../../utils/errorHandling'
+import {handleError} from '../../utils/errorHandling'
 import * as constants from '../../redux/constants'
 import DividerComponent from '../../components/ui/divider/DividerComponent'
 import FilePageBox from '../../components/partials/export-page/file-page-box/FilePageBox'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
+import { withRouter } from 'react-router'
+import { updateExportFile } from '../../redux/reducers/exportFile/actions'
 require('./ExportConfigurationPage.css')
 
 class ExportConfigurationPage extends Component {
@@ -29,6 +32,17 @@ class ExportConfigurationPage extends Component {
         }
     }
 
+    componentWillMount() {
+        let {router, exportFile, exportPages, exportCategories, exportArtists, exportArtPieces} = this.props
+        if(Object.keys(exportFile).length === 0
+            || Object.keys(exportPages).length === 0
+            || Object.keys(exportCategories).length === 0
+            || window.location.pathname === "/artists" && Object.keys(exportArtists).length === 0
+            || window.location.pathname === "/home" && Object.keys(exportArtPieces).length === 0) {
+            router.push('/home')
+        }
+    }
+
     getDropdownOptions() {
         let {exportTemplates} = this.props
         let templateOptions = []
@@ -39,10 +53,10 @@ class ExportConfigurationPage extends Component {
     }
 
     handleOnChangeTemplate(event, props) {
-        let {exportFile} = this.props
+        let {exportFile, updateFile} = this.props
         let exportFileCopy = {...exportFile}
         exportFileCopy.template = event.target.value
-        //TODO: Dispatch para catualizar exportFile
+        updateFile(exportFileCopy)
     }
 
     createPreview() {
@@ -50,8 +64,14 @@ class ExportConfigurationPage extends Component {
     }
 
     render() {
-        let {exportFile, exportPages, exportCategories, exportArtists, exportArtPieces} = this.props
-        return <div className="col-xs-12 col-md-12 ExportConfigurationPage">
+        let {exportFile, exportPages, exportCategories, exportArtists, exportArtPieces, exportTemplates} = this.props
+        return  Object.keys(exportTemplates.allTemplates).length === 0
+        ? <div className="col-xs-12 col-md-12 ExportConfigurationPage">
+            <center>
+                <div className="row">No se encontraron plantillas. Para exportar a PDF es necesario tener al menos una plantilla</div>
+            </center>
+        </div>
+        : <div className="col-xs-12 col-md-12 ExportConfigurationPage">
             <div className="row subtitle">Exportar a PDF</div>
             <div className="row">
                 <div className="col-xs-12 col-md-12">
@@ -74,8 +94,8 @@ class ExportConfigurationPage extends Component {
             <div className="row">
                 <div className="col-xs-12 col-md-12">
                 {
-                    exportFile.pages.map((value, key) => {
-                        let page = exportPages[value].type === "artist" ? exportArtists[value] : exportArtPieces[value]
+                    exportFile.EXPFILE1.pages.map((value, key) => {
+                        let page = exportPages[value].type === "Artist" ? exportArtists[value] : exportArtPieces[value]
                         return <FilePageBox
                                     key={key}
                                     page={page}
@@ -123,7 +143,8 @@ export const mapStateToProps = ({exportTemplates, exportFile, exportPages, expor
 
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
-  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS})
+  clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  updateFile: updateExportFile
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExportConfigurationPage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ExportConfigurationPage))
