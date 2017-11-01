@@ -1,8 +1,7 @@
-require('./FilePageBox.css')
-
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from 'material-ui/Checkbox';
+require('./FilePageBox.css')
 
 const styles = {
   labelStyle: {color: 'gray'},

@@ -1,4 +1,3 @@
-require('./ExportConfigurationPage.css')
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
@@ -8,6 +7,7 @@ import DividerComponent from '../../components/ui/divider/DividerComponent'
 import FilePageBox from '../../components/partials/export-page/file-page-box/FilePageBox'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
+require('./ExportConfigurationPage.css')
 
 class ExportConfigurationPage extends Component {
     constructor(props)
@@ -24,7 +24,7 @@ class ExportConfigurationPage extends Component {
                 className: "templateDropdown",
                 errorText: "",
                 options: dropdownOptions,
-                defaultValue: dropdownOptions[0].text
+                defaultValue: dropdownOptions.length > 0 ? dropdownOptions[0].text : ''
             }
         }
     }
@@ -74,7 +74,7 @@ class ExportConfigurationPage extends Component {
             <div className="row">
                 <div className="col-xs-12 col-md-12">
                 {
-                    exportFile.file.pages.map((value, key) => {
+                    exportFile.pages.map((value, key) => {
                         let page = exportPages[value].type === "artist" ? exportArtists[value] : exportArtPieces[value]
                         return <FilePageBox
                                     key={key}

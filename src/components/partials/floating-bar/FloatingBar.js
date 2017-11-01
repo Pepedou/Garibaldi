@@ -7,6 +7,7 @@ import {blue500, blue700} from 'material-ui/styles/colors'
 import ArtPieceServices from '../../../utils/services/artPiecesServices'
 import ArtistServices from '../../../utils/services/artistServices'
 import LoaderComponent from '../../../components/ui/loader/LoaderComponent'
+import {loadTemplateConfigForArtists, loadTemplateConfigForArtPieces} from '../../../redux/reducers/templates/actions'
 
 require('./FloatingBar.css')
 
@@ -15,19 +16,19 @@ const style = {
 };
 
 export default class FloatingBar extends Component {
-  redirectToExportConfiguration() {
-    window.location = './exportConfiguration'
-  }
-
-  exportToPdf(event, checkCards, props){
-    let {loadingArtDetail, loadingArtistDetail} = props
+  async exportToPdf(event, checkCards, props){
+    let {loadingArtDetail, loadingArtistDetail, clearCheckCards} = props
 
     if(window.location.pathname === "/home"){
       loadingArtDetail(true)
-      //TODO: Llamar al de obras
+      await loadTemplateConfigForArtPieces(checkCards)
+      loadingArtDetail(false)
+      window.location = './exportConfiguration'
     } else {
       loadingArtistDetail(true)
-      //TODO: Llamar al de artistas
+      await loadTemplateConfigForArtists(checkCards)
+      loadingArtDetail(false)
+      window.location = './exportConfiguration'
     }
   }
 
