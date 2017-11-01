@@ -122,13 +122,9 @@ class ArtPieceServices {
     }
 
     detailFor(ids) {
-        const idsWrapper = {
-            ids: ids
-        }
+        const jsonIds = JSON.stringify(ids)
 
-        const toJsonIds = JSON.stringify(idsWrapper)
-
-        return fetch(`${baseUrl}/ArtPieces/detailFor?artPiecesIds=${toJsonIds}`, {
+        return fetch(`${baseUrl}/ArtPieces/detailFor?artPiecesIds=${jsonIds}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
@@ -140,7 +136,7 @@ class ArtPieceServices {
                 throw new Error('Las obras no se pudieron obtener');
             }
 
-            return res
+            return res.json()
         })
     }
 }

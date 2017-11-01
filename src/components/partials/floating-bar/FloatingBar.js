@@ -7,7 +7,8 @@ import {blue500, blue700} from 'material-ui/styles/colors'
 import ArtPieceServices from '../../../utils/services/artPiecesServices'
 import ArtistServices from '../../../utils/services/artistServices'
 import LoaderComponent from '../../../components/ui/loader/LoaderComponent'
-import {loadTemplateConfigForArtists, loadTemplateConfigForArtPieces} from '../../../redux/reducers/templates/actions'
+import { loadTemplateConfigForArtists, loadTemplateConfigForArtPieces } from '../../../redux/reducers/templates/actions'
+import {connect} from 'react-redux'
 
 require('./FloatingBar.css')
 
@@ -15,18 +16,18 @@ const style = {
   marginLeft: 20
 };
 
-export default class FloatingBar extends Component {
+export class FloatingBar extends Component {
   async exportToPdf(event, checkCards, props){
-    let {loadingArtDetail, loadingArtistDetail, clearCheckCards} = props
+    let {loadingArtDetail, loadingArtistDetail, clearCheckCards, configExportForArtists, configExportForArtPieces} = props
 
     if(window.location.pathname === "/home"){
       loadingArtDetail(true)
-      await loadTemplateConfigForArtPieces(checkCards)
+      await configExportForArtPieces(checkCards)
       loadingArtDetail(false)
       window.location = './exportConfiguration'
     } else {
       loadingArtistDetail(true)
-      await loadTemplateConfigForArtists(checkCards)
+      await configExportForArtists(checkCards)
       loadingArtDetail(false)
       window.location = './exportConfiguration'
     }
@@ -128,3 +129,9 @@ FloatingBar.propTypes = {
   loadingArtDetail: PropTypes.func,
   loadingArtistDetail: PropTypes.func
 };
+
+
+export default connect(
+  null,
+  { configExportForArtists: loadTemplateConfigForArtists, configExportForArtPieces: loadTemplateConfigForArtPieces }
+)(FloatingBar)
