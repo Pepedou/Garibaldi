@@ -217,8 +217,8 @@ describe('Templates Actions', () => {
         expect(dispatches[3].getAction()).toEqual({
             type: exportPagesActionTypes.EXPORT_PAGES_LOAD_PAGES,
             payload: {
-                "EXPPAGE1": {
-                    id: "EXPPAGE1",
+                "59f680cc9373be0004b3f067": {
+                    id: "59f680cc9373be0004b3f067",
                     type: "Artist",
                     title: "Jisoo",
                     image: "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg",
@@ -235,7 +235,7 @@ describe('Templates Actions', () => {
                 "EXPFILE1": {
                     id: "EXPFILE1",
                     template: "",
-                    pages: ["EXPPAGE1"]
+                    pages: ["59f680cc9373be0004b3f067"]
                 }
             }
         })
