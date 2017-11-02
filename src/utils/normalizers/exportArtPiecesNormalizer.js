@@ -27,6 +27,7 @@ class ExportArtistsNormalizer {
     recreateArtPiecesMap(artPiecesResponse) {
         return artPiecesResponse.details.map(a => {
             const totalCategories = [
+                { label: 'title', value: a.title },
                 { label: 'author', value: a.author },
                 { label: 'technique', value: a.technique },
                 { label: 'materials', value: a.materials },
