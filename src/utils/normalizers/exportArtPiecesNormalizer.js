@@ -6,7 +6,7 @@ class ExportArtistsNormalizer {
         const normalizedEntities = this.normalizeEntities(artPiecesMap)
         const pagesMap = this.createPagesMap(artPiecesResponse, normalizedEntities.entities.artPieces)
         const exportPages = this.normalizePages(pagesMap)
-        const exportFile = this.generateFile(exportPages)
+        const exportFile = this.generateFile(exportPages, templatesResponse)
 
         return {
             templates: this.normalizeTemplates(templatesResponse),
@@ -27,18 +27,18 @@ class ExportArtistsNormalizer {
     recreateArtPiecesMap(artPiecesResponse) {
         return artPiecesResponse.details.map(a => {
             const totalCategories = [
-                { label: 'author', value: a.detail.author.value },
-                { label: 'technique', value: a.detail.technique.value },
-                { label: 'materials', value: a.detail.materials.value },
-                { label: 'measurements', value: a.detail.measurements.value },
-                { label: 'year', value: a.detail.year.value },
-                { label: 'description', value: a.detail.description.value }
+                { label: 'author', value: a.author },
+                { label: 'technique', value: a.technique },
+                { label: 'materials', value: a.materials },
+                { label: 'measurements', value: a.measurements },
+                { label: 'year', value: a.year },
+                { label: 'description', value: a.description }
             ].concat(a.categories)
 
             return {
                     id: a.id, 
-                    image: a.detail.images.value.thumbnail || "",
-                    title: a.detail.title.value,
+                    image: a.images.thumbnail || "",
+                    title: a.title,
                     categories: totalCategories.map((c, index) => {
                         return {
                             id: 'EXPCAT' + (index + 1),
@@ -68,8 +68,8 @@ class ExportArtistsNormalizer {
             return {
                     id: a.id, 
                     type: "ArtPiece",
-                    title: a.detail.title.value,
-                    image: a.detail.images.value.thumbnail,
+                    title: a.title,
+                    image: a.images.thumbnail,
                     withImage: true,
                     categories: artistEntities[a.id].categories
             }
@@ -82,11 +82,11 @@ class ExportArtistsNormalizer {
         }, {})
     }
 
-    generateFile(pages) {
+    generateFile(pages, templatesResponse) {
         return {
             "EXPFILE1": {
                 id: "EXPFILE1",
-                template: "",
+                template: templatesResponse.length > 0 ? templatesResponse[0].id : "",
                 pages: Object.keys(pages)
             }
         }
