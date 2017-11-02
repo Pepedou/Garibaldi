@@ -36,9 +36,7 @@ class ExportConfigurationPage extends Component {
         let {router, exportFile, exportPages, exportCategories, exportArtists, exportArtPieces} = this.props
         if(Object.keys(exportFile).length === 0
             || Object.keys(exportPages).length === 0
-            || Object.keys(exportCategories).length === 0
-            || window.location.pathname === "/artists" && Object.keys(exportArtists).length === 0
-            || window.location.pathname === "/home" && Object.keys(exportArtPieces).length === 0) {
+            || Object.keys(exportCategories).length === 0) {
             router.push('/home')
         }
     }
@@ -53,10 +51,13 @@ class ExportConfigurationPage extends Component {
     }
 
     handleOnChangeTemplate(event, props) {
-        let {exportFile, updateFile} = this.props
+        let {exportFile, updateFile, exportTemplates} = this.props
         let exportFileCopy = {...exportFile}
-        exportFileCopy.template = event.target.value
+        exportFileCopy.EXPFILE1.template = event.target.value
         updateFile(exportFileCopy)
+        let templateDropdownCopy = {...this.state.templateDropdown}
+        templateDropdownCopy.defaultValue = exportTemplates.allTemplates[event.target.value].name
+        this.setState({templateDropdown: templateDropdownCopy})
     }
 
     createPreview() {
@@ -144,7 +145,7 @@ export const mapStateToProps = ({exportTemplates, exportFile, exportPages, expor
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
-  updateFile: updateExportFile
+  updateFile: () => dispatch(updateExportFile())
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ExportConfigurationPage))
