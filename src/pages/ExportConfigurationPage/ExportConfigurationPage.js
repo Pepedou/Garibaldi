@@ -1,4 +1,3 @@
-require('./ExportConfigurationPage.css')
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux'
@@ -9,6 +8,7 @@ import FilePageBox from '../../components/partials/export-page/file-page-box/Fil
 import {exportTemplates, exportFiles, exportPages, exportCategories, exportArtists, exportArtPieces} from '../../mocks/exportStateMock'
 import InputFieldComponent from '../../components/ui/input-field/InputFieldComponent'
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
+require('./ExportConfigurationPage.css')
 
 class ExportConfigurationPage extends Component {
     constructor(props)

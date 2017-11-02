@@ -1,9 +1,9 @@
-require('../../../../Main.css')
-require('./PdfPreviewOverlay.css')
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import DefaultButton from '../../../ui/buttons/DefaultButton'
 import {exportTemplates, exportFiles, exportPages, exportCategories} from '../../../../mocks/exportStateMock'
+require('../../../../Main.css')
+require('./PdfPreviewOverlay.css')
 
 export default class PdfPreviewOverlay extends Component {
     toggleOverlay(showPdfPreviewOverlayRecieved) {

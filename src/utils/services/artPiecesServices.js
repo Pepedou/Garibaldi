@@ -120,6 +120,29 @@ class ArtPieceServices {
             }
         })
     }
+
+    detailFor(ids) {
+        const idsWrapper = {
+            ids: ids
+        }
+
+        const toJsonIds = JSON.stringify(idsWrapper)
+
+        return fetch(`${baseUrl}/ArtPieces/detailFor?artPiecesIds=${toJsonIds}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error('Las obras no se pudieron obtener');
+            }
+
+            return res
+        })
+    }
 }
 
 export default new ArtPieceServices()
