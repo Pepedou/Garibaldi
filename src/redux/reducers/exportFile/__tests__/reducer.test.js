@@ -15,15 +15,19 @@ describe('ExportFile Reducer', () => {
 
     it('should update single file property', () => {
         const resultState = {
-            id: "",
-            template: "a102930",
-            pages: []
+            'IDFILE': {
+                id: 'IDFILE',
+                template: 'a102930'
+            }
         }
 
         Reducer(theReducer).expect({
             type: actionTypes.EXPORT_FILE_UPDATE_FILE,
             payload: {
-                template: 'a102930'
+                'IDFILE': {
+                    id: 'IDFILE',
+                    template: 'a102930'
+                }
             }
         }).toReturnState(resultState)
     })

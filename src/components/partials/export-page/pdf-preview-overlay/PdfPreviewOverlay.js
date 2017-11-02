@@ -1,59 +1,64 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import * as constants from '../../../../redux/constants'
 import DefaultButton from '../../../ui/buttons/DefaultButton'
-import {exportTemplates, exportFiles, exportPages, exportCategories} from '../../../../mocks/exportStateMock'
 require('../../../../Main.css')
 require('./PdfPreviewOverlay.css')
 
-export default class PdfPreviewOverlay extends Component {
+class PdfPreviewOverlay extends Component {
     toggleOverlay(showPdfPreviewOverlayRecieved) {
         showPdfPreviewOverlayRecieved(false)
     }
 
     downloadPdf() {
-
+        window.print()
     }
 
     render() {
-        let {showPdfPreviewOverlay, showPdfPreviewOverlayRecieved} = this.props
+        let {showPdfPreviewOverlay, showPdfPreviewOverlayRecieved, exportTemplates, exportFile, exportPages, exportCategories} = this.props
         return (showPdfPreviewOverlay
             ? <div className="Overlay PdfPreviewOverlay">
-                <a className="Closebtn" onClick={() => this.toggleOverlay(showPdfPreviewOverlayRecieved)}>&times;</a>
+                <a className="Closebtn noPrint" onClick={() => this.toggleOverlay(showPdfPreviewOverlayRecieved)}>&times;</a>
+                <div>
+                <center>
                 {
-                    exportFiles.file.pages.map((value, key) => {
-                        let pageBgClassName = `pdfPage ${exportTemplates[exportFiles.file.template].backgroundPosition}`
+                    exportFile.EXPFILE1.pages.map((value, key) => {
+                        let pageBgClassName = `pdfPage ${exportTemplates.allTemplates[exportFile.EXPFILE1.template].backgroundPosition}`
                         let bgStyle = {
-                            backgroundImage: `url(${exportTemplates[exportFiles.file.template].background})`
+                            backgroundImage: `url(${exportTemplates.allTemplates[exportFile.EXPFILE1.template].background})`
                         }
                         let membreteStyle = {
-                            backgroundColor: exportTemplates[exportFiles.file.template].lineColor
+                            backgroundColor: exportTemplates.allTemplates[exportFile.EXPFILE1.template].lineColor
                         }
-                        let pageLogoClassName = `pdfLogo ${exportTemplates[exportFiles.file.template].logoPosition}`
+                        let pageLogoClassName = `pdfLogo ${exportTemplates.allTemplates[exportFile.EXPFILE1.template].logoPosition} col-xs-12 col-md-12`
                         return <div className={pageBgClassName} style={bgStyle} key={key}>
                             {
-                                exportTemplates[exportFiles.file.template].logo !== ""
-                                ? <div className="logoWrapper">
-                                    <img alt="" src={exportTemplates[exportFiles.file.template].logo} className={pageLogoClassName}/>
+                                exportTemplates.allTemplates[exportFile.EXPFILE1.template].logo !== ""
+                                ? <div className="logoWrapper row">
+                                    <img alt="" src={exportTemplates.allTemplates[exportFile.EXPFILE1.template].logo} className={pageLogoClassName}/>
                                 </div>
                                 : null
                             }
-                            <div className="pageContent" key={key}>
-                                {
-                                    exportPages[value].withImage
-                                    ? <img alt="" src={exportPages[value].image} className="itemImage"/>
-                                    : null
-                                }
-                                <div className="categoriesWrapper">
+                            <div className="pageContent row" key={key}>
+                                <div className="col-xs-12 col-md-12">
                                     {
-                                        exportPages[value].categories.map((category, key) => <div key={key} className="categoryRow">
-                                            <div className="categoryLabel">{exportCategories[category].label}:</div>
-                                            <div className="categoryValue">{exportCategories[category].value}</div> 
-                                        </div>)
+                                        exportPages[value].withImage
+                                        ? <img alt="" src={exportPages[value].image} className="itemImage"/>
+                                        : null
                                     }
+                                    <div className="categoriesWrapper">
+                                        {
+                                            exportPages[value].categories.map((category, key) => <div key={key} className="categoryRow">
+                                                <div className="categoryLabel">{exportCategories[category].label}:</div>
+                                                <div className="categoryValue">{exportCategories[category].value}</div> 
+                                            </div>)
+                                        }
+                                    </div>
                                 </div>
                             </div>
                             {
-                                exportTemplates[exportFiles.file.template].lineColor !== ""
+                                exportTemplates.allTemplates[exportFile.EXPFILE1.template].lineColor !== ""
                                 ? <div className="membrete" style={membreteStyle}></div>
                                 : null
                             }
@@ -61,11 +66,13 @@ export default class PdfPreviewOverlay extends Component {
                         </div>
                     })
                 }
+                </center>
+                </div>
                 <DefaultButton
                     label="DESCARGAR"
                     labelPosition="after"
                     floatStyle="right"
-                    className="marginTop"
+                    className="marginTop noPrint"
                     onTouchTap={event => this.downloadPdf(event, this.props)}
                     />
             </div>
@@ -77,6 +84,23 @@ PdfPreviewOverlay.displayName = 'PdfPreviewOverlay'
 
 PdfPreviewOverlay.propTypes = {
   showPdfPreviewOverlayRecieved: PropTypes.func,
-  showPdfPreviewOverlay: PropTypes.bool
-  //Agregar exportFiles y exportPages a mapStateToProps
+  showPdfPreviewOverlay: PropTypes.bool,
+  exportFile: PropTypes.object,
+  exportPages: PropTypes.object,
+  exportCategories: PropTypes.object,
+  exportTemplates: PropTypes.object
 }
+
+export const mapStateToProps = ({showPdfPreviewOverlay, exportFile, exportPages, exportCategories, exportTemplates}) => ({
+  showPdfPreviewOverlay,
+  exportFile,
+  exportPages,
+  exportCategories,
+  exportTemplates
+})
+
+export const mapDispatchToProps = dispatch => ({
+  showPdfPreviewOverlayRecieved: show => dispatch({type: constants.SHOW_PDF_PREVIEW_OVERLAY, show})
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(PdfPreviewOverlay)

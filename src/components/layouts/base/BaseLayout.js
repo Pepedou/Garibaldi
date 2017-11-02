@@ -84,11 +84,13 @@ BaseLayout.propTypes = {
   showDropZoneOverlayRecieved: PropTypes.func,
   showFullImageOverlayRecieved: PropTypes.func,
   updateArtGallery: PropTypes.func,
+  addCheckCard: PropTypes.func,
+  deleteCheckCard: PropTypes.func
 };
 
 export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentUser, showArtOverlay, 
   showArtistOverlay, showFullImageOverlay, updatingCurrentArt, updatingCurrentArtist, showDropZoneOverlay, 
-  sourceImage, extraImages, showPdfPreviewOverlay}) => ({
+  sourceImage, extraImages}) => ({
   checkCards,
   currentArt,
   currentArtist,
@@ -100,8 +102,7 @@ export const mapStateToProps = ({checkCards, currentArt, currentArtist, currentU
   updatingCurrentArt,
   updatingCurrentArtist,
   showDropZoneOverlay,
-  extraImages,
-  showPdfPreviewOverlay
+  extraImages
 })
 
 export const mapDispatchToProps = dispatch => ({
@@ -123,7 +124,9 @@ export const mapDispatchToProps = dispatch => ({
   updateArtGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
   showDropZoneOverlayRecieved: show => dispatch({type: constants.SHOW_DROPZONE_OVERLAY, show}),
   sourceImageRecieved: sourceImage => dispatch({type: constants.SOURCE_IMAGE_RECEIVED, sourceImage}),
-  extraImagesReceived: extraImages => dispatch({type: constants.EXTRA_IMAGES_RECIEVED, extraImages})
+  extraImagesReceived: extraImages => dispatch({type: constants.EXTRA_IMAGES_RECIEVED, extraImages}),
+  addCheckCard: cardId => dispatch({type: constants.ADD_CHECK_CARD, cardId}),
+  deleteCheckCard: cardId => dispatch({type: constants.DELETE_CHECK_CARD, cardId})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(BaseLayout)

@@ -217,8 +217,8 @@ describe('Templates Actions', () => {
         expect(dispatches[3].getAction()).toEqual({
             type: exportPagesActionTypes.EXPORT_PAGES_LOAD_PAGES,
             payload: {
-                "EXPPAGE1": {
-                    id: "EXPPAGE1",
+                "59f680cc9373be0004b3f067": {
+                    id: "59f680cc9373be0004b3f067",
                     type: "Artist",
                     title: "Jisoo",
                     image: "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg",
@@ -235,7 +235,7 @@ describe('Templates Actions', () => {
                 "EXPFILE1": {
                     id: "EXPFILE1",
                     template: "",
-                    pages: ["EXPPAGE1"]
+                    pages: ["59f680cc9373be0004b3f067"]
                 }
             }
         })
@@ -406,8 +406,8 @@ describe('Templates Actions', () => {
         expect(dispatches[3].getAction()).toEqual({
             type: exportPagesActionTypes.EXPORT_PAGES_LOAD_PAGES,
             payload: {
-                "EXPPAGE1": {
-                    id: "EXPPAGE1",
+                "5987ed014a860000047cd9f8": {
+                    id: "5987ed014a860000047cd9f8",
                     type: "ArtPiece",
                     title: "Colores",
                     image: "https://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1502080232/v9gktpjqcwu2gt9hqk37.jpg",
@@ -423,7 +423,7 @@ describe('Templates Actions', () => {
                 "EXPFILE1" :{
                     id: "EXPFILE1",
                     template: "",
-                    pages: ["EXPPAGE1"]
+                    pages: ["5987ed014a860000047cd9f8"]
                 }
             }
         })

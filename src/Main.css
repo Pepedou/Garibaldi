@@ -111,3 +111,18 @@ button.defaultBtn:hover{
     background-color: #ccc;
     border: 1px solid #828282;
 }
+
+div#react-print{
+    display: block;
+}
+
+@media print
+{    
+    .noPrint
+    {
+        display: none !important;
+    }
+
+    @page { margin: 0; }
+}
+

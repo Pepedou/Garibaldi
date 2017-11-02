@@ -1,14 +1,16 @@
 .pdfPage {
     background-color: white;
     padding: 2rem;
-    float: left;
-    width: 100%;
-    height: 792px;
+    height: 842px;
+    position: relative;
+    margin-bottom: 5px;
+    margin-top: 4rem;
 }
 
 .logoWrapper {
     width: 100%;
     float: left;
+    margin-bottom: 10px;
 }
 
 img.pdfPage.center{
@@ -20,17 +22,30 @@ img.pdfPage.center{
 img.itemImage {
     display: block;
     margin: auto;
-    width: 25%;
+    height: 275px;
+    margin-bottom: 5px;
+    max-width: 100%;
 }
 
 .membrete {
-    float: left;
-    width: 100%;
+    width: 96.5%;
     height: 2px;
+    position: absolute;
+    bottom: 60px;
+}
+
+.categoriesWrapper {
+    height: 360px;
+    overflow: hidden;
+}
+
+.categoryValue{
+    text-align: left;
 }
 
 img.pdfLogo {
-    width: 15%;
+    height: 80px;
+    width: auto;
 }
 
 img.pdfLogo.right{
@@ -80,4 +95,3 @@ img.pdfLogo.left{
 .pdfPage.centerBottom{
     background-position: center bottom;
 }
-

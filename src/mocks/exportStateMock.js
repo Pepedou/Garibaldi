@@ -2,20 +2,20 @@ export let exportTemplates = {
     "1000": {
         "id": "1000",
         "name": "Plantilla1",
-        "logo": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png",
-        "logoPosition": "right",
-        "background": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png",
-        "backgroundPosition": "rightBottom",
-        "lineColor": "#D4D600"
+        "logo": "image1.png",
+        "logoPosition": "logo-top-left",
+        "background": "image2.png",
+        "backgroundPosition": "back-center",
+        "lineColor": "#FFFFFF"
     },
     "1001": {
         "id": "1001",
         "name": "Plantilla2",
-        "logo": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png",
-        "logoPosition": "left",
-        "background": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Logo_TV_2015.png",
-        "backgroundPosition": "rightBottom",
-        "lineColor": "#D4D600"
+        "logo": "image2.png",
+        "logoPosition": "logo-top-right",
+        "background": "image3.png",
+        "backgroundPosition": "back-full",
+        "lineColor": "#F0F0F0"
     }
 }
 
@@ -33,7 +33,7 @@ export let exportPages = {
         "type": "artist",
         "imagesSelection": ["https://s-media-cache-ak0.pinimg.com/originals/09/6e/aa/096eaa93bdb91b579ea764dbc516ac2b.jpg", "https://s-media-cache-ak0.pinimg.com/originals/09/6e/aa/096eaa93bdb91b579ea764dbc516ac2b.jpg"],
         "title": "Maria Hernandez",
-        "image": "https://s-media-cache-ak0.pinimg.com/originals/09/6e/aa/096eaa93bdb91b579ea764dbc516ac2b.jpg",
+        "image": "",
         "withImage": true,
         "categories": ["4000", "4001", "4003"]
     },
@@ -42,7 +42,7 @@ export let exportPages = {
         "type": "artist",
         "imagesSelection": ["https://s-media-cache-ak0.pinimg.com/originals/09/6e/aa/096eaa93bdb91b579ea764dbc516ac2b.jpg", "https://s-media-cache-ak0.pinimg.com/originals/09/6e/aa/096eaa93bdb91b579ea764dbc516ac2b.jpg"],
         "title": "Jose Lopez",
-        "image": "https://s-media-cache-ak0.pinimg.com/originals/09/6e/aa/096eaa93bdb91b579ea764dbc516ac2b.jpg",
+        //"image": "https://s-media-cache-ak0.pinimg.com/originals/09/6e/aa/096eaa93bdb91b579ea764dbc516ac2b.jpg",
         "withImage": true,
         "categories": ["4004", "4002", "4005"]
     }

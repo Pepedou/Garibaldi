@@ -66,7 +66,7 @@ class ExportArtistsNormalizer {
     createPagesMap(artistsReponse, artistEntities) {
         return artistsReponse.details.map((a, index) => {
             return {
-                    id: 'EXPPAGE' + (index + 1), 
+                    id: a.id, 
                     type: "ArtPiece",
                     title: a.detail.title.value,
                     image: a.detail.images.value.thumbnail,

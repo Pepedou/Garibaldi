@@ -1,9 +1,6 @@
 import * as actionTypes from './actionTypes'
 
 export const initialState = {
-    id: "",
-    template: "",
-    pages: []
 }
 
 export default function reduce(state = initialState, action = {}) {

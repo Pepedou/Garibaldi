@@ -59,7 +59,7 @@ export default class ProfileNavBar extends Component {
     render() {
         let {currentUser, receiveCurrentUser} = this.props
         return (
-            <div className="ProfileNavBar row">
+            <div className="ProfileNavBar row noPrint">
                 <div className="col-xs-8 col-md-6">
                     <IconMenu
                         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
