@@ -78,9 +78,10 @@ class ExportConfigurationPage extends Component {
             <div className="row subtitle">Exportar a PDF</div>
             <div className="row">
                 <div className="col-xs-12 col-md-12">
-                    <div className="dropdownWrapper">
-                        <div className="instruction">Seleccione la imagen del artista que desea mostrar en el documento</div>
-                        <InputFieldComponent inputType={this.state.templateDropdown.inputType}
+                    <div className="dropdownWrapper row">
+                        <div className="col-xs-12 col-md-12 instruction">Seleccione la imagen del artista que desea mostrar en el documento</div>
+                        <div className="col-xs-12 col-md-6">
+                            <InputFieldComponent inputType={this.state.templateDropdown.inputType}
                                             floatingLabelText={this.state.templateDropdown.floatingLabelText}
                                             className={this.state.templateDropdown.className}
                                             id={this.state.templateDropdown.id}
@@ -88,6 +89,7 @@ class ExportConfigurationPage extends Component {
                                             options={this.state.templateDropdown.options}
                                             value={this.state.templateDropdown.defaultValue}
                                             onChange={event => this.handleOnChangeTemplate(event, this.props)}/>
+                        </div>
                     </div>
                 </div>
             </div>
