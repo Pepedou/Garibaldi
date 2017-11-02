@@ -27,15 +27,15 @@ class ExportArtistsNormalizer {
     recreateArtistsMap(artistsReponse) {
         return artistsReponse.details.map(a => {
             const totalCategories = [
-                { label: 'name', value: a.detail.name.value },
-                { label: 'lastName', value: a.detail.lastName.value },
-                { label: 'email', value: a.detail.email.value },
-                { label: 'phone', value: a.detail.phone.value }
+                { label: 'name', value: a.name },
+                { label: 'lastName', value: a.lastName },
+                { label: 'email', value: a.email },
+                { label: 'phone', value: a.phone }
             ].concat(a.categories)
 
             return {
                     id: a.id, 
-                    name: a.detail.name.value,
+                    name: a.name,
                     profilesImages: a.profilePics || [],
                     categories: totalCategories.map((c, index) => {
                         return {
@@ -66,9 +66,9 @@ class ExportArtistsNormalizer {
             return {
                     id: a.id, 
                     type: "Artist",
-                    title: a.detail.name.value,
-                    image: a.detail.photo.value,
-                    withImage: a.detail.photo.value === "" ? false : true,
+                    title: a.name,
+                    image: a.photo,
+                    withImage: a.photo === "" ? false : true,
                     categories: artistEntities[a.id].categories
             }
         })

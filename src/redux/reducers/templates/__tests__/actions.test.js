@@ -99,34 +99,11 @@ describe('Templates Actions', () => {
             resolve({
                 "details": [
                   {
-                    "id": "59f680cc9373be0004b3f067",
-                    "detail": {
-                      "photo": {
-                        "filter": "default",
-                        "value": "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg"
-                      },
-                      "email": {
-                        "filter": "not_empty",
-                        "value": "jisoo@correo.com"
-                      },
-                      "name": {
-                        "filter": "not_empty",
-                        "value": "Jisoo"
-                      },
-                      "lastName": {
-                        "filter": "default",
-                        "value": "Blackpink"
-                      },
-                      "phone": {
-                        "filter": "default",
-                        "value": ""
-                      },
-                      "culturalHelperId": {
-                        "filter": "not_empty",
-                        "value": "5983b6370516e90004842382"
-                      },
-                      "culturalHelperName": "Lucia"
-                    },
+                    "email": "jisoo@correo.com",
+                    "name": "Jisoo",
+                    "lastName": "Blackpink",
+                    "photo": "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg",
+                    "phone": "",
                     "categories": [
                         {
                             "label": "bla",
@@ -136,7 +113,12 @@ describe('Templates Actions', () => {
                             "label": "bla2",
                             "value": "bla2"
                         }
-                    ]
+                    ],
+                    "profilePics": [
+                      "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg"
+                    ],
+                    "id": "59f680cc9373be0004b3f067",
+                    "culturalHelperId": "5983b6370516e90004842382"
                   }
                 ]
               })
@@ -169,7 +151,7 @@ describe('Templates Actions', () => {
             payload: {
                 "59f680cc9373be0004b3f067": {
                     id: "59f680cc9373be0004b3f067",
-                    profilesImages: [],
+                    profilesImages: ["https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg"],
                     name: "Jisoo",
                     categories: ["EXPCAT1", "EXPCAT2", "EXPCAT3", "EXPCAT4", "EXPCAT5", "EXPCAT6"]
                 }
