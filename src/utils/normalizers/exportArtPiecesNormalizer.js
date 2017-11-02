@@ -6,7 +6,7 @@ class ExportArtistsNormalizer {
         const normalizedEntities = this.normalizeEntities(artPiecesMap)
         const pagesMap = this.createPagesMap(artPiecesResponse, normalizedEntities.entities.artPieces)
         const exportPages = this.normalizePages(pagesMap)
-        const exportFile = this.generateFile(exportPages)
+        const exportFile = this.generateFile(exportPages, templatesResponse)
 
         return {
             templates: this.normalizeTemplates(templatesResponse),
@@ -82,11 +82,11 @@ class ExportArtistsNormalizer {
         }, {})
     }
 
-    generateFile(pages) {
+    generateFile(pages, templatesResponse) {
         return {
             "EXPFILE1": {
                 id: "EXPFILE1",
-                template: "",
+                template: templatesResponse.length > 0 ? templatesResponse[0].id : "",
                 pages: Object.keys(pages)
             }
         }

@@ -234,7 +234,7 @@ describe('Templates Actions', () => {
             payload: {
                 "EXPFILE1": {
                     id: "EXPFILE1",
-                    template: "",
+                    template: "59f67b5d9373be0004b3f066",
                     pages: ["59f680cc9373be0004b3f067"]
                 }
             }
@@ -390,7 +390,7 @@ describe('Templates Actions', () => {
             payload: {
                 "EXPFILE1" :{
                     id: "EXPFILE1",
-                    template: "",
+                    template: "59f67b5d9373be0004b3f066",
                     pages: ["59f9f1320060690004443a98"]
                 }
             }
