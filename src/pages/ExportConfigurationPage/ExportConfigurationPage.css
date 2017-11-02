@@ -1,0 +1,45 @@
+.ExportConfigurationPage{
+    padding: 10px;
+}
+
+.instruction {
+    font-style: italic;
+    padding-bottom: 2rem;
+}
+
+.row.subtitle{
+    font-weight: bold;
+    margin: 2rem 0rem;
+}
+
+.SelectFieldComponent {
+    margin-top: 0px;
+}
+
+.dropdownWrapper {
+    padding: 2rem 15rem;
+}
+
+.buttonWrapper {
+    padding: 2rem 15rem;
+}
+
+@media screen and (max-width: 320px) {
+    .dropdownWrapper {
+        padding: 1rem;
+    }
+
+    .buttonWrapper {
+        padding: 1rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .dropdownWrapper {
+        padding: 2rem;
+    }
+
+    .buttonWrapper {
+        padding: 1rem;
+    }
+}

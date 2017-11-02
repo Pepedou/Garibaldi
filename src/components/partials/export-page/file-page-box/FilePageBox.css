@@ -1,0 +1,67 @@
+.FilePageBox {
+    margin: 2rem 15rem;
+    padding: 2rem;
+    border: 1px solid #9E9E9E;
+}
+
+.pageTitle {
+    text-align: center;
+    padding-bottom: 2rem;
+    font-weight: bold;
+    font-size: 1.7rem;
+}
+
+.instruction {
+    font-style: italic;
+    padding-bottom: 2rem;
+}
+
+.artistsImagesWrapper {
+    padding: 0.5rem;
+}
+
+.imagesList {
+    margin-bottom: 1rem;
+}
+
+img.imageItem {
+    width: 25%;
+    border: 4px solid white;
+    cursor: pointer
+}
+
+img.imageItem:hover {
+    border: 4px solid #828282;
+}
+
+.categoriesWrapper{
+    padding: 0.5rem;
+}
+
+.artImageWrapper{
+    padding: 0.5rem;
+}
+
+.imageItemFull{
+    width: 100%;
+}
+
+img.imageSelected{
+    border: 4px solid #03A9F4;
+}
+
+@media screen and (max-width: 400px) {
+    .FilePageBox {
+        margin: 1rem;
+    }
+
+    img.imageItem {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .FilePageBox {
+        margin: 2rem;
+    }
+}

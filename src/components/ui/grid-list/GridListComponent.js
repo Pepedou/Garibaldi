@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {GridList, GridTile} from 'material-ui/GridList';
 import Checkbox from 'material-ui/Checkbox';
 import {MosaicTypes} from '../../../utils/constants/MosaicTypes'
+import images from '../../../content/images/exportImages'
 
 const styles = {
   gridList: {
@@ -67,7 +68,7 @@ export default class GridListComponent extends Component {
         if(mosaicType === MosaicTypes.ART) {
             return card.images.thumbnail 
         } else {
-            return card.photo === "" || !card.photo ? "https://s3.amazonaws.com/whisperinvest-images/default.png" : card.photo 
+            return card.photo === "" || !card.photo ? images.default_user : card.photo 
         }
     }
 

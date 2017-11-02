@@ -12,6 +12,7 @@ import UserProfilePage from './pages/UserProfilePage/UserProfilePage'
 import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage'
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage'
+import ExportConfigurationPage from './pages/ExportConfigurationPage/ExportConfigurationPage'
 import LoginLayout from './components/layouts/login-layout/LoginLayout'
 import BaseLayout from './components/layouts/base/BaseLayout'
 import SimpleLayout from './components/layouts/simple/SimpleLayout'
@@ -97,6 +98,7 @@ const router = (
                     <Route path="/newArtist" component={NewArtistPage} onEnter={requireAuth(store, true)}/>
                     <Route path="/myUserProfile" component={UserProfilePage} onEnter={requireAuth(store, true)}/>
                     <Route path="/createTemplate" component={CreateTemplatePage} onEnter={requireAuth(store, true)}/>
+                    <Route path="/exportConfiguration" component={ExportConfigurationPage} onEnter={requireAuth(store, true)}/>
                 </Route>
                 <Route path="/play" component={PlaygroundPage} />
             </Router>

@@ -1,5 +1,4 @@
 import * as types from './actionTypes'
-import * as selectors from './reducer'
 // YOU MAY IMPORT ACTIONS COMING FROM OTHER REDUCERS
 
 // HERE YOU LIST ANY ACTION FUNCTIONS

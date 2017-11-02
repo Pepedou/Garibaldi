@@ -77,12 +77,12 @@ class Mosaic extends Component {
       <div className="col-xs-12 Mosaic">
         {
           cardList && <GridListComponent 
-                                    cardList={cardList}
-                                    mosaicType={mosaicType}
-                                    addCheckCard={addCheckCard}
-                                    deleteCheckCard={deleteCheckCard}
-                                    onTouchTap={this.handleOnTouchTap.bind(this)}
-                                    onCheck={this.handleOnCheck.bind(this)}/>
+                          cardList={cardList}
+                          mosaicType={mosaicType}
+                          addCheckCard={addCheckCard}
+                          deleteCheckCard={deleteCheckCard}
+                          onTouchTap={this.handleOnTouchTap.bind(this)}
+                          onCheck={this.handleOnCheck.bind(this)}/>
         }
       </div>
     )

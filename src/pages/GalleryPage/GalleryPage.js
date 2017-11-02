@@ -93,7 +93,9 @@ GalleryPage.propTypes = {
   loadingArtDetail: PropTypes.func,
   updatingCurrentArt: PropTypes.bool,
   showFullImageOverlayRecieved: PropTypes.func,
-  showDropZoneOverlayRecieved: PropTypes.func
+  showDropZoneOverlayRecieved: PropTypes.func,
+  addCheckCard: PropTypes.func,
+  deleteCheckCard: PropTypes.func
 }
 
 export const mapStateToProps = ({artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt, sourceImage}) => ({
@@ -108,7 +110,9 @@ export const mapDispatchToProps = dispatch => ({
   loadingGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
   loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
   showFullImageOverlayRecieved: show => dispatch({type: constants.SHOW_FULL_IMAGE_OVERLAY, show}),
-  showDropZoneOverlayRecieved: show => dispatch({type: constants.SHOW_DROPZONE_OVERLAY, show})
+  showDropZoneOverlayRecieved: show => dispatch({type: constants.SHOW_DROPZONE_OVERLAY, show}),
+  addCheckCard: cardId => dispatch({type: constants.ADD_CHECK_CARD, cardId}),
+  deleteCheckCard: cardId => dispatch({type: constants.DELETE_CHECK_CARD, cardId})
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(GalleryPage)

@@ -10,6 +10,10 @@ import {white} from 'material-ui/styles/colors'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
 import ArtistServices from '../../../../utils/services/artistServices'
 import CulturalHelpersServices from '../../../../utils/services/culturalHelperServices'
+import images from '../../../../content/images/exportImages'
+import { loadTemplateConfigForArtists } from '../../../../redux/reducers/templates/actions'
+import {connect} from 'react-redux'
+import { withRouter } from 'react-router'
 
 require("./ArtistCard.css")
 
@@ -19,7 +23,7 @@ let editBtnStyle = {
     color: white
 }
 
-export default class ArtistCard extends Component {
+class ArtistCard extends Component {
     constructor(props)
     {
         super(props)
@@ -96,12 +100,12 @@ export default class ArtistCard extends Component {
     getPhoto(editedArtist) {
         if( Object.getOwnPropertyNames(editedArtist).length > 0) {
             if(editedArtist.detail.photo.value === "" || !editedArtist.detail.photo.value) {
-                return "https://s3.amazonaws.com/whisperinvest-images/default.png"
+                return images.default_user
             } else {
                 return editedArtist.detail.photo.value
             }
         } else {
-            return "https://s3.amazonaws.com/whisperinvest-images/default.png"
+            return images.default_user
         }
     }
 
@@ -143,8 +147,12 @@ export default class ArtistCard extends Component {
         })
     }
 
-    handlePDF() {
-        
+    async handlePDF() {
+        let {currentArtist, loadingArtistDetail, configExportForArtists, router} = this.props
+        loadingArtistDetail(true)
+        await configExportForArtists([currentArtist.id])
+        loadingArtistDetail(false)
+        router.push('/exportConfiguration')
     }
 
     render() {
@@ -215,3 +223,8 @@ ArtistCard.propTypes = {
   showDropZoneOverlayRecieved: PropTypes.func,
   extraImages: PropTypes.array
 }
+
+export default withRouter(connect(
+  null,
+  { configExportForArtists: loadTemplateConfigForArtists}
+)(ArtistCard))
