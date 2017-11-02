@@ -56,6 +56,18 @@ img.pdfLogo.left{
     float: left;
 }
 
+@media screen and (max-width: 768px) {
+    .membrete {
+        width: 93.5%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .membrete {
+        width: 87.5%;
+    }
+}
+
 .pdfPage{
     background-repeat: no-repeat;
 }
