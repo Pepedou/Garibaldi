@@ -1,4 +1,5 @@
 import { normalize, schema } from 'normalizr'
+import Uuid from 'uuid-lib'
 
 class ExportArtistsNormalizer {
     normalizeConfig(templatesResponse, artistsReponse) {
@@ -39,7 +40,7 @@ class ExportArtistsNormalizer {
                     profilesImages: a.profilePics || [],
                     categories: totalCategories.map((c, index) => {
                         return {
-                            id: 'EXPCAT' + (index + 1),
+                            id: Uuid.raw(),
                             label: c.label,
                             value: c.value
                         }
