@@ -68,7 +68,7 @@ class ExportArtistsNormalizer {
                     type: "Artist",
                     title: a.detail.name.value,
                     image: a.detail.photo.value,
-                    withImage: true,
+                    withImage: a.detail.photo.value === "" ? false : true,
                     categories: artistEntities[a.id].categories
             }
         })
