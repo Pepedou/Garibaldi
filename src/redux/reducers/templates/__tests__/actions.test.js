@@ -99,34 +99,11 @@ describe('Templates Actions', () => {
             resolve({
                 "details": [
                   {
-                    "id": "59f680cc9373be0004b3f067",
-                    "detail": {
-                      "photo": {
-                        "filter": "default",
-                        "value": "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg"
-                      },
-                      "email": {
-                        "filter": "not_empty",
-                        "value": "jisoo@correo.com"
-                      },
-                      "name": {
-                        "filter": "not_empty",
-                        "value": "Jisoo"
-                      },
-                      "lastName": {
-                        "filter": "default",
-                        "value": "Blackpink"
-                      },
-                      "phone": {
-                        "filter": "default",
-                        "value": ""
-                      },
-                      "culturalHelperId": {
-                        "filter": "not_empty",
-                        "value": "5983b6370516e90004842382"
-                      },
-                      "culturalHelperName": "Lucia"
-                    },
+                    "email": "jisoo@correo.com",
+                    "name": "Jisoo",
+                    "lastName": "Blackpink",
+                    "photo": "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg",
+                    "phone": "",
                     "categories": [
                         {
                             "label": "bla",
@@ -136,7 +113,12 @@ describe('Templates Actions', () => {
                             "label": "bla2",
                             "value": "bla2"
                         }
-                    ]
+                    ],
+                    "profilePics": [
+                      "https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg"
+                    ],
+                    "id": "59f680cc9373be0004b3f067",
+                    "culturalHelperId": "5983b6370516e90004842382"
                   }
                 ]
               })
@@ -169,7 +151,7 @@ describe('Templates Actions', () => {
             payload: {
                 "59f680cc9373be0004b3f067": {
                     id: "59f680cc9373be0004b3f067",
-                    profilesImages: [],
+                    profilesImages: ["https://res.cloudinary.com/zamancer/image/upload/v1509327035/oanycesrjyd0pd74cl5p.jpg"],
                     name: "Jisoo",
                     categories: ["EXPCAT1", "EXPCAT2", "EXPCAT3", "EXPCAT4", "EXPCAT5", "EXPCAT6"]
                 }
@@ -234,7 +216,7 @@ describe('Templates Actions', () => {
             payload: {
                 "EXPFILE1": {
                     id: "EXPFILE1",
-                    template: "",
+                    template: "59f67b5d9373be0004b3f066",
                     pages: ["59f680cc9373be0004b3f067"]
                 }
             }
@@ -261,64 +243,32 @@ describe('Templates Actions', () => {
         ArtPiecesServices.detailFor.mockReturnValueOnce(new Promise((resolve, reject) => {
             resolve({
                 "details": [
-                  {
-                    "id": "5987ed014a860000047cd9f8",
-                    "detail": {
-                      "author": {
-                        "filter": "not_empty",
-                        "value": "Rose Artista"
-                      },
-                      "title": {
-                        "filter": "not_empty",
-                        "value": "Colores"
-                      },
-                      "technique": {
-                        "filter": "default",
-                        "value": ""
-                      },
-                      "materials": {
-                        "filter": "default",
-                        "value": ""
-                      },
-                      "measurements": {
-                        "filter": "default",
-                        "value": ""
-                      },
-                      "year": {
-                        "filter": "default",
-                        "value": ""
-                      },
-                      "source": {
-                        "filter": "not_empty",
-                        "value": "https://res.cloudinary.com/zamancer/image/upload/v1502080232/v9gktpjqcwu2gt9hqk37.jpg"
-                      },
-                      "images": {
-                        "filter": "not_empty",
-                        "value": {
-                          "thumbnail": "https://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1502080232/v9gktpjqcwu2gt9hqk37.jpg",
-                          "standard": "https://res.cloudinary.com/zamancer/image/upload/v1502080232/v9gktpjqcwu2gt9hqk37.jpg"
-                        }
-                      },
-                      "description": {
-                        "filter": "default",
-                        "value": ""
-                      },
-                      "artistId": {
-                        "filter": "not_empty",
-                        "value": "5983d3e00516e90004842387"
-                      }
-                    },
-                    "categories": [
-                        {
-                            "label": "bla",
-                            "value": "bla"
+                    {
+                        "author": "Jisoo Blackpink",
+                        "title": "Colores",
+                        "technique": "",
+                        "materials": "",
+                        "measurements": "",
+                        "year": "",
+                        "description": "",
+                        "source": "https://res.cloudinary.com/zamancer/image/upload/v1509552431/ffqevw7q4fc7w63izw2r.jpg",
+                        "artistId": "59f680cc9373be0004b3f067",
+                        "images": {
+                          "thumbnail": "https://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1509552431/ffqevw7q4fc7w63izw2r.jpg",
+                          "standard": "https://res.cloudinary.com/zamancer/image/upload/v1509552431/ffqevw7q4fc7w63izw2r.jpg"
                         },
-                        {
-                            "label": "bla2",
-                            "value": "bla2"
-                        }
-                    ]
-                  }
+                        "categories": [
+                            {
+                                "label": "bla",
+                                "value": "bla"
+                            },
+                            {
+                                "label": "bla2",
+                                "value": "bla2"
+                            }
+                        ],
+                        "id": "59f9f1320060690004443a98"
+                      }
                 ]
               })
         }))
@@ -347,9 +297,9 @@ describe('Templates Actions', () => {
         expect(dispatches[1].getAction()).toEqual({
             type: exportArtPiecesActionTypes.EXPORT_ARTPIECES_LOAD_ARTPIECES,
             payload: {
-                "5987ed014a860000047cd9f8": {
-                    id: "5987ed014a860000047cd9f8",
-                    image: "https://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1502080232/v9gktpjqcwu2gt9hqk37.jpg",
+                "59f9f1320060690004443a98": {
+                    id: "59f9f1320060690004443a98",
+                    image: "https://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1509552431/ffqevw7q4fc7w63izw2r.jpg",
                     title: "Colores",
                     categories: ["EXPCAT1", "EXPCAT2", "EXPCAT3", "EXPCAT4", "EXPCAT5", "EXPCAT6", "EXPCAT7", "EXPCAT8"]
                 }
@@ -363,7 +313,7 @@ describe('Templates Actions', () => {
                 "EXPCAT1": {
                     id: "EXPCAT1",
                     label: "author",
-                    value: "Rose Artista"
+                    value: "Jisoo Blackpink"
                 },
                 "EXPCAT2": {
                     id: "EXPCAT2",
@@ -406,11 +356,11 @@ describe('Templates Actions', () => {
         expect(dispatches[3].getAction()).toEqual({
             type: exportPagesActionTypes.EXPORT_PAGES_LOAD_PAGES,
             payload: {
-                "5987ed014a860000047cd9f8": {
-                    id: "5987ed014a860000047cd9f8",
+                "59f9f1320060690004443a98": {
+                    id: "59f9f1320060690004443a98",
                     type: "ArtPiece",
                     title: "Colores",
-                    image: "https://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1502080232/v9gktpjqcwu2gt9hqk37.jpg",
+                    image: "https://res.cloudinary.com/zamancer/image/upload/c_fill,g_west,h_150,w_150/v1509552431/ffqevw7q4fc7w63izw2r.jpg",
                     withImage: true,
                     categories: ["EXPCAT1", "EXPCAT2", "EXPCAT3", "EXPCAT4", "EXPCAT5", "EXPCAT6", "EXPCAT7", "EXPCAT8"]
                 }
@@ -422,8 +372,8 @@ describe('Templates Actions', () => {
             payload: {
                 "EXPFILE1" :{
                     id: "EXPFILE1",
-                    template: "",
-                    pages: ["5987ed014a860000047cd9f8"]
+                    template: "59f67b5d9373be0004b3f066",
+                    pages: ["59f9f1320060690004443a98"]
                 }
             }
         })
