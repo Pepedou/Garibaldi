@@ -98,7 +98,7 @@ class FilePageBox extends Component {
                               </div>
                         }
                     </div>
-                    <div className="col-xs-12 col-md-6 categoriesWrapper">
+                    <div className="col-xs-12 col-md-6 categoriesFileBoxWrapper">
                         <div className="instruction">Seleccione las categorias que desea mostrar en el documento</div>
                         <div className="categoriesList">
                         {

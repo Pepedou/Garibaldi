@@ -13,6 +13,7 @@ import FloatingBar from '../../partials/floating-bar/FloatingBar'
 import {handleError} from '../../../utils/errorHandling'
 import ArtistServices from '../../../utils/services/artistServices'
 
+
 require('../../../Main.css');
 
 class BaseLayout extends Component {

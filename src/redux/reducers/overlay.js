@@ -47,3 +47,15 @@ export let showDropZoneOverlayReducer = (state = false, action) => {
     return state
   }
 }
+
+export let showPdfPreviewOverlayReducer = (state = false, action) => {
+  let {type, show} = action
+
+  switch (type) {
+  case constants.SHOW_PDF_PREVIEW_OVERLAY:
+    return show
+
+  default:
+    return state
+  }
+}

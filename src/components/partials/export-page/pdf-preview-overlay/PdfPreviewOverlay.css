@@ -1,0 +1,127 @@
+.pdfPage {
+    background-color: white;
+    padding: 2rem;
+    height: 1000px;
+    position: relative;
+    margin-bottom: 5px;
+    width: 730px;
+}
+
+.overlayContent {
+    margin-top: 4rem;
+}
+
+button.downloadBtn {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: block;
+}
+
+.logoWrapper {
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+img.pdfPage.center{
+    margin-left: auto;
+    display: block;
+    margin-right: auto;
+}
+
+img.itemImage {
+    display: block;
+    margin: auto;
+    height: 275px;
+    margin-bottom: 5px;
+    max-width: 100%;
+}
+
+.membrete {
+    width: 95%;
+    height: 2px;
+    position: absolute;
+    bottom: 60px;
+}
+
+.categoriesWrapper {
+    height: 360px;
+    overflow: hidden;
+}
+
+.categoryValue{
+    text-align: left;
+}
+
+img.pdfLogo {
+    height: 80px;
+    width: auto;
+}
+
+img.pdfLogo.right{
+    float: right;
+}
+
+img.pdfLogo.left{
+    float: left;
+}
+
+@media screen and (max-width: 1023px) {
+    .pdfPage {
+        width: auto;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .membrete {
+        width: 93.5%;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .membrete {
+        width: 87.5%;
+    }
+}
+
+.pdfPage{
+    background-repeat: no-repeat;
+}
+
+.pdfPage.leftTop{
+    background-position: left top;
+}
+
+.pdfPage.leftCenter{
+    background-position: left center;
+}
+
+.pdfPage.leftBottom{
+    background-position: left bottom;
+}
+
+.pdfPage.rightTop{
+    background-position: right top;
+}
+
+.pdfPage.rightCenter{
+    background-position: right center;
+}
+
+.pdfPage.rightBottom{
+    background-position: right bottom;
+}
+
+.pdfPage.centerTop{
+    background-position: center top;
+}
+
+.pdfPage.centerCenter{
+    background-position: center center;
+}
+
+.pdfPage.centerBottom{
+    background-position: center bottom;
+}
