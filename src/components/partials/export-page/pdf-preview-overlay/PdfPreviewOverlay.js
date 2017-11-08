@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import * as constants from '../../../../redux/constants'
-import DefaultButton from '../../../ui/buttons/DefaultButton'
+import ExportToPDFButton from '../../../ui/export-to-pdf-button/ExportToPDFButton'
 require('../../../../Main.css')
 require('./PdfPreviewOverlay.css')
 
@@ -11,16 +11,12 @@ class PdfPreviewOverlay extends Component {
         showPdfPreviewOverlayRecieved(false)
     }
 
-    downloadPdf() {
-        window.print()
-    }
-
     render() {
         let {showPdfPreviewOverlay, showPdfPreviewOverlayRecieved, exportTemplates, exportFile, exportPages, exportCategories} = this.props
         return (showPdfPreviewOverlay
             ? <div className="Overlay PdfPreviewOverlay">
                 <a className="Closebtn noPrint" onClick={() => this.toggleOverlay(showPdfPreviewOverlayRecieved)}>&times;</a>
-                <div>
+                <div className="overlayContent">
                 <center>
                 {
                     exportFile.EXPFILE1.pages.map((value, key) => {
@@ -68,13 +64,7 @@ class PdfPreviewOverlay extends Component {
                 }
                 </center>
                 </div>
-                <DefaultButton
-                    label="DESCARGAR"
-                    labelPosition="after"
-                    floatStyle="right"
-                    className="marginTop noPrint"
-                    onTouchTap={event => this.downloadPdf(event, this.props)}
-                    />
+                <ExportToPDFButton pageClass=".pdfPage"/>
             </div>
             : null)
     }

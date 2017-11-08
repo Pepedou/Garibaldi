@@ -1,10 +1,22 @@
 .pdfPage {
     background-color: white;
     padding: 2rem;
-    height: 842px;
+    height: 1000px;
     position: relative;
     margin-bottom: 5px;
+    width: 730px;
+}
+
+.overlayContent {
     margin-top: 4rem;
+}
+
+button.downloadBtn {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: block;
 }
 
 .logoWrapper {
@@ -28,7 +40,7 @@ img.itemImage {
 }
 
 .membrete {
-    width: 96.5%;
+    width: 95%;
     height: 2px;
     position: absolute;
     bottom: 60px;
