@@ -68,6 +68,12 @@ img.pdfLogo.left{
     float: left;
 }
 
+@media screen and (max-width: 1023px) {
+    .pdfPage {
+        width: auto;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .membrete {
         width: 93.5%;
