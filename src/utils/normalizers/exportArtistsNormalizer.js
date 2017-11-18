@@ -28,10 +28,10 @@ class ExportArtistsNormalizer {
     recreateArtistsMap(artistsReponse) {
         return artistsReponse.details.map(a => {
             const totalCategories = [
-                { label: 'name', value: a.name },
-                { label: 'lastName', value: a.lastName },
-                { label: 'email', value: a.email },
-                { label: 'phone', value: a.phone }
+                { label: 'Nombre', value: a.name },
+                { label: 'Apellido', value: a.lastName },
+                { label: 'Email', value: a.email },
+                { label: 'Teléfono', value: a.phone }
             ].concat(a.categories)
 
             return {
