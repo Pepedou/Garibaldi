@@ -13,6 +13,7 @@ import PlaygroundPage from './pages/PlaygroundPage/PlaygroundPage'
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage'
 import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage'
 import ExportConfigurationPage from './pages/ExportConfigurationPage/ExportConfigurationPage'
+import AboutPage from './pages/AboutPage/AboutPage'
 import LoginLayout from './components/layouts/login-layout/LoginLayout'
 import BaseLayout from './components/layouts/base/BaseLayout'
 import SimpleLayout from './components/layouts/simple/SimpleLayout'
@@ -88,6 +89,7 @@ const router = (
                     <Route path="/register" component={RegisterPage} onEnter={requireAuth(store, false)} />
                     <Route path="/forgotPassword" component={ForgotPasswordPage} onEnter={requireAuth(store, false)} />
                     <Route path="/resetPassword/:accessToken" component={ResetPasswordPage} onEnter={requireAuth(store, false)} />
+                    <Route path="/about" component={AboutPage} onEnter={requireAuth(store, false)}/>
                 </Route>
                 <Route path="/home" component={BaseLayout} onEnter={requireAuth(store, true)}>
                     <IndexRoute component={GalleryPage} onEnter={requireAuth(store, true)}/>

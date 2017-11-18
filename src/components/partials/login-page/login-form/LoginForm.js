@@ -85,9 +85,6 @@ class LoginForm extends Component {
                     </center>
                 </div>
                 <div className="row marginTop">
-                    <center>Entra ya y empieza a descubrir arte, artistas y galerías.</center>
-                </div>
-                <div className="row marginTop">
                     <div className="form-group">
                         <form onSubmit={event => this.handleOnClick(event, this.props)}>
                             {

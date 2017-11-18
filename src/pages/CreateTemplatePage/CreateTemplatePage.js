@@ -121,6 +121,7 @@ class CreateTemplatePage extends Component {
             templateNameCopy.errorText = "Campo obligatorio"
             this.setState({templateName: templateNameCopy})
             addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})
+            loading(false)
         } else {
             ExportTemplatesServices.create(template)
             .then(function (response) {

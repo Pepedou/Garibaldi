@@ -18,6 +18,7 @@ export default class LoginNavbar extends Component {
                 <div className="col-xs-12 col-md-4">
                     <Link to="/" className="loginOption" id="loginOption">Iniciar sesión</Link>
                     <Link to="/register" className="loginOption" id="registerOption">Regístrate</Link>
+                    <Link to="/about" className="loginOption" id="aboutOption">Sobre Artchive</Link>
                 </div>
                 <div className="col-xs-12 col-md-4">
                     <center>
