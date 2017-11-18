@@ -1,8 +1,18 @@
 export let newArtFields = [
     {
+        inputType: "textField",
+        floatingLabelText: "Nombre de la pieza",
+        hintText: "Ingrese el nombre de la pieza",
+        id: "title",
+        type: "text",
+        className: "obligatoryField TextField",
+        errorText: "",
+        defaultValue: ""
+    },
+    {
         inputType: "autocomplete",
-        floatingLabelText: "Artista",
-        hintText: "Ingrese el artista",
+        floatingLabelText: "Nombre del artista",
+        hintText: "Ingrese el nombre del artista",
         id: "author",
         type: "text",
         className: "obligatoryField TextField",
@@ -11,11 +21,42 @@ export let newArtFields = [
     },
     {
         inputType: "textField",
-        floatingLabelText: "Título",
-        hintText: "Ingrese el título",
-        id: "title",
+        floatingLabelText: "Medidas",
+        hintText: "Ingrese las medidas",
+        id: "measurements",
         type: "text",
-        className: "obligatoryField TextField",
+        className: "TextField",
+        errorText: "",
+        defaultValue: ""
+    },
+    {
+        inputType: "textField",
+        floatingLabelText: "Técnica",
+        hintText: "Ingrese la técnica",
+        id: "description",
+        type: "text",
+        className: "TextField",
+        errorText: "",
+        defaultValue: "",
+        multiLine: true
+    },
+    {
+        inputType: "textField",
+        floatingLabelText: "Serie",
+        hintText: "Ingrese la serie",
+        id: "series",
+        type: "text",
+        className: "TextField",
+        errorText: "",
+        defaultValue: ""
+    },
+    {
+        inputType: "textField",
+        floatingLabelText: "Tiraje",
+        hintText: "Ingrese el tiraje",
+        id: "tiraje",
+        type: "text",
+        className: "TextField",
         errorText: "",
         defaultValue: ""
     },
@@ -29,42 +70,12 @@ export let newArtFields = [
         errorText: "",
         defaultValue: ""
     },
+    
     {
         inputType: "textField",
-        floatingLabelText: "Descripción",
-        hintText: "Ingrese la descripción",
-        id: "description",
-        type: "text",
-        className: "TextField",
-        errorText: "",
-        defaultValue: "",
-        multiLine: true
-    },
-    {
-        inputType: "textField",
-        floatingLabelText: "Técnica",
-        hintText: "Ingrese la técnica",
-        id: "technique",
-        type: "text",
-        className: "TextField",
-        errorText: "",
-        defaultValue: ""
-    },
-    {
-        inputType: "textField",
-        floatingLabelText: "Materiales",
-        hintText: "Ingrese los materiales",
-        id: "materials",
-        type: "text",
-        className: "TextField",
-        errorText: "",
-        defaultValue: ""
-    },
-    {
-        inputType: "textField",
-        floatingLabelText: "Medidas",
-        hintText: "Ingrese las medidas",
-        id: "measurements",
+        floatingLabelText: "Precio",
+        hintText: "Ingrese el precio",
+        id: "price",
         type: "text",
         className: "TextField",
         errorText: "",

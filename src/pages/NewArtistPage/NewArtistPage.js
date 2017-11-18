@@ -196,6 +196,7 @@ class NewArtistPage extends Component {
                                                                         errorText={item.errorText}
                                                                         options={item.options}
                                                                         defaultValue={item.defaultValue}
+                                                                        multiLine={item.multiLine}
                                                                         dataSource={this.state.dataSource}
                                                                         onChange={event => this.handleOnChange(event)}
                                                                         onNewRequest={(value) => this.handleOnNewRequest(value, item.id)}/>)

@@ -115,7 +115,13 @@ class ArtistCard extends Component {
         let newArtist = {
             name: this.state.editedArtist.detail.name.value,
             lastName: this.state.editedArtist.detail.lastName.value,
-            phone: this.state.editedArtist.detail.phone.value,
+            nickname: this.state.editedArtist.detail.nickname.value,
+            age: this.state.editedArtist.detail.age.value,
+            nationality: this.state.editedArtist.detail.nationality.value,
+            profession: this.state.editedArtist.detail.profession.value,
+            piece: this.state.editedArtist.detail.piece.value,
+            education: this.state.editedArtist.detail.education.value,
+            exhibitions: this.state.editedArtist.detail.exhibitions.value,
             photo: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArtist.detail.photo.value,
             culturalHelperId: this.state.editedArtist.detail.culturalHelperId.value,
             categories: this.state.editedArtist.categories,
@@ -192,11 +198,11 @@ class ArtistCard extends Component {
                                                     propertyName: "email"}}
                                          validate={this.handleCategoryValidation.bind(this)}/>}
                     cardSubtitle={<Category category={{required: false,
-                                                       categoryName: 'Teléfono',
-                                                       categoryValue: getDetailValue(editedArtist.detail.phone.value),
+                                                       categoryName: 'Nombre artístico',
+                                                       categoryValue: getDetailValue(editedArtist.detail.nickname.value),
                                                        editableName: false,
                                                        editableValue: true,
-                                                       propertyName: "phone"}}
+                                                       propertyName: "nickname"}}
                                             validate={this.handleCategoryValidation.bind(this)}/>}
                     cardDescription={<CardDescription artistCardInformation={editedArtist}
                                                       onTouchTap={this.handleAddCategory.bind(this)}
