@@ -6,7 +6,7 @@ import {artGalleryReducer, updatingArtGalleryReducer} from './artGallery'
 import {artistGalleryReducer, updatingArtistGalleryReducer} from './artistGallery'
 import {currentArtReducer, updatingCurrentArtReducer} from './currentArt'
 import {currentArtistReducer, updatingCurrentArtistReducer} from './currentArtist'
-import {showArtOverlayReducer, showArtistOverlayReducer, showFullImageOverlayReducer, showDropZoneOverlayReducer} from './overlay'
+import {showArtOverlayReducer, showArtistOverlayReducer, showFullImageOverlayReducer, showDropZoneOverlayReducer, showPdfPreviewOverlayReducer} from './overlay'
 import {checkCardsReducer} from './floatingBar'
 import {sourceImageReducer, extraImagesReducer} from './sourceImage'
 import exportTemplatesReducer from './templates/reducer'
@@ -41,7 +41,8 @@ const reducers = combineReducers({
   exportPages: exportPagesReducer,
   exportCategories: exportCategoriesReducer,
   exportArtists: exportArtistsReducer,
-  exportArtPieces: exportArtPiecesReducer
+  exportArtPieces: exportArtPiecesReducer,
+  showPdfPreviewOverlay: showPdfPreviewOverlayReducer
 })
 
 export default reducers

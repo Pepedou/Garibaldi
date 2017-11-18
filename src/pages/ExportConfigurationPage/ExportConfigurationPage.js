@@ -1,6 +1,6 @@
 /*eslint-disable no-mixed-operators*/
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {handleError} from '../../utils/errorHandling'
 import * as constants from '../../redux/constants'
@@ -10,6 +10,7 @@ import InputFieldComponent from '../../components/ui/input-field/InputFieldCompo
 import DefaultButton from '../../components/ui/buttons/DefaultButton'
 import { withRouter } from 'react-router'
 import { updateExportFile } from '../../redux/reducers/exportFile/actions'
+require('../../Main.css')
 require('./ExportConfigurationPage.css')
 
 class ExportConfigurationPage extends Component {
@@ -33,7 +34,7 @@ class ExportConfigurationPage extends Component {
     }
 
     componentWillMount() {
-        let {router, exportFile, exportPages, exportCategories, exportArtists, exportArtPieces} = this.props
+        let {router, exportFile, exportPages, exportCategories} = this.props
         if(Object.keys(exportFile).length === 0
             || Object.keys(exportPages).length === 0
             || Object.keys(exportCategories).length === 0) {
@@ -60,8 +61,9 @@ class ExportConfigurationPage extends Component {
         this.setState({templateDropdown: templateDropdownCopy})
     }
 
-    createPreview() {
-
+    createPreview(event, props) {
+        let {showPdfPreviewOverlayRecieved} = props
+        showPdfPreviewOverlayRecieved(true)
     }
 
     render() {
@@ -72,20 +74,22 @@ class ExportConfigurationPage extends Component {
                 <div className="row">No se encontraron plantillas. Para exportar a PDF es necesario tener al menos una plantilla</div>
             </center>
         </div>
-        : <div className="col-xs-12 col-md-12 ExportConfigurationPage">
+        : <div className="col-xs-12 col-md-12 ExportConfigurationPage noPrint">
             <div className="row subtitle">Exportar a PDF</div>
             <div className="row">
                 <div className="col-xs-12 col-md-12">
-                    <div className="dropdownWrapper">
-                        <div className="instruction">Seleccione la imagen del artista que desea mostrar en el documento</div>
-                        <InputFieldComponent inputType={this.state.templateDropdown.inputType}
+                    <div className="dropdownWrapper row">
+                        <div className="col-xs-12 col-md-12 instruction">Seleccione la imagen del artista que desea mostrar en el documento</div>
+                        <div className="col-xs-12 col-md-6">
+                            <InputFieldComponent inputType={this.state.templateDropdown.inputType}
                                             floatingLabelText={this.state.templateDropdown.floatingLabelText}
                                             className={this.state.templateDropdown.className}
                                             id={this.state.templateDropdown.id}
                                             errorText={this.state.templateDropdown.errorText}
                                             options={this.state.templateDropdown.options}
-                                            defaultValue={this.state.templateDropdown.defaultValue}
+                                            value={this.state.templateDropdown.defaultValue}
                                             onChange={event => this.handleOnChangeTemplate(event, this.props)}/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -130,7 +134,8 @@ ExportConfigurationPage.propTypes = {
     exportArtists: PropTypes.object,
     exportArtPieces: PropTypes.object,
     addNotification: PropTypes.func,
-    clearAllNotifications: PropTypes.func
+    clearAllNotifications: PropTypes.func,
+    showPdfPreviewOverlayRecieved: PropTypes.func
 }
 
 export const mapStateToProps = ({exportTemplates, exportFile, exportPages, exportCategories, exportArtists, exportArtPieces}) => ({
@@ -145,6 +150,7 @@ export const mapStateToProps = ({exportTemplates, exportFile, exportPages, expor
 export const mapDispatchToProps = dispatch => ({
   addNotification: notification => handleError(dispatch, notification),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
+  showPdfPreviewOverlayRecieved: show => dispatch({type: constants.SHOW_PDF_PREVIEW_OVERLAY, show}),
   updateFile: () => dispatch(updateExportFile())
 })
 

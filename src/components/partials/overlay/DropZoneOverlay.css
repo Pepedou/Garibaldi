@@ -30,3 +30,31 @@ img.profilePic {
     font-size: 1.3rem;
     margin-bottom: 3rem;
 }
+
+.pageContent {
+    float: left;
+    width: 100%;
+}
+
+.categoriesWrapper {
+    float: left;
+    width: 100%;
+}
+
+.categoryRow {
+    float: left;
+    width: 100%;
+}
+
+.categoryLabel {
+    float: left;
+    font-weight: bold;
+    width: 30%;
+    text-align: right;
+    padding-right: 5px;
+}
+
+.categoryValue {
+    float: left;
+    width: 70%;
+}

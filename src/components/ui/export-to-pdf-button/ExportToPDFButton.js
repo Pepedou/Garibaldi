@@ -23,7 +23,7 @@ export default class ExportToPDFButton extends Component {
             .then((dataUrls) => {
                 let doc = new jsPdf('p', 'px', 'a4', false);
                 dataUrls.map((image, index) => {
-                    doc.addImage(image, 'PNG', 0, 0, 450, 150);
+                    doc.addImage(image, 'PNG', 0, 0, 450, 630);
 
                     if (index + 1 < dataUrls.length) {
                         doc.addPage('a4');
@@ -38,8 +38,8 @@ export default class ExportToPDFButton extends Component {
 
     render() {
         return ( 
-            <button onClick = {this.export}>
-                Export
+            <button onClick = {this.export} className="downloadBtn">
+                DESCARGAR
             </button>
         )
     }

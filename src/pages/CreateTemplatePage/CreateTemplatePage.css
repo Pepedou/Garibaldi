@@ -45,6 +45,10 @@
     margin: 2px;
 }
 
+.SelectFieldComponent{
+    margin-top: 2rem;
+}
+
 .closeButton {
     text-align: right;
     cursor: pointer;
