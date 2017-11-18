@@ -27,7 +27,7 @@ class PdfPreviewOverlay extends Component {
                         let membreteStyle = {
                             backgroundColor: exportTemplates.allTemplates[exportFile.EXPFILE1.template].lineColor
                         }
-                        let pageLogoClassName = `pdfLogo ${exportTemplates.allTemplates[exportFile.EXPFILE1.template].logoPosition} col-xs-12 col-md-12`
+                        let pageLogoClassName = `pdfLogo ${exportTemplates.allTemplates[exportFile.EXPFILE1.template].logoPosition}`
                         return <div className={pageBgClassName} style={bgStyle} key={key}>
                             {
                                 exportTemplates.allTemplates[exportFile.EXPFILE1.template].logo !== ""

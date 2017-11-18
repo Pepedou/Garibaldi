@@ -58,6 +58,7 @@ img.itemImage {
 img.pdfLogo {
     height: 80px;
     width: auto;
+    padding-bottom: 15px;
 }
 
 img.pdfLogo.right{
