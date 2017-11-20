@@ -24,7 +24,7 @@ const saveTemplate = (saveTemplate) => {
 }
 
 const resetCurrentTemplate = () => {
-    return { type: types.TEMPLATES_UPDATE_CURRENT_TEMPLATE, payload: selectors.initialState.currentTemplate }
+    return { type: types.RESET_TEMPLATE }
 }
 
 export const saveAndRestTemplate = (templateToSave) => {
@@ -42,6 +42,11 @@ export const loadTemplateConfigForArtists = (artistsIds) => {
 
         const { templates, artists, categories, pages, file } = ExportArtistsNormalizer.normalizeConfig(fetchedTemplates, fetchedArtists)
 
+        dispatch(resetCurrentTemplate())
+        // dispatch(resetExportArtists())
+        // dispatch(resetExportCategories())
+        // dispatch(resetExportPages())
+        // dispatch(resetExportFile())
         dispatch(loadAllTempaltes(templates)) // Dispatch an update for exportTemplates.allTemplates
         dispatch(artistsActions.loadExportArtists(artists)) // Dispatch an update for exportArtists
         dispatch(categoriesActions.loadExportCategories(categories)) // Dispatch an update for exportCategories
