@@ -13,6 +13,12 @@ describe('ExportArtPieces Reducer', () => {
         }).toReturnState(initialState)
     })
 
+    it('should reset export artpieces', () => {
+        Reducer(theReducer).expect({
+            type: actionTypes.EXPORT_ARTPIECES_RESET
+        }).toReturnState(initialState)
+    })
+
     it('should load export artpieces', () => {
         const resultState = {
             "ID6001": {
