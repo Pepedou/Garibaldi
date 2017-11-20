@@ -13,7 +13,13 @@ describe('ExportArtists Reducer', () => {
         }).toReturnState(initialState)
     })
 
-    it('should load export pages', () => {
+    it('should reset export artists', () => {
+        Reducer(theReducer).expect({
+            type: actionTypes.EXPORT_ARTISTS_RESET
+        }).toReturnState(initialState)
+    })
+
+    it('should load export artists', () => {
         const resultState = {
             "ID5000": {
                 id: "5000",
