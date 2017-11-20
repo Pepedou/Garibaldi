@@ -8,6 +8,8 @@ export default function reduce(state = initialState, action = {}) {
     switch (action.type) {
         case actionTypes.EXPORT_ARTPIECES_LOAD_ARTPIECES:    
             return Object.assign({}, state, action.payload)
+        case actionTypes.EXPORT_ARTPIECES_RESET:
+            return initialState
         default:
             return state
     }
