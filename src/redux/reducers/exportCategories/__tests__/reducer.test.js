@@ -13,6 +13,12 @@ describe('ExportCategories Reducer', () => {
         }).toReturnState(initialState)
     })
 
+    it('should handle reset', () => {
+        Reducer(theReducer).expect({
+            type: actionTypes.EXPORT_CATEGORIES_RESET
+        }).toReturnState(initialState)
+    })
+
     it('should load export pages', () => {
         const resultState = {
             "ID4000   ": {
