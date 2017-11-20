@@ -13,4 +13,11 @@ describe('ExportFile Actions', () => {
             payload: exportFile
         })
     })
+
+    it('should dispatch reset', () => {
+        const dispatch = actions.resetExportFile()
+        expect(dispatch).toEqual({
+            type: actionTypes.EXPORT_FILE_RESET
+        })
+    })
 })
