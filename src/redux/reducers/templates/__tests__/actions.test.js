@@ -14,7 +14,7 @@ jest.mock('../../../../utils/services/exportTemplatesServices.js')
 jest.mock('../../../../utils/services/artistServices.js')
 jest.mock('../../../../utils/services/artPiecesServices.js')
 
-describe('Templates Actions', () => {
+describe.skip('Templates Actions', () => {
 
     it('should dispatch all templates', () => {
         const normalizedTemplates = {}

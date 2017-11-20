@@ -13,4 +13,11 @@ describe('ExportArtists Actions', () => {
             payload: normalizedExportArtists
         })
     })
+
+    it('should dispatch the reset action', () => {
+        const dispatch = actions.resetExportArtists()
+        expect(dispatch).toEqual({
+            type: actionTypes.EXPORT_ARTISTS_RESET
+        })
+    })
 })
