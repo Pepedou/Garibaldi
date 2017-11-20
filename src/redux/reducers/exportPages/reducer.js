@@ -30,6 +30,8 @@ export default function reduce(state = initialState, action = {}) {
                 ...state,
                 [action.payload.id]: exportPage(state[action.payload.id], action)
             }
+        case actionTypes.EXPORT_PAGES_RESET:
+            return initialState
         default:
             return state
     }

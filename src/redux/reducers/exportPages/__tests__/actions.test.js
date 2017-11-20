@@ -25,4 +25,11 @@ describe('ExportPages Actions', () => {
             payload: exportPage
         })
     })
+
+    it('should dispatch reset action', () => {
+        const dispatch = actions.resetExportPages()
+        expect(dispatch).toEqual({
+            type: actionTypes.EXPORT_PAGES_RESET
+        })
+    })
 })
