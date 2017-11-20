@@ -13,6 +13,12 @@ describe('ExportFile Reducer', () => {
         }).toReturnState(initialState)
     })
 
+    it('should reset state', () => {
+        Reducer(theReducer).expect({
+            type: actionTypes.EXPORT_FILE_RESET
+        }).toReturnState(initialState)
+    })
+
     it('should update single file property', () => {
         const resultState = {
             'IDFILE': {
