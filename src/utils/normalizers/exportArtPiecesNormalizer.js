@@ -28,13 +28,14 @@ class ExportArtistsNormalizer {
     recreateArtPiecesMap(artPiecesResponse) {
         return artPiecesResponse.details.map(a => {
             const totalCategories = [
-                { label: 'Título', value: a.title },
+                { label: 'Pieza', value: a.title },
                 { label: 'Autor', value: a.author },
-                { label: 'Técnica', value: a.technique },
-                { label: 'Materiales', value: a.materials },
                 { label: 'Medidas', value: a.measurements },
+                { label: 'Técnica', value: a.technique },
+                { label: 'Serie', value: a.series },
+                { label: 'Tiraje', value: a.tiraje },
                 { label: 'Año', value: a.year },
-                { label: 'Descripción', value: a.description }
+                { label: 'Precio', value: a.price }
             ].concat(a.categories)
 
             return {
