@@ -10,25 +10,32 @@ export default class CardDescription extends Component {
         return (
             <div className="CardDescription row">
                 <Category category={{required: false,
-                                     categoryName: 'Técnica',
-                                     categoryValue: getDetailValue(artCardInformation.detail.technique.value),
+                                     categoryName: 'Serie',
+                                     categoryValue: getDetailValue(artCardInformation.detail.series.value),
                                      editableName: false,
                                      editableValue: true,
-                                     propertyName: "technique"}}
+                                     propertyName: "series"}}
                           validate={handleCategoryValidation}/>
                 <Category category={{required: false,
-                                     categoryName: 'Materiales',
-                                     categoryValue: getDetailValue(artCardInformation.detail.materials.value),
+                                     categoryName: 'Tiraje',
+                                     categoryValue: getDetailValue(artCardInformation.detail.tiraje.value),
                                      editableName: false,
                                      editableValue: true,
-                                     propertyName: "materials"}}
+                                     propertyName: "tiraje"}}
                           validate={handleCategoryValidation}/>
                 <Category category={{required: false,
-                                     categoryName: 'Medidas',
-                                     categoryValue: getDetailValue(artCardInformation.detail.measurements.value),
+                                    categoryName: 'Año',
+                                    categoryValue: getDetailValue(artCardInformation.detail.year.value.toString()),
+                                    editableName: false,
+                                    editableValue: true,
+                                    propertyName: "year"}}
+                        validate={handleCategoryValidation}/>
+                <Category category={{required: false,
+                                     categoryName: 'Precio',
+                                     categoryValue: getDetailValue(artCardInformation.detail.price.value),
                                      editableName: false,
                                      editableValue: true,
-                                     propertyName: "measurements"}}
+                                     propertyName: "price"}}
                           validate={handleCategoryValidation}/>
                 {
                     artCardInformation.categories.map((item, key) => <Category key={key} 

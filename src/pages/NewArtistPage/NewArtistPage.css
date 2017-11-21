@@ -27,3 +27,7 @@ img.profilePic {
     font-size: 1.3rem;
     margin-bottom: 3rem;
 }
+
+.TextField textarea{
+    color: rgb(117, 117, 117) !important;
+}
