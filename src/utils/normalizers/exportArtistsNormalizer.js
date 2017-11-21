@@ -28,10 +28,16 @@ class ExportArtistsNormalizer {
     recreateArtistsMap(artistsReponse) {
         return artistsReponse.details.map(a => {
             const totalCategories = [
-                { label: 'Nombre', value: a.name },
-                { label: 'Apellido', value: a.lastName },
                 { label: 'Email', value: a.email },
-                { label: 'Teléfono', value: a.phone }
+                { label: 'Nombre', value: a.name },
+                { label: 'Apellidos', value: a.lastName },
+                { label: 'Nombre Artístico', value: a.nickname },
+                { label: 'Edad', value: a.age },
+                { label: 'Nacionalidad', value: a.nationality },
+                { label: 'Profesión', value: a.profession },
+                { label: 'Pieza', value: a.piece },
+                { label: 'Estudios', value: a.education },
+                { label: 'Exposiciones', value: a.exhibitions }
             ].concat(a.categories)
 
             return {
