@@ -9,3 +9,7 @@ div.NewArtForm {
 div.Category{
     padding: 1rem 0;
 }
+
+.TextField textarea{
+    color: rgb(117, 117, 117) !important;
+}

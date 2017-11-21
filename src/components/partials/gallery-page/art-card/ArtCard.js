@@ -99,13 +99,14 @@ class ArtCard extends Component {
         let {currentArt, loadingArtDetail, addNotification, sourceImage} = this.props
 
         let newArt = {
-            author: this.state.editedArt.detail.author.value,
             title: this.state.editedArt.detail.title.value,
-            year: this.state.editedArt.detail.year.value,
-            description: this.state.editedArt.detail.description.value,
-            technique: this.state.editedArt.detail.technique.value,
-            materials: this.state.editedArt.detail.materials.value,
+            author: this.state.editedArt.detail.author.value,
             measurements: this.state.editedArt.detail.measurements.value,
+            technique: this.state.editedArt.detail.technique.value,
+            series: this.state.editedArt.detail.series.value,
+            tiraje: this.state.editedArt.detail.tiraje.value,
+            year: this.state.editedArt.detail.year.value,
+            price: this.state.editedArt.detail.price.value,
             artistId: this.state.editedArt.detail.artistId.value,
             categories: this.state.editedArt.categories,
             images: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArt.detail.images.value
@@ -169,15 +170,7 @@ class ArtCard extends Component {
                                                        editableValue: true,
                                                        propertyName: "title"}}
                                             validate={this.handleCategoryValidation.bind(this)}/>}
-                    overlaySubtitle={<Category category={{required: false,
-                                                          categoryName: 'Año',
-                                                          categoryValue: getDetailValue(editedArt.detail.year.value.toString()),
-                                                          editableName: false,
-                                                          editableValue: true,
-                                                          propertyName: "year"}}
-                                               validate={this.handleCategoryValidation.bind(this)}/>}
-                    cardImage={sourceImage !== "" ? sourceImage : editedArt.detail.images.value.standard}
-                    cardTitle={<Category category={{required: true,
+                    overlaySubtitle={<Category category={{required: true,
                                                     categoryName: 'Artista',
                                                     categoryValue: editedArt.detail.author.value,
                                                     editableName: false,
@@ -188,13 +181,21 @@ class ArtCard extends Component {
                                          dataSource={this.state.dataSource}
                                          onNewRequest={this.handleOnNewRequest.bind(this)}
                                          onUpdateInput={this.handleOnUpdateInput.bind(this)}/>}
+                    cardImage={sourceImage !== "" ? sourceImage : editedArt.detail.images.value.standard}
+                    cardTitle={<Category category={{required: false,
+                                     categoryName: 'Medidas',
+                                     categoryValue: getDetailValue(editedArt.detail.measurements.value),
+                                     editableName: false,
+                                     editableValue: true,
+                                     propertyName: "measurements"}}
+                          validate={this.handleCategoryValidation.bind(this)}/>}
                     cardSubtitle={<Category category={{required: false,
-                                                       categoryName: 'Descripción',
-                                                       categoryValue: getDetailValue(editedArt.detail.description.value),
+                                                       categoryName: 'Técnica',
+                                                       categoryValue: getDetailValue(editedArt.detail.technique.value),
                                                        editableName: false,
                                                        editableValue: true,
                                                        editingClass:"TextAreaStyle",
-                                                       propertyName: "description"}}
+                                                       propertyName: "technique"}}
                                             validate={this.handleCategoryValidation.bind(this)}
                                             editingElement="textarea"/>}
                     cardDescription={<CardDescription artCardInformation={editedArt}
