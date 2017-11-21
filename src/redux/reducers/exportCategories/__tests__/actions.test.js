@@ -13,4 +13,11 @@ describe('ExportCategories Actions', () => {
             payload: normalizedCategories
         })
     })
+
+    it('should dispatch reset', () => {
+        const dispatch = actions.resetExportCategories()
+        expect(dispatch).toEqual({
+            type: actionTypes.EXPORT_CATEGORIES_RESET
+        })
+    })
 })

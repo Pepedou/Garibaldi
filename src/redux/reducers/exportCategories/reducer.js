@@ -8,6 +8,8 @@ export default function reduce(state = initialState, action = {}) {
     switch (action.type) {
         case actionTypes.EXPORT_CATEGORIES_LOAD_CATEGORIES:    
             return Object.assign({}, state, action.payload)
+        case actionTypes.EXPORT_CATEGORIES_RESET:
+            return initialState
         default:
             return state
     }

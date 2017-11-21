@@ -13,6 +13,12 @@ describe('ExportPages Reducer', () => {
         }).toReturnState(initialState)
     })
 
+    it('shuold reset state', () => {
+        Reducer(theReducer).expect({
+            type: actionTypes.EXPORT_PAGES_RESET
+        }).toReturnState(initialState)
+    })
+
     it('should load export pages', () => {
         const resultState = {
             "ID3001": {
