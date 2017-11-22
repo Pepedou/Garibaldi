@@ -35,6 +35,19 @@ div.listImage{
     float: left;
 }
 
+.linkWrapper {
+    margin-bottom: 1rem;
+}
+
+a.dropzoneLink{
+    color: #828282;
+    text-decoration: underline !important;
+}
+
+a.dropzoneLink:hover{
+    color: #337ab7;
+}
+
 @media screen and (max-width: 400px) {
     div.listImage{
         width: 100%;

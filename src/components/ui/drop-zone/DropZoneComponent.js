@@ -100,6 +100,7 @@ class DropZoneComponent extends Component {
         return this.state.loading
             ? <div className="marginTop row"><center><LoaderComponent/></center></div>
             : <div className="DropZoneComponent">
+                <div className="linkWrapper">¿Problemas al subir tu imagen? Intenta con <a href="https://www.befunky.com/" target="_blank" rel="noopener noreferrer" className="dropzoneLink">esta</a> herramienta.</div>
                 <Dropzone
                     className="DropzoneSquare"
                     onDropAccepted={(files) => this.onDropAccepted(files, this.props)}
