@@ -9,34 +9,48 @@ export default class CardDescription extends Component {
         let {artistCardInformation, handleCategoryValidation, onTouchTap, dataSource, onNewRequest, onUpdateInput} = this.props
         return (
             <div className="CardDescription row">
+                <Category category={{required: true,
+                                     categoryName: 'Email',
+                                     categoryValue: artistCardInformation.detail.email.value,
+                                     editableName: false,
+                                     editableValue: false,
+                                     propertyName: "email"}}
+                          validate={handleCategoryValidation}/>
+                <Category category={{required: false,
+                                     categoryName: 'Nombre artístico',
+                                     categoryValue: getDetailValue(artistCardInformation.detail.nickname.value),
+                                     editableName: false,
+                                     editableValue: true,
+                                     propertyName: "nickname"}}
+                         validate={handleCategoryValidation}/>
                 <Category category={{required: false,
                                     categoryName: 'Edad',
                                     categoryValue: getDetailValue(artistCardInformation.detail.age.value),
                                     editableName: false,
                                     editableValue: true,
                                     propertyName: "age"}}
-                                    validate={handleCategoryValidation}/>
+                          validate={handleCategoryValidation}/>
                 <Category category={{required: false,
                                     categoryName: 'Nacionalidad',
                                     categoryValue: getDetailValue(artistCardInformation.detail.nationality.value),
                                     editableName: false,
                                     editableValue: true,
                                     propertyName: "nationality"}}
-                                    validate={handleCategoryValidation}/>
+                          validate={handleCategoryValidation}/>
                 <Category category={{required: false,
                                     categoryName: 'Profesión',
                                     categoryValue: getDetailValue(artistCardInformation.detail.profession.value),
                                     editableName: false,
                                     editableValue: true,
                                     propertyName: "profession"}}
-                                    validate={handleCategoryValidation}/>
+                          validate={handleCategoryValidation}/>
                 <Category category={{required: false,
                                     categoryName: 'Pieza',
                                     categoryValue: getDetailValue(artistCardInformation.detail.piece.value),
                                     editableName: false,
                                     editableValue: true,
                                     propertyName: "piece"}}
-                                    validate={handleCategoryValidation}/>
+                          validate={handleCategoryValidation}/>
                 <Category category={{required: false,
                                     categoryName: 'Estudios',
                                     categoryValue: getDetailValue(artistCardInformation.detail.education.value),
@@ -44,7 +58,7 @@ export default class CardDescription extends Component {
                                     editableValue: true,
                                     editingClass:"TextAreaStyle",
                                     propertyName: "education"}}
-                                    validate={handleCategoryValidation}/>
+                          validate={handleCategoryValidation}/>
                 <Category category={{required: false,
                                     categoryName: 'Exposiciones',
                                     categoryValue: getDetailValue(artistCardInformation.detail.exhibitions.value),
@@ -52,7 +66,7 @@ export default class CardDescription extends Component {
                                     editableValue: true,
                                     editingClass:"TextAreaStyle",
                                     propertyName: "exhibitions"}}
-                                    validate={handleCategoryValidation}/>
+                          validate={handleCategoryValidation}/>
                 <Category category={{required: true,
                                     categoryName: 'Gestor Cultural',
                                     categoryValue: getDetailValue(artistCardInformation.detail.culturalHelperName),

@@ -4,7 +4,6 @@ import CardComponent from '../../../ui/card/CardComponent.js'
 import CardDescription from './CardDescription'
 import CardActions from './CardActions'
 import Category from '../../../ui/category/Category'
-import {getDetailValue} from '../../../../utils/fieldValidations'
 import SvgIcon from 'material-ui/SvgIcon'
 import {white} from 'material-ui/styles/colors'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
@@ -181,29 +180,19 @@ class ArtistCard extends Component {
                                                        editableName: false,
                                                        editableValue: true,
                                                        propertyName: "name"}} 
-                                            validate={this.handleCategoryValidation.bind(this)}/>}
+                                            validate={this.handleCategoryValidation.bind(this)}
+                                            withCategoryName={false}/>}
                     overlaySubtitle={<Category category={{required: true,
                                                           categoryName: 'Apellido',
                                                           categoryValue: editedArtist.detail.lastName.value,
                                                           editableName: false,
                                                           editableValue: true,
                                                           propertyName: "lastName"}}
-                                               validate={this.handleCategoryValidation.bind(this)}/>}
+                                               validate={this.handleCategoryValidation.bind(this)}
+                                               withCategoryName={false}/>}
                     cardImage={sourceImage !== "" ? sourceImage : photo}
-                    cardTitle={<Category category={{required: true,
-                                                    categoryName: 'Email',
-                                                    categoryValue: editedArtist.detail.email.value,
-                                                    editableName: false,
-                                                    editableValue: false,
-                                                    propertyName: "email"}}
-                                         validate={this.handleCategoryValidation.bind(this)}/>}
-                    cardSubtitle={<Category category={{required: false,
-                                                       categoryName: 'Nombre artístico',
-                                                       categoryValue: getDetailValue(editedArtist.detail.nickname.value),
-                                                       editableName: false,
-                                                       editableValue: true,
-                                                       propertyName: "nickname"}}
-                                            validate={this.handleCategoryValidation.bind(this)}/>}
+                    cardTitle={null}
+                    cardSubtitle={null}
                     cardDescription={<CardDescription artistCardInformation={editedArtist}
                                                       onTouchTap={this.handleAddCategory.bind(this)}
                                                       handleCategoryValidation={this.handleCategoryValidation.bind(this)}

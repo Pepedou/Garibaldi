@@ -10,6 +10,22 @@ export default class CardDescription extends Component {
         return (
             <div className="CardDescription row">
                 <Category category={{required: false,
+                                     categoryName: 'Medidas',
+                                     categoryValue: getDetailValue(artCardInformation.detail.measurements.value),
+                                     editableName: false,
+                                     editableValue: true,
+                                     propertyName: "measurements"}}
+                          validate={handleCategoryValidation}/>
+                <Category category={{required: false,
+                                     categoryName: 'Técnica',
+                                     categoryValue: getDetailValue(artCardInformation.detail.technique.value),
+                                     editableName: false,
+                                     editableValue: true,
+                                     editingClass:"TextAreaStyle",
+                                     propertyName: "technique"}}
+                         validate={handleCategoryValidation}
+                         editingElement="textarea"/>
+                <Category category={{required: false,
                                      categoryName: 'Serie',
                                      categoryValue: getDetailValue(artCardInformation.detail.series.value),
                                      editableName: false,

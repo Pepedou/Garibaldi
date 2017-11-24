@@ -4,7 +4,6 @@ import CardComponent from '../../../ui/card/CardComponent.js'
 import CardDescription from './CardDescription'
 import CardActions from './CardActions'
 import Category from '../../../ui/category/Category'
-import {getDetailValue} from '../../../../utils/fieldValidations'
 import transformToImages from '../../../../utils/services/cloudinaryImageTransform'
 import ArtPieceServices from '../../../../utils/services/artPiecesServices'
 import SvgIcon from 'material-ui/SvgIcon'
@@ -169,7 +168,8 @@ class ArtCard extends Component {
                                                        editableName: false,
                                                        editableValue: true,
                                                        propertyName: "title"}}
-                                            validate={this.handleCategoryValidation.bind(this)}/>}
+                                            validate={this.handleCategoryValidation.bind(this)}
+                                            withCategoryName={false}/>}
                     overlaySubtitle={<Category category={{required: true,
                                                     categoryName: 'Artista',
                                                     categoryValue: editedArt.detail.author.value,
@@ -182,22 +182,8 @@ class ArtCard extends Component {
                                          onNewRequest={this.handleOnNewRequest.bind(this)}
                                          onUpdateInput={this.handleOnUpdateInput.bind(this)}/>}
                     cardImage={sourceImage !== "" ? sourceImage : editedArt.detail.images.value.standard}
-                    cardTitle={<Category category={{required: false,
-                                     categoryName: 'Medidas',
-                                     categoryValue: getDetailValue(editedArt.detail.measurements.value),
-                                     editableName: false,
-                                     editableValue: true,
-                                     propertyName: "measurements"}}
-                          validate={this.handleCategoryValidation.bind(this)}/>}
-                    cardSubtitle={<Category category={{required: false,
-                                                       categoryName: 'Técnica',
-                                                       categoryValue: getDetailValue(editedArt.detail.technique.value),
-                                                       editableName: false,
-                                                       editableValue: true,
-                                                       editingClass:"TextAreaStyle",
-                                                       propertyName: "technique"}}
-                                            validate={this.handleCategoryValidation.bind(this)}
-                                            editingElement="textarea"/>}
+                    cardTitle={null}
+                    cardSubtitle={null}
                     cardDescription={<CardDescription artCardInformation={editedArt}
                                                       onTouchTap={this.handleAddCategory.bind(this)}
                                                       handleCategoryValidation={this.handleCategoryValidation.bind(this)}/>}

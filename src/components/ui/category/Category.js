@@ -14,21 +14,23 @@ export default class Category extends Component {
   }
 
   render() {
-    let {position, category, validate, editingElement, isAutocomplete, onNewRequest, dataSource, onUpdateInput} = this.props
+    let {position, category, validate, editingElement, isAutocomplete, onNewRequest, dataSource, onUpdateInput, withCategoryName} = this.props
 
     let classNamesForName = `CategoryName`;
     let classNamesForValue = `CategoryValue ${category.required && "required"} ${category.propertyName}`;
     
-    let categoryNameComponent = <InlineEdit
-              className={classNamesForName}
-              activeClassName="EditingCategory"
-              text={category.categoryName}
-              paramName="message"
-              validate={(data) => validate && validate(data, position, "label", category.propertyName)}
-              change={(value) => this.handleChange(value)}
-              maxLength={500}
-              onClick={this.handleClick}
-            />
+    let categoryNameComponent = withCategoryName 
+              ? <InlineEdit
+                  className={classNamesForName}
+                  activeClassName="EditingCategory"
+                  text={category.categoryName}
+                  paramName="message"
+                  validate={(data) => validate && validate(data, position, "label", category.propertyName)}
+                  change={(value) => this.handleChange(value)}
+                  maxLength={500}
+                  onClick={this.handleClick}
+                />
+              : null
 
     let categoryValueComponent = isAutocomplete
            ? <EditableLabelComponent onNewRequest={onNewRequest}
@@ -49,7 +51,7 @@ export default class Category extends Component {
             />
 
     if(!category.editableName) {
-      categoryNameComponent = <div className={classNamesForName}>{`${category.categoryName}: `}</div>
+      categoryNameComponent = withCategoryName ? <div className={classNamesForName}>{`${category.categoryName}: `}</div> : null
     }
 
     if(!category.editableValue) {
@@ -73,9 +75,11 @@ Category.propTypes = {
   isAutocomplete: PropTypes.bool,
   onNewRequest: PropTypes.func,
   dataSource: PropTypes.array,
-  onUpdateInput: PropTypes.func
+  onUpdateInput: PropTypes.func,
+  withCategoryName: PropTypes.bool
 };
 
 Category.defaultProps = {
-  editingElement: "input"
+  editingElement: "input",
+  withCategoryName: true
 }
