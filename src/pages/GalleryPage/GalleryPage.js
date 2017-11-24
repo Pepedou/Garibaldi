@@ -10,6 +10,7 @@ import axios from 'axios'
 import {MosaicTypes} from '../../utils/constants/MosaicTypes'
 import apiRoutes from '../../utils/services/apiRoutes'
 import ArtPieceServices from '../../utils/services/artPiecesServices'
+import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
 import './GalleryPage.css'
 
 class GalleryPage extends Component {
@@ -40,7 +41,7 @@ class GalleryPage extends Component {
             receiveArtGallery(response.data);
             loadingGallery(false)
           } else {
-            addNotification({code: ERROR_CODES.NO_RESULTS_FOUND.code})
+            addNotification({code: ERROR_CODES.NO_CARDS_FOUND.code}, NotificationTypes.INFO)
             loadingGallery(false)
         }
         })
@@ -105,7 +106,7 @@ export const mapStateToProps = ({artGallery, currentArt, currentUser, updatingAr
 export const mapDispatchToProps = dispatch => ({
   receiveArtGallery: artGallery => dispatch({type: constants.ART_GALLERY_RECIEVED, artGallery}),
   receiveCurrentArt: art => dispatch({type: constants.CURRENT_ART_RECEIVED, art}),
-  addNotification: notification => handleError(dispatch, notification),
+  addNotification: (notification, notificationType) => handleError(dispatch, notification, notificationType),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
   loadingGallery: updatingArtGallery => dispatch({type: constants.UPDATING_ART_GALLERY, updatingArtGallery}),
   loadingArtDetail: updatingCurrentArt => dispatch({type: constants.UPDATING_CURRENT_ART, updatingCurrentArt}),
