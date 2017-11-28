@@ -24,7 +24,11 @@ export default class SearchBar extends Component {
     .catch(function (error) {
         updateArtGallery(false)
         clearAllNotifications()
-        addNotification(error.response.data.error)
+        if(error.response) {
+          addNotification(error.response.data.error)            
+        } else {
+          addNotification(error)       
+        }
     })
   }
 
@@ -62,7 +66,11 @@ export default class SearchBar extends Component {
     .catch(function (error) {
         clearAllNotifications()
         updateArtGallery(false)
-        addNotification(error.response.data.error)
+        if(error.response) {
+          addNotification(error.response.data.error)            
+        } else {
+          addNotification(error)       
+        }
     })
   }
 
