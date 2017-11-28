@@ -177,6 +177,7 @@ class ArtCard extends Component {
                                                     editableValue: true,
                                                     propertyName: "author"}}
                                          validate={this.handleCategoryValidation.bind(this)}
+                                         withCategoryName={false}
                                          isAutocomplete={true}
                                          dataSource={this.state.dataSource}
                                          onNewRequest={this.handleOnNewRequest.bind(this)}
