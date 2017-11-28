@@ -10,6 +10,7 @@ import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import {connect} from 'react-redux'
 import * as constants from '../../redux/constants'
 import images from '../../content/images/exportImages'
+import { withRouter } from 'react-router'
 import '../../Main.css';
 import './ResetPasswordPage.css';
 import CredentialServices from '../../utils/services/credentialServices'
@@ -31,7 +32,7 @@ class ResetPasswordPage extends Component {
     this.setState({inputFields: inputFieldsCopy})
   }
 
-  handleOnClick(event, {addNotification, clearAllNotifications, loading, params}){ 
+  handleOnClick(event, {addNotification, clearAllNotifications, loading, params, router}){ 
     event.preventDefault()
     let inputFieldsCopy = [...this.state.inputFields]
     let result = validateObligatoryFields(this.state.inputFields);
@@ -45,7 +46,7 @@ class ResetPasswordPage extends Component {
         CredentialServices.resetPassword(newPassword, accessToken)
         .then(function (response) {
             loading(false)
-            window.location = './'
+            router.push('/')
         })
         .catch(function (error) {
             loading(false)
@@ -132,4 +133,4 @@ export const mapDispatchToProps = dispatch => ({
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ResetPasswordPage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ResetPasswordPage))

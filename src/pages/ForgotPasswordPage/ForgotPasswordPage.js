@@ -11,6 +11,7 @@ import {handleError, ERROR_CODES} from '../../utils/errorHandling'
 import {connect} from 'react-redux'
 import * as constants from '../../redux/constants'
 import images from '../../content/images/exportImages'
+import { withRouter } from 'react-router'
 import '../../Main.css';
 import './ForgotPasswordPage.css';
 import CredentialServices from '../../utils/services/credentialServices'
@@ -32,7 +33,7 @@ class ForgotPassword extends Component {
     this.setState({inputFields: inputFieldsCopy})
 }
 
-  handleOnClick(event, {addNotification, clearAllNotifications, loading}){ 
+  handleOnClick(event, {addNotification, clearAllNotifications, loading, router}){ 
     event.preventDefault()
     let inputFieldsCopy = [...this.state.inputFields]
     let result = validateObligatoryFields(this.state.inputFields);
@@ -45,7 +46,7 @@ class ForgotPassword extends Component {
         CredentialServices.forgotPassword(email)
         .then(function (response) {
             loading(false)
-            window.location = './'
+            router.push('/')
         })
         .catch(function (error) {
             loading(false)
@@ -133,4 +134,4 @@ export const mapDispatchToProps = dispatch => ({
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ForgotPassword)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ForgotPassword))

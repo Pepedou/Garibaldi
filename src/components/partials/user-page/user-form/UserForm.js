@@ -8,6 +8,7 @@ import {getForm, FormType} from '../../../../utils/forms/formUtils'
 import {handleError, ERROR_CODES} from '../../../../utils/errorHandling'
 import * as constants from '../../../../redux/constants'
 import CredentialServices from '../../../../utils/services/credentialServices'
+import { withRouter } from 'react-router'
 import '../../../../Main.css';
 import './UserForm.css';
 
@@ -42,7 +43,7 @@ class UserForm extends Component {
         this.setState({inputFields: inputFieldsCopy})
     }
 
-    handleOnClick(event, {addNotification, clearAllNotifications, loading}) {
+    handleOnClick(event, {addNotification, clearAllNotifications, loading, router}) {
         event.preventDefault()
         clearAllNotifications()
         let inputFieldsCopy = {...this.state.inputFields}
@@ -76,7 +77,7 @@ class UserForm extends Component {
                     CredentialServices.register(user)
                     .then(function (response) {
                         loading(false)
-                        window.location = './'
+                        router.push('/')
                     })
                     .catch(function (error) {
                         loading(false)
@@ -173,4 +174,4 @@ export const mapDispatchToProps = dispatch => ({
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
-export default connect(null, mapDispatchToProps)(UserForm)
+export default withRouter(connect(null, mapDispatchToProps)(UserForm))
