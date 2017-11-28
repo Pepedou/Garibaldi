@@ -7,6 +7,7 @@ import Mosaic from '../../components/partials/mosaic/Mosaic'
 import {MosaicTypes} from '../../utils/constants/MosaicTypes'
 import LoaderComponent from '../../components/ui/loader/LoaderComponent'
 import ArtistServices from '../../utils/services/artistServices'
+import {NotificationTypes} from '../../components/alerts/notifications/NotificationTypes'
 
 class ArtistsPage extends Component {
     componentWillMount() {
@@ -19,7 +20,7 @@ class ArtistsPage extends Component {
             if(response.length > 0) {
               receiveArtistGallery(response);
             } else {
-              addNotification({code: ERROR_CODES.NO_RESULTS_FOUND.code})
+              addNotification({code: ERROR_CODES.NO_CARDS_FOUND.code}, NotificationTypes.INFO)
             }
             loadingGallery(false)
         })
@@ -61,7 +62,7 @@ export const mapStateToProps = ({artistGallery, updatingArtistGallery}) => ({
 
 export const mapDispatchToProps = dispatch => ({
   receiveArtistGallery: artistGallery => dispatch({type: constants.ARTIST_GALLERY_RECIEVED, artistGallery}),
-  addNotification: notification => handleError(dispatch, notification),
+  addNotification: (notification, notificationType) => handleError(dispatch, notification, notificationType),
   clearAllNotifications: () => dispatch({type: constants.CLEAR_ALL_NOTIFICATIONS}),
   loadingGallery: updatingArtistGallery => dispatch({type: constants.UPDATING_ARTIST_GALLERY, updatingArtistGallery})
 })
