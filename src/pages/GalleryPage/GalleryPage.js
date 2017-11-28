@@ -45,7 +45,11 @@ class GalleryPage extends Component {
         }
         })
         .catch(function (error) {
-          addNotification(error.response.data.error)
+          if(error.response) {
+            addNotification(error.response.data.error)            
+          } else {
+            addNotification(error)       
+          }
           loadingGallery(false)
         })
     }
