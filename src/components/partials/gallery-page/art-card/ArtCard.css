@@ -1,0 +1,9 @@
+.CardDescription .Category{
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 1.8rem;
+}
+
+.CategoryValue.title{
+    font-size: 2.5rem;
+    margin-bottom: 0;
+}
