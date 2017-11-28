@@ -14,6 +14,7 @@ import transformToImages from '../../utils/services/cloudinaryImageTransform'
 import {UserTypes} from '../../utils/constants/UserTypes'
 import ArtistServices from '../../utils/services/artistServices'
 import ArtPieceServices from '../../utils/services/artPiecesServices'
+import { withRouter } from 'react-router'
 
 require('./NewArtPage.css')
 
@@ -114,7 +115,7 @@ class NewArtPage extends Component {
         }
     }
 
-    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser}) {
+    handleOnClick(event, {clearAllNotifications, addNotification, loading, currentUser, router}) {
         loading(true)
         event.preventDefault()
         clearAllNotifications();
@@ -134,7 +135,7 @@ class NewArtPage extends Component {
             ArtPieceServices.create(art)
             .then(function (response) {
                 loading(false)
-                window.location = './home'
+                router.push('/home')
             })
             .catch(function (error) {
                 loading(false)
@@ -236,4 +237,4 @@ export const mapDispatchToProps = dispatch => ({
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewArtPage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewArtPage))

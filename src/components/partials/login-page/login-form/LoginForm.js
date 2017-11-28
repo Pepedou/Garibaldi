@@ -13,6 +13,7 @@ import {getForm, FormType} from '../../../../utils/forms/formUtils'
 import {handleError, ERROR_CODES} from '../../../../utils/errorHandling'
 import images from '../../../../content/images/exportImages'
 import CredentialServices from '../../../../utils/services/credentialServices'
+import { withRouter } from 'react-router'
 
 class LoginForm extends Component {
     constructor(props)
@@ -32,13 +33,13 @@ class LoginForm extends Component {
         this.setState({inputFields: inputFieldsCopy})
     }
 
-    getCredential(userId, receiveCurrentUser, loading, addNotification) {
+    getCredential(userId, receiveCurrentUser, loading, addNotification, router) {
         CredentialServices.getById(userId)
         .then(function (response) {
             localStorage.setItem('currentUser', JSON.stringify(response))
             receiveCurrentUser(response)
             loading(false)
-            window.location = './home'
+            router.push('/home')
         })
         .catch(function (error) {
             loading(false)
@@ -46,7 +47,7 @@ class LoginForm extends Component {
         })
     }
 
-    handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser, loading}){
+    handleOnClick(event, {addNotification, clearAllNotifications, receiveCurrentUser, loading, router}){
         event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
@@ -62,7 +63,7 @@ class LoginForm extends Component {
             CredentialServices.login(credentials)
             .then(function (response) {
                 localStorage.setItem('token', response.id)
-                getCredential(response.userId, receiveCurrentUser, loading, addNotification)
+                getCredential(response.userId, receiveCurrentUser, loading, addNotification, router)
             })
             .catch(function (error) {
                 loading(false)
@@ -141,4 +142,4 @@ export const mapDispatchToProps = dispatch => ({
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
-export default connect(null, mapDispatchToProps)(LoginForm)
+export default withRouter(connect(null, mapDispatchToProps)(LoginForm))

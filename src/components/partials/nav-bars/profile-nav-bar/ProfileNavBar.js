@@ -8,6 +8,7 @@ import '../../../../Main.css';
 import './ProfileNavBar.css';
 import {white} from 'material-ui/styles/colors';
 import images from '../../../../content/images/exportImages'
+import { withRouter } from 'react-router'
 
 let styles = {
     iconStyle: {
@@ -22,7 +23,7 @@ let getScreenLogo= () => {
     return images.logo_white_clip
 }
 
-export default class ProfileNavBar extends Component {
+export class ProfileNavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -45,19 +46,19 @@ export default class ProfileNavBar extends Component {
         this.setState({logoImage: getScreenLogo()})
     }
 
-    handleOnItemTouchTap(event, child, receiveCurrentUser) {
+    handleOnItemTouchTap(event, child, receiveCurrentUser, router) {
         if(child.props.value === "logout") {
             localStorage.removeItem("currentUser");
             localStorage.removeItem("token");
             receiveCurrentUser({})
-            window.location = './'
+            router.push('/')
         } else {
-            window.location = './myUserProfile'
+            router.push('/myUserProfile')
         }
     }
 
     render() {
-        let {currentUser, receiveCurrentUser} = this.props
+        let {currentUser, receiveCurrentUser, router} = this.props
         return (
             <div className="ProfileNavBar row noPrint">
                 <div className="col-xs-8 col-md-6">
@@ -66,7 +67,7 @@ export default class ProfileNavBar extends Component {
                         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                         targetOrigin={{horizontal: 'left', vertical: 'top'}}
                         animated={true}
-                        onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, receiveCurrentUser)}
+                        onItemTouchTap={(event, child) => this.handleOnItemTouchTap(event, child, receiveCurrentUser, router)}
                         iconStyle={styles.iconStyle}
                         className="UserIconMenu"
                         >
@@ -89,3 +90,5 @@ ProfileNavBar.propTypes = {
   currentUser: PropTypes.object,
   receiveCurrentUser: PropTypes.func
 }
+
+export default withRouter(ProfileNavBar)
