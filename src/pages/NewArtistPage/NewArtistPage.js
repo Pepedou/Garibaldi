@@ -12,6 +12,7 @@ import DropZoneComponent from '../../components/ui/drop-zone/DropZoneComponent'
 import Category from '../../components/ui/category/Category.js';
 import CulturalHelpersServices from '../../utils/services/culturalHelperServices'
 import ArtistServices from '../../utils/services/artistServices'
+import { withRouter } from 'react-router'
 
 require('./NewArtistPage.css')
 
@@ -96,7 +97,7 @@ class NewArtistPage extends Component {
         return artist
     }
 
-    handleOnClick(event, {clearAllNotifications, addNotification, loading}) {
+    handleOnClick(event, {clearAllNotifications, addNotification, loading, router}) {
         event.preventDefault()
         clearAllNotifications();
         let inputFieldsCopy = [...this.state.inputFields]
@@ -115,7 +116,7 @@ class NewArtistPage extends Component {
                 ArtistServices.create(artist)
                 .then(function (response) {
                     loading(false)
-                    window.location = './artists'
+                    router.push('/artists')
                 })
                 .catch(function (error) {
                     loading(false)
@@ -257,4 +258,4 @@ export const mapDispatchToProps = dispatch => ({
   loading: showLoader => dispatch({type: constants.SHOW_LOADER, showLoader})
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewArtistPage)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NewArtistPage))

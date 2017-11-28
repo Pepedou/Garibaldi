@@ -75,10 +75,11 @@ export class FloatingBar extends Component {
   }
 
   addCard(){
+    let {router} = this.props
     if(window.location.pathname === "/home"){
-      window.location = './newArt'
+      router.push('/newArt')
     } else {
-      window.location = './newArtist'
+      router.push('/newArtist')
     }
   }
 
