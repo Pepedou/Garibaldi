@@ -1,27 +1,27 @@
 .LoginForm {
-    color: #828282;
-    padding: 0px 20px 0px 20px;
+  color: #828282;
+  padding: 0px 20px 0px 20px;
 }
 
-div.marginTop{
-    margin-top: 20px;
+div.marginTop {
+  margin-top: 20px;
 }
 
-div.marginBottom{
-    margin-bottom: 20px;
+div.marginBottom {
+  margin-bottom: 20px;
 }
 
-#forgotPasswordBtn{
-    color: #828282;
-    cursor: pointer;
-    margin-top: 20px;
+#forgotPasswordBtn {
+  color: #828282;
+  cursor: pointer;
+  margin-top: 20px;
 }
 
-#forgotPasswordBtn:hover{
-    font-weight: bold;
+#forgotPasswordBtn:hover {
+  font-weight: bold;
 }
 
-#mainLogo{
-    width: 250px;
-    margin: 25px 0px;
+#mainLogo {
+  width: 250px;
+  margin: 25px 0px;
 }

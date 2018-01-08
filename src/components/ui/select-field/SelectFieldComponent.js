@@ -1,35 +1,45 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {grey600, grey400, red600} from 'material-ui/styles/colors';
-import './SelectFieldComponent.css';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { grey600, grey400, red600 } from "material-ui/styles/colors";
+import "./SelectFieldComponent.css";
 
 const styles = {
-  redSelect:{
+  redSelect: {
     borderColor: red600,
     borderBottomWidth: 2
   },
-  normalSelect:{
+  normalSelect: {
     borderColor: grey400,
     color: grey600
   }
 };
 
 export default class SelectFieldComponent extends Component {
-    render() {
-        let style = this.props.errorText ? styles.redSelect : styles.normalSelect
-        let error = this.props.errorText ? <div className="errorText">{this.props.errorText}</div> : null
-        return(
-          <div className="SelectFieldComponent">
-            <div className="FloatingLabelText">{this.props.floatingLabelText}</div>
-            <select id={this.props.id} className={this.props.className} value={this.props.defaultValue} onChange={this.props.onChange} style={style}>
-              {
-                this.props.options.map((item, key) => <option value={item.value} key={key}>{item.text}</option>)
-              }
-            </select>
-            {error}
-          </div>
-        )
-    }
+  render() {
+    let style = this.props.errorText ? styles.redSelect : styles.normalSelect;
+    let error = this.props.errorText ? (
+      <div className="errorText">{this.props.errorText}</div>
+    ) : null;
+    return (
+      <div className="SelectFieldComponent">
+        <div className="FloatingLabelText">{this.props.floatingLabelText}</div>
+        <select
+          id={this.props.id}
+          className={this.props.className}
+          value={this.props.defaultValue}
+          onChange={this.props.onChange}
+          style={style}
+        >
+          {this.props.options.map((item, key) => (
+            <option value={item.value} key={key}>
+              {item.text}
+            </option>
+          ))}
+        </select>
+        {error}
+      </div>
+    );
+  }
 }
 
 SelectFieldComponent.propTypes = {

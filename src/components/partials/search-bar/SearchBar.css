@@ -1,21 +1,21 @@
-#filterInput{
-    border: 1px solid #ccc;
-    padding: 4px;
-    border-radius: 3px;
-    margin-right: 5px;
-    margin-left: 5px;
+#filterInput {
+  border: 1px solid #ccc;
+  padding: 4px;
+  border-radius: 3px;
+  margin-right: 5px;
+  margin-left: 5px;
 }
 
-#filterTypeSelect{
-    margin-right: 5px;
+#filterTypeSelect {
+  margin-right: 5px;
 }
 
 @media screen and (max-width: 400px) {
-    #filterInput{
-        width: 40%;
-    }
+  #filterInput {
+    width: 40%;
+  }
 
-    #filterTypeSelect{
-        max-width: 33%;
-    }
+  #filterTypeSelect {
+    max-width: 33%;
+  }
 }

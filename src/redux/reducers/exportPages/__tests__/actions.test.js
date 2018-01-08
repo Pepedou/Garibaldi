@@ -1,35 +1,34 @@
-import * as actions from '../actions'
-import * as actionTypes from '../actionTypes'
-import * as selectors from '../reducer'
-import { Thunk } from 'redux-testkit'
+import * as actions from "../actions";
+import * as actionTypes from "../actionTypes";
+import * as selectors from "../reducer";
+import { Thunk } from "redux-testkit";
 
-describe('ExportPages Actions', () => {
+describe("ExportPages Actions", () => {
+  it("should dispatch load export pages", () => {
+    const normalizedExportPages = {};
 
-    it('should dispatch load export pages', () => {
-        const normalizedExportPages = {}
+    const dispatch = actions.loadPages(normalizedExportPages);
+    expect(dispatch).toEqual({
+      type: actionTypes.EXPORT_PAGES_LOAD_PAGES,
+      payload: normalizedExportPages
+    });
+  });
 
-        const dispatch = actions.loadPages(normalizedExportPages)
-        expect(dispatch).toEqual({
-            type: actionTypes.EXPORT_PAGES_LOAD_PAGES,
-            payload: normalizedExportPages
-        })
-    })
+  it("should dispatch update export page", () => {
+    // actionTypes.EXPORT_PAGES_UPDATE_EXPORT_PAGE
+    const exportPage = {};
 
-    it('should dispatch update export page', () => {
-        // actionTypes.EXPORT_PAGES_UPDATE_EXPORT_PAGE
-        const exportPage = {}
+    const dispatch = actions.updatePage(exportPage);
+    expect(dispatch).toEqual({
+      type: actionTypes.EXPORT_PAGES_UPDATE_EXPORT_PAGE,
+      payload: exportPage
+    });
+  });
 
-        const dispatch = actions.updatePage(exportPage)
-        expect(dispatch).toEqual({
-            type: actionTypes.EXPORT_PAGES_UPDATE_EXPORT_PAGE,
-            payload: exportPage
-        })
-    })
-
-    it('should dispatch reset action', () => {
-        const dispatch = actions.resetExportPages()
-        expect(dispatch).toEqual({
-            type: actionTypes.EXPORT_PAGES_RESET
-        })
-    })
-})
+  it("should dispatch reset action", () => {
+    const dispatch = actions.resetExportPages();
+    expect(dispatch).toEqual({
+      type: actionTypes.EXPORT_PAGES_RESET
+    });
+  });
+});

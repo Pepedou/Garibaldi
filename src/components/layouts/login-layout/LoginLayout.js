@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-require('../../../Main.css');
+import React, { Component } from "react";
+require("../../../Main.css");
 
 export default class LoginLayout extends Component {
   render() {

@@ -1,25 +1,26 @@
-import * as actionTypes from './actionTypes'
+import * as actionTypes from "./actionTypes";
 
 // This is a lookup table
-export const initialState = {
-}
+export const initialState = {};
 
 export default function reduce(state = initialState, action = {}) {
-    switch (action.type) {
-        case actionTypes.EXPORT_CATEGORIES_LOAD_CATEGORIES:    
-            return Object.assign({}, state, action.payload)
-        case actionTypes.EXPORT_CATEGORIES_RESET:
-            return initialState
-        default:
-            return state
-    }
+  switch (action.type) {
+    case actionTypes.EXPORT_CATEGORIES_LOAD_CATEGORIES:
+      return Object.assign({}, state, action.payload);
+    case actionTypes.EXPORT_CATEGORIES_RESET:
+      return initialState;
+    default:
+      return state;
+  }
 }
 
-// SELECTORS 
+// SELECTORS
 export function getExportCategories(state) {
-    return Object.keys(state.exportCategories).map(p => state.exportCategories[p])
+  return Object.keys(state.exportCategories).map(
+    p => state.exportCategories[p]
+  );
 }
 
 export function getExportCategoryById(state, id) {
-    return state.exportCategories[id];
+  return state.exportCategories[id];
 }

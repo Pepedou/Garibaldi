@@ -1,52 +1,52 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import TextField from 'material-ui/TextField';
-import {grey600, grey500} from 'material-ui/styles/colors';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import TextField from "material-ui/TextField";
+import { grey600, grey500 } from "material-ui/styles/colors";
 
 const styles = {
   underlineStyle: {
-    borderColor: grey500,
+    borderColor: grey500
   },
-  underlineFocusStyle:{
-    borderColor: grey600,
+  underlineFocusStyle: {
+    borderColor: grey600
   },
   floatingLabelStyle: {
-    color: grey500,
+    color: grey500
   },
   floatingLabelFocusStyle: {
-    color: grey600,
+    color: grey600
   },
-  inputStyle:{
+  inputStyle: {
     color: grey600
   }
 };
 
-let getRows = isMultiLine => isMultiLine ? 3 : 1
+let getRows = isMultiLine => (isMultiLine ? 3 : 1);
 
 export default class TextFieldComponent extends Component {
-    render() {
-        return(
-            <TextField
-                hintText={this.props.hintText}
-                floatingLabelText={this.props.floatingLabelText}
-                name={this.props.name}
-                id={this.props.id}
-                className={this.props.className}
-                type={this.props.type}
-                errorText={this.props.errorText}
-                onChange={this.props.onChange}
-                defaultValue={this.props.defaultValue}
-                multiLine={this.props.multiLine}
-                rows={getRows(this.props.multiLine)}
-                fullWidth={true}
-                underlineStyle={styles.underlineStyle}
-                floatingLabelStyle={styles.floatingLabelStyle}
-                floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
-                underlineFocusStyle={styles.underlineFocusStyle}
-                inputStyle={styles.inputStyle}
-                />
-        )
-    }
+  render() {
+    return (
+      <TextField
+        hintText={this.props.hintText}
+        floatingLabelText={this.props.floatingLabelText}
+        name={this.props.name}
+        id={this.props.id}
+        className={this.props.className}
+        type={this.props.type}
+        errorText={this.props.errorText}
+        onChange={this.props.onChange}
+        defaultValue={this.props.defaultValue}
+        multiLine={this.props.multiLine}
+        rows={getRows(this.props.multiLine)}
+        fullWidth={true}
+        underlineStyle={styles.underlineStyle}
+        floatingLabelStyle={styles.floatingLabelStyle}
+        floatingLabelFocusStyle={styles.floatingLabelFocusStyle}
+        underlineFocusStyle={styles.underlineFocusStyle}
+        inputStyle={styles.inputStyle}
+      />
+    );
+  }
 }
 
 TextField.propTypes = {
@@ -64,4 +64,4 @@ TextField.propTypes = {
 
 TextFieldComponent.defaultProps = {
   multiLine: false
-}
+};

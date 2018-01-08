@@ -1,25 +1,24 @@
-import * as actionTypes from './actionTypes'
+import * as actionTypes from "./actionTypes";
 
 // This is a lookup table
-export const initialState = {
-}
+export const initialState = {};
 
 export default function reduce(state = initialState, action = {}) {
-    switch (action.type) {
-        case actionTypes.EXPORT_ARTPIECES_LOAD_ARTPIECES:    
-            return Object.assign({}, state, action.payload)
-        case actionTypes.EXPORT_ARTPIECES_RESET:
-            return initialState
-        default:
-            return state
-    }
+  switch (action.type) {
+    case actionTypes.EXPORT_ARTPIECES_LOAD_ARTPIECES:
+      return Object.assign({}, state, action.payload);
+    case actionTypes.EXPORT_ARTPIECES_RESET:
+      return initialState;
+    default:
+      return state;
+  }
 }
 
-// SELECTORS 
+// SELECTORS
 export function getExportArtPieces(state) {
-    return Object.keys(state.exportArtPieces).map(p => state.exportArtPieces[p])
+  return Object.keys(state.exportArtPieces).map(p => state.exportArtPieces[p]);
 }
 
 export function getExportArtPieceById(state, id) {
-    return state.exportArtPieces[id]
+  return state.exportArtPieces[id];
 }

@@ -1,26 +1,26 @@
 .SelectFieldComponent {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
-.SelectFieldComponent select{
-    border: 0px;
-    background-color: transparent;
-    border-bottom: 1px solid rgb(158, 158, 158);
-    width: 100%;
-    border-radius: 0px;
+.SelectFieldComponent select {
+  border: 0px;
+  background-color: transparent;
+  border-bottom: 1px solid rgb(158, 158, 158);
+  width: 100%;
+  border-radius: 0px;
 }
 
-.SelectFieldComponent select:focus{
-    outline: none;
+.SelectFieldComponent select:focus {
+  outline: none;
 }
 
 .FloatingLabelText {
-    font-size: 0.8em;
-    margin-bottom: 3px;
+  font-size: 0.8em;
+  margin-bottom: 3px;
 }
 
 .errorText {
-    color: rgb(229, 57, 53);
-    font-size: 0.8em;
-    margin-top: 5px;
+  color: rgb(229, 57, 53);
+  font-size: 0.8em;
+  margin-top: 5px;
 }
