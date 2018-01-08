@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "husky": "0.14.3",
+    "lint-staged": "6.0.0",
     "node-fetch": "^1.7.1",
     "node-sass": "^4.5.0",
     "normalizr": "^3.2.4",
+    "prettier": "1.9.2",
     "react-edit-inline": "^1.0.8",
     "react-scripts": "1.0.14",
     "redux-testkit": "^1.0.6",
@@ -43,8 +46,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
+    "precommit": "lint-staged",
     "build-css": "node-sass src/ -o src/",
-    "watch-css": "npm run build-css && node-sass src/ -o src/ --watch --recursive"
+    "watch-css":
+      "npm run build-css && node-sass src/ -o src/ --watch --recursive"
+  },
+  "lint-staged": {
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
   },
   "proxy": "https://lazarocardenas.herokuapp.com/"
 }
