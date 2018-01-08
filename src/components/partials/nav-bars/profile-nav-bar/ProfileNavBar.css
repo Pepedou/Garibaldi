@@ -1,28 +1,28 @@
 .whiteNavLogo {
-    width: 110px;
-    float: right;
-    margin-top: 17px;
-    margin-right: 20px;
+  width: 110px;
+  float: right;
+  margin-top: 17px;
+  margin-right: 20px;
 }
 
 @media screen and (max-width: 400px) {
-    .whiteNavLogo{
-        width: 20px;
-    }
+  .whiteNavLogo {
+    width: 20px;
+  }
 }
 
 .ProfileNavBar {
-    background-color: #4b4b4b;
-    color: white;
+  background-color: #4b4b4b;
+  color: white;
 }
 
 .UserIconMenu {
-    float: left;
+  float: left;
 }
 
 .userFullName {
-    float: left;
-    padding-top: 15px;
-    word-break: break-all;
-    max-width: 50%;
+  float: left;
+  padding-top: 15px;
+  word-break: break-all;
+  max-width: 50%;
 }

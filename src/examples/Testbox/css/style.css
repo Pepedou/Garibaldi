@@ -3,7 +3,9 @@
 Primary style
 
 -------------------------------- */
-*, *::after, *::before {
+*,
+*::after,
+*::before {
   box-sizing: border-box;
 }
 
@@ -37,7 +39,8 @@ Patterns - reusable parts of our design
   padding: 1.4em 2em;
   border-radius: 50em;
   background-color: #eebb00;
-  box-shadow: 0 1px 20px rgba(238, 187, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 20px rgba(238, 187, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
   color: #ffffff;
   font-size: 1.3rem;
   font-weight: bold;
@@ -48,7 +51,8 @@ Patterns - reusable parts of our design
   transition: box-shadow 0.2s;
 }
 .no-touch .cd-btn:hover {
-  box-shadow: 0 1px 30px rgba(238, 187, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  box-shadow: 0 1px 30px rgba(238, 187, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
 }
 
 .cd-img-replace {
@@ -81,7 +85,7 @@ Intro page
 }
 .cd-intro-block::after {
   /* arrow icon visible when .cd-intro-block slides out */
-  content: '';
+  content: "";
   position: absolute;
   left: 50%;
   top: 50%;
@@ -109,7 +113,7 @@ Intro page
 }
 .cd-intro-block h1 {
   width: 90%;
-  margin: 0 auto .6em;
+  margin: 0 auto 0.6em;
   font-size: 2.4rem;
   color: #ebebeb;
   -webkit-font-smoothing: antialiased;
@@ -165,7 +169,7 @@ Projects Slider
 }
 .cd-projects-wrapper::before {
   /* never visible - this is used in jQuery to check the current MQ */
-  content: 'mobile';
+  content: "mobile";
   display: none;
 }
 .cd-projects-wrapper.projects-visible {
@@ -177,7 +181,7 @@ Projects Slider
 @media only screen and (min-width: 900px) {
   .cd-projects-wrapper::before {
     /* never visible - this is used in jQuery to check the current MQ */
-    content: 'desktop';
+    content: "desktop";
   }
 }
 
@@ -193,7 +197,7 @@ Projects Slider
 .cd-slider li {
   margin: 4%;
   opacity: 0;
-  border-radius: .25em;
+  border-radius: 0.25em;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   -webkit-transition: opacity 0s 0.5s;
   -moz-transition: opacity 0s 0.5s;
@@ -223,13 +227,13 @@ Projects Slider
 }
 .cd-slider img {
   display: block;
-  border-radius: .25em .25em 0 0;
+  border-radius: 0.25em 0.25em 0 0;
   width: 100%;
 }
 .cd-slider .project-info {
   padding: 1em 1.6em;
   background-color: #ebebeb;
-  border-radius: 0 0 .25em .25em;
+  border-radius: 0 0 0.25em 0.25em;
 }
 .cd-slider h2 {
   font-size: 2.5rem;
@@ -238,14 +242,15 @@ Projects Slider
 }
 .cd-slider p {
   font-size: 1.4rem;
-  opacity: .6;
-  padding: .4em 0;
+  opacity: 0.6;
+  padding: 0.4em 0;
   /* truncate text with ellipsis if too long */
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.cd-slider h2, .cd-slider p {
+.cd-slider h2,
+.cd-slider p {
   line-height: 1.2;
   color: #0f1926;
 }
@@ -383,7 +388,8 @@ Projects Slider
     -moz-animation: cd-slide-5 0.5s;
     animation: cd-slide-5 0.5s;
   }
-  .cd-slider.prev li.current, .cd-slider.prev li.current + li + li ~ li {
+  .cd-slider.prev li.current,
+  .cd-slider.prev li.current + li + li ~ li {
     -webkit-animation: none;
     -moz-animation: none;
     animation: none;
@@ -391,7 +397,8 @@ Projects Slider
 }
 
 @-webkit-keyframes cd-slide-1 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
   }
   50% {
@@ -399,7 +406,8 @@ Projects Slider
   }
 }
 @-moz-keyframes cd-slide-1 {
-  0%, 100% {
+  0%,
+  100% {
     -moz-transform: translateY(-50%);
   }
   50% {
@@ -407,7 +415,8 @@ Projects Slider
   }
 }
 @keyframes cd-slide-1 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -423,7 +432,8 @@ Projects Slider
   }
 }
 @-webkit-keyframes cd-slide-2 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
   }
   50% {
@@ -431,7 +441,8 @@ Projects Slider
   }
 }
 @-moz-keyframes cd-slide-2 {
-  0%, 100% {
+  0%,
+  100% {
     -moz-transform: translateY(-50%);
   }
   50% {
@@ -439,7 +450,8 @@ Projects Slider
   }
 }
 @keyframes cd-slide-2 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -455,7 +467,8 @@ Projects Slider
   }
 }
 @-webkit-keyframes cd-slide-3 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
   }
   50% {
@@ -463,7 +476,8 @@ Projects Slider
   }
 }
 @-moz-keyframes cd-slide-3 {
-  0%, 100% {
+  0%,
+  100% {
     -moz-transform: translateY(-50%);
   }
   50% {
@@ -471,7 +485,8 @@ Projects Slider
   }
 }
 @keyframes cd-slide-3 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -487,7 +502,8 @@ Projects Slider
   }
 }
 @-webkit-keyframes cd-slide-4 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
   }
   50% {
@@ -495,7 +511,8 @@ Projects Slider
   }
 }
 @-moz-keyframes cd-slide-4 {
-  0%, 100% {
+  0%,
+  100% {
     -moz-transform: translateY(-50%);
   }
   50% {
@@ -503,7 +520,8 @@ Projects Slider
   }
 }
 @keyframes cd-slide-4 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -519,7 +537,8 @@ Projects Slider
   }
 }
 @-webkit-keyframes cd-slide-5 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
   }
   50% {
@@ -527,7 +546,8 @@ Projects Slider
   }
 }
 @-moz-keyframes cd-slide-5 {
-  0%, 100% {
+  0%,
+  100% {
     -moz-transform: translateY(-50%);
   }
   50% {
@@ -535,7 +555,8 @@ Projects Slider
   }
 }
 @keyframes cd-slide-5 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -551,7 +572,8 @@ Projects Slider
   }
 }
 @-webkit-keyframes cd-slide-6 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
   }
   50% {
@@ -559,7 +581,8 @@ Projects Slider
   }
 }
 @-moz-keyframes cd-slide-6 {
-  0%, 100% {
+  0%,
+  100% {
     -moz-transform: translateY(-50%);
   }
   50% {
@@ -567,7 +590,8 @@ Projects Slider
   }
 }
 @keyframes cd-slide-6 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -583,7 +607,8 @@ Projects Slider
   }
 }
 @-webkit-keyframes cd-slide-7 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
   }
   50% {
@@ -591,7 +616,8 @@ Projects Slider
   }
 }
 @-moz-keyframes cd-slide-7 {
-  0%, 100% {
+  0%,
+  100% {
     -moz-transform: translateY(-50%);
   }
   50% {
@@ -599,7 +625,8 @@ Projects Slider
   }
 }
 @keyframes cd-slide-7 {
-  0%, 100% {
+  0%,
+  100% {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
@@ -740,7 +767,8 @@ Project content panel
   font-size: 1.4rem;
   color: #6f757c;
 }
-.cd-project-content em, .cd-project-content p {
+.cd-project-content em,
+.cd-project-content p {
   line-height: 1.6;
 }
 .cd-project-content .close {

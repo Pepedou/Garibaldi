@@ -1,10 +1,10 @@
-import * as types from './actionTypes'
+import * as types from "./actionTypes";
 
-export const loadExportArtists = (artists) => {
-    //TODO: Change to Thunk and call service.loadTemplates
-    return { type: types.EXPORT_ARTISTS_LOAD_ARTISTS, payload: artists }
-}
+export const loadExportArtists = artists => {
+  //TODO: Change to Thunk and call service.loadTemplates
+  return { type: types.EXPORT_ARTISTS_LOAD_ARTISTS, payload: artists };
+};
 
 export const resetExportArtists = () => {
-    return { type: types.EXPORT_ARTISTS_RESET }
-}
+  return { type: types.EXPORT_ARTISTS_RESET };
+};

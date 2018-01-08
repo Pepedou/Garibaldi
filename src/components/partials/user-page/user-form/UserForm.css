@@ -1,28 +1,28 @@
-.UserForm{
-    padding: 20px;
+.UserForm {
+  padding: 20px;
 }
 
 .subtitle {
-    font-weight: bold;
-    margin-top: 20px;
+  font-weight: bold;
+  margin-top: 20px;
 }
 
-.marginTop{
-    margin-top: 20px;
+.marginTop {
+  margin-top: 20px;
 }
 
 .smallPadding {
-    padding: 0px 5px;
+  padding: 0px 5px;
 }
 
 .smallSize {
-    width: 70px;
+  width: 70px;
 }
 
-#saveUserBtn{
-    float: right;
+#saveUserBtn {
+  float: right;
 }
 
 .userColumn {
-    padding: 0px 10px;
+  padding: 0px 10px;
 }

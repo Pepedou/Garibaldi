@@ -1,28 +1,27 @@
 .LoginNavbar {
-    background-color: #000000;
-    color: #F2F2F2;
-    padding: 5px;
-    font-size: 0.9em;
+  background-color: #000000;
+  color: #f2f2f2;
+  padding: 5px;
+  font-size: 0.9em;
 }
 
 a.loginOption {
-    float: right;
-    margin-left: 20px;
-    cursor: pointer;
-    color: #F2F2F2;
-    padding-top: 2px;
+  float: right;
+  margin-left: 20px;
+  cursor: pointer;
+  color: #f2f2f2;
+  padding-top: 2px;
 }
 
-a.loginOption:hover{
-    font-weight: bold;
-    border: none !important;
+a.loginOption:hover {
+  font-weight: bold;
+  border: none !important;
 }
 
-a:link  
-{  
- text-decoration:none;  
-} 
+a:link {
+  text-decoration: none;
+}
 
-#whiteNavLogo{
-    width: 30%;
+#whiteNavLogo {
+  width: 30%;
 }

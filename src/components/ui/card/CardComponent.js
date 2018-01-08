@@ -1,26 +1,36 @@
-import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import {Card, CardActions, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import {
+  Card,
+  CardActions,
+  CardMedia,
+  CardTitle,
+  CardText
+} from "material-ui/Card";
 
 export default class CardComponent extends Component {
-    render() {
-        return(
-            <Card>
-                <CardMedia
-                    overlay={<CardTitle title={this.props.overlayTitle} subtitle={this.props.overlaySubtitle} />}
-                >
-                <img src={this.props.cardImage} alt=""/>
-                </CardMedia>
-                <CardTitle title={this.props.cardTitle} subtitle={this.props.cardSubtitle} />
-                <CardText>
-                    {this.props.cardDescription}
-                </CardText>
-                <CardActions>
-                    {this.props.cardActions}
-                </CardActions>
-            </Card>
-        )
-    }
+  render() {
+    return (
+      <Card>
+        <CardMedia
+          overlay={
+            <CardTitle
+              title={this.props.overlayTitle}
+              subtitle={this.props.overlaySubtitle}
+            />
+          }
+        >
+          <img src={this.props.cardImage} alt="" />
+        </CardMedia>
+        <CardTitle
+          title={this.props.cardTitle}
+          subtitle={this.props.cardSubtitle}
+        />
+        <CardText>{this.props.cardDescription}</CardText>
+        <CardActions>{this.props.cardActions}</CardActions>
+      </Card>
+    );
+  }
 }
 
 CardComponent.propTypes = {

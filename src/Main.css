@@ -1,128 +1,128 @@
 body {
-    height: 100vh;
-    color: #828282;
-    background-color: #FAFAFA;
+  height: 100vh;
+  color: #828282;
+  background-color: #fafafa;
 }
 
-.BaseLayout{
-    padding-bottom: 5rem !important;
-    max-height: 100vh;
-    overflow-y: auto;
+.BaseLayout {
+  padding-bottom: 5rem !important;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
-.SimpleLayout{
-    padding-bottom: 5rem !important;
-    max-height: 100vh;
-    overflow-y: auto;
+.SimpleLayout {
+  padding-bottom: 5rem !important;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
-div.container-fluid{
-    padding: 0px;
+div.container-fluid {
+  padding: 0px;
 }
 
 select {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    color: #555;
-    padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  color: #555;
+  padding: 5px;
 }
 
-div.row{
-    margin:0px;
+div.row {
+  margin: 0px;
 }
 
-.col-xs-12, .col-md-12{
-    padding: 0px;
+.col-xs-12,
+.col-md-12 {
+  padding: 0px;
 }
 
 div.Overlay {
-    position: absolute;
-    width: 100vw;
-    z-index: 14;
-    top: 0px;
-    height: 100vh;
-    max-height: 100vh;
-    overflow-y: auto;
-    padding: 0% 5%;
-    background: url('./content/images/background-black.png');
+  position: absolute;
+  width: 100vw;
+  z-index: 14;
+  top: 0px;
+  height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 0% 5%;
+  background: url("./content/images/background-black.png");
 }
 
 .Overlay-content {
-    float: left;
-    width: 100%;
+  float: left;
+  width: 100%;
 }
 
 .Closebtn {
-    color: white;
-    text-decoration: none;
-    font-size: 2em;
-    cursor: pointer;
-    text-align: right;
-    float: right;
+  color: white;
+  text-decoration: none;
+  font-size: 2em;
+  cursor: pointer;
+  text-align: right;
+  float: right;
 }
 
-div.FullImageOverlay-overlay{
-    background-color: #4b4b4b;
+div.FullImageOverlay-overlay {
+  background-color: #4b4b4b;
 }
 
-div.DropZone--overlay{
-    background-color: #4b4b4b;
+div.DropZone--overlay {
+  background-color: #4b4b4b;
 }
 
-.FullImageOverlay-image{
-    max-width: 100%;
+.FullImageOverlay-image {
+  max-width: 100%;
 }
 
-.imageHeaderBar{
-    background-color: #4b4b4b;
+.imageHeaderBar {
+  background-color: #4b4b4b;
 }
 
-.editImageBtn{
-    top: 0.6rem;
-    cursor: pointer;
+.editImageBtn {
+  top: 0.6rem;
+  cursor: pointer;
 }
 
 .FullImage-button {
-    cursor: pointer;
-    text-align: right;
-    color: white;
-    padding: 2px 5px;
-    top: 0.2rem;
+  cursor: pointer;
+  text-align: right;
+  color: white;
+  padding: 2px 5px;
+  top: 0.2rem;
 }
 
-.FullImage-button:hover{
-    font-weight: bold;
+.FullImage-button:hover {
+  font-weight: bold;
 }
 
 button.defaultBtn {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 4px 10px;
-    cursor: pointer;
-    color: #828282;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 10px;
+  cursor: pointer;
+  color: #828282;
 }
 
-button.defaultBtn:hover{
-    background-color: #ccc;
-    border: 1px solid #828282;
+button.defaultBtn:hover {
+  background-color: #ccc;
+  border: 1px solid #828282;
 }
 
-div#react-print{
-    display: block;
+div#react-print {
+  display: block;
 }
 
-@media print
-{    
-    .noPrint
-    {
-        display: none !important;
-    }
+@media print {
+  .noPrint {
+    display: none !important;
+  }
 
-    @page { margin: 0; }
+  @page {
+    margin: 0;
+  }
 }
-

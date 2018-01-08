@@ -1,23 +1,23 @@
-import * as actions from '../actions'
-import * as actionTypes from '../actionTypes'
-import * as selectors from '../reducer'
-import { Thunk } from 'redux-testkit'
+import * as actions from "../actions";
+import * as actionTypes from "../actionTypes";
+import * as selectors from "../reducer";
+import { Thunk } from "redux-testkit";
 
-describe('ExportFile Actions', () => {
-    it('should dispatch update export file', () => {
-        const exportFile = {}
+describe("ExportFile Actions", () => {
+  it("should dispatch update export file", () => {
+    const exportFile = {};
 
-        const dispatch = actions.updateExportFile(exportFile)
-        expect(dispatch).toEqual({
-            type: actionTypes.EXPORT_FILE_UPDATE_FILE,
-            payload: exportFile
-        })
-    })
+    const dispatch = actions.updateExportFile(exportFile);
+    expect(dispatch).toEqual({
+      type: actionTypes.EXPORT_FILE_UPDATE_FILE,
+      payload: exportFile
+    });
+  });
 
-    it('should dispatch reset', () => {
-        const dispatch = actions.resetExportFile()
-        expect(dispatch).toEqual({
-            type: actionTypes.EXPORT_FILE_RESET
-        })
-    })
-})
+  it("should dispatch reset", () => {
+    const dispatch = actions.resetExportFile();
+    expect(dispatch).toEqual({
+      type: actionTypes.EXPORT_FILE_RESET
+    });
+  });
+});

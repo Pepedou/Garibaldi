@@ -1,15 +1,15 @@
-div.CategoriesSection{
-    padding: 3rem;
+div.CategoriesSection {
+  padding: 3rem;
 }
 
 div.NewArtForm {
-    padding: 0 3rem;
+  padding: 0 3rem;
 }
 
-div.Category{
-    padding: 1rem 0;
+div.Category {
+  padding: 1rem 0;
 }
 
-.TextField textarea{
-    color: rgb(117, 117, 117) !important;
+.TextField textarea {
+  color: rgb(117, 117, 117) !important;
 }
