@@ -86,7 +86,7 @@ class ArtistServices {
 
     destroyMany(ids) {
         const toEliminate = {
-            ids: ids
+            ids: Object.assign({}, ids)
         }
 
         return fetch(`${baseUrl}/Artists/eliminate`, {
