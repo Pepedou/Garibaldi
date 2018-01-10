@@ -9,7 +9,6 @@ import * as constants from "../../redux/constants";
 import { handleError, ERROR_CODES } from "../../utils/errorHandling";
 import LoaderComponent from "../../components/ui/loader/LoaderComponent";
 import { getTypeName } from "../../utils/constants/UserTypes";
-import { withRouter } from "react-router";
 import {
   validateObligatoryFields,
   getFieldIndex,
@@ -81,22 +80,18 @@ class UserProfilePage extends Component {
   }
 
   componentWillMount() {
-    let { addNotification, currentUser, router } = this.props;
-    if(localStorage.getItem("token") && currentUser) {
-      let updateFields = this.updateFields;
-      let setState = this.setState.bind(this);
-      let { inputFields } = this.state;
+    let { addNotification, currentUser } = this.props;
+    let updateFields = this.updateFields;
+    let setState = this.setState.bind(this);
+    let { inputFields } = this.state;
 
-      CredentialServices.getById(currentUser.id)
-        .then(function(response) {
-          updateFields(response, inputFields, setState);
-        })
-        .catch(function(error) {
-          addNotification(error);
-        });
-    } else {
-      router.push("/");
-    }
+    CredentialServices.getById(currentUser.id)
+      .then(function(response) {
+        updateFields(response, inputFields, setState);
+      })
+      .catch(function(error) {
+        addNotification(error);
+      });
   }
 
   handleOnChange(event, index, value) {
@@ -371,4 +366,4 @@ export const mapDispatchToProps = dispatch => ({
     dispatch({ type: constants.CURRENT_USER_RECIEVED, user })
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(UserProfilePage));
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfilePage);
