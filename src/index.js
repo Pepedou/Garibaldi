@@ -69,7 +69,7 @@ export let everyPageNavigation = store => {
 function requireAuth(store, checkLogin) {
   return (nextState, replace) => {
     everyPageNavigation(store)
-    if(!localStorage.getItem('currentUser') || !localStorage.getItem("token")) {
+    if(!localStorage.getItem('currentUser')) {
         if(nextState.location.pathname !== "/" && checkLogin) {
             replace('/')
         }
