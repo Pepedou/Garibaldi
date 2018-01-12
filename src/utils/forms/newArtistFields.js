@@ -1,4 +1,4 @@
-export let newArtistFields = [
+export let getNewArtistsFields = () => [
     {
         inputType: "textField",
         floatingLabelText: "Email",

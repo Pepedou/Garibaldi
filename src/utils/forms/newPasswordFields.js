@@ -1,4 +1,4 @@
-export let newPasswordFields = [
+export let getNewPasswordFields = () => [
     {
         inputType: "textField",
         floatingLabelText: "Email",

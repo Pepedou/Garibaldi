@@ -1,10 +1,10 @@
-import {loginFields} from './loginFields.js'
-import {registerUserFields} from './registerUserFields.js'
-import {newPasswordFields} from './newPasswordFields.js'
-import {newArtFields} from './newArtFields.js'
-import {newArtistFields} from './newArtistFields.js'
-import {credentialFields} from './credentialFields.js'
-import {resetPasswordFields} from './resetPasswordFields.js'
+import {getLoginFields} from './loginFields.js'
+import {getRegisterUserFields} from './registerUserFields.js'
+import {getNewPasswordFields} from './newPasswordFields.js'
+import {getNewArtFields} from './newArtFields.js'
+import {getNewArtistsFields} from './newArtistFields.js'
+import {getCredentialFields} from './credentialFields.js'
+import {getResetPasswordFields} from './resetPasswordFields.js'
 
 export let FormType = {
     LOGIN: "LOGIN",
@@ -19,19 +19,19 @@ export let FormType = {
 export let getForm = formType => {
     switch (formType) {
         case FormType.LOGIN:
-            return loginFields;
+            return getLoginFields();
         case FormType.USER_REGISTER:
-            return registerUserFields;
+            return getRegisterUserFields();
         case FormType.NEW_PASSWORD:
-            return newPasswordFields;
+            return getNewPasswordFields();
         case FormType.NEW_ART:
-            return newArtFields;
+            return getNewArtFields();
         case FormType.NEW_ARTIST:
-            return newArtistFields;
+            return getNewArtistsFields();
         case FormType.USER_PROFILE:
-            return credentialFields;
+            return getCredentialFields();
         case FormType.RESET_PASSWORD:
-            return resetPasswordFields;
+            return getResetPasswordFields();
         default:
             return [];
     }
