@@ -1,4 +1,4 @@
-export let credentialFields = {
+export let getCredentialFields = () => ({
     personalLeftInformation: [
         {
             inputType: "textField",
@@ -112,4 +112,4 @@ export let credentialFields = {
             defaultValue: ""
         }
     ]
-}
+})

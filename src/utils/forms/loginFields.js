@@ -1,4 +1,4 @@
-export let loginFields = [
+export let getLoginFields = () => [
     {
         inputType: "textField",
         floatingLabelText: "Nombre de usuario",

@@ -1,4 +1,4 @@
-export let newArtFields = [
+export let getNewArtFields = () => [
     {
         inputType: "textField",
         floatingLabelText: "Nombre de la pieza",

@@ -1,4 +1,4 @@
-export let resetPasswordFields = [
+export let getResetPasswordFields = () => [
     {
         inputType: "textField",
         floatingLabelText: "Nueva contraseña",

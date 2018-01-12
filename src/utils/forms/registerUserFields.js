@@ -1,4 +1,4 @@
-export let registerUserFields = {
+export let getRegisterUserFields = () => ({
     userInformation: [
         {
             inputType: "textField",
@@ -132,4 +132,4 @@ export let registerUserFields = {
             defaultValue: ""
         }
     ]
-}
+})
