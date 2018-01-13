@@ -14,9 +14,8 @@ class CredentialServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('No se puede consultar la información del usuario');
-            } else {
-                return res.json()
-            }
+            } 
+            return res.json()
         })
     }
 
@@ -32,9 +31,8 @@ class CredentialServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('El usuario no se pudo editar');
-            } else {
-                return res.json()
             }
+            return res.json()
         })
     }
 
@@ -50,9 +48,8 @@ class CredentialServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('No se pudo iniciar sesión, verifique las credenciales ingresadas');
-            } else {
-                return res.json()
             }
+            return res.json()
         })
     }
 

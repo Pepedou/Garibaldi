@@ -14,9 +14,8 @@ class CulturalHelpersServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('No se pueden consultar los Gestores Culturales');
-            } else {
-                return res.json()
-            }
+            } 
+            return res.json()
         })
     }
 }

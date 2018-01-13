@@ -14,9 +14,8 @@ class ExportTemplatesServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('La información de las plantillas no se puede consultar en este momento');
-            } else {
-                return res.json()
             }
+            return res.json()
         })
     }
 
@@ -31,9 +30,8 @@ class ExportTemplatesServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('No se puede consultar la información de la plantilla en este momento');
-            } else {
-                return res.json()
             }
+            return res.json()
         })
     }
 

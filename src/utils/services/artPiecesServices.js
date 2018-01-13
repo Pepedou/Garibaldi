@@ -14,9 +14,8 @@ class ArtPieceServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('La información de las obras no se puede consultar en este momento');
-            } else {
-                return res.json()
             }
+            return res.json()
         })
     }
 
@@ -31,9 +30,8 @@ class ArtPieceServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('No se puede consultar la información de la obra en este momento');
-            } else {
-                return res.json()
             }
+            return res.json()
         })
     }
 
@@ -48,9 +46,8 @@ class ArtPieceServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('No se puede consultar la información de la obra en este momento');
-            } else {
-                return res.json()
             }
+            return res.json()
         })
     }
 
@@ -67,6 +64,7 @@ class ArtPieceServices {
             if (!res.ok) {
                 throw new Error('La obra no se pudo crear');
             }
+            return res.json()
         })
     }
 
@@ -83,6 +81,7 @@ class ArtPieceServices {
             if (!res.ok) {
                 throw new Error('La obra no se pudo editar');
             }
+            return res.json()
         })
     }
 
@@ -135,7 +134,6 @@ class ArtPieceServices {
             if (!res.ok) {
                 throw new Error('Las obras no se pudieron obtener');
             }
-
             return res.json()
         })
     }
