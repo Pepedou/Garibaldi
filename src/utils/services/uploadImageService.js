@@ -3,11 +3,11 @@ import superagent from 'superagent'
 
 class UploadImageService {
     uploadFile(file) {
-        const cloudName = 'zamancer'; // FROM CLOUDINARY SETTINGS
-        const apiKey = '874385962738742'; // FROM CLOUDINARY SETTINGS
-        const apiSecret = 'QLGmPgxfLxR72oBwfveKk4cn00M'; // FROM CLOUDINARY SETTINGS
+        const cloudName = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
+        const apiKey = process.env.REACT_APP_CLOUDINARY_API_KEY;
+        const apiSecret = process.env.REACT_APP_CLOUDINARY_API_SECRET;
+        const uploadPreset = process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET;
         const timeStamp = Date.now() / 1000;
-        const uploadPreset = 'mywnuuzi'; // FROM CLOUDINARY SETTINGS
 
         const paramStr = 'timestamp=' + timeStamp + '&upload_preset=' + uploadPreset + apiSecret;
         const url = 'https://api.cloudinary.com/v1_1/' + cloudName + '/image/upload';

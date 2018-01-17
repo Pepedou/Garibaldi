@@ -1,5 +1,5 @@
 export default {
     getServiceUrl: function() {
-        return "https://lazarocardenas.herokuapp.com";
+        return process.env.REACT_APP_API_SERVICE_URL;
     }
 }
