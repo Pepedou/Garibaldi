@@ -36,18 +36,21 @@ class ArtistServices {
     }
 
     update(id, artist) {
+        const artistToUpdate = Object.assign({}, artist)
+
         return fetch(`${baseUrl}/Artists/${id}`, {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(artist)
+            body: JSON.stringify(artistToUpdate)
         })
         .then(res => {
             if (!res.ok) {
                 throw new Error('El artista no se pudo editar');
             }
+            return res.json()
         })
     }
 
