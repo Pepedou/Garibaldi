@@ -40,7 +40,7 @@ class Mosaic extends Component {
     .then(function (response) {
         receiveCurrentArtist(response)
         let profilePics = response.profilePics
-        sourceImageRecieved(response.detail.photo.value.standard)
+        sourceImageRecieved(response.detail.photo.value.standard || "")
         extraImagesReceived(profilePics) 
         loadingArtistDetail(false)
     })

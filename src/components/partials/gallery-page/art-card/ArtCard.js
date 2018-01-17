@@ -95,7 +95,7 @@ class ArtCard extends Component {
     }
 
     handleSave(event) {
-        let {currentArt, loadingArtDetail, addNotification, sourceImage} = this.props
+        let {currentArt, loadingArtDetail, addNotification, extraImages} = this.props
 
         let newArt = {
             title: this.state.editedArt.detail.title.value,
@@ -108,7 +108,7 @@ class ArtCard extends Component {
             price: this.state.editedArt.detail.price.value,
             artistId: this.state.editedArt.detail.artistId.value,
             categories: this.state.editedArt.categories,
-            images: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArt.detail.images.value
+            images: extraImages && extraImages.length > 0 ? transformToImages(extraImages[0]) : this.state.editedArt.detail.images.value
         }
 
         loadingArtDetail(true)
@@ -145,7 +145,7 @@ class ArtCard extends Component {
     }
 
     render() {
-        let {showFullImageOverlayRecieved, showDropZoneOverlayRecieved, sourceImage} = this.props
+        let {showFullImageOverlayRecieved, showDropZoneOverlayRecieved, extraImages} = this.props
         let {editedArt} = this.state
         return (
             <div className="ArtCard">
@@ -182,7 +182,7 @@ class ArtCard extends Component {
                                          dataSource={this.state.dataSource}
                                          onNewRequest={this.handleOnNewRequest.bind(this)}
                                          onUpdateInput={this.handleOnUpdateInput.bind(this)}/>}
-                    cardImage={sourceImage !== "" ? sourceImage : editedArt.detail.images.value.standard}
+                    cardImage={extraImages && extraImages.length ? extraImages[0] : editedArt.detail.images.value.standard}
                     cardTitle={null}
                     cardSubtitle={null}
                     cardDescription={<CardDescription artCardInformation={editedArt}
@@ -199,7 +199,7 @@ ArtCard.displayName = 'ArtCard'
 
 ArtCard.propTypes = {
   currentArt: PropTypes.object,
-  sourceImage: PropTypes.string,
+  extraImages: PropTypes.array,
   receiveCurrentArt: PropTypes.func,
   showFullImageOverlayRecieved: PropTypes.func,
   loadingArtDetail: PropTypes.func,

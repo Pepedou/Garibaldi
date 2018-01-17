@@ -37,15 +37,6 @@ const bgPositionOptions = [
 
 const colors = ['#22194D', '#F47373', '#697689', '#37D67A', '#2CCCE4', '#555555', '#dce775', '#ff8a65', '#ba68c8']
 
-let template = {
-    name: "",
-    logo: "",
-    logoPosition: logoPositionOptions[0].value,
-    background: "",
-    backgroundPosition: bgPositionOptions[0].value,
-    lineColor: colors[0]
-}
-
 let lastColorSelected = colors[0]
 
 class CreateTemplatePage extends Component {
@@ -63,6 +54,14 @@ class CreateTemplatePage extends Component {
                 className: "templateName",
                 errorText: "",
                 defaultValue: ""
+            },
+            template: {
+                name: "",
+                logo: "",
+                logoPosition: logoPositionOptions[0].value,
+                background: "",
+                backgroundPosition: bgPositionOptions[0].value,
+                lineColor: colors[0]
             },
             templateList: []
         }
@@ -83,14 +82,14 @@ class CreateTemplatePage extends Component {
 
     handleOnCheck(event) {
         if(event.target.checked) {
-            template.lineColor = ""
+            this.setState({template: {...this.state.template, lineColor: ""}})
         } else {
-            template.lineColor = lastColorSelected
+            this.setState({template: {...this.state.template, lineColor: lastColorSelected}})
         }
     }
 
     handleOnChange(event) {
-        template[event.target.id] = event.target.value
+        this.setState({template: {...this.state.template, [event.target.id]: event.target.value}})
 
         if(event.target.id === this.state.templateName.id) {
             let templateNameCopy = {...this.state.templateName}
@@ -100,16 +99,15 @@ class CreateTemplatePage extends Component {
     }
 
     handleOnChangeColor(color, event) {
-        template.lineColor = color.hex
         lastColorSelected = color.hex 
     }
 
     onDropAccepted(imageList, image, className) {
-        template[className] = image
+        this.setState({template: {...this.state.template, [className]: image}})
     }
 
     deleteExtraImage(imageList, image, className) {
-        template[className] = ""
+        this.setState({template: {...this.state.template, [className]: ""}})
     }
 
     handleOnClickSaveButton(event, props) {
@@ -117,13 +115,14 @@ class CreateTemplatePage extends Component {
         clearAllNotifications()
         loading(true)
         let templateNameCopy = {...this.state.templateName}
-        if(template.name === "") {
+        if(this.state.template.name === "") {
             templateNameCopy.errorText = "Campo obligatorio"
             this.setState({templateName: templateNameCopy})
             addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})
             loading(false)
         } else {
-            ExportTemplatesServices.create(template)
+            let templateToCreate = {...this.state.template, lineColor: lastColorSelected}
+            ExportTemplatesServices.create(templateToCreate)
             .then(function (response) {
                 loading(false)
                 window.location.reload()
@@ -202,7 +201,7 @@ class CreateTemplatePage extends Component {
                                             type="selectField"
                                             errorText=""
                                             options={logoPositionOptions}
-                                            defaultValue={logoPositionOptions[0].text}
+                                            defaultValue={this.state.template.logoPosition}
                                             onChange={event => this.handleOnChange(event)}/>
                                 </center>
                             </div>
@@ -219,7 +218,7 @@ class CreateTemplatePage extends Component {
                                             type="selectField"
                                             errorText=""
                                             options={bgPositionOptions}
-                                            defaultValue={bgPositionOptions[0].text}
+                                            defaultValue={this.state.template.backgroundPosition}
                                             onChange={event => this.handleOnChange(event)}/>
                                 </center>
                             </div>
@@ -228,7 +227,7 @@ class CreateTemplatePage extends Component {
                             <div className="col-xs-12 col-md-6 colorPickerWrapper">
                                 <div className="row subtitle">Color del membrete</div>
                                 <center>
-                                    <BlockPicker onChange={event => this.handleOnChangeColor(event)} colors={colors}/>
+                                    <BlockPicker onChange={(color, event) => this.handleOnChangeColor(color, event, this.setState.bind(this))} colors={colors}/>
                                 </center>
                             </div>
                             <div className="col-xs-12 col-md-6 colorPickerWrapper">

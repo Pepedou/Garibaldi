@@ -173,7 +173,7 @@ class UserProfilePage extends Component {
                                                                             labelOnTrue={item.labelOnTrue}
                                                                             labelOnFalse={item.labelOnFalse}
                                                                             defaultToggled={item.defaultToggled}
-                                                                            handleToggle={this.updateToggleValue.bind(this)}
+                                                                            onToggle={this.updateToggleValue.bind(this)}
                                                                             onChange={event => this.handleOnChange(event)}/>)
                                 }
                             </div>

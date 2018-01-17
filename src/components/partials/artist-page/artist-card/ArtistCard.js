@@ -121,7 +121,11 @@ class ArtistCard extends Component {
             piece: this.state.editedArtist.detail.piece.value,
             education: this.state.editedArtist.detail.education.value,
             exhibitions: this.state.editedArtist.detail.exhibitions.value,
-            photo: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArtist.detail.photo.value.standard,
+            photo: sourceImage !== ""
+                    ? transformToImages(sourceImage)
+                    : this.state.editedArtist.detail.photo.value.standard
+                        ? this.state.editedArtist.detail.photo.value
+                        : {thumbnail: '', standard: ''},
             culturalHelperId: this.state.editedArtist.detail.culturalHelperId.value,
             categories: this.state.editedArtist.categories,
             profilePics: extraImages

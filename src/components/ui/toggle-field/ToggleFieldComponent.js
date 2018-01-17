@@ -31,19 +31,19 @@ export default class ToggleFieldComponent extends Component {
         }
     }
 
-    handleOnToggle(event, isInputChecked, handleToggle) {
+    handleOnToggle(event, isInputChecked, onToggle) {
         let {labelOnTrue, labelOnFalse} = this.props
         if(isInputChecked) {
             this.setState({labelValue: labelOnTrue})
         } else {
             this.setState({labelValue: labelOnFalse})
         }
-        handleToggle(isInputChecked)
+        onToggle(isInputChecked)
     }
 
     render() {
         let {labelValue} = this.state
-        let {defaultToggled, handleToggle} = this.props
+        let {defaultToggled, onToggle} = this.props
         return(
             <Toggle
                 label={labelValue}
@@ -53,7 +53,7 @@ export default class ToggleFieldComponent extends Component {
                 thumbSwitchedStyle={styles.thumbSwitched}
                 trackSwitchedStyle={styles.trackSwitched}
                 labelStyle={styles.labelStyle}
-                onToggle={(event, isInputChecked) => this.handleOnToggle(event, isInputChecked, handleToggle).bind(this)}
+                onToggle={(event, isInputChecked) => this.handleOnToggle(event, isInputChecked, onToggle)}
             />
         )
     }
