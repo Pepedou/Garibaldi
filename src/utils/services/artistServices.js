@@ -14,9 +14,8 @@ class ArtistServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('No se puede consultar la información de los artistas por el momento');
-            } else {
-                return res.json()
-            }
+            } 
+            return res.json()
         })
     }
 
@@ -31,25 +30,27 @@ class ArtistServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('El detalle del artista no se puede consultar en este momento');
-            } else {
-                return res.json()
             }
+            return res.json()
         })
     }
 
     update(id, artist) {
+        const artistToUpdate = Object.assign({}, artist)
+
         return fetch(`${baseUrl}/Artists/${id}`, {
             method: 'PATCH',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(artist)
+            body: JSON.stringify(artistToUpdate)
         })
         .then(res => {
             if (!res.ok) {
                 throw new Error('El artista no se pudo editar');
             }
+            return res.json()
         })
     }
 
@@ -81,6 +82,7 @@ class ArtistServices {
             if (!res.ok) {
                 throw new Error('El artista no se pudo crear');
             }
+            return res.json()
         })
     }
 
@@ -117,9 +119,8 @@ class ArtistServices {
         .then(res => {
             if (!res.ok) {
                 throw new Error('Los artistas no se pudieron obtener');
-            } else {
-                return res.json()
-            }            
+            }
+            return res.json()           
         })
     }
 }

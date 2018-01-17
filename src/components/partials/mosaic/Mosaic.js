@@ -39,8 +39,8 @@ class Mosaic extends Component {
     ArtistServices.getDetail(card.id)
     .then(function (response) {
         receiveCurrentArtist(response)
-        let profilePics = response.profilePics || [] //TODO: Borrar esto cuando ya estén los profile pics
-        sourceImageRecieved(response.detail.photo.value)
+        let profilePics = response.profilePics
+        sourceImageRecieved(response.detail.photo.value.standard)
         extraImagesReceived(profilePics) 
         loadingArtistDetail(false)
     })

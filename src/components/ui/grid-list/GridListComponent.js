@@ -68,7 +68,7 @@ export default class GridListComponent extends Component {
         if(mosaicType === MosaicTypes.ART) {
             return card.images.thumbnail 
         } else {
-            return card.photo === "" || !card.photo ? images.default_user : card.photo 
+            return card.photo.standard === "" || !card.photo.standard ? images.default_user : card.photo.standard
         }
     }
 

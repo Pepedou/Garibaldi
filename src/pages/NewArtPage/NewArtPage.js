@@ -122,7 +122,7 @@ class NewArtPage extends Component {
         let result = validateObligatoryFields(this.state.inputFields)
         if(result.valid && this.state.sourceImage !== ""){
             let art = this.getArtFieldsValues()
-            art.images = transformToImages(this.state.sourceImage);
+            art.images = transformToImages(this.state.sourceImage)
             art.artistId = this.state.artistId
             art.source = this.state.sourceImage
             art.categories = this.state.categories

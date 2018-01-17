@@ -12,6 +12,7 @@ import DropZoneComponent from '../../components/ui/drop-zone/DropZoneComponent'
 import Category from '../../components/ui/category/Category.js';
 import CulturalHelpersServices from '../../utils/services/culturalHelperServices'
 import ArtistServices from '../../utils/services/artistServices'
+import transformToImages from '../../utils/services/cloudinaryImageTransform'
 import { withRouter } from 'react-router'
 
 require('./NewArtistPage.css')
@@ -110,7 +111,7 @@ class NewArtistPage extends Component {
 
                 let artist = this.getArtistFieldsValues()
                 artist.categories = this.state.categories
-                artist.photo = photo
+                artist.photo = photo !== "" ? transformToImages(photo) : {thumbnail: "", standard: ""}
                 artist.profilePics = profilePics
 
                 ArtistServices.create(artist)

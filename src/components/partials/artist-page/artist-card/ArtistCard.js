@@ -98,10 +98,10 @@ class ArtistCard extends Component {
 
     getPhoto(editedArtist) {
         if( Object.getOwnPropertyNames(editedArtist).length > 0) {
-            if(editedArtist.detail.photo.value === "" || !editedArtist.detail.photo.value) {
+            if(editedArtist.detail.photo.value.standard === "" || !editedArtist.detail.photo.value.standard) {
                 return images.default_user
             } else {
-                return editedArtist.detail.photo.value
+                return editedArtist.detail.photo.value.standard
             }
         } else {
             return images.default_user
@@ -121,7 +121,7 @@ class ArtistCard extends Component {
             piece: this.state.editedArtist.detail.piece.value,
             education: this.state.editedArtist.detail.education.value,
             exhibitions: this.state.editedArtist.detail.exhibitions.value,
-            photo: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArtist.detail.photo.value,
+            photo: sourceImage !== "" ? transformToImages(sourceImage) : this.state.editedArtist.detail.photo.value.standard,
             culturalHelperId: this.state.editedArtist.detail.culturalHelperId.value,
             categories: this.state.editedArtist.categories,
             profilePics: extraImages
