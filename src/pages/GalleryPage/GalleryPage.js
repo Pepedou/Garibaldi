@@ -103,8 +103,8 @@ GalleryPage.propTypes = {
   deleteCheckCard: PropTypes.func
 }
 
-export const mapStateToProps = ({artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt, sourceImage}) => ({
-  artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt, sourceImage
+export const mapStateToProps = ({artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt, sourceImage, extraImages}) => ({
+  artGallery, currentArt, currentUser, updatingArtGallery, updatingCurrentArt, sourceImage, extraImages
 })
 
 export const mapDispatchToProps = dispatch => ({

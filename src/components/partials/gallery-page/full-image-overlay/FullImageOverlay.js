@@ -15,7 +15,7 @@ export default class FullImageOverlay extends Component {
                     <div className="Overlay-content">
                         {
                             <center>
-                                <img src={currentArt.detail.source.value} alt="" className="FullImageOverlay-image"/>
+                                <img src={currentArt.detail.images.value.standard} alt="" className="FullImageOverlay-image"/>
                             </center>
                         }
                     </div>
