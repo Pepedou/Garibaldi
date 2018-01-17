@@ -45,7 +45,7 @@ let getToggleField = props => <ToggleFieldComponent
             labelOnTrue={props.labelOnTrue}
             labelOnFalse={props.labelOnFalse}
             defaultToggled={props.defaultToggled}
-            handleToggle={props.handleToggle}
+            onToggle={props.onToggle}
                 />
 
 let getInputField = props => {
