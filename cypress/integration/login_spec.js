@@ -1,23 +1,9 @@
-const STAGE_URL = 'https://garibaldi-artchive-staging.herokuapp.com/';
-
-const testUser = {
-    username: 'lucechal_@hotmail.com',
-    password: 'lucechal'
-}
+import { loginForTest } from '../support/ui-actions'
 
 describe('Garibaldi v1.0.0', () => {
     it('logins successfully', () => {
-        cy.visit(STAGE_URL)
 
-        cy.get('#username')
-            .type(testUser.username)
-            .should('have.value', testUser.username)
-
-        cy.get('#password')
-            .type(testUser.password)
-            .should('have.value', testUser.password)
-
-        cy.get('div.loginBtn').click()
+        loginForTest(cy);
 
         cy.url()
             .should('include', '/home')
