@@ -1,4 +1,4 @@
-const STAGE_URL = 'http://localhost:3000/';
+const STAGE_URL = 'https://garibaldi-artchive-staging.herokuapp.com/';
 
 const testUser = {
     username: 'lucechal_@hotmail.com',
