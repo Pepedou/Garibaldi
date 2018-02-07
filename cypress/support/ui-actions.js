@@ -1,4 +1,4 @@
-const STAGE_URL = 'https://garibaldi-artchive-staging.herokuapp.com/';
+const STAGE_URL = 'http://localhost:3000/'; // TODO: Use https://garibaldi-artchive-staging.herokuapp.com/ for PRs
 const HerokuVisitTimeout = 60000 * 5;
 
 // Assumes this one is already created.

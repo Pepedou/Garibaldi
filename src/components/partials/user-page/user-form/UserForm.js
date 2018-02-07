@@ -151,6 +151,7 @@ class UserForm extends Component {
                     label="Guardar Usuario"
                     labelPosition="after"
                     floatStyle="right"
+                    className="create-user-form__save"
                     type="submit"
                     />
             </div>

@@ -15,12 +15,12 @@ export default class MainNavBar extends Component {
                         <div className="col-xs-12 col-md-12">
                              <ul className="nav navbar-nav navbar-left">
                                 <li>
-                                    <Link to="/home">Archivo</Link>
+                                    <Link to="/home" className="menu-item__file">Archivo</Link>
                                 </li>
                                 <li>
                                     {
                                         currentUser.ownerType === UserTypes.GESTOR_CULTURAL
-                                        ? <Link to="/artists">Artistas</Link>
+                                        ? <Link to="/artists" className="menu-item__artists">Artistas</Link>
                                         : <Link onClick={artistProfileClick}>Perfil de artista</Link>
                                     }
                                 </li>

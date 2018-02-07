@@ -63,7 +63,7 @@ export class ProfileNavBar extends Component {
             <div className="ProfileNavBar row noPrint">
                 <div className="col-xs-8 col-md-6">
                     <IconMenu
-                        iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                        iconButtonElement={<IconButton className="icon-menu__button" ><MoreVertIcon /></IconButton>}
                         anchorOrigin={{horizontal: 'left', vertical: 'top'}}
                         targetOrigin={{horizontal: 'left', vertical: 'top'}}
                         animated={true}
@@ -72,7 +72,7 @@ export class ProfileNavBar extends Component {
                         className="UserIconMenu"
                         >
                         <MenuItem primaryText="Mi perfil" value="myProfile"/>
-                        <MenuItem primaryText="Cerrar sesión" value="logout"/>
+                        <MenuItem primaryText="Cerrar sesión" value="logout" className="icon-menu__logout" />
                     </IconMenu>
                     <div className="userFullName">{currentUser.name}</div>
                 </div>

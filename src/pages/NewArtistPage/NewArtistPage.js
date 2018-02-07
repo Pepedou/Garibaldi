@@ -217,6 +217,7 @@ class NewArtistPage extends Component {
                                                                                     validate={this.handleCategoryValidation.bind(this)}/>)
                                     }
                                     <DefaultButton
+                                        className="artist-creation__add-category"
                                         label="Agregar Categoría"
                                         floatStyle="center"
                                         onTouchTap={event => this.handleAddCategory(event)}
@@ -226,7 +227,7 @@ class NewArtistPage extends Component {
                                     <DefaultButton
                                         label="Crear"
                                         floatStyle="center"
-                                        className="marginTop"
+                                        className="marginTop artist-creation__save"
                                         onTouchTap={event => this.handleOnClick(event, this.props)}
                                         />
                                 </div>

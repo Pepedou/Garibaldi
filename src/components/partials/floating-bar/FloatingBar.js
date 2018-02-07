@@ -111,7 +111,8 @@ export class FloatingBar extends Component {
                                                   </SvgIcon>
                                               </FloatingActionButton>
               }
-              <FloatingActionButton 
+              <FloatingActionButton
+                className="floating-action__add-button"
                 style={style}
                 onTouchTap={event => this.addCard(event, checkCards)}>
                 <ContentAdd />
