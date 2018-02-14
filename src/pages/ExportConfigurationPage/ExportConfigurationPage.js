@@ -116,7 +116,7 @@ class ExportConfigurationPage extends Component {
                     label="ACEPTAR"
                     labelPosition="after"
                     floatStyle="right"
-                    className="marginTop"
+                    className="marginTop export-pdf_button"
                     onTouchTap={event => this.createPreview(event, this.props)}
                     />
             </div>

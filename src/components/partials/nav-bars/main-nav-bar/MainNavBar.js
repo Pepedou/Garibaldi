@@ -25,7 +25,7 @@ export default class MainNavBar extends Component {
                                     }
                                 </li>
                                 <li>
-                                    <Link to="/createTemplate">Plantillas</Link>
+                                    <Link to="/createTemplate" className="menu-item__templates">Plantillas</Link>
                                 </li>
                             </ul>
                             <ul className="nav navbar-nav navbar-right">

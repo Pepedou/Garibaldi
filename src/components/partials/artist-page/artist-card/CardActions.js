@@ -20,6 +20,7 @@ export default class CardActions extends Component {
                         />
                     <DefaultButton
                         label="PDF"
+                        className="card-actions_pdf"
                         floatStyle="center"
                         onTouchTap={event => handlePDF(event)}
                         />

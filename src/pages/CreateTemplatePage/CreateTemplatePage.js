@@ -233,6 +233,7 @@ class CreateTemplatePage extends Component {
                             <div className="col-xs-12 col-md-6 colorPickerWrapper">
                                 <Checkbox
                                     label="Sin membrete"
+                                    id="template-option__noMembrete"
                                     labelStyle={styles.labelStyle}
                                     iconStyle={styles.iconStyle}
                                     onCheck={(event) => this.handleOnCheck(event)}
@@ -244,7 +245,7 @@ class CreateTemplatePage extends Component {
                                 label="GUARDAR"
                                 labelPosition="after"
                                 floatStyle="right"
-                                className="marginTop"
+                                className="marginTop create-template_button"
                                 onTouchTap={event => this.handleOnClickSaveButton(event, this.props)}
                                 />
                         </div>
