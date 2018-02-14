@@ -88,6 +88,7 @@ export default class GridListComponent extends Component {
                         onTouchTap={(event) => this.props.onTouchTap(event, card, mosaicType)}
                         actionIcon={<Checkbox
                                         label=""
+                                        id="grid-card_checkbox"
                                         labelStyle={styles.labelStyle}
                                         iconStyle={styles.iconStyle}
                                         onCheck={(event) => this.props.onCheck(event, card, addCheckCard, deleteCheckCard)}
