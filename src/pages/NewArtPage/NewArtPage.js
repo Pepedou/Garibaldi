@@ -69,6 +69,8 @@ class NewArtPage extends Component {
 
         this.setState({artistId: value.value})
         this.setState({inputFields: inputFieldsCopy})
+
+        console.log('here')
     }
 
     handleOnUpdateInput(data, id){
@@ -204,7 +206,7 @@ class NewArtPage extends Component {
                                     <DefaultButton
                                         label="Crear"
                                         floatStyle="center"
-                                        className="marginTop"
+                                        className="marginTop art-creation__save"
                                         onTouchTap={event => this.handleOnClick(event, this.props)}
                                         />
                                 </center>

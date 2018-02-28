@@ -1,5 +1,4 @@
-export const createTemplate = (name, withMembrete = false) => {
-    //Ingresar la información del formulario
+export const createTemplate = (cy, name, withMembrete = false) => {
     cy.get('#name').type(name)
     if(withMembrete) {
         cy.get('#template-option__noMembrete').check()
@@ -7,7 +6,8 @@ export const createTemplate = (name, withMembrete = false) => {
         cy.get('#template-option__noMembrete').uncheck()
     }
 
-    //Guardar template
     cy.get('.create-template_button').click()
     cy.wait(1000)
+
+    cy.get('.CreateTemplatePage').find('.templatesCreatedWrapper').should('exist');
 }

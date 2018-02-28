@@ -1,5 +1,5 @@
 import { loginForTest } from '../support/ui-actions'
-import { createTemplate, deleteTemplates } from '../commands/createTemplate'
+import { createTemplate } from '../commands/createTemplate'
 
 describe('Bug Fixing', () => {
     it('addresses bug GAR#93', () => {
@@ -10,12 +10,12 @@ describe('Bug Fixing', () => {
         cy.get('.menu-item__templates').click()
 
         //Crear nuevo template
-        createTemplate('Plantilla sin membrete')
+        createTemplate(cy, 'Plantilla sin membrete')
 
         //Regresar al archivo y seleccionar opción de PDF en tarjeta
         cy.get("#menu-item_returnToFile")
             .click()
-            .get('#grid-card_checkbox')
+            .get('.grid-card_checkbox input')
             .first()
             .check()
             .get('.floating-action__pdf-button')

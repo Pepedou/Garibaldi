@@ -83,12 +83,13 @@ export default class GridListComponent extends Component {
                 {this.props.cardList.map((card, key) => (
                     <GridTile
                         key={key}
+                        className="grid-card"
                         title={this.getTitle(mosaicType, card)}
                         subtitle={this.getSubtitle(mosaicType, card)}
                         onTouchTap={(event) => this.props.onTouchTap(event, card, mosaicType)}
                         actionIcon={<Checkbox
                                         label=""
-                                        id="grid-card_checkbox"
+                                        className="grid-card_checkbox"
                                         labelStyle={styles.labelStyle}
                                         iconStyle={styles.iconStyle}
                                         onCheck={(event) => this.props.onCheck(event, card, addCheckCard, deleteCheckCard)}

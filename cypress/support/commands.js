@@ -23,3 +23,10 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+export const STAGE_URL = 'http://localhost:3000/'; // TODO: Use https://garibaldi-artchive-staging.herokuapp.com/ for PRs
+const HerokuVisitTimeout = 60000 * 5;
+
+Cypress.Commands.add("goHome", () => {
+    cy.visit(STAGE_URL, { timeout: HerokuVisitTimeout });
+});
