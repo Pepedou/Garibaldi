@@ -121,7 +121,7 @@ class CreateTemplatePage extends Component {
             addNotification({code: ERROR_CODES.REQUIRED_FIELDS.code})
             loading(false)
         } else {
-            let templateToCreate = {...this.state.template, lineColor: lastColorSelected}
+            let templateToCreate = {...this.state.template}
             ExportTemplatesServices.create(templateToCreate)
             .then(function (response) {
                 loading(false)
