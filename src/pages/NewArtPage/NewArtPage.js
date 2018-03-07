@@ -17,6 +17,8 @@ import ArtPieceServices from '../../utils/services/artPiecesServices'
 import { withRouter } from 'react-router'
 
 require('./NewArtPage.css')
+// Dirty Hack for exposing a function that will allow us to do e2e testing
+let globalArtistsMap;
 
 class NewArtPage extends Component {
     constructor(props)
@@ -30,9 +32,16 @@ class NewArtPage extends Component {
             artistId: "",
             sourceImage: ""
         }
+
+        this.handleOnNewRequest = this.handleOnNewRequest.bind(this);
     }
 
     componentWillMount() {
+        // Dirty Hack for exposing a function that will allow us to do e2e testing
+        window.runArtHandleOnNewRequest = this.handleOnNewRequest;
+        window.getArtistMap = (email) => {
+            return globalArtistsMap.find(p => p.email === email);
+        };
         let setState = this.setState.bind(this)
         let {addNotification, currentUser} = this.props
         let inputFieldsCopy = [...this.state.inputFields]
@@ -40,7 +49,10 @@ class NewArtPage extends Component {
         ArtistServices.getAll()
         .then(function (response) {
             let artists = []
-            response.map((item, key) => artists.push({text: `${item.name} ${item.lastName}`, value: item.id}))
+            
+            artists = response.map((item, key) => { return {text: `${item.name} ${item.lastName}`, value: item.id, email: item.email }; });
+            globalArtistsMap = artists;
+
             setState({dataSource: artists})
 
             if(currentUser.ownerType === UserTypes.ARTISTA) {

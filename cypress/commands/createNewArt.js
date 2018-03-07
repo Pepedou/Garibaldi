@@ -1,3 +1,5 @@
+import {testArtist} from '../support/ui-actions'
+
 const dropEvent = {
     dataTransfer: {
         files: [
@@ -5,9 +7,12 @@ const dropEvent = {
     },
 };
 
-export const createNewArt = (cy) => {
+export const createNewArt = (cy, artist = testArtist) => {
     cy.get('#title').type('Obra de arte')
-    cy.get('#author').focus() //TODO: Seleccionar el usuario correcto
+    cy.window().then(win => {
+        const artistMapElement = win.getArtistMap(artist.username);
+        win.runArtHandleOnNewRequest(artistMapElement, 'author');
+    })
 
     cy.fixture('../fixtures/obra.jpg').then((picture) => {
         return Cypress.Blob.base64StringToBlob(picture, 'image/jpeg').then((blob) => {

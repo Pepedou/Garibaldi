@@ -29,9 +29,13 @@ class NewArtistPage extends Component {
             photo: "",
             profilePics: []
         }
+
+        this.handleOnNewRequest = this.handleOnNewRequest.bind(this);
     }
 
     componentWillMount() {
+        // Dirty Hack for exposing a function that will allow us to do e2e testing
+        window.runArtHandleOnNewRequest = this.handleOnNewRequest;
         let setState = this.setState.bind(this)
         let {addNotification} = this.props
 
